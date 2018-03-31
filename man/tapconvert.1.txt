@@ -1,0 +1,54 @@
+TAPCONVERT(1)                                                    TAPCONVERT(1)
+
+
+
+NNAAMMEE
+       tapconvert - convert Twisted configurations from one format to another
+
+SSYYNNOOPPSSIISS
+       ttaappccoonnvveerrtt  --ii  _i_n_p_u_t  -o  _o_u_t_p_u_t [-f _i_n_p_u_t_-_t_y_p_e] [-t _o_u_t_p_u_t_-_t_y_p_e] [-d]
+       [-e]
+
+       ttaappccoonnvveerrtt ----hheellpp
+
+DDEESSCCRRIIPPTTIIOONN
+       The ----hheellpp prints out a usage message to standard output.
+
+       ----iinn, --ii _<_i_n_p_u_t _f_i_l_e_>
+              The name of the input configuration.
+
+       ----oouutt, --oo _<_o_u_t_p_u_t _f_i_l_e_>
+              The name of the output configuration.
+
+       ----ttyyppeeiinn, --ff _<_i_n_p_u_t _t_y_p_e_>
+              The type of the input file. Can  be  either  'guess',  'python',
+              'pickle', 'xml', or  'source'. Default is 'guess'.
+
+       ----ttyyppeeoouutt, --tt _<_o_u_t_p_u_t _t_y_p_e_>
+              The  type  of the output file. Can be either 'pickle', 'xml', or
+              'source'. Default is 'source'.
+
+       ----ddeeccrryypptt, --dd
+              Decrypt the specified tap/aos/xml input file.
+
+       ----eennccrryypptt, --ee
+              Encrypt output file before writing.
+
+       ----vveerrssiioonn
+              Output version information and exit.
+
+AAUUTTHHOORR
+       Written by Moshe Zadka, based on tapconvert's help messages
+
+RREEPPOORRTTIINNGG BBUUGGSS
+       To report a bug, visit _h_t_t_p_:_/_/_t_w_i_s_t_e_d_m_a_t_r_i_x_._c_o_m_/_b_u_g_s_/
+
+CCOOPPYYRRIIGGHHTT
+       Copyright (C) 2000-2012 Twisted Matrix Laboratories.
+       This is free software; see the source for copying conditions.  There is
+       NO  warranty;  not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR
+       PURPOSE.
+
+
+
+                                   July 2001                     TAPCONVERT(1)

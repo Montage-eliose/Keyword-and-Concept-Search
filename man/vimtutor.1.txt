@@ -1,0 +1,50 @@
+VIMTUTOR(1)                 General Commands Manual                VIMTUTOR(1)
+
+
+
+NNAAMMEE
+       vimtutor - the Vim tutor
+
+SSYYNNOOPPSSIISS
+       vviimmttuuttoorr [[--gg]] [[llaanngguuaaggee]]
+
+DDEESSCCRRIIPPTTIIOONN
+       VViimmttuuttoorr starts the VViimm tutor.  It copies the tutor file first, so that
+       it can be modified without changing the original file.
+
+       The VViimmttuuttoorr is useful for people that want to learn  their  first  VViimm
+       commands.
+
+       The  optional argument -g starts vimtutor with gvim rather than vim, if
+       the GUI version of vim is available, or falls back to Vim  if  gvim  is
+       not found.
+
+       The  optional [language] argument is the two-letter name of a language,
+       like "it" or "es".  If the [language] argument is missing, the language
+       of  the  current  locale  will be used.  If a tutor in this language is
+       available, it will be used.  Otherwise  the  English  version  will  be
+       used.
+
+       VViimm is always started in Vi compatible mode.
+
+FFIILLEESS
+       /usr/share/vim/vim74/tutor/tutor[.language]
+                      The VViimmttuuttoorr text file(s).
+
+       /usr/share/vim/vim74/tutor/tutor.vim
+                      The Vim script used to copy the VViimmttuuttoorr text file.
+
+AAUUTTHHOORR
+       The  VViimmttuuttoorr  was  originally  written for Vi by Michael C. Pierce and
+       Robert K. Ware, Colorado  School  of  Mines  using  ideas  supplied  by
+       Charles  Smith,  Colorado  State  University.  E-mail: bware@mines.col-
+       orado.edu.
+       It was modified for VViimm by Bram Moolenaar.  For the names of the trans-
+       lators see the tutor files.
+
+SSEEEE AALLSSOO
+       vim(1)
+
+
+
+                                 2001 April 2                      VIMTUTOR(1)

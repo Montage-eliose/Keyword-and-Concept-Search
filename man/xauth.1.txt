@@ -1,0 +1,226 @@
+XAUTH(1)                    General Commands Manual                   XAUTH(1)
+
+
+
+NNAAMMEE
+       xauth - X authority file utility
+
+SSYYNNOOPPSSIISS
+       xxaauutthh [ --ff _a_u_t_h_f_i_l_e ] [ --vvqqiibbnn ] [ _c_o_m_m_a_n_d _a_r_g _._._. ]
+
+DDEESSCCRRIIPPTTIIOONN
+       The  _x_a_u_t_h program is used to edit and display the authorization infor-
+       mation used in connecting to the X server.   This  program  is  usually
+       used  to  extract authorization records from one machine and merge them
+       in on another (as is the case when  using  remote  logins  or  granting
+       access  to  other  users).   Commands  (described below) may be entered
+       interactively, on the _x_a_u_t_h command line, or  in  scripts.   Note  that
+       this  program  does  nnoott  contact the X server except when the generate
+       command is used.  Normally _x_a_u_t_h is not used to  create  the  authority
+       file  entry  in  the  first place; the program that starts the X server
+       (often _x_d_m or _s_t_a_r_t_x) does that.
+
+OOPPTTIIOONNSS
+       The following options may be used with _x_a_u_t_h.  They may be given  indi-
+       vidually (e.g., _-_q _-_i) or may combined (e.g., _-_q_i).
+
+       --ff _a_u_t_h_f_i_l_e
+               This  option  specifies  the name of the authority file to use.
+               By default, _x_a_u_t_h will use the file specified by the XAUTHORITY
+               environment  variable  or _._X_a_u_t_h_o_r_i_t_y in the user's home direc-
+               tory.
+
+       --qq      This option indicates that _x_a_u_t_h should operate quietly and not
+               print  unsolicited  status messages.  This is the default if an
+               _x_a_u_t_h command is given on the command line or if  the  standard
+               output is not directed to a terminal.
+
+       --vv      This  option  indicates that _x_a_u_t_h should operate verbosely and
+               print status messages indicating the results of various  opera-
+               tions  (e.g.,  how  many  records  have been read in or written
+               out).  This is the default if _x_a_u_t_h is  reading  commands  from
+               its  standard  input  and  its standard output is directed to a
+               terminal.
+
+       --ii      This option indicates that _x_a_u_t_h should  ignore  any  authority
+               file  locks.   Normally,  _x_a_u_t_h will refuse to read or edit any
+               authority files that have been locked by other  programs  (usu-
+               ally _x_d_m or another _x_a_u_t_h).
+
+       --bb      This  option  indicates  that _x_a_u_t_h should attempt to break any
+               authority file locks before proceeding.  Use this  option  only
+               to clean up stale locks.
+
+       --nn      This  option indicates that _x_a_u_t_h should not attempt to resolve
+               any hostnames, but should simply always print the host  address
+               as stored in the authority file.
+
+CCOOMMMMAANNDDSS
+       The following commands may be used to manipulate authority files:
+
+       aadddd _d_i_s_p_l_a_y_n_a_m_e _p_r_o_t_o_c_o_l_n_a_m_e _h_e_x_k_e_y
+               An  authorization  entry  for  the  indicated display using the
+               given protocol and key data is added to the authorization file.
+               The data is specified as an even-lengthed string of hexadecimal
+               digits, each pair representing one octet.  The first  digit  of
+               each  pair  gives the most significant 4 bits of the octet, and
+               the second digit of the pair  gives  the  least  significant  4
+               bits.   For  example,  a  32 character hexkey would represent a
+               128-bit value.  A protocol name consisting  of  just  a  single
+               period is treated as an abbreviation for _M_I_T_-_M_A_G_I_C_-_C_O_O_K_I_E_-_1.
+
+
+       ggeenneerraattee _d_i_s_p_l_a_y_n_a_m_e _p_r_o_t_o_c_o_l_n_a_m_e [ttrruusstteedd||uunnttrruusstteedd]
+               [ttiimmeeoouutt _s_e_c_o_n_d_s] [ggrroouupp _g_r_o_u_p_-_i_d] [ddaattaa _h_e_x_d_a_t_a]
+
+               This  command  is  similar to add.  The main difference is that
+               instead of requiring the user to supply the key data,  it  con-
+               nects to the server specified in _d_i_s_p_l_a_y_n_a_m_e and uses the SECU-
+               RITY extension in order to get the key data  to  store  in  the
+               authorization file.  If the server cannot be contacted or if it
+               does not support the SECURITY  extension,  the  command  fails.
+               Otherwise,  an  authorization  entry  for the indicated display
+               using the given protocol is added to the authorization file.  A
+               protocol  name consisting of just a single period is treated as
+               an abbreviation for _M_I_T_-_M_A_G_I_C_-_C_O_O_K_I_E_-_1.
+
+               If the ttrruusstteedd option is used, clients that connect using  this
+               authorization  will have full run of the display, as usual.  If
+               uunnttrruusstteedd is used, clients that connect using  this  authoriza-
+               tion  will  be considered untrusted and prevented from stealing
+               or tampering with data belonging to trusted clients.   See  the
+               SECURITY  extension  specification  for  full  details  on  the
+               restrictions imposed on  untrusted  clients.   The  default  is
+               uunnttrruusstteedd.
+
+               The  ttiimmeeoouutt  option  specifies how long in seconds this autho-
+               rization will be valid.  If the  authorization  remains  unused
+               (no  clients  are  connected with it) for longer than this time
+               period,  the  server  purges  the  authorization,  and   future
+               attempts  to connect using it will fail.  Note that the purging
+               done by the server does nnoott delete the authorization entry from
+               the authorization file.  The default timeout is 60 seconds.
+
+               The  ggrroouupp  option specifies the application group that clients
+               connecting with this authorization should belong to.   See  the
+               application  group  extension  specification  for more details.
+               The default is to not belong to an application group.
+
+               The ddaattaa option specifies data that the server  should  use  to
+               generate  the  authorization.   Note  that this is nnoott the same
+               data that gets written to the authorization file.   The  inter-
+               pretation  of  this data depends on the authorization protocol.
+               The _h_e_x_d_a_t_a is in the same format as the  _h_e_x_k_e_y  described  in
+               the add command.  The default is to send no data.
+
+
+       [[nn]]eexxttrraacctt _f_i_l_e_n_a_m_e _d_i_s_p_l_a_y_n_a_m_e_._._.
+               Authorization  entries  for  each of the specified displays are
+               written to the indicated file.   If  the  _n_e_x_t_r_a_c_t  command  is
+               used,  the entries are written in a numeric format suitable for
+               non-binary transmission (such as secure electronic mail).   The
+               extracted  entries  can  be  read  back  in using the _m_e_r_g_e and
+               _n_m_e_r_g_e commands.  If the filename consists  of  just  a  single
+               dash, the entries will be written to the standard output.
+
+       [[nn]]lliisstt [_d_i_s_p_l_a_y_n_a_m_e...]
+               Authorization  entries  for  each of the specified displays (or
+               all if no displays are named) are printed on the standard  out-
+               put.   If  the  _n_l_i_s_t command is used, entries will be shown in
+               the numeric format used by  the  _n_e_x_t_r_a_c_t  command;  otherwise,
+               they  are  shown  in a textual format.  Key data is always dis-
+               played in the hexadecimal format given in  the  description  of
+               the _a_d_d command.
+
+       [[nn]]mmeerrggee [_f_i_l_e_n_a_m_e...]
+               Authorization entries are read from the specified files and are
+               merged into the authorization database, superseding any  match-
+               ing  existing  entries.  If  the  _n_m_e_r_g_e  command  is used, the
+               numeric format given in the description of the _e_x_t_r_a_c_t  command
+               is  used.   If  a  filename consists of just a single dash, the
+               standard input will be read if it hasn't been read before.
+
+       rreemmoovvee _d_i_s_p_l_a_y_n_a_m_e...
+               Authorization  entries  matching  the  specified  displays  are
+               removed from the authority file.
+
+       ssoouurrccee _f_i_l_e_n_a_m_e
+               The specified file is treated as a script containing _x_a_u_t_h com-
+               mands to execute.  Blank lines and lines beginning with a sharp
+               sign  (#)  are  ignored.  A single dash may be used to indicate
+               the standard input, if it hasn't already been read.
+
+       iinnffoo    Information describing the authorization file, whether  or  not
+               any  changes  have been made, and from where _x_a_u_t_h commands are
+               being read is printed on the standard output.
+
+       eexxiitt    If any modifications have been  made,  the  authority  file  is
+               written  out  (if  allowed),  and the program exits.  An end of
+               file is treated as an implicit _e_x_i_t command.
+
+       qquuiitt    The program exits, ignoring any modifications.  This  may  also
+               be accomplished by pressing the interrupt character.
+
+       hheellpp [[_s_t_r_i_n_g]]
+               A  description of all commands that begin with the given string
+               (or all commands if no string is given) is printed on the stan-
+               dard output.
+
+       ??       A  short  list of the valid commands is printed on the standard
+               output.
+
+DDIISSPPLLAAYY NNAAMMEESS
+       Display names for the _a_d_d, _[_n_]_e_x_t_r_a_c_t, _[_n_]_l_i_s_t,  _[_n_]_m_e_r_g_e,  and  _r_e_m_o_v_e
+       commands  use  the  same format as the DISPLAY environment variable and
+       the common _-_d_i_s_p_l_a_y command line argument.   Display-specific  informa-
+       tion  (such  as  the screen number) is unnecessary and will be ignored.
+       Same-machine connections (such as local-host  sockets,  shared  memory,
+       and  the Internet Protocol hostname _l_o_c_a_l_h_o_s_t) are referred to as _h_o_s_t_-
+       _n_a_m_e/unix:_d_i_s_p_l_a_y_n_u_m_b_e_r so that local entries  for  different  machines
+       may be stored in one authority file.
+
+EEXXAAMMPPLLEE
+       The  most  common use for _x_a_u_t_h is to extract the entry for the current
+       display, copy it to another machine,  and  merge  it  into  the  user's
+       authority file on the remote machine:
+
+               %  xauth extract - $DISPLAY | ssh otherhost xauth merge -
+
+       The following command contacts the server :0 to create an authorization
+       using the MIT-MAGIC-COOKIE-1 protocol.  Clients that connect with  this
+       authorization will be untrusted.
+            %  xauth generate :0 .
+
+EENNVVIIRROONNMMEENNTT
+       This _x_a_u_t_h program uses the following environment variables:
+
+       XXAAUUTTHHOORRIITTYY
+               to  get  the name of the authority file to use if the _-_f option
+               isn't used.
+
+       HHOOMMEE    to get the user's home directory if XAUTHORITY isn't defined.
+
+FFIILLEESS
+       _$_H_O_M_E_/_._X_a_u_t_h_o_r_i_t_y
+               default authority file if XAUTHORITY isn't defined.
+
+SSEEEE AALLSSOO
+       X(7), Xsecurity(7), xhost(1), Xserver(1), xdm(1), startx(1), Xau(3).
+
+BBUUGGSS
+       Users that have unsecure networks should take  care  to  use  encrypted
+       file   transfer   mechanisms  to  copy  authorization  entries  between
+       machines.  Similarly, the _M_I_T_-_M_A_G_I_C_-_C_O_O_K_I_E_-_1 protocol is not very  use-
+       ful  in unsecure environments.  Sites that are interested in additional
+       security may need to use encrypted  authorization  mechanisms  such  as
+       Kerberos.
+
+       Spaces  are  currently not allowed in the protocol name.  Quoting could
+       be added for the truly perverse.
+
+AAUUTTHHOORR
+       Jim Fulton, MIT X Consortium
+
+
+
+X Version 11                      xauth 1.0.7                         XAUTH(1)

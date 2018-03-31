@@ -1,0 +1,87 @@
+TIMEOUT(1)                       User Commands                      TIMEOUT(1)
+
+
+
+NNAAMMEE
+       timeout - run a command with a time limit
+
+SSYYNNOOPPSSIISS
+       ttiimmeeoouutt [_O_P_T_I_O_N] _D_U_R_A_T_I_O_N _C_O_M_M_A_N_D [_A_R_G]...
+       ttiimmeeoouutt [_O_P_T_I_O_N]
+
+DDEESSCCRRIIPPTTIIOONN
+       Start COMMAND, and kill it if still running after DURATION.
+
+       Mandatory  arguments  to  long  options are mandatory for short options
+       too.
+
+       ----pprreesseerrvvee--ssttaattuuss
+
+              exit with the same status as  COMMAND,  even  when  the  command
+              times out
+
+       ----ffoorreeggrroouunndd
+
+              When  not  running  timeout  directly from a shell prompt, allow
+              COMMAND to read from the TTY and receive TTY signals.   In  this
+              mode, children of COMMAND will not be timed out.
+
+       --kk, ----kkiillll--aafftteerr=_D_U_R_A_T_I_O_N
+
+              also  send  a  KILL signal if COMMAND is still running this long
+              after the initial signal was sent.
+
+       --ss, ----ssiiggnnaall=_S_I_G_N_A_L
+
+              specify the signal to be sent on timeout.  SIGNAL may be a  name
+              like 'HUP' or a number.  See 'kill --ll' for a list of signals
+
+       ----hheellpp
+              display this help and exit
+
+       ----vveerrssiioonn
+              output version information and exit
+
+       DURATION  is  a  floating point number with an optional suffix: 's' for
+       seconds (the default), 'm' for minutes, 'h' for hours or 'd' for days.
+
+       If the command times out, and ----pprreesseerrvvee--ssttaattuuss is not set,  then  exit
+       with  status  124.   Otherwise, exit with the status of COMMAND.  If no
+       signal is specified, send the TERM signal upon timeout.  The TERM  sig-
+       nal kills any process that does not block or catch that signal.  It may
+       be necessary to use the KILL (9) signal, since this  signal  cannot  be
+       caught, in which case the exit status is 128+9 rather than 124.
+
+BBUUGGSS
+       Some platforms don't curently support timeouts beyond 2038
+
+AAUUTTHHOORR
+       Written by Padraig Brady.
+
+RREEPPOORRTTIINNGG BBUUGGSS
+       Report timeout bugs to bug-coreutils@gnu.org
+       GNU coreutils home page: <http://www.gnu.org/software/coreutils/>
+       General help using GNU software: <http://www.gnu.org/gethelp/>
+       Report    timeout    translation    bugs   to   <http://translationpro-
+       ject.org/team/>
+
+CCOOPPYYRRIIGGHHTT
+       Copyright (C) 2013 Free Software Foundation, Inc.  License GPLv3+:  GNU
+       GPL version 3 or later <http://gnu.org/licenses/gpl.html>.
+       This  is  free  software:  you  are free to change and redistribute it.
+       There is NO WARRANTY, to the extent permitted by law.
+
+SSEEEE AALLSSOO
+       kill(1)
+
+       The full documentation for ttiimmeeoouutt is maintained as a  Texinfo  manual.
+       If  the  iinnffoo and ttiimmeeoouutt programs are properly installed at your site,
+       the command
+
+              iinnffoo ccoorreeuuttiillss ''ttiimmeeoouutt iinnvvooccaattiioonn''
+
+       should give you access to the complete manual.
+
+
+
+GNU coreutils 8.21                March 2016                        TIMEOUT(1)

@@ -1,0 +1,96 @@
+OPENVT(1)                          Linux 1.x                         OPENVT(1)
+
+
+
+NNAAMMEE
+       openvt - start a program on a new virtual terminal (VT).
+
+SSYYNNOOPPSSIISS
+       ooppeennvvtt [-c vtnumber] [OPTIONS] [--] command
+
+DDEESSCCRRIIPPTTIIOONN
+       ooppeennvvtt  will  find the first available VT, and run on it the given ccoomm--
+       mmaanndd with the given ccoommmmaanndd ooppttiioonnss, standard input, output  and  error
+       are  directed to that terminal. The current search path ($PATH) is used
+       to find the requested command. If no  command  is  specified  then  the
+       environment variable $SHELL is used.
+
+   OOPPTTIIOONNSS
+       _-_c_, _-_-_c_o_n_s_o_l_e_=_V_T_N_U_M_B_E_R
+              Use  the  given  VT number and not the first available. Note you
+              must have write access to the supplied VT for this to work;
+
+       _-_f_, _-_-_f_o_r_c_e
+              Force opening a VT without checking whether  it  is  already  in
+              use;
+
+       _-_e_, _-_-_e_x_e_c
+              Directly  execute  the  given  command,  without  forking.  This
+              option is meant for use in _/_e_t_c_/_i_n_i_t_t_a_b.  If  you  want  to  use
+              this  feature in another context, be aware that ooppeennvvtt has to be
+              a session leader in order for -e to work.  See sseettssiidd(2) or sseett--
+              ssiidd(1) on how to achieve this.
+
+       _-_s_, _-_-_s_w_i_t_c_h
+              Switch  to  the  new VT when starting the command. The VT of the
+              new command will be made the new current VT;
+
+       _-_u_, _-_-_u_s_e_r
+              Figure out the owner of the current VT, and run  login  as  that
+              user.   Suitable to be called by init. Shouldn't be used with -c
+              or -l;
+
+       _-_l_, _-_-_l_o_g_i_n
+              Make the command a login shell. A - is prepended to the name  of
+              the command to be executed;
+
+       _-_v_, _-_-_v_e_r_b_o_s_e
+              Be a bit more verbose;
+
+       _-_w_, _-_-_w_a_i_t
+              wait  for  command  to  complete. If -w and -s are used together
+              then ooppeennvvtt will switch back to the  controlling  terminal  when
+              the command completes;
+
+       _-_V_, _-_-_v_e_r_s_i_o_n
+              print program version and exit;
+
+       _-_h_, _-_-_h_e_l_p
+              show this text and exit.
+
+       _-_-     end of options to ooppeennvvtt.
+
+NNOOTTEE
+       If  ooppeennvvtt is compiled with a getopt_long() and you wish to set options
+       to the command to be run, then you must supply the end  of  options  --
+       flag before the command.
+
+EEXXAAMMPPLLEESS
+       ooppeennvvtt  can  be used to start a shell on the next free VT, by using the
+       command:
+
+       _o_p_e_n_v_t _b_a_s_h
+
+
+       To start the shell as a login shell, use:
+
+       _o_p_e_n_v_t _-_l _b_a_s_h
+
+
+       To get a long listing you must supply the -- separator:
+
+       _o_p_e_n_v_t _-_- _l_s _-_l
+
+
+
+HHIISSTTOORRYY
+       Earlier,  ooppeennvvtt  was  called  ooppeenn.   It  was  written  by  Jon  Tombs
+       <jon@gtex02.us.es or jon@robots.ox.ac.uk>.  The -w idea is from "sam".
+
+
+SSEEEE AALLSSOO
+       cchhvvtt(1), ddoosshheellll(8), llooggiinn(1)
+
+
+
+19 Jul 1996                          V1.4                            OPENVT(1)

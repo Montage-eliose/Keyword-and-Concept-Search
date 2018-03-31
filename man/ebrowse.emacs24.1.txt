@@ -1,0 +1,94 @@
+EBROWSE(1)                  General Commands Manual                 EBROWSE(1)
+
+
+
+NNAAMMEE
+       ebrowse - create a class hierarchy database
+
+SSYYNNOOPPSSIISS
+       eebbrroowwssee [_o_p_t_i_o_n_s] [_F_I_L_E_S...]
+
+DDEESSCCRRIIPPTTIIOONN
+       This  manual page documents briefly the eebbrroowwssee command.  Full documen-
+       tation is available in the GNU Info format.
+
+       eebbrroowwssee is used to create the database used by  the  class  browser  in
+       Emacs.
+
+OOPPTTIIOONNSS
+       The  program  follows  the  usual  GNU  command  line syntax, with long
+       options starting with two dashes (`-').
+
+       --aa,, ----aappppeenndd
+              append output to existing file
+
+       --ff,, ----ffiilleess==FFIILLEESS
+              read input file names from _F_I_L_E
+
+       --II,, ----sseeaarrcchh--ppaatthh==LLIISSTT
+              set search path for input files
+
+       --mm,, ----mmiinn--rreeggeexxpp--lleennggtthh==NN
+              set minimum regexp length to _N
+
+       --MM,, ----mmaaxx--rreeggeexxpp--lleennggtthh==NN
+              set maximum regexp length to _N
+
+       --nn,, ----nnoo--nneesstteedd--ccllaasssseess
+              exclude nested classes
+
+       --oo,, ----oouuttppuutt--ffiillee==FFIILLEE
+              set output file name to _F_I_L_E
+
+       --pp,, ----ppoossiittiioonn--iinnffoo
+              print info about position in file
+
+       --ss,, ----nnoo--ssttrruuccttss--oorr--uunniioonnss
+              don't record structs or unions
+
+       --vv,, ----vveerrbboossee
+              be verbose
+
+       --VV,, ----vveerryy--vveerrbboossee
+              be very verbose
+
+       --xx,, ----nnoo--rreeggeexxppss
+              don't record regular expressions
+
+       ----hheellpp display this help
+
+       ----vveerrssiioonn
+              display version info
+
+SSEEEE AALLSSOO
+       eemmaaccss(1), eettaaggss(1), and the full documentation  for  eebbrroowwssee  which  is
+       maintained  as  a Texinfo manual.  If the iinnffoo and eebbrroowwssee programs are
+       properly installed at your site, the command
+
+              iinnffoo eebbrroowwssee
+
+       should give you access to the complete manual.
+
+AAUUTTHHOORR
+       _E_b_r_o_w_s_e was written by Gerd Moellmann.
+
+CCOOPPYYIINNGG
+       Copyright (C) 2008-2013 Free Software Foundation, Inc.
+
+       Permission is granted to make and distribute verbatim  copies  of  this
+       document  provided  the copyright notice and this permission notice are
+       preserved on all copies.
+
+       Permission is granted to copy and distribute modified versions of  this
+       document  under  the conditions for verbatim copying, provided that the
+       entire resulting derived work is distributed under the terms of a  per-
+       mission notice identical to this one.
+
+       Permission is granted to copy and distribute translations of this docu-
+       ment into another language, under the  above  conditions  for  modified
+       versions,  except that this permission notice may be stated in a trans-
+       lation approved by the Free Software Foundation.
+
+
+
+                                                                    EBROWSE(1)

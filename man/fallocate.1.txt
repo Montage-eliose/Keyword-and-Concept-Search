@@ -1,0 +1,57 @@
+FALLOCATE(1)                     User Commands                    FALLOCATE(1)
+
+
+
+NNAAMMEE
+       fallocate - preallocate space to a file
+
+SSYYNNOOPPSSIISS
+       ffaallllooccaattee [--nn] [--oo _o_f_f_s_e_t] --ll _l_e_n_g_t_h _f_i_l_e_n_a_m_e
+
+DDEESSCCRRIIPPTTIIOONN
+       ffaallllooccaattee  is  used  to  preallocate blocks to a file.  For filesystems
+       which support the fallocate system call, this is done quickly by  allo-
+       cating blocks and marking them as uninitialized, requiring no IO to the
+       data blocks.  This is much faster than creating a file  by  filling  it
+       with zeros.
+
+       As  of the Linux Kernel v2.6.31, the fallocate system call is supported
+       by the btrfs, ext4, ocfs2, and xfs filesystems.
+
+       The exit code returned by ffaallllooccaattee is 0 on success and 1 on failure.
+
+OOPPTTIIOONNSS
+       The _l_e_n_g_t_h and _o_f_f_s_e_t arguments may be followed by  binary  (2^N)  suf-
+       fixes  KiB,  MiB, GiB, TiB, PiB and EiB (the "iB" is optional, e.g. "K"
+       has the same meaning as "KiB") or decimal (10^N) suffixes KB,  MB,  GB,
+       PB and EB.
+
+       --hh,, ----hheellpp
+              Print help and exit.
+
+       --nn,, ----kkeeeepp--ssiizzee
+              Do  not  modify the apparent length of the file. This may effec-
+              tively allocate blocks past EOF, which can  be  removed  with  a
+              truncate.
+
+       --oo,, ----ooffffsseett _o_f_f_s_e_t
+              Specifies the beginning offset of the allocation, in bytes.
+
+       --ll,, ----lleennggtthh _l_e_n_g_t_h
+              Specifies the length of the allocation, in bytes.
+
+AAUUTTHHOORRSS
+       Eric Sandeen <sandeen@redhat.com>
+       Karel Zak <kzak@redhat.com>
+
+SSEEEE AALLSSOO
+       ffaallllooccaattee(2), ppoossiixx__ffaallllooccaattee(3), ttrruunnccaattee(1)
+
+AAVVAAIILLAABBIILLIITTYY
+       The  fallocate  command is part of the util-linux package and is avail-
+       able from ftp://ftp.kernel.org/pub/linux/utils/util-linux/.
+
+
+
+
+util-linux                         July 2009                      FALLOCATE(1)

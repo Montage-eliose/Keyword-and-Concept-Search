@@ -1,0 +1,111 @@
+run-one(1)                          run-one                         run-one(1)
+
+
+
+NNAAMMEE
+       run-one  -  run  just one instance at a time of some command and unique
+       set of arguments (useful for cronjobs, eg)
+
+
+SSYYNNOOPPSSIISS
+       rruunn--oonnee COMMAND [ARGS]
+
+       rruunn--tthhiiss--oonnee COMMAND [ARGS]
+
+       rruunn--oonnee--ccoonnssttaannttllyy COMMAND [ARGS]
+
+       kkeeeepp--oonnee--rruunnnniinngg COMMAND [ARGS]
+
+       rruunn--oonnee--uunnttiill--ssuucccceessss COMMAND [ARGS]
+
+       rruunn--oonnee--uunnttiill--ffaaiilluurree COMMAND [ARGS]
+
+
+DDEESSCCRRIIPPTTIIOONN
+       rruunn--oonnee is a wrapper script that runs no more than one unique  instance
+       of some command with a unique set of arguments.
+
+       This is often useful with cronjobs, when you want no more than one copy
+       running at a time.
+
+       rruunn--tthhiiss--oonnee is exactly like rruunn--oonnee, except that it will use  ppggrreepp(1)
+       and  kkiillll(1)  to  find and kill any running processes owned by the user
+       and matching the target commands and arguments.  Note that rruunn--tthhiiss--oonnee
+       will  block while trying to kill matching processes, until all matching
+       processes are dead.
+
+       rruunn--oonnee--ccoonnssttaannttllyy  operates  exactly  like  rruunn--oonnee  except  that   it
+       respawns "COMMAND [ARGS]" any time COMMAND exits (zero or non-zero).
+
+       kkeeeepp--oonnee--rruunnnniinngg is an alias for rruunn--oonnee--ccoonnssttaannttllyy.
+
+       rruunn--oonnee--uunnttiill--ssuucccceessss  operates  exactly like rruunn--oonnee--ccoonnssttaannttllyy except
+       that it respawns "COMMAND [ARGS]" until COMMAND exits successfully (ie,
+       exits zero).
+
+       rruunn--oonnee--uunnttiill--ffaaiilluurree  operates  exactly like rruunn--oonnee--ccoonnssttaannttllyy except
+       that it respawns "COMMAND [ARGS]" until COMMAND exits with failure (ie,
+       exits non-zero).
+
+
+EEXXAAMMPPLLEE
+       In one shell:
+
+        $ run-one rsync -azP $HOME $USER@example.com:/srv/backup
+        foouser/
+        foouser/.bash_history
+              40298 100%   37.13MB/s    0:00:00 (xfer#1, to-check=3509/3516)
+        foouser/.viminfo
+              20352 100%   98.39kB/s    0:00:00 (xfer#3, to-check=3478/3516)
+        ...
+        sent 746228 bytes  received 413059 bytes  36802.76 bytes/sec
+        total size is 3732890955  speedup is 3219.99
+
+       In another shell, while the first is still running:
+
+        $ run-one rsync -azP $HOME $USER@example.com:/srv/backup
+        $ echo $?
+        1
+
+       Another example...  In one shell:
+
+        $ run-one top
+
+       In another shell:
+
+        $ run-one top
+        $ echo $?
+        1
+        $ run-this-one top
+        top - 17:15:36 up  1:43,  3 users,  load average: 1.05, 1.04, 1.00
+        Tasks: 170 total,   1 running, 169 sleeping,   0 stopped,   0 zombie
+        ...
+
+       And note that the process in the first shell was killed.
+
+       You  might want to keep one ssh connection up and running all the time,
+       with:
+
+        $ run-one-constantly ssh -N -C -L 3128:localhost:3128  -L  7778:local-
+       host:7778 example.com &
+
+
+
+SSEEEE AALLSSOO
+       fflloocckk(1), kkiillll(1), ppggrreepp(1)
+
+
+AAUUTTHHOORR
+       This  manpage  and  the  utility  was written by Dustin Kirkland <kirk-
+       land@ubuntu.com> for Ubuntu systems (but may be used by others).   Per-
+       mission  is  granted  to  copy,  distribute and/or modify this document
+       under the terms of the GNU General Public License, Version 3  published
+       by the Free Software Foundation.
+
+       On  Debian systems, the complete text of the GNU General Public License
+       can be found  in  /usr/share/common-licenses/GPL,  or  on  the  web  at
+       _h_t_t_p_:_/_/_w_w_w_._g_n_u_._o_r_g_/_l_i_c_e_n_s_e_s_/_g_p_l_._t_x_t.
+
+
+
+run-one                           9 Jan 2011                        run-one(1)

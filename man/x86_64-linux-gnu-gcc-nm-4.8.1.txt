@@ -1,0 +1,27 @@
+GCC-nm-4.8(1)                                                    GCC-nm-4.8(1)
+
+
+
+NNAAMMEE
+       gcc-nm - a wrapper around nm adding the --plugin option
+
+
+SSYYNNOOPPSSIISS
+       gcc-nm [OOPPTTIIOONN] ... [_A_R_G_S...]
+
+
+DDEESSCCRRIIPPTTIIOONN
+       ggcccc--nnmm is a wrapper around nm(1) adding the appropriate ----pplluuggiinn option
+       for the GCC 4.8 compiler.
+
+
+OOPPTTIIOONNSS
+       See nm(1) for a list of options that nm understands.
+
+
+SSEEEE AALLSSOO
+       nnmm((11))
+
+
+
+gcc-nm-4.8                        May 8, 2012                    GCC-nm-4.8(1)

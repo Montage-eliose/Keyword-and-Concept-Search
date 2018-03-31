@@ -1,0 +1,60 @@
+UPTIME(1)                        User Commands                       UPTIME(1)
+
+
+
+NNAAMMEE
+       uptime - Tell how long the system has been running.
+
+SSYYNNOOPPSSIISS
+       uuppttiimmee [_o_p_t_i_o_n_s]
+
+DDEESSCCRRIIPPTTIIOONN
+       uuppttiimmee gives a one line display of the following information.  The cur-
+       rent time, how long the system has been running,  how  many  users  are
+       currently  logged  on,  and the system load averages for the past 1, 5,
+       and 15 minutes.
+
+       This is the same information contained in the header line displayed  by
+       ww(1).
+
+       System load averages is the average number of processes that are either
+       in a runnable or uninterruptable state.  A process in a runnable  state
+       is  either using the CPU or waiting to use the CPU.  A process in unin-
+       terruptable state is waiting for some I/O access, eg waiting for  disk.
+       The  averages  are  taken over the three time intervals.  Load averages
+       are not normalized for the number of CPUs in a system, so a load  aver-
+       age  of 1 means a single CPU system is loaded all the time while on a 4
+       CPU system it means it was idle 75% of the time.
+
+OOPPTTIIOONNSS
+       --pp, ----pprreettttyy
+              show uptime in pretty format
+
+       --hh, ----hheellpp
+              display this help text
+
+       --ss, ----ssiinnccee
+              system up since, in yyyy-mm-dd MM:HH:SS format
+
+       --VV, ----vveerrssiioonn
+              display version information and exit
+
+FFIILLEESS
+       _/_v_a_r_/_r_u_n_/_u_t_m_p
+              information about who is currently logged on
+
+       _/_p_r_o_c  process information
+
+AAUUTTHHOORRSS
+       uuppttiimmee was written by Larry Greenfield <greenfie@gauss.rutgers.edu> and
+       Michael K. Johnson <johnsonm@sunsite.unc.edu>
+
+SSEEEE AALLSSOO
+       ppss(1), ttoopp(1), uuttmmpp(5), ww(1)
+
+RREEPPOORRTTIINNGG BBUUGGSS
+       Please send bug reports to <procps@freelists.org>
+
+
+
+procps-ng                        December 2012                       UPTIME(1)

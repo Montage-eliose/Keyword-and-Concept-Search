@@ -1,0 +1,47 @@
+WALL(1)                          User Commands                         WALL(1)
+
+NNAAMMEE
+     wwaallll -- write a message to users
+
+SSYYNNOOPPSSIISS
+     wwaallll [_-_n] [_-_t _T_I_M_E_O_U_T] [_f_i_l_e]
+
+DDEESSCCRRIIPPTTIIOONN
+     WWaallll displays the contents of _f_i_l_e or, by default, its standard input, on
+     the terminals of all currently logged in users. The command will cut over
+     79 character long lines to new lines. Short lines are white space padded
+     to have 79 characters. The command will always put carriage return and
+     new line at the end of each line.
+
+     Only the super-user can write on the terminals of users who have chosen
+     to deny messages or are using a program which automatically denies mes-
+     sages.
+
+     Reading from a file is refused when the invoker is not superuser and the
+     program is suid or sgid.
+
+OOPPTTIIOONNSS
+     --nn,, ----nnoobbaannnneerr
+                 Supress banner
+
+     --tt,, ----ttiimmeeoouutt _T_I_M_E_O_U_T
+                 Write timeout to terminals in seconds. Argument must be posi-
+                 tive integer. Default value is 300 seconds, which is a legacy
+                 from time when people ran terminals over modem lines.
+
+     --VV,, ----vveerrssiioonn
+                 Output version and exit.
+
+     --hh,, ----hheellpp  Output help and exit.
+
+SSEEEE AALLSSOO
+     mesg(1), talk(1), write(1), shutdown(8)
+
+HHIISSTTOORRYY
+     A wwaallll command appeared in Version 7 AT&T UNIX.
+
+AAVVAAIILLAABBIILLIITTYY
+     The wall command is part of the util-linux package and is available from
+     ftp://ftp.kernel.org/pub/linux/utils/util-linux/.
+
+util-linux                       April 2011                         util-linux

@@ -1,0 +1,51 @@
+IGAWK(1)                       Utility Commands                       IGAWK(1)
+
+
+
+NNAAMMEE
+       igawk - gawk with include files
+
+SSYYNNOOPPSSIISS
+       iiggaawwkk [ all _g_a_w_k options ] --ff _p_r_o_g_r_a_m_-_f_i_l_e [ ---- ] file ...
+       iiggaawwkk [ all _g_a_w_k options ] [ ---- ] _p_r_o_g_r_a_m_-_t_e_x_t file ...
+
+DDEESSCCRRIIPPTTIIOONN
+       _I_g_a_w_k  is a simple shell script that adds the ability to have ``include
+       files'' to _g_a_w_k(1).
+
+       AWK programs for _i_g_a_w_k are the same as for _g_a_w_k, except that, in  addi-
+       tion, you may have lines like
+
+              @@iinncclluuddee ggeettoopptt..aawwkk
+
+       in  your program to include the file ggeettoopptt..aawwkk from either the current
+       directory or one of the other directories in the search path.
+
+OOPPTTIIOONNSS
+       See _g_a_w_k(1) for a full description of the AWK language and the  options
+       that _g_a_w_k supports.
+
+EEXXAAMMPPLLEESS
+       ccaatt <<<< EEOOFF >> tteesstt..aawwkk
+       @@iinncclluuddee ggeettoopptt..aawwkk
+
+       BBEEGGIINN {{
+            wwhhiillee ((ggeettoopptt((AARRGGCC,, AARRGGVV,, ""aamm::qq"")) !!== --11))
+                 ......
+       }}
+       EEOOFF
+
+       iiggaawwkk --ff tteesstt..aawwkk
+
+SSEEEE AALLSSOO
+       _g_a_w_k(1)
+
+       _E_f_f_e_c_t_i_v_e  _A_W_K _P_r_o_g_r_a_m_m_i_n_g, Edition 1.0, published by the Free Software
+       Foundation, 1995.
+
+AAUUTTHHOORR
+       Arnold Robbins (aarrnnoolldd@@sskkeeeevvee..ccoomm).
+
+
+
+Free Software Foundation          Nov 3 1999                          IGAWK(1)

@@ -1,0 +1,146 @@
+DH_PYPY(1)                                                          DH_PYPY(1)
+
+
+
+NNAAMMEE
+       dh_pypy - calculates PyPy dependencies, adds maintainer scripts to byte
+       compile files, etc.
+
+SSYYNNOOPPSSIISS
+          dh_pypy -p PACKAGE [-V [X.Y][-][A.B]] DIR [-X REGEXPR]
+
+DDEESSCCRRIIPPTTIIOONN
+   QQUUIICCKK GGUUIIDDEE FFOORR MMAAIINNTTAAIINNEERRSS
+          +o build-depend on pypy and dh-python,
+
+          +o add _$_{_p_y_p_y_:_D_e_p_e_n_d_s_} to Depends
+
+          +o build module/application using its standard build system,
+
+          +o install files to the standard locations,
+
+          +o add _p_y_p_y to dh's --with option, or:
+
+          +o call ddhh__ppyyppyy in the _b_i_n_a_r_y_-_* target,
+
+   NNOOTTEESS
+   ddeeppeennddeenncciieess
+       dh_pypy tries to translate Python dependencies from  requires.txt  file
+       to  Debian  dependencies.  Use debian/pypydist-overrides or --no-guess-
+       ing-deps option to override it if the guess is incorrect. If  you  want
+       dh_pypy  to  generate more strict dependencies (f.e. to avoid ABI prob-
+       lems)       create       debian/pypy-foo.pydist        file.        See
+       /usr/share/doc/dh-python/README.PyDist  for  more  information.  If the
+       pydist file contains PEP386 flag or set of (uscan like) rules,  dh_pypy
+       will  make the depedency versioned (version requirements are ignored by
+       default).
+
+   pprriivvaattee ddiirrss
+       _/_u_s_r_/_s_h_a_r_e_/_f_o_o,      _/_u_s_r_/_s_h_a_r_e_/_g_a_m_e_s_/_f_o_o,       _/_u_s_r_/_l_i_b_/_f_o_o       and
+       _/_u_s_r_/_l_i_b_/_g_a_m_e_s_/_f_o_o  private directories are scanned for Python files by
+       default (where _f_o_o is binary package name). If your package is shipping
+       Python  files  in  some  other  directory,  add another dh_pypy call in
+       debian/rules with directory name as an argument - you can use different
+       set  of  options in this call. If you need to change options for a pri-
+       vate  directory  that  is  checked  by  default,  invoke  dh_pypy  with
+       --skip-private  option  and add another call with a path to this direc-
+       tory and new options.
+
+   ddeebbuugg ppaacckkaaggeess
+       In  binary  packages  which  name  ends  with  _-_d_b_g,   all   files   in
+       _/_u_s_r_/_l_i_b_/_p_y_p_y_/_d_i_s_t_-_p_a_c_k_a_g_e_s_/  directory  that have extensions different
+       than _s_o or _h are removed by default. Use  --no-dbg-cleaning  option  to
+       disable this feature.
+
+   oovveerrrriiddiinngg ssuuppppoorrtteedd // ddeeffaauulltt PPyyPPyy vveerrssiioonnss
+       If you want to override system's list of supported PyPy versions or the
+       default one (f.e. to build a package that includes symlinks  for  older
+       version  of  PyPy  or compile .py files only for given interpreter ver-
+       sion), you can do that  via  _D_E_B_P_Y_P_Y___S_U_P_P_O_R_T_E_D  and/or  _D_E_B_P_Y_P_Y___D_E_F_A_U_L_T
+       env. variables.
+
+OOPPTTIIOONNSS
+       ----vveerrssiioonn
+              show program's version number and exit
+
+       --hh, ----hheellpp
+              show help message and exit
+
+       ----nnoo--gguueessssiinngg--ddeeppss
+              disable guessing dependencies
+
+       ----nnoo--ddbbgg--cclleeaanniinngg
+              do not remove any files from debug packages
+
+       --no-ext-rename do not add magic tags nor multiarch tuples to extension
+       file names
+
+       ----nnoo--sshheebbaanngg--rreewwrriittee
+              do not rewrite shebangs
+
+       ----sskkiipp--pprriivvaattee
+              don't check private directories
+
+       --vv, ----vveerrbboossee
+              turn verbose mode on
+
+       --ii, ----iinnddeepp
+              act on architecture independent packages
+
+       --aa, ----aarrcchh
+              act on architecture dependent packages
+
+       --qq, ----qquuiieett
+              be quiet
+
+       --pp _P_A_C_K_A_G_E,, ----ppaacckkaaggee==_P_A_C_K_A_G_E
+              act on the package named PACKAGE
+
+       --NN _N_O___P_A_C_K_A_G_E,, ----nnoo--ppaacckkaaggee==_N_O___P_A_C_K_A_G_E
+              do not act on the specified package
+
+       --XX _R_E_G_E_X_P_R,, ----eexxcclluuddee==_R_E_G_E_X_P_R
+              exclude items that match given REGEXPR. You may use this  option
+              multiple times to build up a list of things to exclude.
+
+       ----ccoommppiillee--aallll
+              compile all files from given private directory in postinst/rtup-
+              date not just the ones provided by the package (i.e. do not pass
+              the --package parameter to py3compile/py3clean)
+
+       ----ddeeppeennddss==_D_E_P_E_N_D_S
+              translate  given  requirements  into Debian dependencies and add
+              them  to  ${pypy:Depends}.  Use  it   for   missing   items   in
+              requires.txt
+
+       ----rreeccoommmmeennddss==_R_E_C_O_M_M_E_N_D_S
+              translate  given  requirements  into Debian dependencies and add
+              them to ${pypy:Recommends}
+
+       ----ssuuggggeessttss==_S_U_G_G_E_S_T_S
+              translate given requirements into Debian  dependencies  and  add
+              them to ${pypy:Suggests}
+
+       ----rreeqquuiirreess==_F_I_L_E_N_A_M_E
+              translate  requirements from given file(s) into Debian dependen-
+              cies and add them to ${pypy:Depends}
+
+       ----sshheebbaanngg==_C_O_M_M_A_N_D
+              use given command as shebang in scripts
+
+       ----iiggnnoorree--sshheebbaannggss
+              do not translate shebangs into Debian dependencies
+
+SSEEEE AALLSSOO
+       +o /usr/share/doc/dh-python/README.PyDist
+
+       +o pybuild(1)
+
+       +o _h_t_t_p_:_/_/_d_e_b_._l_i_/_d_h_p_y - most recent version of this document
+
+AAUUTTHHOORR
+       Piotr Oarowski, 2013
+
+
+
+                                                                    DH_PYPY(1)

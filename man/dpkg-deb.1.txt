@@ -1,0 +1,214 @@
+dpkg-deb(1)                       dpkg suite                       dpkg-deb(1)
+
+
+
+NNAAMMEE
+       dpkg-deb - Debian package archive (.deb) manipulation tool
+
+SSYYNNOOPPSSIISS
+       ddppkkgg--ddeebb [_o_p_t_i_o_n...] _c_o_m_m_a_n_d
+
+DDEESSCCRRIIPPTTIIOONN
+       ddppkkgg--ddeebb packs, unpacks and provides information about Debian archives.
+
+       Use ddppkkgg to install and remove packages from your system.
+
+       You  can also invoke ddppkkgg--ddeebb by calling ddppkkgg with whatever options you
+       want to pass to ddppkkgg--ddeebb. ddppkkgg will spot that you wanted  ddppkkgg--ddeebb  and
+       run it for you.
+
+CCOOMMMMAANNDDSS
+       --bb, ----bbuuiilldd _d_i_r_e_c_t_o_r_y [_a_r_c_h_i_v_e|_d_i_r_e_c_t_o_r_y]
+              Creates  a  debian  archive  from  the filesystem tree stored in
+              _d_i_r_e_c_t_o_r_y. _d_i_r_e_c_t_o_r_y must have a DDEEBBIIAANN subdirectory, which con-
+              tains  the  control  information  files such as the control file
+              itself. This directory will _n_o_t appear in the  binary  package's
+              filesystem  archive,  but instead the files in it will be put in
+              the binary package's control information area.
+
+              Unless you specify ----nnoocchheecckk, ddppkkgg--ddeebb will read  DDEEBBIIAANN//ccoonnttrrooll
+              and parse it. It will check it for syntax errors and other prob-
+              lems, and display the name of the binary  package  being  built.
+              ddppkkgg--ddeebb  will  also  check  the  permissions  of the maintainer
+              scripts and other files found in the DDEEBBIIAANN control  information
+              directory.
+
+              If  no _a_r_c_h_i_v_e is specified then ddppkkgg--ddeebb will write the package
+              into the file _d_i_r_e_c_t_o_r_y..ddeebb.
+
+              If the archive to be created already exists it will be overwrit-
+              ten.
+
+              If  the  second argument is a directory then ddppkkgg--ddeebb will write
+              to the file _p_a_c_k_a_g_e___v_e_r_s_i_o_n___a_r_c_h..ddeebb, or _p_a_c_k_a_g_e___v_e_r_s_i_o_n..ddeebb  if
+              no  AArrcchhiitteeccttuurree  field  is present in the package control file.
+              When a target directory is specified, rather than  a  file,  the
+              ----nnoocchheecckk  option  may not be used (since ddppkkgg--ddeebb needs to read
+              and parse the package control file to determine  which  filename
+              to use).
+
+       --II, ----iinnffoo _a_r_c_h_i_v_e [_c_o_n_t_r_o_l_-_f_i_l_e_-_n_a_m_e...]
+              Provides information about a binary package archive.
+
+              If no _c_o_n_t_r_o_l_-_f_i_l_e_-_n_a_m_es are specified then it will print a sum-
+              mary of the contents of the package as well as its control file.
+
+              If any _c_o_n_t_r_o_l_-_f_i_l_e_-_n_a_m_es are specified then ddppkkgg--ddeebb will print
+              them  in the order they were specified; if any of the components
+              weren't present it will print an error message to  stderr  about
+              each one and exit with status 2.
+
+       --WW, ----sshhooww _a_r_c_h_i_v_e
+              Provides  information about a binary package archive in the for-
+              mat specified by the ----sshhoowwffoorrmmaatt argument. The  default  format
+              displays  the  package's name and version on one line, separated
+              by a tabulator.
+
+       --ff, ----ffiieelldd _a_r_c_h_i_v_e [_c_o_n_t_r_o_l_-_f_i_e_l_d_-_n_a_m_e...]
+              Extracts control file information from a binary package archive.
+
+              If no ccoonnttrrooll--ffiillee--ffiieelldds are specified then it will  print  the
+              whole control file.
+
+              If any are specified then ddppkkgg--ddeebb will print their contents, in
+              the order in which they appear in the control file. If more than
+              one  ccoonnttrrooll--ffiillee--ffiieelldd  is specified then ddppkkgg--ddeebb will precede
+              each with its field name (and a colon and space).
+
+              No errors are reported for fields requested but not found.
+
+       --cc, ----ccoonntteennttss _a_r_c_h_i_v_e
+              Lists the contents of the filesystem tree archive portion of the
+              package  archive.  It is currently produced in the format gener-
+              ated by ttaarr's verbose listing.
+
+       --xx, ----eexxttrraacctt _a_r_c_h_i_v_e _d_i_r_e_c_t_o_r_y
+              Extracts the filesystem tree from a  package  archive  into  the
+              specified directory.
+
+              Note  that  extracting  a package to the root directory will _n_o_t
+              result in a correct installation! Use ddppkkgg to install packages.
+
+              _d_i_r_e_c_t_o_r_y (but not its parents) will be  created  if  necessary,
+              and  its permissions modified to match the contents of the pack-
+              age.
+
+       --XX, ----vveexxttrraacctt _a_r_c_h_i_v_e _d_i_r_e_c_t_o_r_y
+              Is like ----eexxttrraacctt (--xx) with ----vveerrbboossee (--vv) which prints a  list-
+              ing of the files extracted as it goes.
+
+       --RR, ----rraaww--eexxttrraacctt _a_r_c_h_i_v_e _d_i_r_e_c_t_o_r_y
+              Extracts the filesystem tree from a package archive into a spec-
+              ified directory, and the control information files into a DEBIAN
+              subdirectory of the specified directory.
+
+              The  target  directory  (but not its parents) will be created if
+              necessary.
+
+       ----ffssyyss--ttaarrffiillee _a_r_c_h_i_v_e
+              Extracts the filesystem tree data  from  a  binary  package  and
+              sends  it to standard output in ttaarr format. Together with ttaarr(1)
+              this can be used to extract a particular file from a package ar-
+              chive.  The input archive will always be processed sequentially.
+
+       --ee, ----ccoonnttrrooll _a_r_c_h_i_v_e [_d_i_r_e_c_t_o_r_y]
+              Extracts  the  control  information files from a package archive
+              into the specified directory.
+
+              If no directory is specified then a subdirectory DDEEBBIIAANN  in  the
+              current directory is used.
+
+              The  target  directory  (but not its parents) will be created if
+              necessary.
+
+       --??, ----hheellpp
+              Show the usage message and exit.
+
+       ----vveerrssiioonn
+              Show the version and exit.
+
+OOPPTTIIOONNSS
+       ----sshhoowwffoorrmmaatt==_f_o_r_m_a_t
+              This option is used to specify the format of the  output  ----sshhooww
+              will  produce.  The  format  is a string that will be output for
+              each package listed.
+
+              The string may reference any status field  using  the  "${_f_i_e_l_d_-
+              _n_a_m_e}"  form,  a list of the valid fields can be easily produced
+              using --II on the same package. A complete explanation of the for-
+              matting  options  (including escape sequences and field tabbing)
+              can be found in the explanation of the  ----sshhoowwffoorrmmaatt  option  in
+              ddppkkgg--qquueerryy(1).
+
+              The default for this field is "${Package}\t${Version}\n".
+
+       --zz_c_o_m_p_r_e_s_s_-_l_e_v_e_l
+              Specify  which  compression level to use on the compressor back-
+              end, when building a package (default is 9 for gzip and bzip2, 6
+              for  xz  and  lzma).   The accepted values are 0-9 with: 0 being
+              mapped to compressor none for gzip and 0 mapped to 1 for  bzip2.
+              Before dpkg 1.16.2 level 0 was equivalent to compressor none for
+              all compressors.
+
+       --SS_c_o_m_p_r_e_s_s_-_s_t_r_a_t_e_g_y
+              Specify which compression strategy  to  use  on  the  compressor
+              backend,  when  building  a package (since dpkg 1.16.2). Allowed
+              values are _n_o_n_e (since dpkg 1.16.4), _f_i_l_t_e_r_e_d, _h_u_f_f_m_a_n, _r_l_e  and
+              _f_i_x_e_d for gzip (since dpkg 1.17.0) and _e_x_t_r_e_m_e for xz.
+
+       --ZZ_c_o_m_p_r_e_s_s_-_t_y_p_e
+              Specify  which  compression type to use when building a package.
+              Allowed values are _g_z_i_p, _x_z, _b_z_i_p_2, _l_z_m_a, and _n_o_n_e  (default  is
+              _x_z).
+
+       ----ddeebb--ffoorrmmaatt==_f_o_r_m_a_t
+              Set  the  archive  format version used when building (since dpkg
+              1.17.0).  Allowed  values  are  _2_._0  for  the  new  format,  and
+              _0_._9_3_9_0_0_0 for the old one (default is _2_._0).
+
+              The old archive format is less easily parsed by non-Debian tools
+              and is now obsolete; its only use is when building  packages  to
+              be  parsed  by  versions  of  dpkg older than 0.93.76 (September
+              1995), which was released as i386 a.out only.
+
+       ----nneeww  This is a legacy alias for ----ddeebb--ffoorrmmaatt==22..00.
+
+       ----oolldd  This is a legacy alias for ----ddeebb--ffoorrmmaatt==00..993399000000.
+
+       ----nnoocchheecckk
+              Inhibits ddppkkgg--ddeebb ----bbuuiilldd's usual checks on  the  proposed  con-
+              tents of an archive. You can build any archive you want, no mat-
+              ter how broken, this way.
+
+       --vv, ----vveerrbboossee
+              Enables verbose output. This currently  only  affects  ----eexxttrraacctt
+              making it behave like ----vveexxttrraacctt.
+
+       --DD, ----ddeebbuugg
+              Enables debugging output. This is not very interesting.
+
+EENNVVIIRROONNMMEENNTT
+       TTMMPPDDIIRR If set, ddppkkgg--ddeebb will use it as the directory in which to create
+              temporary files and directories.
+
+NNOOTTEESS
+       Do not attempt to use just ddppkkgg--ddeebb to install software! You  must  use
+       ddppkkgg  proper  to ensure that all the files are correctly placed and the
+       package's scripts run and its status and contents recorded.
+
+BBUUGGSS
+       ddppkkgg--ddeebb --II _p_a_c_k_a_g_e_1..ddeebb _p_a_c_k_a_g_e_2..ddeebb does the wrong thing.
+
+       There is no authentication on ..ddeebb files; in fact, there isn't  even  a
+       straightforward checksum.  (Higher level tools like APT support authen-
+       ticating ..ddeebb packages retrieved from  a  given  repository,  and  most
+       packages   nowadays   provide  an  md5sum  control  file  generated  by
+       debian/rules. Though this is not directly supported by the lower  level
+       tools.)
+
+SSEEEE AALLSSOO
+       ddeebb(5), ddeebb--ccoonnttrrooll(5), ddppkkgg(1), ddsseelleecctt(1).
+
+
+
+Debian Project                    2013-03-27                       dpkg-deb(1)

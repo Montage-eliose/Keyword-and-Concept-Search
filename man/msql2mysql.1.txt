@@ -1,0 +1,61 @@
+MSQL2MYSQL(1)                MySQL Database System               MSQL2MYSQL(1)
+
+
+
+NNAAMMEE
+       msql2mysql - convert mSQL programs for use with MySQL
+
+SSYYNNOOPPSSIISS
+       mmssqqll22mmyyssqqll_C_-_s_o_u_r_c_e_-_f_i_l_e ......
+
+DDEESSCCRRIIPPTTIIOONN
+       Initially, the MySQL C API was developed to be very similar to that for
+       the mSQL database system. Because of this, mSQL programs often can be
+       converted relatively easily for use with MySQL by changing the names of
+       the C API functions.
+
+       The mmssqqll22mmyyssqqll utility performs the conversion of mSQL C API function
+       calls to their MySQL equivalents.  mmssqqll22mmyyssqqll converts the input file
+       in place, so make a copy of the original before converting it. For
+       example, use mmssqqll22mmyyssqqll like this:
+
+           shell> ccpp cclliieenntt--pprroogg..cc cclliieenntt--pprroogg..cc..oorriigg
+           shell> mmssqqll22mmyyssqqll cclliieenntt--pprroogg..cc
+           client-prog.c converted
+
+       Then examine client-prog.c and make any post-conversion revisions that
+       may be necessary.
+
+       mmssqqll22mmyyssqqll uses the rreeppllaaccee utility to make the function name
+       substitutions. See rreeppllaaccee(1).
+
+CCOOPPYYRRIIGGHHTT
+       Copyright (C) 1997, 2016, Oracle and/or its affiliates. All rights
+       reserved.
+
+       This documentation is free software; you can redistribute it and/or
+       modify it only under the terms of the GNU General Public License as
+       published by the Free Software Foundation; version 2 of the License.
+
+       This documentation is distributed in the hope that it will be useful,
+       but WITHOUT ANY WARRANTY; without even the implied warranty of
+       MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+       General Public License for more details.
+
+       You should have received a copy of the GNU General Public License along
+       with the program; if not, write to the Free Software Foundation, Inc.,
+       51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA or see
+       http://www.gnu.org/licenses/.
+
+
+SSEEEE AALLSSOO
+       For more information, please refer to the MySQL Reference Manual, which
+       may already be installed locally and which is also available online at
+       http://dev.mysql.com/doc/.
+
+AAUUTTHHOORR
+       Oracle Corporation (http://dev.mysql.com/).
+
+
+
+MySQL 5.5                         03/01/2016                     MSQL2MYSQL(1)

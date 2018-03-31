@@ -1,0 +1,46 @@
+IPCMK(1)                         User Commands                        IPCMK(1)
+
+
+
+NNAAMMEE
+       ipcmk - create various ipc resources
+
+SSYYNNOOPPSSIISS
+       iippccmmkk --hh
+       iippccmmkk [--MM _s_i_z_e] [--SS _n_s_e_m_s] [--QQ] [--pp _m_o_d_e]
+
+DDEESSCCRRIIPPTTIIOONN
+       iippccmmkk  allows  you  to create shared memory segments, message queues or
+       semaphore arrays.
+
+OOPPTTIIOONNSS
+       Resources may be specified as follows:
+
+       --MM _s_i_z_e
+              shared memory segment of size _s_i_z_e
+
+       --SS _n_s_e_m_s
+              semaphore array with _n_s_e_m_s elements
+
+       --QQ     message queue
+
+       Other options
+
+       --pp _m_o_d_e
+              permission for the resource (default is 0644)
+
+       --hh     display a short help message and exit
+
+SSEEEE AALLSSOO
+       iippccrrmm(1), iippccss(1)
+
+AAUUTTHHOORR
+       Hayden A. James (hayden.james@gmail.com)
+
+AAVVAAIILLAABBIILLIITTYY
+       The ipcmk command is part of the util-linux package  and  is  available
+       from ftp://ftp.kernel.org/pub/linux/utils/util-linux/.
+
+
+
+util-linux                        March 2008                          IPCMK(1)

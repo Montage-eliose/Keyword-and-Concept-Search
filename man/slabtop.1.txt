@@ -1,0 +1,93 @@
+SLABTOP(1)                       User Commands                      SLABTOP(1)
+
+
+
+NNAAMMEE
+       slabtop - display kernel slab cache information in real time
+
+SSYYNNOOPPSSIISS
+       ssllaabbttoopp [_o_p_t_i_o_n_s]
+
+DDEESSCCRRIIPPTTIIOONN
+       ssllaabbttoopp  displays  detailed kernel slab cache information in real time.
+       It displays a listing of the top caches sorted by  one  of  the  listed
+       sort  criteria.   It also displays a statistics header filled with slab
+       layer information.
+
+OOPPTTIIOONNSS
+       Normal invocation of ssllaabbttoopp does not require any options.  The  behav-
+       ior,  however,  can be fine-tuned by specifying one or more of the fol-
+       lowing flags:
+
+       --dd, ----ddeellaayy=_N
+              Refresh the display every _n in  seconds.   By  default,  ssllaabbttoopp
+              refreshes the display every three seconds.  To exit the program,
+              hit qq..
+
+       --ss, ----ssoorrtt=_S
+              Sort by _S, where _S is one of the sort criteria.
+
+       --oo, ----oonnccee
+              Display the output once and then exit.
+
+       --VV, ----vveerrssiioonn
+              Display version information and exit.
+
+       --hh, ----hheellpp
+              Display usage information and exit.
+
+SSOORRTT CCRRIITTEERRIIAA
+       The following are valid sort criteria used to sort the individual  slab
+       caches and thereby determine what are the "top" slab caches to display.
+       The default sort criteria is to sort by the number of objects ("o").
+
+       The sort criteria can also be  changed  while  slabtop  is  running  by
+       pressing the associated character.
+
+       l   l   l.    cchhaarraacctteerr ddeessccrriippttiioonn    hheeaaddeerr   a    number  of  active
+       objects ACTIVE    b    objects    per    slab    OBJ/SLAB    c    cache
+       size     CACHE  SIZE  l    number  of  slabs     SLABS  v    number  of
+       active  slabs   N/A  n    name NAME   o    number   of   objects   OBJS
+       p    pages per slab    N/A s    object size    OBJ SIZE u    cache uti-
+       lization   USE
+
+CCOOMMMMAANNDDSS
+       ssllaabbttoopp accepts keyboard commands from the user during use.   The  fol-
+       lowing are supported.  In the case of letters, both cases are accepted.
+
+       Each of the valid sort characters are also accepted, to change the sort
+       routine. See the section SSOORRTT CCRRIITTEERRIIAA.
+
+       <<SSPPAACCEEBBAARR>>
+              Refresh the screen.
+
+       QQ      Quit the program.
+
+FFIILLEESS
+       _/_p_r_o_c_/_s_l_a_b_i_n_f_o
+              slab information
+
+SSEEEE AALLSSOO
+       ffrreeee(1), ppss(1), ttoopp(1), vvmmssttaatt(8)
+
+NNOOTTEESS
+       Currently, ssllaabbttoopp requires a 2.4 or later kernel (specifically, a ver-
+       sion  1.1  or later _/_p_r_o_c_/_s_l_a_b_i_n_f_o).  Kernel 2.2 should be supported in
+       the future.
+
+       The slabtop statistic header is tracking how many bytes  of  slabs  are
+       being  used  and it not a measure of physical memory.  The 'Slab' field
+       in the /proc/meminfo file is tracking information about used slab phys-
+       ical memory.
+
+AAUUTTHHOORRSS
+       Written by Chris Rivera and Robert Love.
+
+       ssllaabbttoopp was inspired by Martin Bligh's perl script, vvmmttoopp.
+
+RREEPPOORRTTIINNGG BBUUGGSS
+       Please send bug reports to <procps@freelists.org>
+
+
+
+procps-ng                          June 2011                        SLABTOP(1)

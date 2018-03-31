@@ -1,0 +1,178 @@
+MYSQL_TABLEINFO(1)    User Contributed Perl Documentation   MYSQL_TABLEINFO(1)
+
+
+
+NNAAMMEE
+       mysql_tableinfo - creates and populates information tables with the
+       output of SHOW DATABASES, SHOW TABLES (or SHOW TABLE STATUS), SHOW COL-
+       UMNS and SHOW INDEX.
+
+       This is version 1.1.
+
+SSYYNNOOPPSSIISS
+         mysql_tableinfo [OPTIONS] database_to_write [database_like_wild] [table_like_wild]
+
+         Do not backquote (``) database_to_write,
+         and do not quote ('') database_like_wild or table_like_wild
+
+         Examples:
+
+         mysql_tableinfo info
+
+         mysql_tableinfo info this_db
+
+         mysql_tableinfo info %a% b%
+
+         mysql_tableinfo info --clear-only
+
+         mysql_tableinfo info --col --idx --table-status
+
+DDEESSCCRRIIPPTTIIOONN
+       mysql_tableinfo asks a MySQL server information about its databases,
+       tables, table columns and index, and stores this in tables called `db`,
+       `tbl` (or `tbl_status`), `col`, `idx` (with an optional prefix speci-
+       fied with --prefix).  After that, you can query these information
+       tables, for example to build your admin scripts with SQL queries, like
+
+       SELECT CONCAT("CHECK TABLE ",`database`,".",`table`," EXTENDED;") FROM
+       info.tbl WHERE ... ;
+
+       as people usually do with some other RDBMS (note: to increase the speed
+       of your queries on the info tables, you may add some index on them).
+
+       The database_like_wild and table_like_wild instructs the program to
+       gather information only about databases and tables whose names match
+       these patterns. If the info tables already exist, their rows matching
+       the patterns are simply deleted and replaced by the new ones. That is,
+       old rows not matching the patterns are not touched.  If the data-
+       base_like_wild and table_like_wild arguments are not specified on the
+       command-line they default to "%".
+
+       The program :
+
+       - does CREATE DATABASE IF NOT EXISTS database_to_write where data-
+       base_to_write is the database name specified on the command-line.
+
+       - does CREATE TABLE IF NOT EXISTS database_to_write.`db`
+
+       - fills database_to_write.`db` with the output of SHOW DATABASES LIKE
+       database_like_wild
+
+       - does CREATE TABLE IF NOT EXISTS database_to_write.`tbl` (respectively
+       database_to_write.`tbl_status` if the --tbl-status option is on)
+
+       - for every found database, fills database_to_write.`tbl` (respectively
+       database_to_write.`tbl_status`) with the output of SHOW TABLES FROM
+       found_db LIKE table_like_wild (respectively SHOW TABLE STATUS FROM
+       found_db LIKE table_like_wild)
+
+       - if the --col option is on,
+           * does CREATE TABLE IF NOT EXISTS database_to_write.`col`
+           * for every found table,
+             fills database_to_write.`col` with the output of
+             SHOW COLUMNS FROM found_tbl FROM found_db
+
+       - if the --idx option is on,
+           * does CREATE TABLE IF NOT EXISTS database_to_write.`idx`
+           * for every found table,
+             fills database_to_write.`idx` with the output of
+             SHOW INDEX FROM found_tbl FROM found_db
+
+       Some options may modify this general scheme (see below).
+
+       As mentioned, the contents of the info tables are the output of SHOW
+       commands. In fact the contents are slightly more complete :
+
+       - the `tbl` (or `tbl_status`) info table
+         has an extra column which contains the database name,
+
+       - the `col` info table
+         has an extra column which contains the table name,
+         and an extra column which contains, for each described column,
+         the number of this column in the table owning it (this extra column
+         is called `Seq_in_table`). `Seq_in_table` makes it possible for you
+         to retrieve your columns in sorted order, when you are querying
+         the `col` table.
+
+       - the `index` info table
+         has an extra column which contains the database name.
+
+       Caution: info tables contain certain columns (e.g.  Database, Table,
+       Null...) whose names, as they are MySQL reserved words, need to be
+       backquoted (`...`) when used in SQL statements.
+
+       Caution: as information fetching and info tables filling happen at the
+       same time, info tables may contain inaccurate information about them-
+       selves.
+
+OOPPTTIIOONNSS
+       --clear
+           Does DROP TABLE on the info tables (only those that the program is
+           going to fill, for example if you do not use --col it won't drop
+           the `col` table) and processes normally. Does not drop data-
+           base_to_write.
+
+       --clear-only
+           Same as --clear but exits after the DROPs.
+
+       --col
+           Adds columns information (into table `col`).
+
+       --idx
+           Adds index information (into table `idx`).
+
+       --prefix prefix
+           The info tables are named from the concatenation of prefix and,
+           respectively, db, tbl (or tbl_status), col, idx. Do not quote ('')
+           or backquote (``) prefix.
+
+       -q, --quiet
+           Does not warn you about what the script is going to do (DROP TABLE
+           etc) and does not ask for a confirmation before starting.
+
+       --tbl-status
+           Instead of using SHOW TABLES, uses SHOW TABLE STATUS (much more
+           complete information, but slower).
+
+       --help
+           Display helpscreen and exit
+
+       -u, --user=#
+           user for database login if not current user. Give a user who has
+           sufficient privileges (CREATE, ...).
+
+       -p, --password=# (INSECURE)
+           password to use when connecting to server.  WARNING: Providing a
+           password on command line is insecure as it is visible through /proc
+           to anyone for a short time.
+
+       -h, --host=#
+           host to connect to
+
+       -P, --port=#
+           port to use when connecting to server
+
+       -S, --socket=#
+           UNIX domain socket to use when connecting to server
+
+WWAARRRRAANNTTYY
+       This software is free and comes without warranty of any kind. You
+       should never trust backup software without studying the code yourself.
+       Study the code inside this script and only rely on it if _y_o_u believe
+       that it does the right thing for you.
+
+       Patches adding bug fixes, documentation and new features are welcome.
+
+TTOO DDOO
+       Use extended inserts to be faster (for servers with many databases or
+       tables). But to do that, must care about net-buffer-length.
+
+AAUUTTHHOORR
+       2002-06-18 Guilhem Bichot (guilhem.bichot@mines-paris.org)
+
+       And all the authors of mysqlhotcopy, which served as a model for the
+       structure of the program.
+
+
+
+perl v5.8.0                       2003-04-05                MYSQL_TABLEINFO(1)

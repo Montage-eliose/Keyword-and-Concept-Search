@@ -1,0 +1,60 @@
+IPCS(1)                          User Commands                         IPCS(1)
+
+
+
+NNAAMMEE
+       ipcs - provide information on ipc facilities
+
+SSYYNNOOPPSSIISS
+       iippccss [--aassmmqq] [--ttcclluupp]
+       iippccss [--ssmmqq] --ii _i_d
+       iippccss --hh
+
+DDEESSCCRRIIPPTTIIOONN
+       iippccss  provides  information on the ipc facilities for which the calling
+       process has read access.
+
+       The --ii option allows a specific resource  _i_d  to  be  specified.   Only
+       information on this _i_d will be printed.
+
+       Resources may be specified as follows:
+
+       --mm     shared memory segments
+
+       --qq     message queues
+
+       --ss     semaphore arrays
+
+       --aa     all (this is the default)
+
+       The output format may be specified as follows:
+
+       --tt     time
+
+       --pp     pid
+
+       --cc     creator
+
+       --ll     limits
+
+       --uu     summary
+
+SSEEEE AALLSSOO
+       iippccrrmm(1), iippccmmkk(1)
+
+CCOONNFFOORRMMIINNGG TTOO
+       The  Linux ipcs utility is not fully compatible to the POSIX ipcs util-
+       ity.  The Linux version does not support the --bb  and  --oo  options,  but
+       does  support  the --ll and --uu options not defined by POSIX. The portable
+       application shall not use the --aa, --bb, --oo, --ll, and --uu options.
+
+AAUUTTHHOORR
+       krishna balasubramanian (balasub@cis.ohio-state.edu)
+
+AAVVAAIILLAABBIILLIITTYY
+       The ipcs command is part of the util-linux  package  and  is  available
+       from ftp://ftp.kernel.org/pub/linux/utils/util-linux/.
+
+
+
+util-linux                       February 2008                         IPCS(1)

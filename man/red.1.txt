@@ -1,0 +1,70 @@
+ED(1)                            User Commands                           ED(1)
+
+
+
+NNAAMMEE
+       Ed - line-oriented text editor
+
+SSYYNNOOPPSSIISS
+       eedd [_o_p_t_i_o_n_s] [_f_i_l_e]
+
+DDEESSCCRRIIPPTTIIOONN
+       GNU Ed - The GNU line editor.
+
+OOPPTTIIOONNSS
+       --hh, ----hheellpp
+              display this help and exit
+
+       --VV, ----vveerrssiioonn
+              output version information and exit
+
+       --GG, ----ttrraaddiittiioonnaall
+              run in compatibility mode
+
+       --ll, ----lloooossee--eexxiitt--ssttaattuuss
+              exit with 0 status even if a command fails
+
+       --pp, ----pprroommpptt=_S_T_R_I_N_G
+              use STRING as an interactive prompt
+
+       --rr, ----rreessttrriicctteedd
+              run in restricted mode
+
+       --ss, ----qquuiieett, ----ssiilleenntt
+              suppress diagnostics
+
+       --vv, ----vveerrbboossee
+              be verbose
+
+       Start edit by reading in 'file' if given.  If 'file' begins with a '!',
+       read output of shell command.
+
+       Exit status: 0 for a normal exit, 1 for  environmental  problems  (file
+       not  found, invalid flags, I/O errors, etc), 2 to indicate a corrupt or
+       invalid input file, 3 for an internal consistency error (eg, bug) which
+       caused ed to panic.
+
+RREEPPOORRTTIINNGG BBUUGGSS
+       Report bugs to <bug-ed@gnu.org>.
+       Ed home page: http://www.gnu.org/software/ed/ed.html
+       General help using GNU software: http://www.gnu.org/gethelp
+
+CCOOPPYYRRIIGGHHTT
+       Copyright (C) 1994 Andrew L. Moore.
+       Copyright  (C) 2013 Free Software Foundation, Inc.  License GPLv3+: GNU
+       GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+       This is free software: you are free  to  change  and  redistribute  it.
+       There is NO WARRANTY, to the extent permitted by law.
+
+SSEEEE AALLSSOO
+       The  full  documentation  for EEdd is maintained as a Texinfo manual.  If
+       the iinnffoo and EEdd programs are properly installed at your site, the  com-
+       mand
+
+              iinnffoo EEdd
+
+       should give you access to the complete manual.
+
+
+
+Ed 1.9                             June 2013                             ED(1)

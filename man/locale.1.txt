@@ -1,0 +1,118 @@
+LOCALE(1)                      Debian GNU/Linux                      LOCALE(1)
+
+
+
+NNAAMMEE
+       locale - Get locale-specific information.
+
+SSYYNNOOPPSSIISS
+       llooccaallee [[ -a | -m]]
+
+       llooccaallee [[ -ck ]] _n_a_m_e...
+
+DDEESSCCRRIIPPTTIIOONN
+       The _l_o_c_a_l_e program writes information about the current locale environ-
+       ment, or all locales, to standard output.
+
+       When invoked without arguments, _l_o_c_a_l_e summarizes the current locale
+       environment for each locale category defined by the LC_* environment
+       variables.
+
+       --aa, ----aallll--llooccaalleess
+
+               Write names of available locales.
+
+       --mm, ----cchhaarrmmaappss
+
+               Write names of available charmaps.
+
+
+       OOuuttppuutt FFoorrmmaatt::
+
+       --cc, ----ccaatteeggoorryy--nnaammee
+
+               Write names of selected categories.
+
+       --kk, ----kkeeyywwoorrdd--nnaammee
+
+               Write names and values of selected keywords.
+
+
+EENNVVIIRROONNMMEENNTT VVAARRIIAABBLLEESS
+       These environment variables affect each locale categories for all
+       locale-aware programs:
+
+       LC_CTYPE
+
+               Character classification and case conversion.
+
+       LC_COLLATE
+
+               Collation order.
+
+       LC_TIME
+
+               Date and time formats.
+
+       LC_NUMERIC
+
+               Non-monetary numeric formats.
+
+       LC_MONETARY
+
+               Monetary formats.
+
+       LC_MESSAGES
+
+               Formats of informative and diagnostic messages and
+               interactive responses.
+
+       LC_PAPER
+
+               Paper size.
+
+       LC_NAME
+
+               Name formats.
+
+       LC_ADDRESS
+
+               Address formats and location information.
+
+       LC_TELEPHONE
+
+               Telephone number formats.
+
+       LC_MEASUREMENT
+
+               Measurement units (Metric or Other).
+
+       LC_IDENTIFICATION
+
+               Metadata about the locale information.
+
+       This environment variable can switch against multiple locale database:
+
+       LOCPATH
+
+               The directory where locale data is stored.  By default, /usr/lib/locale is used.
+
+
+
+FFIILLEESS
+       _/_u_s_r_/_s_h_a_r_e_/_i_1_8_n_/_S_U_P_P_O_R_T_E_D
+               List of supported values (and their associated encoding) for
+               the locale name.  This representation is recommended over
+               ----aallll--llooccaalleess one, due being the system wide supported values.
+AAUUTTHHOORR
+       _l_o_c_a_l_e was written by Ulrich Drepper for the GNU C Library.
+       This manpage was written by Joel Klecker <espy@debian.org> for the
+       Debian GNU/Linux system, and expanded by Alastair McKinstry <mck-
+       instry@computer.org>
+SSEEEE AALLSSOO
+       llooccaallee(5), llooccaallee(7), sseettllooccaallee(3)
+
+
+
+
+3rd Berkeley Distribution         2004-12-16                         LOCALE(1)

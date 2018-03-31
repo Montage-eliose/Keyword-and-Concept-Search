@@ -1,0 +1,74 @@
+MYSQL_WAITPID(1)             MySQL Database System            MYSQL_WAITPID(1)
+
+
+
+NNAAMMEE
+       mysql_waitpid - kill process and wait for its termination
+
+SSYYNNOOPPSSIISS
+       mmyyssqqll__wwaaiittppiidd [[_o_p_t_i_o_n_s]] _p_i_d _w_a_i_t___t_i_m_e
+
+DDEESSCCRRIIPPTTIIOONN
+       mmyyssqqll__wwaaiittppiidd signals a process to terminate and waits for the process
+       to exit. It uses the kill() system call and Unix signals, so it runs on
+       Unix and Unix-like systems.
+
+       Invoke mmyyssqqll__wwaaiittppiidd like this:
+
+           shell> mmyyssqqll__wwaaiittppiidd [[_o_p_t_i_o_n_s]] _p_i_d _w_a_i_t___t_i_m_e
+
+       mmyyssqqll__wwaaiittppiidd sends signal 0 to the process identified by _p_i_d and waits
+       up to _w_a_i_t___t_i_m_e seconds for the process to terminate.  _p_i_d and
+       _w_a_i_t___t_i_m_e must be positive integers.
+
+       If process termination occurs within the wait time or the process does
+       not exist, mmyyssqqll__wwaaiittppiidd returns 0. Otherwise, it returns 1.
+
+       If the kill() system call cannot handle signal 0, mmyyssqqll__wwaaiittppiidd(()) uses
+       signal 1 instead.
+
+       mmyyssqqll__wwaaiittppiidd supports the following options:
+
+       +o   ----hheellpp, --??, --II
+
+           Display a help message and exit.
+
+       +o   ----vveerrbboossee, --vv
+
+           Verbose mode. Display a warning if signal 0 could not be used and
+           signal 1 is used instead.
+
+       +o   ----vveerrssiioonn, --VV
+
+           Display version information and exit.
+
+CCOOPPYYRRIIGGHHTT
+       Copyright (C) 1997, 2016, Oracle and/or its affiliates. All rights
+       reserved.
+
+       This documentation is free software; you can redistribute it and/or
+       modify it only under the terms of the GNU General Public License as
+       published by the Free Software Foundation; version 2 of the License.
+
+       This documentation is distributed in the hope that it will be useful,
+       but WITHOUT ANY WARRANTY; without even the implied warranty of
+       MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+       General Public License for more details.
+
+       You should have received a copy of the GNU General Public License along
+       with the program; if not, write to the Free Software Foundation, Inc.,
+       51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA or see
+       http://www.gnu.org/licenses/.
+
+
+SSEEEE AALLSSOO
+       For more information, please refer to the MySQL Reference Manual, which
+       may already be installed locally and which is also available online at
+       http://dev.mysql.com/doc/.
+
+AAUUTTHHOORR
+       Oracle Corporation (http://dev.mysql.com/).
+
+
+
+MySQL 5.5                         03/01/2016                  MYSQL_WAITPID(1)

@@ -1,0 +1,89 @@
+MANPATH(1)                    Manual pager utils                    MANPATH(1)
+
+
+
+NNAAMMEE
+       manpath - determine search path for manual pages
+
+SSYYNNOOPPSSIISS
+       mmaannppaatthh [--qqggddcc??VV] [--mm _s_y_s_t_e_m[,...]] [--CC _f_i_l_e]
+
+DDEESSCCRRIIPPTTIIOONN
+       If  $MMAANNPPAATTHH is set, mmaannppaatthh will simply display its contents and issue
+       a warning.  If not, mmaannppaatthh will determine a suitable manual page hier-
+       archy search path and display the results.
+
+       The  colon-delimited  path  is determined using information gained from
+       the man-db configuration file - (_/_e_t_c_/_m_a_n_p_a_t_h_._c_o_n_f_i_g)  and  the  user's
+       environment.
+
+OOPPTTIIOONNSS
+       --qq, ----qquuiieett
+              Do not issue warnings.
+
+       --dd, ----ddeebbuugg
+              Print debugging information.
+
+       --cc, ----ccaattppaatthh
+              Produce  a catpath as opposed to a manpath.  Once the manpath is
+              determined, each path element is converted to its relative  cat-
+              path.
+
+       --gg, ----gglloobbaall
+              Produce  a  manpath  consisting  of  all paths named as `global'
+              within the man-db configuration file.
+
+       --mm _s_y_s_t_e_m[,...], ----ssyysstteemmss==_s_y_s_t_e_m[,...]
+              If this system has access to  other  operating  system's  manual
+              hierarchies, this option can be used to include them in the out-
+              put of mmaannppaatthh.  To include NewOS's manual page hierarchies  use
+              the option --mm NNeewwOOSS.
+
+              The  _s_y_s_t_e_m  specified  can  be a combination of comma delimited
+              operating system names.  To include the  native  operating  sys-
+              tem's  manual  page  hierarchies,  the  system  name mmaann must be
+              included in the argument string.  This option will override  the
+              $SSYYSSTTEEMM environment variable.
+
+       --CC _f_i_l_e, ----ccoonnffiigg--ffiillee==_f_i_l_e
+              Use  this  user  configuration  file  rather than the default of
+              _~_/_._m_a_n_p_a_t_h.
+
+       --??, ----hheellpp
+              Print a help message and exit.
+
+       ----uussaaggee
+              Print a short usage message and exit.
+
+       --VV, ----vveerrssiioonn
+              Display version information.
+
+EENNVVIIRROONNMMEENNTT
+       MMAANNPPAATTHH
+              If $MMAANNPPAATTHH is set,  mmaannppaatthh  displays  its  value  rather  than
+              determining  it on the fly.  If $MMAANNPPAATTHH is prefixed by a colon,
+              then the value of the variable is appended to  the  list  deter-
+              mined from the content of the configuration files.  If the colon
+              comes at the end of the value in the variable, then  the  deter-
+              mined  list  is appended to the content of the variable.  If the
+              value of the variable contains a double  colon  (::::),  then  the
+              determined  list is inserted in the middle of the value, between
+              the two colons.
+
+       SSYYSSTTEEMM If $SSYYSSTTEEMM is set, it will have the same effect  as  if  it  had
+              been specified as the argument to the --mm option.
+
+FFIILLEESS
+       _/_e_t_c_/_m_a_n_p_a_t_h_._c_o_n_f_i_g  man-db configuration file.
+
+SSEEEE AALLSSOO
+       aapprrooppooss(1), mmaann(1), wwhhaattiiss(1)
+
+AAUUTTHHOORR
+       Wilf. (G.Wilford@ee.surrey.ac.uk).
+       Fabrizio Polacco (fpolacco@debian.org).
+       Colin Watson (cjwatson@debian.org).
+
+
+
+2.6.7.1                           2014-04-10                        MANPATH(1)

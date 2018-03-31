@@ -1,0 +1,31 @@
+
+
+BZDIFF(1)                   General Commands Manual                  BZDIFF(1)
+
+
+
+NNAAMMEE
+       bzcmp, bzdiff - compare bzip2 compressed files
+
+SSYYNNOOPPSSIISS
+       bbzzccmmpp [ cmp_options ] file1 [ file2 ]
+       bbzzddiiffff [ diff_options ] file1 [ file2 ]
+
+DDEESSCCRRIIPPTTIIOONN
+       _B_z_c_m_p  and  _b_z_d_i_f_f  are  used  to invoke the _c_m_p or the _d_i_f_f program on
+       bzip2 compressed files.  All options specified are passed  directly  to
+       _c_m_p  or _d_i_f_f.  If only 1 file is specified, then the files compared are
+       _f_i_l_e_1 and an uncompressed _f_i_l_e_1.bz2.  If two files are specified,  then
+       they  are  uncompressed  if necessary and fed to _c_m_p or _d_i_f_f.  The exit
+       status from _c_m_p or _d_i_f_f is preserved.
+
+SSEEEE AALLSSOO
+       cmp(1), diff(1), bzmore(1), bzless(1), bzgrep(1), bzip2(1)
+
+BBUUGGSS
+       Messages from the _c_m_p or _d_i_f_f programs  refer  to  temporary  filenames
+       instead of those specified.
+
+
+
+                                                                     BZDIFF(1)

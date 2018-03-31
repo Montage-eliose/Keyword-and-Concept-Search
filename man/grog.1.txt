@@ -1,0 +1,150 @@
+GROG(1)                     General Commands Manual                    GROG(1)
+
+
+
+NNAAMMEE
+       grog - guess options for groff command
+
+SSYYNNOOPPSSIISS
+       ggrroogg [--CC] [_g_r_o_f_f_-_o_p_t_i_o_n ...] [----] [_f_i_l_e_s_p_e_c ...]
+       ggrroogg --hh | ----hheellpp
+       ggrroogg --vv | ----vveerrssiioonn
+
+DDEESSCCRRIIPPTTIIOONN
+       ggrroogg  reads  the input (file names or standard input) and guesses which
+       of the ggrrooffff(1) options are needed to perform the input with the  ggrrooffff
+       program.  The corresponding ggrrooffff command is output.
+
+OOPPTTIIOONNSS
+       The  only  ggrroogg  options recognized are --CC (which is also passed on) to
+       enable compatibility mode; --vv and ----vveerrssiioonn print  information  on  the
+       version  number; and --hh and ----hheellpp print usage information.  --vv, ----vveerr--
+       ssiioonn, --hh, and ----hheellpp stop the program directly without printing a ggrrooffff
+       command to standard output.
+
+       All  other specified short options (words starting with one minus char-
+       acter --) are interpreted as ggrrooffff options or option  clusters  with  or
+       without  argument.  No space is allowed between options and their argu-
+       ment.  Except from the --mm_a_r_g options, all options will  be  passed  on,
+       i.e.  they are included unchanged in the command for the output without
+       effecting the work of ggrroogg.
+
+       A _f_i_l_e_s_p_e_c argument can either be the name of an  existing  file  or  a
+       single  minus  --  to  mean standard input.  If no _f_i_l_e_s_p_e_c is specified
+       standard input is read automatically.
+
+DDEETTAAIILLSS
+       ggrroogg reads all _f_i_l_e_s_p_e_c parameters as a whole.  It tries to guess which
+       of the following ggrrooffff options are required for running the input under
+       ggrrooffff: --ee, --mmaann, --mmee, --mmmm, --mmoomm, --mmss, --mmddoocc,, --mmddoocc--oolldd,, --pp, --RR, --gg, --GG,
+       --ss,  and --tt.  The guessed ggrrooffff command including those options and the
+       found _f_i_l_e_s_p_e_c parameters is put on the standard output.
+
+       It is possible to specify arbitrary ggrrooffff options on the command  line.
+       These  are  passed  on  the output without change, except for the --mm_a_r_g
+       options.
+
+       The ggrrooffff program has trouble when the wrong --mm_a_r_g option or several of
+       these  options are specified.  In these cases, ggrroogg will print an error
+       message and exit with an error code.  It is better to specify no  --mm_a_r_g
+       option.   Because  such an option is only accepted and passed when ggrroogg
+       does not find any of these options or the same option is found.
+
+       If several different --mm_a_r_g options are found by ggrroogg an  error  message
+       is  produced and the program is terminated with an error code.  But the
+       output is written with the wrong options nevertheless.
+
+       Remember that it is not necessary to determine a macro package.  A _r_o_f_f
+       file  can also be written in the _g_r_o_f_f language without any macro pack-
+       age.  ggrroogg will produce an output without an --mm_a_r_g option.
+
+       As ggrrooffff also works with pure text files  without  any  _r_o_f_f  requests,
+       ggrroogg cannot be used to identify a file to be a _r_o_f_f file.
+
+       The ggrrooffffeerr(1) program heavily depends on a working ggrroogg.
+
+       The  ggrroogg  source  contains  two files written in different programming
+       languages: ggrroogg..ppll is the _P_e_r_l version, while ggrroogg..sshh is a shell script
+       using  aawwkk(1).  During the run of mmaakkee(1), it is determined whether the
+       system contains a suitable version  of  ppeerrll(1).   If  so,  ggrroogg..ppll  is
+       transformed into ggrroogg; otherwise ggrroogg..sshh is used instead.
+
+EEXXAAMMPPLLEESS
+       +o      Calling
+
+                     grog meintro.me
+
+              results in
+
+                     groff -me meintro.me
+
+              So  ggrroogg recognized that the file _m_e_i_n_t_r_o_._m_e is written with the
+              --mmee macro package.
+
+       +o      On the other hand,
+
+                     grog pic.ms
+
+              outputs
+
+                     groff -pte -ms pic.ms
+
+              Besides determining the macro package --mmss, ggrroogg recognized  that
+              the  file  _p_i_c_._m_s additionally needs --ppttee, the combination of --pp
+              for _p_i_c, --tt for _t_b_l, and --ee for _e_q_n.
+
+       +o      If both files are combined by the command
+
+                     grog meintro.me pic.ms
+
+              an error message is sent to standard error because ggrrooffff  cannot
+              work with two different macro packages:
+
+                     grog: error: there are several macro packages: -me -ms
+
+              Additionally  the corresponding output with the wrong options is
+              printed to standard output:
+
+                     groff -pte -me -ms meintro.me pic.ms
+
+              But the program is terminated with an error code.
+
+       +o      The call of
+
+                     grog -ksS -Tdvi grnexmpl.g
+
+              contains several ggrrooffff options that are just passed on the  out-
+              put without any interface to ggrroogg.  These are the option cluster
+              --kkssSS consisting of --kk, --ss, and --SS; and the option --TT with  argu-
+              ment ddvvii.  The output is
+
+                     groff -ksS -Tdvi grnexmpl.g
+
+              so  no  additional option was added by ggrroogg.  As no option --mm_a_r_g
+              was found by ggrroogg this file does not use a macro package.
+
+SSEEEE AALLSSOO
+       ggrrooffff(1), ttrrooffff(1), ttbbll(1), ppiicc(1), cchheemm(1), eeqqnn(1), rreeffeerr(1),  ggrrnn(1),
+       ggrraapp(1),     ssooeelliimm(1),    ggrrooffff__mmee(7),    ggrrooffff__mmss(7),    ggrrooffff__mmmm(7),
+       ggrrooffff__mmoomm(7), ggrrooffff__mmaann(7), ggrrooffffeerr(1)
+
+CCOOPPYYIINNGG
+       Copyright (C) 1989-2003, 2006, 2007, 2009-2012  Free  Software  Founda-
+       tion,  Inc.   Written  by  James  Clark.   Maintained by Werner Lemberg
+       <wl@gnu.org>.  Rewritten and put under  GPL  by  Bernd  Warken  <groff-
+       bernd.warken-72@web.de>.
+
+       This  file  is  part  of  _g_r_o_g, which is part of _g_r_o_f_f, a free software
+       project.  You can redistribute it and/or modify it under the  terms  of
+       the  GGNNUU GGeenneerraall PPuubblliicc LLiicceennssee (GPL) as published by the FFrreeee SSooffttwwaarree
+       FFoouunnddaattiioonn, either version 2, or (at your option) any later version.
+
+       You should have received a copy of the GNU General Public License along
+       with  _g_r_o_f_f,  see the files CCOOPPYYIINNGG and LLIICCEENNSSEE in the top directory of
+       the _g_r_o_f_f source package.  Or read the _m_a_n _p_a_g_e ggppll(1).  You  can  also
+       write  to  the  FFrreeee SSooffttwwaarree FFoouunnddaattiioonn,, 5511 FFrraannkklliinn SStt -- FFiifftthh FFlloooorr,,
+       BBoossttoonn,, MMAA 0022111100--11330011,, UUSSAA.
+
+
+
+Groff Version 1.22.2           07 February 2013                        GROG(1)

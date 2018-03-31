@@ -1,0 +1,39 @@
+XZLESS(1)                          XZ Utils                          XZLESS(1)
+
+
+
+NNAAMMEE
+       xzless, lzless - view xz or lzma compressed (text) files
+
+SSYYNNOOPPSSIISS
+       xxzzlleessss [_f_i_l_e...]
+       llzzlleessss [_f_i_l_e...]
+
+DDEESSCCRRIIPPTTIIOONN
+       xxzzlleessss is a filter that displays text from compressed files to a termi-
+       nal.  It works on files compressed with xxzz(1) or llzzmmaa(1).  If no  _f_i_l_e_s
+       are given, xxzzlleessss reads from standard input.
+
+       xxzzlleessss  uses  lleessss(1) to present its output.  Unlike xxzzmmoorree, its choice
+       of pager cannot be altered by setting an  environment  variable.   Com-
+       mands  are  based  on  both  mmoorree(1) and vvii(1) and allow back and forth
+       movement and searching.  See the lleessss(1) manual for more information.
+
+       The command named llzzlleessss is provided for  backward  compatibility  with
+       LZMA Utils.
+
+EENNVVIIRROONNMMEENNTT
+       LLEESSSSMMEETTAACCHHAARRSS
+              A list of characters special to the shell.  Set by xxzzlleessss unless
+              it is already set in the environment.
+
+       LLEESSSSOOPPEENN
+              Set to a command line to invoke the xxzz(1) decompressor for  pre-
+              processing the input files to lleessss(1).
+
+SSEEEE AALLSSOO
+       lleessss(1), xxzz(1), xxzzmmoorree(1), zzlleessss(1)
+
+
+
+Tukaani                           2010-09-27                         XZLESS(1)

@@ -1,0 +1,80 @@
+ICONV(1)                       Debian GNU/Linux                       ICONV(1)
+
+
+
+NNNNAAAAMMMMEEEE
+       iconv - Convert encoding of given files from one encoding to another
+
+SSSSYYYYNNNNOOOOPPPPSSSSIIIISSSS
+       iconv ----ffff _e_n_c_o_d_i_n_g [----tttt _e_n_c_o_d_i_n_g] _[_i_n_p_u_t_f_i_l_e_]...
+
+DDDDEEEESSSSCCCCRRRRIIIIPPPPTTTTIIIIOOOONNNN
+       The iiiiccccoooonnnnvvvv program converts the encoding of characters in _i_n_p_u_t_f_i_l_e, or
+       from the standard input if no filename is specified, from one coded
+       character set to another. The result is written to standard output
+       unless otherwise specified by the --------oooouuuuttttppppuuuutttt option.
+
+       --------ffffrrrroooommmm----ccccooooddddeeee, ----ffff _e_n_c_o_d_i_n_g
+              Convert characters from _e_n_c_o_d_i_n_g.
+
+       --------ttttoooo----ccccooooddddeeee, ----tttt _e_n_c_o_d_i_n_g
+              Convert characters to _e_n_c_o_d_i_n_g. If not specified the encoding
+              corresponding to the current locale is used.
+
+       --------lllliiiisssstttt, ----llll
+              List known coded character sets.
+
+       ----cccc     Omit invalid characters from output.
+
+       --------oooouuuuttttppppuuuutttt, ----oooo _f_i_l_e
+              Specify output file (instead of stdout).
+
+       --------ssssiiiilllleeeennnntttt, ----ssss
+              Suppress warnings, but not errors.
+
+       --------vvvveeeerrrrbbbboooosssseeee
+              Print progress information.
+
+       --------hhhheeeellllpppp, ----????
+              Give help list.
+
+       --------uuuussssaaaaggggeeee
+              Give a short usage message.
+
+       --------vvvveeeerrrrssssiiiioooonnnn, ----VVVV
+              Print program version.
+
+EEEENNNNCCCCOOOODDDDIIIINNNNGGGGSSSS
+       The values permitted for _-_-_f_r_o_m_-_c_o_d_e and _-_-_t_o_-_c_o_d_e can be listed by the
+       iiiiccccoooonnnnvvvv --------lllliiiisssstttt command, and all combinations of the listed values are
+       supported. Furthermore the following two suffixes are supported:
+
+       //TRANSLIT
+              When the string "//TRANSLIT" is appended to _-_-_t_o_-_c_o_d_e,
+              transliteration is activated.  This means that when a character
+              cannot be represented in the target character set, it can be
+              approximated through one or several similarly looking
+              characters.
+
+       //IGNORE
+              When the string "//IGNORE" is appended to _-_-_t_o_-_c_o_d_e, characters
+              that cannot be represented in the target character set will be
+              silently discarded.
+
+
+AAAAUUUUTTTTHHHHOOOORRRR
+       _i_c_o_n_v was written by Ulrich Drepper as part of the GNU C Library.
+
+       This man page was written by Joel Klecker <espy@debian.org>, for the
+       Debian GNU/Linux system.
+
+
+
+
+
+
+
+
+
+
+3rd Berkeley Distribution            lenny                            ICONV(1)

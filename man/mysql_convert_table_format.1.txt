@@ -1,0 +1,106 @@
+MYSQL_CONVERT_TAB(1)         MySQL Database System        MYSQL_CONVERT_TAB(1)
+
+
+
+NNAAMMEE
+       mysql_convert_table_format - convert tables to use a given storage
+       engine
+
+SSYYNNOOPPSSIISS
+       mmyyssqqll__ccoonnvveerrtt__ttaabbllee__ffoorrmmaatt [[_o_p_t_i_o_n_s]] _d_b___n_a_m_e
+
+DDEESSCCRRIIPPTTIIOONN
+       mmyyssqqll__ccoonnvveerrtt__ttaabbllee__ffoorrmmaatt converts the tables in a database to use a
+       particular storage engine (MyISAM by default).
+       mmyyssqqll__ccoonnvveerrtt__ttaabbllee__ffoorrmmaatt is written in Perl and requires that the DBI
+       and DBD::mysql Perl modules be installed (see Section 2.13, "Perl
+       Installation Notes").
+
+       Invoke mmyyssqqll__ccoonnvveerrtt__ttaabbllee__ffoorrmmaatt like this:
+
+           shell> mmyyssqqll__ccoonnvveerrtt__ttaabbllee__ffoorrmmaatt [[_o_p_t_i_o_n_s]]_d_b___n_a_m_e
+
+       The _d_b___n_a_m_e argument indicates the database containing the tables to be
+       converted.
+
+       mmyyssqqll__ccoonnvveerrtt__ttaabbllee__ffoorrmmaatt supports the options described in the
+       following list.
+
+       +o   ----hheellpp
+
+           Display a help message and exit.
+
+       +o   ----ffoorrccee
+
+           Continue even if errors occur.
+
+       +o   ----hhoosstt==_h_o_s_t___n_a_m_e
+
+           Connect to the MySQL server on the given host.
+
+       +o   ----ppaasssswwoorrdd==_p_a_s_s_w_o_r_d
+
+           The password to use when connecting to the server. Note that the
+           password value is not optional for this option, unlike for other
+           MySQL programs.
+
+           Specifying a password on the command line should be considered
+           insecure. See Section 6.1.2.1, "End-User Guidelines for Password
+           Security". You can use an option file to avoid giving the password
+           on the command line.
+
+       +o   ----ppoorrtt==_p_o_r_t___n_u_m
+
+           The TCP/IP port number to use for the connection.
+
+       +o   ----ssoocckkeett==_p_a_t_h
+
+           For connections to localhost, the Unix socket file to use.
+
+       +o   ----ttyyppee==_e_n_g_i_n_e___n_a_m_e
+
+           Specify the storage engine that the tables should be converted to
+           use. The default is MyISAM if this option is not given.
+
+       +o   ----uusseerr==_u_s_e_r___n_a_m_e
+
+           The MySQL user name to use when connecting to the server.
+
+       +o   ----vveerrbboossee
+
+           Verbose mode. Print more information about what the program does.
+
+       +o   ----vveerrssiioonn
+
+           Display version information and exit.
+
+CCOOPPYYRRIIGGHHTT
+       Copyright (C) 1997, 2016, Oracle and/or its affiliates. All rights
+       reserved.
+
+       This documentation is free software; you can redistribute it and/or
+       modify it only under the terms of the GNU General Public License as
+       published by the Free Software Foundation; version 2 of the License.
+
+       This documentation is distributed in the hope that it will be useful,
+       but WITHOUT ANY WARRANTY; without even the implied warranty of
+       MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+       General Public License for more details.
+
+       You should have received a copy of the GNU General Public License along
+       with the program; if not, write to the Free Software Foundation, Inc.,
+       51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA or see
+       http://www.gnu.org/licenses/.
+
+
+SSEEEE AALLSSOO
+       For more information, please refer to the MySQL Reference Manual, which
+       may already be installed locally and which is also available online at
+       http://dev.mysql.com/doc/.
+
+AAUUTTHHOORR
+       Oracle Corporation (http://dev.mysql.com/).
+
+
+
+MySQL 5.5                         03/01/2016              MYSQL_CONVERT_TAB(1)

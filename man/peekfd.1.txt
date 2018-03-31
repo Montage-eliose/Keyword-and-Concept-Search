@@ -1,0 +1,60 @@
+PEEKFD(1)                        User Commands                       PEEKFD(1)
+
+
+
+NNAAMMEE
+       peekfd - peek at file descriptors of running processes
+
+SSYYNNOOPPSSIISS
+       ppeeeekkffdd     [--88,----eeiigghhtt--bbiitt--cclleeaann]    [--nn,----nnoo--hheeaaddeerrss]    [--ff,----ffoollllooww]
+       [--dd,----dduupplliiccaatteess--rreemmoovveedd] [--VV,----vveerrssiioonn] [--hh,----hheellpp] _p_i_d [_f_d] [_f_d] ......
+
+DDEESSCCRRIIPPTTIIOONN
+       ppeeeekkffdd attaches to a running  process  and  intercepts  all  reads  and
+       writes  to file descriptors.  You can specify the desired file descrip-
+       tor numbers or dump all of them.
+
+OOPPTTIIOONNSS
+       -8     Do no post-processing on the bytes being read or written.
+
+       -n     Do not display  headers  indicating  the  source  of  the  bytes
+              dumped.
+
+       -c     Also  dump  the  requested  file  descriptor activity in any new
+              child processes that are created.
+
+       -d     Remove duplicate read/writes from the output.  If you're looking
+              at a tty with echo, you might want this.
+
+       -v     Display a version string.
+
+       -h     Display a help message.
+
+FFIILLEESS
+       _/_p_r_o_c_/_*_/_f_d
+              Not  used  but  useful  for the user to look at to get good file
+              descriptor numbers.
+
+EENNVVIIRROONNMMEENNTT
+       None.
+
+DDIIAAGGNNOOSSTTIICCSS
+       The following diagnostics may be issued on stderr:
+
+       EErrrroorr aattttaacchhiinngg ttoo ppiidd ......
+              An unknown  error  occurred  while  attempted  to  attach  to  a
+              process..  you may need to be root.
+
+BBUUGGSS
+       Probably  lots.   Don't  be surprised if the process you are monitoring
+       dies.
+
+AAUUTTHHOORR
+       Trent Waddington <trent.waddington@gmail.com>
+
+SSEEEE AALLSSOO
+       ttttyyssnnoooopp(8)
+
+
+
+psmisc                            2012-07-28                         PEEKFD(1)

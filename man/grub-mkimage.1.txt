@@ -1,0 +1,86 @@
+GRUB-MKIMAGE(1)                  User Commands                 GRUB-MKIMAGE(1)
+
+
+
+NNAAMMEE
+       grub-mkimage - make a bootable image of GRUB
+
+SSYYNNOOPPSSIISS
+       ggrruubb--mmkkiimmaaggee [_O_P_T_I_O_N...] [_O_P_T_I_O_N]... [_M_O_D_U_L_E_S]
+
+DDEESSCCRRIIPPTTIIOONN
+       Make a bootable image of GRUB.
+
+       --cc, ----ccoonnffiigg=_F_I_L_E
+              embed FILE as an early config
+
+       --CC, ----ccoommpprreessssiioonn==(xz|none|auto)
+              choose the compression to use for core image
+
+       --dd, ----ddiirreeccttoorryy=_D_I_R
+              use  images  and modules under DIR [default=/usr/lib/grub/<plat-
+              form>]
+
+       --kk, ----ppuubbkkeeyy=_F_I_L_E
+              embed FILE as public key for signature checking
+
+       --mm,                              ----mmeemmddiisskk=_F_I_L_E
+              embed FILE as a memdisk image
+
+       Implies `-p (memdisk)/boot/grub' and overrides
+
+              any prefix supplied previously, but the  prefix  itself  can  be
+              overridden by later options
+
+       --nn, ----nnoottee
+              add NOTE segment for CHRP IEEE1275
+
+       --oo, ----oouuttppuutt=_F_I_L_E
+              output a generated image to FILE [default=stdout]
+
+       --OO, ----ffoorrmmaatt=_F_O_R_M_A_T
+              generate  an  image  in FORMAT available formats: i386-coreboot,
+              i386-multiboot,    i386-pc,    i386-pc-pxe,    i386-pc-eltorito,
+              i386-efi,   i386-ieee1275,   i386-qemu,   x86_64-efi,  i386-xen,
+              x86_64-xen,    mipsel-yeeloong-flash,    mipsel-fuloong2f-flash,
+              mipsel-loongson-elf,   powerpc-ieee1275,   sparc64-ieee1275-raw,
+              sparc64-ieee1275-cdcore,    sparc64-ieee1275-aout,     ia64-efi,
+              mips-arc,            mipsel-arc,           mipsel-qemu_mips-elf,
+              mips-qemu_mips-flash,                    mipsel-qemu_mips-flash,
+              mips-qemu_mips-elf, arm-uboot, arm-efi, arm64-efi
+
+       --pp, ----pprreeffiixx=_D_I_R
+              set prefix directory [default=/boot/grub]
+
+       --vv, ----vveerrbboossee
+              print verbose messages.
+
+       -?, ----hheellpp
+              give this help list
+
+       ----uussaaggee
+              give a short usage message
+
+       --VV, ----vveerrssiioonn
+              print program version
+
+       Mandatory  or  optional arguments to long options are also mandatory or
+       optional for any corresponding short options.
+
+RREEPPOORRTTIINNGG BBUUGGSS
+       Report bugs to <bug-grub@gnu.org>.
+
+SSEEEE AALLSSOO
+       ggrruubb--iinnssttaallll(8), ggrruubb--mmkkrreessccuuee(1), ggrruubb--mmkknneettddiirr(8)
+
+       The full documentation for ggrruubb--mmkkiimmaaggee is maintained as a Texinfo man-
+       ual.   If  the iinnffoo and ggrruubb--mmkkiimmaaggee programs are properly installed at
+       your site, the command
+
+              iinnffoo ggrruubb--mmkkiimmaaggee
+
+       should give you access to the complete manual.
+
+
+
+grub-mkimage (GRUB) 2.02~beta2-9ubDuencteum1b.e7r 2015                 GRUB-MKIMAGE(1)

@@ -1,0 +1,36 @@
+PRTSTAT(1)                       User Commands                      PRTSTAT(1)
+
+
+
+NNAAMMEE
+       prtstat - print statistics of a process
+
+SSYYNNOOPPSSIISS
+       pprrttssttaatt [--rr|----rraaww] _p_i_d
+       pprrttssttaatt -V||--version
+
+DDEESSCCRRIIPPTTIIOONN
+       pprrttssttaatt  prints the statistics of the specified process.  This informa-
+       tion comes from the _/_p_r_o_c_/_P_I_D_/_s_t_a_t file.
+
+OOPPTTIIOONNSS
+       --rr, ----rraaww
+              Print the information in raw format.
+
+       --VV, ----vveerrssiioonn
+              Show the version information for pprrttssttaatt.
+
+OOPPTTIIOONNSS
+       --rr, ----rraaww
+              Print the information in raw format.
+
+       --VV, ----vveerrssiioonn
+              Show the version information for pprrttssttaatt.
+
+FFIILLEESS
+       /proc/<PID>/stat
+              source of the information pprrttssttaatt uses
+
+
+
+psmisc                            2012-07-28                        PRTSTAT(1)

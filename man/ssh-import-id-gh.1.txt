@@ -1,0 +1,72 @@
+ssh-import-id(1)                  ssh-import                  ssh-import-id(1)
+
+
+
+NNAAMMEE
+       sssshh--iimmppoorrtt--iidd  -  retrieve  one  or more public keys from a public key-
+       server and append them to the current user's authorized_keys  file  (or
+       some other specified file)
+
+
+SSYYNNOOPPSSIISS
+       sssshh--iimmppoorrtt--iidd [[ooppttiioonnss]] UUSSEERR__IIDD__11 [[gghh::UUSSEERR__IIDD__22]] ...... [[llpp::UUSSEERR__IIDD__nn]]
+
+       sssshh--iimmppoorrtt--iidd--llpp UUSSEERR__IIDD__11 [[UUSSEERR__IIDD__22]] ...... [[UUSSEERR__IIDD__nn]]
+
+       sssshh--iimmppoorrtt--iidd--gghh UUSSEERR__IIDD__11 [[UUSSEERR__IIDD__22]] ...... [[UUSSEERR__IIDD__nn]]
+
+
+OOPPTTIIOONNSS
+        -h | --help        usage
+        -o  |  --output  F    write  output to file 'F' (default ~/.ssh/autho-
+       rized_keys, use "-" for standard out)
+        -r | --remove      remove keys from authorized keys file 'F'
+        PROTO:USER_ID      Protocol can be 'lp' for Launchpad.net, or 'gh' for
+       Github.com
+
+
+DDEESSCCRRIIPPTTIIOONN
+       This  utility will securely contact a public keyserver and retrieve one
+       or more user's public keys, and append  these  to  the  current  user's
+       _~_/_._s_s_h_/_a_u_t_h_o_r_i_z_e_d___k_e_y_s  file,  standard  output  or any other specified
+       output file.
+
+       User IDs can be prepended by a protocol:
+
+        - llpp:: to use _h_t_t_p_s_:_/_/_l_a_u_n_c_h_p_a_d_._n_e_t_/_~_%_s_/_+_s_s_h_k_e_y_s
+        - gghh:: to use _h_t_t_p_s_:_/_/_a_p_i_._g_i_t_h_u_b_._c_o_m_/_u_s_e_r_s_/_%_s_/_k_e_y_s
+
+       If the protocol is not explicitly specified,  then  sssshh--iimmppoorrtt--iidd  will
+       read  a URL variable string from _/_e_t_c_/_s_s_h_/_s_s_h___i_m_p_o_r_t___i_d as installed by
+       your package manager and configured by your system administrator.   You
+       can  override  this  locally  by exporting the string you want in a URL
+       environment variable.  If all of these are empty, then the protocol  is
+       assumed  to  be  "lp:", which was the original target implementation of
+       this tool.
+
+       Any keys added will be "labled" with a trailing comment, "# ssh-import-
+       id  PROTO:USER_ID".   Revoking  keys  will  first look for lines in the
+       authorized keys file ending with that label.
+
+
+SSEEEE AALLSSOO
+       _s_s_h(1)
+
+
+FFIILLEESS
+       _/_e_t_c_/_s_s_h_/_s_s_h___i_m_p_o_r_t___i_d
+
+
+AAUUTTHHOORR
+       This  manpage  and  the  utility  was  written   by   Dustin   Kirkland
+       <dustin.kirkland@gmail.com> for Ubuntu systems (but may be used by oth-
+       ers).  Permission is granted to copy,  distribute  and/or  modify  this
+       document  under  the terms of the GNU General Public License, Version 3
+       published by the Free Software Foundation.
+
+       On Debian systems, the complete text of the GNU General Public  License
+       can be found in /usr/share/common-licenses/GPL.
+
+
+
+ssh-import                        4 Feb 2013                  ssh-import-id(1)

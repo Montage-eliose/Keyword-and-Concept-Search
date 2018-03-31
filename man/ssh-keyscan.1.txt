@@ -1,0 +1,109 @@
+SSH-KEYSCAN(1)            BSD General Commands Manual           SSH-KEYSCAN(1)
+
+NNAAMMEE
+     sssshh--kkeeyyssccaann -- gather ssh public keys
+
+SSYYNNOOPPSSIISS
+     sssshh--kkeeyyssccaann [--4466HHvv] [--ff _f_i_l_e] [--pp _p_o_r_t] [--TT _t_i_m_e_o_u_t] [--tt _t_y_p_e]
+                 [_h_o_s_t | _a_d_d_r_l_i_s_t _n_a_m_e_l_i_s_t] _._._.
+
+DDEESSCCRRIIPPTTIIOONN
+     sssshh--kkeeyyssccaann is a utility for gathering the public ssh host keys of a num-
+     ber of hosts.  It was designed to aid in building and verifying
+     _s_s_h___k_n_o_w_n___h_o_s_t_s files.  sssshh--kkeeyyssccaann provides a minimal interface suitable
+     for use by shell and perl scripts.
+
+     sssshh--kkeeyyssccaann uses non-blocking socket I/O to contact as many hosts as pos-
+     sible in parallel, so it is very efficient.  The keys from a domain of
+     1,000 hosts can be collected in tens of seconds, even when some of those
+     hosts are down or do not run ssh.  For scanning, one does not need login
+     access to the machines that are being scanned, nor does the scanning
+     process involve any encryption.
+
+     The options are as follows:
+
+     --44      Forces sssshh--kkeeyyssccaann to use IPv4 addresses only.
+
+     --66      Forces sssshh--kkeeyyssccaann to use IPv6 addresses only.
+
+     --ff _f_i_l_e
+             Read hosts or ``addrlist namelist'' pairs from _f_i_l_e, one per
+             line.  If _- is supplied instead of a filename, sssshh--kkeeyyssccaann will
+             read hosts or ``addrlist namelist'' pairs from the standard
+             input.
+
+     --HH      Hash all hostnames and addresses in the output.  Hashed names may
+             be used normally by sssshh and sssshhdd, but they do not reveal identi-
+             fying information should the file's contents be disclosed.
+
+     --pp _p_o_r_t
+             Port to connect to on the remote host.
+
+     --TT _t_i_m_e_o_u_t
+             Set the timeout for connection attempts.  If _t_i_m_e_o_u_t seconds have
+             elapsed since a connection was initiated to a host or since the
+             last time anything was read from that host, then the connection
+             is closed and the host in question considered unavailable.
+             Default is 5 seconds.
+
+     --tt _t_y_p_e
+             Specifies the type of the key to fetch from the scanned hosts.
+             The possible values are ``rsa1'' for protocol version 1 and
+             ``dsa'', ``ecdsa'', ``ed25519'', or ``rsa'' for protocol version
+             2.  Multiple values may be specified by separating them with com-
+             mas.  The default is to fetch ``rsa'' and ``ecdsa'' keys.
+
+     --vv      Verbose mode.  Causes sssshh--kkeeyyssccaann to print debugging messages
+             about its progress.
+
+SSEECCUURRIITTYY
+     If an ssh_known_hosts file is constructed using sssshh--kkeeyyssccaann without veri-
+     fying the keys, users will be vulnerable to _m_a_n _i_n _t_h_e _m_i_d_d_l_e attacks.
+     On the other hand, if the security model allows such a risk, sssshh--kkeeyyssccaann
+     can help in the detection of tampered keyfiles or man in the middle
+     attacks which have begun after the ssh_known_hosts file was created.
+
+FFIILLEESS
+     Input format:
+
+     1.2.3.4,1.2.4.4 name.my.domain,name,n.my.domain,n,1.2.3.4,1.2.4.4
+
+     Output format for rsa1 keys:
+
+     host-or-namelist bits exponent modulus
+
+     Output format for rsa, dsa and ecdsa keys:
+
+     host-or-namelist keytype base64-encoded-key
+
+     Where _k_e_y_t_y_p_e is either ``ecdsa-sha2-nistp256'', ``ecdsa-sha2-nistp384'',
+     ``ecdsa-sha2-nistp521'', ``ssh-ed25519'', ``ssh-dss'' or ``ssh-rsa''.
+
+     _/_e_t_c_/_s_s_h_/_s_s_h___k_n_o_w_n___h_o_s_t_s
+
+EEXXAAMMPPLLEESS
+     Print the rsa host key for machine _h_o_s_t_n_a_m_e:
+
+     $ ssh-keyscan hostname
+
+     Find all hosts from the file _s_s_h___h_o_s_t_s which have new or different keys
+     from those in the sorted file _s_s_h___k_n_o_w_n___h_o_s_t_s:
+
+     $ ssh-keyscan -t rsa,dsa,ecdsa -f ssh_hosts | \
+             sort -u - ssh_known_hosts | diff ssh_known_hosts -
+
+SSEEEE AALLSSOO
+     ssh(1), sshd(8)
+
+AAUUTTHHOORRSS
+     David Mazieres <_d_m_@_l_c_s_._m_i_t_._e_d_u> wrote the initial version, and Wayne
+     Davison <_w_a_y_n_e_d_@_u_s_e_r_s_._s_o_u_r_c_e_f_o_r_g_e_._n_e_t> added support for protocol version
+     2.
+
+BBUUGGSS
+     It generates "Connection closed by remote host" messages on the consoles
+     of all the machines it scans if the server is older than version 2.9.
+     This is because it opens a connection to the ssh port, reads the public
+     key, and drops the connection as soon as it gets the key.
+
+BSD                             April 29, 2016                             BSD

@@ -1,0 +1,95 @@
+PERROR(1)                    MySQL Database System                   PERROR(1)
+
+
+
+NNAAMMEE
+       perror - explain error codes
+
+SSYYNNOOPPSSIISS
+       ppeerrrroorr [[_o_p_t_i_o_n_s]] _e_r_r_o_r_c_o_d_e ......
+
+DDEESSCCRRIIPPTTIIOONN
+       For most system errors, MySQL displays, in addition to an internal text
+       message, the system error code in one of the following styles:
+
+           message ... (errno: #)
+           message ... (Errcode: #)
+
+       You can find out what the error code means by examining the
+       documentation for your system or by using the ppeerrrroorr utility.
+
+       ppeerrrroorr prints a description for a system error code or for a storage
+       engine (table handler) error code.
+
+       Invoke ppeerrrroorr like this:
+
+           shell> ppeerrrroorr [[_o_p_t_i_o_n_s]] _e_r_r_o_r_c_o_d_e ......
+
+       Example:
+
+           shell> ppeerrrroorr 1133 6644
+           OS error code  13:  Permission denied
+           OS error code  64:  Machine is not on the network
+
+       To obtain the error message for a MySQL Cluster error code, invoke
+       ppeerrrroorr with the ----nnddbb option:
+
+           shell> ppeerrrroorr ----nnddbb _e_r_r_o_r_c_o_d_e
+
+       The meaning of system error messages may be dependent on your operating
+       system. A given error code may mean different things on different
+       operating systems.
+
+       ppeerrrroorr supports the following options.
+
+       +o   ----hheellpp, ----iinnffoo, --II, --??
+
+           Display a help message and exit.
+
+       +o   ----nnddbb
+
+           Print the error message for a MySQL Cluster error code.
+
+       +o   ----ssiilleenntt, --ss
+
+           Silent mode. Print only the error message.
+
+       +o   ----vveerrbboossee, --vv
+
+           Verbose mode. Print error code and message. This is the default
+           behavior.
+
+       +o   ----vveerrssiioonn, --VV
+
+           Display version information and exit.
+
+CCOOPPYYRRIIGGHHTT
+       Copyright (C) 1997, 2016, Oracle and/or its affiliates. All rights
+       reserved.
+
+       This documentation is free software; you can redistribute it and/or
+       modify it only under the terms of the GNU General Public License as
+       published by the Free Software Foundation; version 2 of the License.
+
+       This documentation is distributed in the hope that it will be useful,
+       but WITHOUT ANY WARRANTY; without even the implied warranty of
+       MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+       General Public License for more details.
+
+       You should have received a copy of the GNU General Public License along
+       with the program; if not, write to the Free Software Foundation, Inc.,
+       51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA or see
+       http://www.gnu.org/licenses/.
+
+
+SSEEEE AALLSSOO
+       For more information, please refer to the MySQL Reference Manual, which
+       may already be installed locally and which is also available online at
+       http://dev.mysql.com/doc/.
+
+AAUUTTHHOORR
+       Oracle Corporation (http://dev.mysql.com/).
+
+
+
+MySQL 5.5                         03/01/2016                         PERROR(1)

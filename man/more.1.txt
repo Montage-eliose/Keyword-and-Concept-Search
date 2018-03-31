@@ -1,0 +1,138 @@
+MORE(1)                          User Commands                         MORE(1)
+
+NNAAMMEE
+     mmoorree -- file perusal filter for crt viewing
+
+SSYYNNOOPPSSIISS
+     mmoorree [--ddllffppccssuu] [--nnuumm] [+/_p_a_t_t_e_r_n] [+_l_i_n_e_n_u_m] [_f_i_l_e _._._.]
+
+DDEESSCCRRIIPPTTIIOONN
+     mmoorree is a filter for paging through text one screenful at a time.  This
+     version is especially primitive.  Users should realize that less(1) pro-
+     vides more(1) emulation plus extensive enhancements.
+
+OOPPTTIIOONNSS
+     Command-line options are described below.  Options are also taken from
+     the environment variable MORE (make sure to precede them with a dash
+     (``-'')) but command line options will override them.
+
+     --nnuumm  This option specifies an integer which is the screen size (in
+           lines).
+
+     --dd    mmoorree will prompt the user with the message "[Press space to con-
+           tinue, 'q' to quit.]" and will display "[Press 'h' for instruc-
+           tions.]" instead of ringing the bell when an illegal key is
+           pressed.
+
+     --ll    mmoorree usually treats ^^LL (form feed) as a special character, and will
+           pause after any line that contains a form feed.  The --ll option will
+           prevent this behavior.
+
+     --ff    Causes mmoorree to count logical, rather than screen lines (i.e., long
+           lines are not folded).
+
+     --pp    Do not scroll.  Instead, clear the whole screen and then display
+           the text.
+
+           Notice that this option is switched on automatically if the exe-
+           cutable is named ppaaggee.
+
+     --cc    Do not scroll.  Instead, paint each screen from the top, clearing
+           the remainder of each line as it is displayed.
+
+     --ss    Squeeze multiple blank lines into one.
+
+     --uu    Suppress underlining.
+
+     ++//    The ++// option specifies a string that will be searched for before
+           each file is displayed.
+
+     ++nnuumm  Start at line number nnuumm.
+
+CCOOMMMMAANNDDSS
+     Interactive commands for mmoorree are based on vi(1).  Some commands may be
+     preceded by a decimal number, called k in the descriptions below.  In the
+     following descriptions, ^X means control-X.
+
+     hh or ?      Help: display a summary of these commands.  If you forget all
+                 the other commands, remember this one.
+
+     SSPPAACCEE       Display next k lines of text.  Defaults to current screen
+                 size.
+
+     zz           Display next k lines of text.  Defaults to current screen
+                 size.  Argument becomes new default.
+
+     RREETTUURRNN      Display next k lines of text.  Defaults to 1.  Argument
+                 becomes new default.
+
+     dd or ^^DD     Scroll k lines.  Default is current scroll size, initially
+                 11.  Argument becomes new default.
+
+     qq or QQ or IINNTTEERRRRUUPPTT
+                 Exit.
+
+     ss           Skip forward k lines of text.  Defaults to 1.
+
+     ff           Skip forward k screenfuls of text.  Defaults to 1.
+
+     bb or ^^BB     Skip backwards k screenfuls of text.  Defaults to 1.  Only
+                 works with files, not pipes.
+
+     ''           Go to place where previous search started.
+
+     ==           Display current line number.
+
+     //_p_a_t_t_e_r_n    Search for kth occurrence of regular expression.  Defaults to
+                 1.
+
+     nn           Search for kth occurrence of last r.e.  Defaults to 1.
+
+     !!<<ccmmdd>> or ::!!<<ccmmdd>>
+                 Execute <cmd> in a subshell
+
+     vv           Start up an editor at current line.  The editor is taken from
+                 the environment variable VISUAL if defined, or EDITOR if VIS-
+                 UAL is not defined, or defaults to "vi" if neither VISUAL nor
+                 EDITOR is defined.
+
+     ^^LL          Redraw screen
+
+     ::nn          Go to kth next file.  Defaults to 1.
+
+     ::pp          Go to kth previous file.  Defaults to 1.
+
+     ::ff          Display current file name and line number
+
+     ..           Repeat previous command
+
+EENNVVIIRROONNMMEENNTT
+     MMoorree utilizes the following environment variables, if they exist:
+
+     MORE        This variable may be set with favored options to mmoorree.
+
+     SHELL       Current shell in use (normally set by the shell at login
+                 time).
+
+     TERM        Specifies terminal type, used by more to get the terminal
+                 characteristics necessary to manipulate the screen.
+
+SSEEEE AALLSSOO
+     vi(1), less(1)
+
+AAUUTTHHOORRSS
+     Eric Shienbrood, UC Berkeley
+     Modified by Geoff Peck, UCB to add underlining, single spacing
+     Modified by John Foderaro, UCB to add -c and MORE environment variable
+
+HHIISSTTOORRYY
+     The mmoorree command appeared in 3.0BSD.  This man page documents mmoorree ver-
+     sion 5.19 (Berkeley 6/29/88), which is currently in use in the Linux com-
+     munity.  Documentation was produced using several other versions of the
+     man page, and extensive inspection of the source code.
+
+AAVVAAIILLAABBIILLIITTYY
+     The more command is part of the util-linux package and is available from
+     ftp://ftp.kernel.org/pub/linux/utils/util-linux/.
+
+util-linux                     February 2011                        util-linux

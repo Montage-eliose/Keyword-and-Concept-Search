@@ -1,0 +1,79 @@
+faked(1)                    Debian GNU/Linux manual                   faked(1)
+
+
+
+NNAAMMEE
+       faked  -  daemon  that  remembers  fake  ownership/permissions of files
+       manipulated by fakeroot processes.
+
+SSYYNNOOPPSSIISS
+       ffaakkeedd [[----ddeebbuugg]] [[----ffoorreeggrroouunndd]]  [[----cclleeaannuupp]]  [[----kkeeyy  _m_s_g_-_k_e_y]]  [[----llooaadd]]
+       [[----ssaavvee--ffiillee _s_a_v_e_-_f_i_l_e]] [[----ppoorrtt _T_C_P_-_p_o_r_t]]
+
+DDEESSCCRRIIPPTTIIOONN
+       If  a  fakeroot  process  wants to change the ownership of a file, then
+       ffaakkeedd is the process that remembers that new owner. If later  the  same
+       fakeroot  process does a stat() for that filename, then the libfakeroot
+       wrapped stat() call will first ask faked for the fake ownership etc  of
+       that file, and then report it.
+
+
+OOPPTTIIOONNSS
+       ----ddeebbuugg
+              Print debugging information on stderr.
+
+       ----ffoorreeggrroouunndd
+              Don't fork into the background.
+
+       ----cclleeaannuupp  nnuummbbeerr
+              Cleanup the semaphores.
+
+       ----kkeeyy  kkeeyy--nnuummbbeerr
+              Don't  allocate  a  new  communication  channel, but use channel
+              specified by key. (If the specified channel doesn't exist,  it's
+              created).
+
+       ----ssaavvee--ffiillee  ssaavvee--ffiillee
+              Save the environment to save-file on exit.
+
+       ----llooaadd Load a previously saved environment from the standard input.
+
+       ----uunnkknnoowwnn--iiss--rreeaall
+              Use  real  ownership of previously-unknown files instead of set-
+              ting them to root:root.
+
+       ----ppoorrtt  ttccpp--ppoorrtt
+              Use TCP port tcp-port.
+
+
+BBUUGGSS
+       None so far. Be warned, though: although I've written quite a few  much
+       larger  (and smaller) programs, I've never written anything that was as
+       tiny as ffaakkeerroooott, had as many bugs as ffaakkeerroooott, and still was as usable
+       as,  say,  ffaakkeerroooott version 0.0_3, the first version that could be used
+       to build itself.
+
+CCOOPPYYIINNGG
+       ffaakkeerroooott is distributed under the GNU General Public License.  (GPL 2.0
+       or greater).
+
+AAUUTTHHOORRSS
+       joost witteveen
+              <_j_o_o_s_t_j_e_@_d_e_b_i_a_n_._o_r_g>
+
+       Clint Adams
+              <_c_l_i_n_t_@_d_e_b_i_a_n_._o_r_g>
+
+       Timo Savola
+
+MMAANNUUAALL PPAAGGEE
+       mostly  by  J.H.M.  Dassen <jdassen@debian.org> mods/additions by joost
+       and Clint.
+
+SSEEEE AALLSSOO
+       ffaakkeerroooott(1),  ddppkkgg--bbuuiillddppaacckkaaggee(1),   ddeebbuuiilldd(1)   //uussrr//sshhaarree//ddoocc//ffaakkee--
+       rroooott//DDEEBBUUGG
+
+
+
+Debian Project                   17 June 2004                         faked(1)

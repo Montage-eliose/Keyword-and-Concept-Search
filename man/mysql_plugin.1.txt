@@ -1,0 +1,167 @@
+MYSQL_PLUGIN(1)              MySQL Database System             MYSQL_PLUGIN(1)
+
+
+
+NNAAMMEE
+       mysql_plugin - configure MySQL server plugins
+
+SSYYNNOOPPSSIISS
+       mmyyssqqll__pplluuggiinn [[_o_p_t_i_o_n_s]] _p_l_u_g_i_n {{EENNAABBLLEE||DDIISSAABBLLEE}}
+
+DDEESSCCRRIIPPTTIIOONN
+       The mmyyssqqll__pplluuggiinn utility enables MySQL administrators to manage which
+       plugins a MySQL server loads. It provides an alternative to manually
+       specifying the ----pplluuggiinn--llooaadd option at server startup or using the
+       INSTALL PLUGIN and UNINSTALL PLUGIN statements at runtime.
+       mmyyssqqll__pplluuggiinn is available as of MySQL 5.5.16.
+
+       Depending on whether mmyyssqqll__pplluuggiinn is invoked to enable or disable
+       plugins, it inserts or deletes rows in the mysql.plugin table that
+       serves as a plugin registry. (To perform this operation, mmyyssqqll__pplluuggiinn
+       invokes the MySQL server in bootstrap mode. This means that the server
+       must not already be running.) For normal server startups, the server
+       loads and enables plugins listed in mysql.plugin automatically. For
+       additional control over plugin activation, use ----_p_l_u_g_i_n___n_a_m_e options
+       named for specific plugins, as described in Section 5.1.8.1,
+       "Installing and Uninstalling Plugins".
+
+       Each invocation of mmyyssqqll__pplluuggiinn reads a configuration file to determine
+       how to configure the plugins contained in a single plugin library
+       object file. To invoke mmyyssqqll__pplluuggiinn, use this syntax:
+
+           mysql_plugin [_o_p_t_i_o_n_s] _p_l_u_g_i_n {ENABLE|DISABLE}
+
+       _p_l_u_g_i_n is the name of the plugin to configure.  ENABLE or DISABLE (not
+       case sensitive) specify whether to enable or disable components of the
+       plugin library named in the configuration file. The order of the _p_l_u_g_i_n
+       and ENABLE or DISABLE arguments does not matter.
+
+       For example, to configure components of a plugin library file named
+       myplugins.so on Linux or myplugins.dll on Windows, specify a _p_l_u_g_i_n
+       value of myplugins. Suppose that this plugin library contains three
+       plugins, plugin1, plugin2, and plugin3, all of which should be
+       configured under mmyyssqqll__pplluuggiinn control. By convention, configuration
+       files have a suffix of .ini and the same base name as the plugin
+       library, so the default configuration file name for this plugin library
+       is myplugins.ini. The configuration file contents look like this:
+
+           myplugins
+           plugin1
+           plugin2
+           plugin3
+
+       The first line in the myplugins.ini file is the name of the library
+       object file, without any extension such as .so or .dll. The remaining
+       lines are the names of the components to be enabled or disabled. Each
+       value in the file should be on a separate line. Lines on which the
+       first character is '#' are taken as comments and ignored.
+
+       To enable the plugins listed in the configuration file, invoke
+       mmyyssqqll__pplluuggiinn this way:
+
+           shell> mmyyssqqll__pplluuggiinn mmyypplluuggiinnss EENNAABBLLEE
+
+       To disable the plugins, use DISABLE rather than ENABLE.
+
+       An error occurs if mmyyssqqll__pplluuggiinn cannot find the configuration file or
+       plugin library file, or if mmyyssqqll__pplluuggiinn cannot start the MySQL server.
+
+       mmyyssqqll__pplluuggiinn supports the following options, which can be specified on
+       the command line or in the [mysqld] group of any option file. For
+       options specified in a [mysqld] group, mmyyssqqll__pplluuggiinn recognizes the
+       ----bbaasseeddiirr, ----ddaattaaddiirr, and ----pplluuggiinn--ddiirr options and ignores others. For
+       information about option files used by MySQL programs, see
+       Section 4.2.6, "Using Option Files".
+
+       +o   ----hheellpp, --??
+
+           Display a help message and exit.
+
+       +o   ----bbaasseeddiirr==_d_i_r___n_a_m_e, --bb _d_i_r___n_a_m_e
+
+           The server base directory.
+
+       +o   ----ddaattaaddiirr==_d_i_r___n_a_m_e, --dd _d_i_r___n_a_m_e
+
+           The server data directory.
+
+       +o   ----mmyy--pprriinntt--ddeeffaauullttss==_f_i_l_e___n_a_m_e, --bb _f_i_l_e___n_a_m_e
+
+           The path to the mmyy__pprriinntt__ddeeffaauullttss program.
+
+       +o   ----mmyyssqqlldd==_f_i_l_e___n_a_m_e, --bb _f_i_l_e___n_a_m_e
+
+           The path to the mmyyssqqlldd server.
+
+       +o   ----nnoo--ddeeffaauullttss, --pp
+
+           Do not read values from the configuration file. This option enables
+           an administrator to skip reading defaults from the configuration
+           file.
+
+           With mmyyssqqll__pplluuggiinn, this option need not be given first on the
+           command line, unlike most other MySQL programs that support
+           ----nnoo--ddeeffaauullttss.
+
+       +o   ----pplluuggiinn--ddiirr==_d_i_r___n_a_m_e, --pp _d_i_r___n_a_m_e
+
+           The server plugin directory.
+
+       +o   ----pplluuggiinn--iinnii==_f_i_l_e___n_a_m_e, --ii _f_i_l_e___n_a_m_e
+
+           The mmyyssqqll__pplluuggiinn configuration file. Relative path names are
+           interpreted relative to the current directory. If this option is
+           not given, the default is _p_l_u_g_i_n.ini in the plugin directory, where
+           _p_l_u_g_i_n is the _p_l_u_g_i_n argument on the command line.
+
+       +o   ----pprriinntt--ddeeffaauullttss, --PP
+
+           Display the default values from the configuration file. This option
+           causes mmyyssqqll__pplluuggiinn to print the defaults for ----bbaasseeddiirr, ----ddaattaaddiirr,
+           and ----pplluuggiinn--ddiirr if they are found in the configuration file. If no
+           value for a variable is found, nothing is shown.
+
+           With mmyyssqqll__pplluuggiinn, this option need not be given first on the
+           command line, unlike most other MySQL programs that support
+           ----pprriinntt--ddeeffaauullttss.
+
+       +o   ----vveerrbboossee, --vv
+
+           Verbose mode. Print more information about what the program does.
+           This option can be used multiple times to increase the amount of
+           information.
+
+       +o   ----vveerrssiioonn, --VV
+
+           Display version information and exit.
+
+CCOOPPYYRRIIGGHHTT
+       Copyright (C) 1997, 2016, Oracle and/or its affiliates. All rights
+       reserved.
+
+       This documentation is free software; you can redistribute it and/or
+       modify it only under the terms of the GNU General Public License as
+       published by the Free Software Foundation; version 2 of the License.
+
+       This documentation is distributed in the hope that it will be useful,
+       but WITHOUT ANY WARRANTY; without even the implied warranty of
+       MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+       General Public License for more details.
+
+       You should have received a copy of the GNU General Public License along
+       with the program; if not, write to the Free Software Foundation, Inc.,
+       51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA or see
+       http://www.gnu.org/licenses/.
+
+
+SSEEEE AALLSSOO
+       For more information, please refer to the MySQL Reference Manual, which
+       may already be installed locally and which is also available online at
+       http://dev.mysql.com/doc/.
+
+AAUUTTHHOORR
+       Oracle Corporation (http://dev.mysql.com/).
+
+
+
+MySQL 5.5                         03/01/2016                   MYSQL_PLUGIN(1)

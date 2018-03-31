@@ -1,0 +1,48 @@
+dbus-cleanup-sockets(1)     General Commands Manual    dbus-cleanup-sockets(1)
+
+
+
+NNAAMMEE
+       dbus-cleanup-sockets - clean up leftover sockets in a directory
+
+SSYYNNOOPPSSIISS
+       ddbbuuss--cclleeaannuupp--ssoocckkeettss [[DDIIRREECCTTOORRYY]]
+
+
+DDEESSCCRRIIPPTTIIOONN
+       The  _d_b_u_s_-_c_l_e_a_n_u_p_-_s_o_c_k_e_t_s  command  cleans  up  unused D-Bus connection
+       sockets. See http://www.freedesktop.org/software/dbus/ for more  infor-
+       mation about the big picture.
+
+
+       If  given  no  arguments, _d_b_u_s_-_c_l_e_a_n_u_p_-_s_o_c_k_e_t_s cleans up sockets in the
+       standard default socket directory for the  per-user-login-session  mes-
+       sage  bus;  this is usually /tmp.  Optionally, you can pass a different
+       directory on the command line.
+
+
+       On Linux, this program is essentially useless, because  D-Bus  defaults
+       to  using "abstract sockets" that exist only in memory and don't have a
+       corresponding file in /tmp.
+
+
+       On most other flavors of UNIX, it's possible for the  socket  files  to
+       leak when programs using D-Bus exit abnormally or without closing their
+       D-Bus   connections.   Thus,   it   might   be   interesting   to   run
+       dbus-cleanup-sockets  in  a  cron job to mop up any leaked sockets.  Or
+       you can just ignore the leaked sockets, they aren't really hurting any-
+       thing, other than cluttering the output of "ls /tmp"
+
+
+AAUUTTHHOORR
+       dbus-cleanup-sockets    was    adapted   by   Havoc   Pennington   from
+       linc-cleanup-sockets written by Michael Meeks.
+
+
+BBUUGGSS
+       Please send bug reports to the D-Bus mailing list or bug  tracker,  see
+       http://www.freedesktop.org/software/dbus/
+
+
+
+                                                       dbus-cleanup-sockets(1)

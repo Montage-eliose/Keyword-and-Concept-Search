@@ -1,0 +1,46 @@
+VIMDIFF(1)                  General Commands Manual                 VIMDIFF(1)
+
+
+
+NNAAMMEE
+       vimdiff  - edit two, three or four versions of a file with Vim and show
+       differences
+
+SSYYNNOOPPSSIISS
+       vviimmddiiffff [options] file1 file2 [file3 [file4]]
+
+       ggvviimmddiiffff
+
+DDEESSCCRRIIPPTTIIOONN
+       VViimmddiiffff starts VViimm on two (or three or four) files.  Each file gets its
+       own  window.   The differences between the files are highlighted.  This
+       is a nice way to inspect changes and to move changes from  one  version
+       to another version of the same file.
+
+       See vim(1) for details about Vim itself.
+
+       When started as ggvviimmddiiffff the GUI will be started, if available.
+
+       In  each window the 'diff' option will be set, which causes the differ-
+       ences to be highlighted.
+       The 'wrap' and 'scrollbind' options are set to make the text look good.
+       The 'foldmethod' option is set to "diff", which puts  ranges  of  lines
+       without  changes in a fold.  'foldcolumn' is set to two to make it easy
+       to spot the folds and open or close them.
+
+OOPPTTIIOONNSS
+       Vertical splits are used to align the lines, as if  the  "-O"  argument
+       was used.  To use horizontal splits instead, use the "-o" argument.
+
+       For all other arguments see vim(1).
+
+SSEEEE AALLSSOO
+       vim(1)
+
+AAUUTTHHOORR
+       Most of VViimm was made by Bram Moolenaar, with a lot of help from others.
+       See ":help credits" in VViimm..
+
+
+
+                                 2001 March 30                      VIMDIFF(1)

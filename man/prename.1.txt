@@ -1,0 +1,57 @@
+RENAME(1)              Perl Programmers Reference Guide              RENAME(1)
+
+
+
+NNAAMMEE
+       rename - renames multiple files
+
+SSYYNNOOPPSSIISS
+       rreennaammee [ --vv ] [ --nn ] [ --ff ] _p_e_r_l_e_x_p_r [ _f_i_l_e_s ]
+
+DDEESSCCRRIIPPTTIIOONN
+       "rename" renames the filenames supplied according to the rule specified
+       as the first argument.  The _p_e_r_l_e_x_p_r argument is a Perl expression
+       which is expected to modify the $_ string in Perl for at least some of
+       the filenames specified.  If a given filename is not modified by the
+       expression, it will not be renamed.  If no filenames are given on the
+       command line, filenames will be read via standard input.
+
+       For example, to rename all files matching "*.bak" to strip the
+       extension, you might say
+
+               rename 's/\.bak$//' *.bak
+
+       To translate uppercase names to lower, you'd use
+
+               rename 'y/A-Z/a-z/' *
+
+OOPPTTIIOONNSS
+       --vv, ----vveerrbboossee
+               Verbose: print names of files successfully renamed.
+
+       --nn, ----nnoo--aacctt
+               No Action: show what files would have been renamed.
+
+       --ff, ----ffoorrccee
+               Force: overwrite existing files.
+
+EENNVVIIRROONNMMEENNTT
+       No environment variables are used.
+
+AAUUTTHHOORR
+       Larry Wall
+
+SSEEEE AALLSSOO
+       _m_v(1), _p_e_r_l(1)
+
+DDIIAAGGNNOOSSTTIICCSS
+       If you give an invalid Perl expression you'll get a syntax error.
+
+BBUUGGSS
+       The original "rename" did not check for the existence of target
+       filenames, so had to be used with care.  I hope I've fixed that (Robin
+       Barker).
+
+
+
+perl v5.18.2                      2014-01-14                         RENAME(1)

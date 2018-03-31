@@ -1,0 +1,37 @@
+SETMETAMODE(1)              General Commands Manual             SETMETAMODE(1)
+
+
+
+NNAAMMEE
+       setmetamode - define the keyboard meta key handling
+
+SSYYNNOOPPSSIISS
+       sseettmmeettaammooddee [ _{_m_e_t_a_|_b_i_t_|_m_e_t_a_b_i_t _| _e_s_c_|_p_r_e_f_i_x_|_e_s_c_p_r_e_f_i_x_} ]
+
+DDEESSCCRRIIPPTTIIOONN
+       Without  argument,  sseettmmeettaammooddee prints the current Meta key mode.  With
+       argument, it sets the Meta key mode as indicated.  The  setting  before
+       and after the change are reported.
+
+       The  Meta key mode is specific for each VT (and the VT corresponding to
+       stdin is used).  One might use sseettmmeettaammooddee in  /etc/rc  to  define  the
+       initial state of the Meta key mode, e.g. by
+            INITTY=/dev/tty[1-8]
+            for tty in $INITTY; do
+                 setmetamode escprefix < $tty
+            done
+
+OOPPTTIIOONNSS
+       esc prefix escprefix
+              The Meta key sends an Escape prefix.
+
+       meta bit metabit
+              The Meta key sets the high order bit of the character.
+
+SSEEEE AALLSSOO
+       llooaaddkkeeyyss(1)
+
+
+
+
+                                  30 Jan 1994                   SETMETAMODE(1)

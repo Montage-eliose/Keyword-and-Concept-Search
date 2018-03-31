@@ -1,0 +1,53 @@
+RENAME(1)                        User Commands                       RENAME(1)
+
+
+
+NNAAMMEE
+       rename - rename files
+
+SSYYNNOOPPSSIISS
+       rreennaammee [_o_p_t_i_o_n_s] _e_x_p_r_e_s_s_i_o_n _r_e_p_l_a_c_e_m_e_n_t _f_i_l_e...
+
+DDEESSCCRRIIPPTTIIOONN
+       rreennaammee  will  rename  the specified files by replacing the first occur-
+       rence of _e_x_p_r_e_s_s_i_o_n in their name by _r_e_p_l_a_c_e_m_e_n_t.
+
+OOPPTTIIOONNSS
+       --vv, ----vveerrbboossee
+              Give visual feedback which files where renamed, if any.
+
+       --VV, ----vveerrssiioonn
+              Display version information and exit.
+
+       --hh, ----hheellpp
+              Display help text and exit.
+
+EEXXAAMMPPLLEESS
+       Given the files _f_o_o_1, ..., _f_o_o_9, _f_o_o_1_0, ..., _f_o_o_2_7_8, the commands
+
+              rename foo foo0 foo?
+              rename foo foo0 foo??
+
+       will turn them into _f_o_o_0_0_1, ..., _f_o_o_0_0_9, _f_o_o_0_1_0, ..., _f_o_o_2_7_8.  And
+
+              rename .htm .html *.htm
+
+       will fix the extension of your html files.
+
+WWAARRNNIINNGG
+       The renaming has no safeguards.  If the user has permission to  rewrite
+       file  names, the command will perform the action without any questions.
+       For example, the result can be quite drastic when the command is run as
+       root  in  the  /lib directory.  Always make a backup before running the
+       command, unless you truly know what you are doing.
+
+SSEEEE AALLSSOO
+       mmmmvv(1), mmvv(1)
+
+AAVVAAIILLAABBIILLIITTYY
+       The rename command is part of the util-linux package and  is  available
+       from ftp://ftp.kernel.org/pub/linux/utils/util-linux/.
+
+
+
+util-linux                         June 2011                         RENAME(1)

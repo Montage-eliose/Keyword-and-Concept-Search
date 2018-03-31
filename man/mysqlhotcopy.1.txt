@@ -1,0 +1,194 @@
+MYSQLHOTCOPY(1)              MySQL Database System             MYSQLHOTCOPY(1)
+
+
+
+NNAAMMEE
+       mysqlhotcopy - a database backup program
+
+SSYYNNOOPPSSIISS
+       mmyyssqqllhhoottccooppyy _a_r_g_u_m_e_n_t_s
+
+DDEESSCCRRIIPPTTIIOONN
+       mmyyssqqllhhoottccooppyy is a Perl script that was originally written and
+       contributed by Tim Bunce. It uses FLUSH TABLES, LOCK TABLES, and cp or
+       scp to make a database backup. It is a fast way to make a backup of the
+       database or single tables, but it can be run only on the same machine
+       where the database directories are located.  mmyyssqqllhhoottccooppyy works only
+       for backing up MyISAM and ARCHIVE tables. It runs on Unix.
+
+       To use mmyyssqqllhhoottccooppyy, you must have read access to the files for the
+       tables that you are backing up, the SELECT privilege for those tables,
+       the RELOAD privilege (to be able to execute FLUSH TABLES), and the LOCK
+       TABLES privilege (to be able to lock the tables).
+
+           shell> mmyyssqqllhhoottccooppyy _d_b___n_a_m_e [[_/_p_a_t_h_/_t_o_/_n_e_w___d_i_r_e_c_t_o_r_y]]
+
+           shell> mmyyssqqllhhoottccooppyy _d_b___n_a_m_e___1 ...... _d_b___n_a_m_e___n _/_p_a_t_h_/_t_o_/_n_e_w___d_i_r_e_c_t_o_r_y
+
+       Back up tables in the given database that match a regular expression:
+
+           shell> mmyyssqqllhhoottccooppyy _d_b___n_a_m_e..//_r_e_g_e_x//
+
+       The regular expression for the table name can be negated by prefixing
+       it with a tilde ("~"):
+
+           shell> mmyyssqqllhhoottccooppyy _d_b___n_a_m_e..//~~_r_e_g_e_x//
+
+       mmyyssqqllhhoottccooppyy supports the following options, which can be specified on
+       the command line or in the [mysqlhotcopy] and [client] groups of an
+       option file. For information about option files used by MySQL programs,
+       see Section 4.2.6, "Using Option Files".
+
+       +o   ----hheellpp, --??
+
+           Display a help message and exit.
+
+       +o   ----aaddddttooddeesstt
+
+           Do not rename target directory (if it exists); merely add files to
+           it.
+
+       +o   ----aalllloowwoolldd
+
+           Do not abort if a target exists; rename it by adding an _old
+           suffix.
+
+       +o   ----cchheecckkppooiinntt==_d_b___n_a_m_e.._t_b_l___n_a_m_e
+
+           Insert checkpoint entries into the specified database _d_b___n_a_m_e and
+           table _t_b_l___n_a_m_e.
+
+       +o   ----cchhrroooott==_d_i_r___n_a_m_e
+
+           Base directory of the cchhrroooott jail in which mmyyssqqlldd operates. The
+           _d_i_r___n_a_m_e value should match that of the ----cchhrroooott option given to
+           mmyyssqqlldd.
+
+       +o   ----ddeebbuugg
+
+           Enable debug output.
+
+       +o   ----ddrryyrruunn, --nn
+
+           Report actions without performing them.
+
+       +o   ----fflluusshhlloogg
+
+           Flush logs after all tables are locked.
+
+       +o   ----hhoosstt==_h_o_s_t___n_a_m_e, --hh _h_o_s_t___n_a_m_e
+
+           The host name of the local host to use for making a TCP/IP
+           connection to the local server. By default, the connection is made
+           to localhost using a Unix socket file.
+
+       +o   ----kkeeeeppoolldd
+
+           Do not delete previous (renamed) target when done.
+
+       +o   ----mmeetthhoodd==_c_o_m_m_a_n_d
+
+           The method for copying files (cp or scp). The default is cp.
+
+       +o   ----nnooiinnddiicceess
+
+           Do not include full index files for MyISAM tables in the backup.
+           This makes the backup smaller and faster. The indexes for reloaded
+           tables can be reconstructed later with mmyyiissaammcchhkk --rrqq.
+
+       +o   ----ppaasssswwoorrdd==_p_a_s_s_w_o_r_d, --pp_p_a_s_s_w_o_r_d
+
+           The password to use when connecting to the server. The password
+           value is not optional for this option, unlike for other MySQL
+           programs.
+
+           Specifying a password on the command line should be considered
+           insecure. See Section 6.1.2.1, "End-User Guidelines for Password
+           Security". You can use an option file to avoid giving the password
+           on the command line.
+
+       +o   ----ppoorrtt==_p_o_r_t___n_u_m, --PP _p_o_r_t___n_u_m
+
+           The TCP/IP port number to use when connecting to the local server.
+
+       +o   ----oolldd__sseerrvveerr
+
+           As of MySQL 5.5.3, mmyyssqqllhhoottccooppyy uses FLUSH TABLES _t_b_l___l_i_s_t WITH
+           READ LOCK to flush and lock tables. Use the ----oolldd__sseerrvveerr option if
+           the server is older than 5.5.3, which is when that statement was
+           introduced. This option was added in MySQL 5.5.3.
+
+       +o   ----qquuiieett, --qq
+
+           Be silent except for errors.
+
+       +o   ----rreeccoorrdd__lloogg__ppooss==_d_b___n_a_m_e.._t_b_l___n_a_m_e
+
+           Record master and slave status in the specified database _d_b___n_a_m_e
+           and table _t_b_l___n_a_m_e.
+
+       +o   ----rreeggeexxpp==_e_x_p_r
+
+           Copy all databases with names that match the given regular
+           expression.
+
+       +o   ----rreesseettmmaasstteerr
+
+           Reset the binary log after locking all the tables.
+
+       +o   ----rreesseettssllaavvee
+
+           Reset the master.info file after locking all the tables.
+
+       +o   ----ssoocckkeett==_p_a_t_h, --SS _p_a_t_h
+
+           The Unix socket file to use for connections to localhost.
+
+       +o   ----ssuuffffiixx==_s_t_r
+
+           The suffix to use for names of copied databases.
+
+       +o   ----ttmmppddiirr==_d_i_r___n_a_m_e
+
+           The temporary directory. The default is /tmp.
+
+       +o   ----uusseerr==_u_s_e_r___n_a_m_e, --uu _u_s_e_r___n_a_m_e
+
+           The MySQL user name to use when connecting to the server.
+
+       Use perldoc for additional mmyyssqqllhhoottccooppyy documentation, including
+       information about the structure of the tables needed for the
+       ----cchheecckkppooiinntt and ----rreeccoorrdd__lloogg__ppooss options:
+
+           shell> ppeerrllddoocc mmyyssqqllhhoottccooppyy
+
+CCOOPPYYRRIIGGHHTT
+       Copyright (C) 1997, 2016, Oracle and/or its affiliates. All rights
+       reserved.
+
+       This documentation is free software; you can redistribute it and/or
+       modify it only under the terms of the GNU General Public License as
+       published by the Free Software Foundation; version 2 of the License.
+
+       This documentation is distributed in the hope that it will be useful,
+       but WITHOUT ANY WARRANTY; without even the implied warranty of
+       MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+       General Public License for more details.
+
+       You should have received a copy of the GNU General Public License along
+       with the program; if not, write to the Free Software Foundation, Inc.,
+       51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA or see
+       http://www.gnu.org/licenses/.
+
+
+SSEEEE AALLSSOO
+       For more information, please refer to the MySQL Reference Manual, which
+       may already be installed locally and which is also available online at
+       http://dev.mysql.com/doc/.
+
+AAUUTTHHOORR
+       Oracle Corporation (http://dev.mysql.com/).
+
+
+
+MySQL 5.5                         03/01/2016                   MYSQLHOTCOPY(1)

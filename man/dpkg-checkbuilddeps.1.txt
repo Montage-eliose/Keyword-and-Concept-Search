@@ -1,0 +1,64 @@
+dpkg-checkbuilddeps(1)          dpkg utilities          dpkg-checkbuilddeps(1)
+
+
+
+NNAAMMEE
+       dpkg-checkbuilddeps - check build dependencies and conflicts
+
+SSYYNNOOPPSSIISS
+       ddppkkgg--cchheecckkbbuuiillddddeeppss [_o_p_t_i_o_n...]  [_c_o_n_t_r_o_l_-_f_i_l_e]
+
+DDEESSCCRRIIPPTTIIOONN
+       This  program  checks  the installed packages in the system against the
+       build dependencies and build conflicts listed in the control  file.  If
+       any are not met, it displays them and exits with a nonzero return code.
+
+       By  default,  ddeebbiiaann//ccoonnttrrooll is read, but an alternate control filename
+       may be specified on the command line.
+
+OOPPTTIIOONNSS
+       ----aaddmmiinnddiirr==_d_i_r
+              Change the location of the ddppkkgg database. The  default  location
+              is _/_v_a_r_/_l_i_b_/_d_p_k_g.
+
+       --AA     Ignore  BBuuiilldd--DDeeppeennddss--AArrcchh  and  BBuuiilldd--CCoonnfflliiccttss--AArrcchh lines. Use
+              when only arch-indep packages will be built, or combine with  --BB
+              when only a source package is to be built.
+
+       --BB     Ignore  BBuuiilldd--DDeeppeennddss--IInnddeepp and BBuuiilldd--CCoonnfflliiccttss--IInnddeepp lines. Use
+              when only arch-dep packages will be built, or  combine  with  --AA
+              when only a source package is to be built.
+
+       --dd _b_u_i_l_d_-_d_e_p_e_n_d_s_-_s_t_r_i_n_g
+
+       --cc _b_u_i_l_d_-_c_o_n_f_l_i_c_t_s_-_s_t_r_i_n_g
+              Use the given build dependencies/conflicts instead of those con-
+              tained in the _d_e_b_i_a_n_/_c_o_n_t_r_o_l file.
+
+       --aa _a_r_c_h
+              Check build dependencies/conflicts  assuming  that  the  package
+              described  in the control file is to be built for the given host
+              architecture instead of the architecture of the current system.
+
+       --PP _p_r_o_f_i_l_e[,,...]
+              Check build dependencies/conflicts  assuming  that  the  package
+              described in the control file is to be built for the given build
+              profile(s). The argument is a comma-separated  list  of  profile
+              names, without the "pprrooffiillee.." namespace prefix.
+
+       --??, ----hheellpp
+              Show the usage message and exit.
+
+       ----vveerrssiioonn
+              Show the version and exit.
+
+EENNVVIIRROONNMMEENNTT
+       DDEEBB__BBUUIILLDD__PPRROOFFIILLEESS
+              If  set,  it will be used as the active build profile(s) for the
+              package being built. It is a space  separated  list  of  profile
+              names,  without  the  "pprrooffiillee.." namespace prefix. Overridden by
+              the --PP option.
+
+
+
+Debian Project                    2013-09-17            dpkg-checkbuilddeps(1)

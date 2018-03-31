@@ -1,0 +1,284 @@
+tic(1)                      General Commands Manual                     tic(1)
+
+
+
+NNAAMMEE
+       ttiicc - the _t_e_r_m_i_n_f_o entry-description compiler
+
+SSYYNNOOPPSSIISS
+       ttiicc  [--0011CCDDGGIIKKLLNNTTUUVVaaccffggrrssttxx]  [--ee  _n_a_m_e_s]  [--oo _d_i_r] [--RR _s_u_b_s_e_t] [--vv[_n]]
+       [--ww[_n]] _f_i_l_e
+
+DDEESSCCRRIIPPTTIIOONN
+       The ttiicc command translates a tteerrmmiinnffoo file from source format into com-
+       piled  format.   The  compiled  format  is  necessary  for use with the
+       library routines in nnccuurrsseess(3NCURSES).
+
+       As described in tteerrmm(5), the database may be either  a  directory  tree
+       (one  file  per  terminal  entry)  or a hashed database (one record per
+       entry).  The ttiicc command writes only one type of  entry,  depending  on
+       how it was built:
+
+       +o   For directory trees, the top-level directory, e.g., /usr/share/ter-
+           minfo, specifies the location of the database.
+
+       +o   For hashed databases, a filename is needed.  If the given  file  is
+           not  found  by  that  name,  but  can be found by adding the suffix
+           ".db", then that is used.
+
+           The default name for the hashed database is the same as the default
+           directory name (only adding a ".db" suffix).
+
+       In either case (directory or hashed database), ttiicc will create the con-
+       tainer if it does not exist.  For a directory, this would be the  "ter-
+       minfo" leaf, versus a "terminfo.db" file.
+
+       The  results  are  normally  placed  in  the  system  terminfo database
+       //eettcc//tteerrmmiinnffoo.  The compiled terminal description can be  placed  in  a
+       different terminfo database.  There are two ways to achieve this:
+
+       +o   First,  you  may override the system default either by using the --oo
+           option, or by setting the variable TTEERRMMIINNFFOO in your shell  environ-
+           ment to a valid database location.
+
+       +o   Secondly,  if  ttiicc  cannot  write  in _/_e_t_c_/_t_e_r_m_i_n_f_o or the location
+           specified using your TERMINFO variable, it looks for the  directory
+           _$_H_O_M_E_/_._t_e_r_m_i_n_f_o  (or  hashed  database _$_H_O_M_E_/_._t_e_r_m_i_n_f_o_._d_b_); if that
+           location exists, the entry is placed there.
+
+       Libraries that read terminfo entries are expected to check  in  succes-
+       sion
+
+       +o   a location specified with the TERMINFO environment variable,
+
+       +o   _$_H_O_M_E_/_._t_e_r_m_i_n_f_o,
+
+       +o   directories listed in the TERMINFO_DIRS environment variable,
+
+       +o   a compiled-in list of directories (no default value), and
+
+       +o   the system terminfo database (_/_e_t_c_/_t_e_r_m_i_n_f_o).
+
+   OOPPTTIIOONNSS
+       --00     restricts the output to a single line
+
+       --11     restricts the output to a single column
+
+       --aa     tells  ttiicc to retain commented-out capabilities rather than dis-
+              carding them.  Capabilities are commented by prefixing them with
+              a  period.   This sets the --xx option, because it treats the com-
+              mented-out entries as user-defined  names.   If  the  source  is
+              termcap,  accept  the  2-character  names required by version 6.
+              Otherwise these are ignored.
+
+       --CC     Force source translation to termcap format.  Note: this  differs
+              from  the  --CC  option  of  iinnffooccmmpp(1) in that it does not merely
+              translate capability names, but also translates terminfo strings
+              to  termcap  format.  Capabilities that are not translatable are
+              left in the entry under their terminfo names but  commented  out
+              with  two  preceding  dots.  The actual format used incorporates
+              some improvements for escaped characters from  terminfo  format.
+              For a stricter BSD-compatible translation, add the --KK option.
+
+       --cc     tells  ttiicc to only check _f_i_l_e for errors, including syntax prob-
+              lems and bad use links.   If  you  specify  --CC  (--II)  with  this
+              option,  the code will print warnings about entries which, after
+              use resolution, are more than 1023 (4096) bytes long.  Due to  a
+              fixed buffer length in older termcap libraries, as well as buggy
+              checking for the buffer length (and a documented limit  in  ter-
+              minfo),  these entries may cause core dumps with other implemen-
+              tations.
+
+       --DD     tells ttiicc to print the database locations that it  knows  about,
+              and exit.  The first location shown is the one to which it would
+              write compiled terminal descriptions.  If ttiicc  is  not  able  to
+              find  a writable database location according to the rules summa-
+              rized above, it will print a diagnostic and exit with  an  error
+              rather than printing a list of database locations.
+
+       --ee _n_a_m_e_s
+              Limit  writes  and translations to the following comma-separated
+              list of terminals.  If any name or alias of a  terminal  matches
+              one  of  the  names  in  the  list, the entry will be written or
+              translated as normal.  Otherwise no output will be generated for
+              it.   The  option  value is interpreted as a file containing the
+              list if it contains a '/'.  (Note: depending on how tic was com-
+              piled, this option may require --II or --CC.)
+
+       --ff     Display     complex     terminfo     strings    which    contain
+              if/then/else/endif expressions indented for readability.
+
+       --GG     Display constant literals in  decimal  form  rather  than  their
+              character equivalents.
+
+       --gg     Display  constant  character literals in quoted form rather than
+              their decimal equivalents.
+
+       --II     Force source translation to terminfo format.
+
+       --KK     Suppress some longstanding ncurses extensions to termcap format,
+              e.g., "\s" for space.
+
+       --LL     Force  source  translation  to  terminfo format using the long C
+              variable names listed in <tteerrmm..hh>
+
+       --NN     Disable smart defaults.  Normally, when translating from termcap
+              to  terminfo,  the  compiler makes a number of assumptions about
+              the  defaults  of  string   capabilities   rreesseett11__ssttrriinngg,   ccaarr--
+              rriiaaggee__rreettuurrnn,  ccuurrssoorr__lleefftt,  ccuurrssoorr__ddoowwnn,  ssccrroollll__ffoorrwwaarrdd,  ttaabb,
+              nneewwlliinnee, kkeeyy__bbaacckkssppaaccee, kkeeyy__lleefftt, and kkeeyy__ddoowwnn, then attempts to
+              use  obsolete termcap capabilities to deduce correct values.  It
+              also normally suppresses output of obsolete termcap capabilities
+              such  as bbss.  This option forces a more literal translation that
+              also preserves the obsolete capabilities.
+
+       --oo_d_i_r  Write compiled entries to given  database  location.   Overrides
+              the TERMINFO environment variable.
+
+       --RR_s_u_b_s_e_t
+              Restrict  output to a given subset.  This option is for use with
+              archaic versions of terminfo like  those  on  SVr1,  Ultrix,  or
+              HP/UX  that  do not support the full set of SVR4/XSI Curses ter-
+              minfo; and outright broken ports like AIX 3.x  that  have  their
+              own  extensions  incompatible  with SVr4/XSI.  Available subsets
+              are "SVr1", "Ultrix", "HP", "BSD" and "AIX"; see tteerrmmiinnffoo(5) for
+              details.
+
+       --rr     Force  entry  resolution (so there are no remaining tc capabili-
+              ties) even when doing translation to termcap format.   This  may
+              be  needed  if  you  are  preparing a termcap file for a termcap
+              library (such as GNU termcap through version 1.3 or BSD  termcap
+              through  4.3BSD)  that  does not handle multiple tc capabilities
+              per entry.
+
+       --ss     Summarize the compile by  showing  the  database  location  into
+              which  entries  are written, and the number of entries which are
+              compiled.
+
+       --TT     eliminates size-restrictions on the  generated  text.   This  is
+              mainly  useful  for  testing  and  analysis,  since the compiled
+              descriptions are limited (e.g., 1023 for termcap, 4096 for  ter-
+              minfo).
+
+       --tt     tells  ttiicc to discard commented-out capabilities.  Normally when
+              translating from terminfo to termcap,  untranslatable  capabili-
+              ties are commented-out.
+
+       --UU   tells  ttiicc  to  not post-process the data after parsing the source
+            file.  Normally, it infers data which is commonly missing in older
+            terminfo data, or in termcaps.
+
+       --VV   reports the version of ncurses which was used in this program, and
+            exits.
+
+       --vv_n  specifies that (verbose) output be written to standard error trace
+            information showing ttiicc's progress.  The optional parameter _n is a
+            number from 1 to 10, inclusive, indicating the  desired  level  of
+            detail  of  information.  If _n is omitted, the default level is 1.
+            If _n is specified and greater than  1,  the  level  of  detail  is
+            increased.
+
+            The debug flag levels are as follows:
+
+            1      Names of files created and linked
+
+            2      Information related to the "use" facility
+
+            3      Statistics from the hashing algorithm
+
+            5      String-table memory allocations
+
+            7      Entries into the string-table
+
+            8      List of tokens encountered by scanner
+
+            9      All values computed in construction of the hash table
+
+            If the debug level _n is not given, it is taken to be one.
+
+       --ww_n  specifies the width of the output.  The parameter is optional.  If
+            it is omitted, it defaults to 60.
+
+       --xx   Treat unknown capabilities as user-defined.  That is, if you  sup-
+            ply  a capability name which ttiicc does not recognize, it will infer
+            its type (boolean, number or string) from the syntax and  make  an
+            extended  table  entry  for that.  User-defined capability strings
+            whose name begins with "k" are treated as function keys.
+
+   PPAARRAAMMEETTEERRSS
+       _f_i_l_e   contains one or more tteerrmmiinnffoo terminal  descriptions  in  source
+              format   [see   tteerrmmiinnffoo(5)].   Each  description  in  the  file
+              describes the capabilities of a particular terminal.
+
+              If _f_i_l_e is "-", then the data is read from the  standard  input.
+              The _f_i_l_e parameter may also be the path of a character-device.
+
+   PPRROOCCEESSSSIINNGG
+       All  but  one  of  the capabilities recognized by ttiicc are documented in
+       tteerrmmiinnffoo(5).  The exception is the uussee capability.
+
+       When a uussee=_e_n_t_r_y-_n_a_m_e field is discovered in a terminal entry currently
+       being  compiled, ttiicc reads in the binary from //eettcc//tteerrmmiinnffoo to complete
+       the entry.  (Entries created from _f_i_l_e will be used first.  ttiicc  dupli-
+       cates  the  capabilities  in _e_n_t_r_y-_n_a_m_e for the current entry, with the
+       exception of those capabilities that explicitly are defined in the cur-
+       rent entry.
+
+       When  an  entry, e.g., eennttrryy__nnaammee__11, contains a uussee==_e_n_t_r_y__n_a_m_e__2 field,
+       any  canceled  capabilities  in  _e_n_t_r_y__n_a_m_e__2  must  also   appear   in
+       eennttrryy__nnaammee__11  before  uussee==  for  these  capabilities  to be canceled in
+       eennttrryy__nnaammee__11.
+
+       Total compiled entries cannot exceed 4096 bytes.  The name field cannot
+       exceed  512  bytes.   Terminal names exceeding the maximum alias length
+       (32 characters on systems with long filenames, 14 characters otherwise)
+       will  be  truncated  to  the maximum alias length and a warning message
+       will be printed.
+
+CCOOMMPPAATTIIBBIILLIITTYY
+       There is  some  evidence  that  historic  ttiicc  implementations  treated
+       description  fields with no whitespace in them as additional aliases or
+       short names.  This ttiicc does not do that, but it does warn when descrip-
+       tion  fields may be treated that way and check them for dangerous char-
+       acters.
+
+EEXXTTEENNSSIIOONNSS
+       Unlike the SVr4 ttiicc command, this implementation can  actually  compile
+       termcap  sources.   In fact, entries in terminfo and termcap syntax can
+       be mixed in a single source file.  See  tteerrmmiinnffoo(5)  for  the  list  of
+       termcap names taken to be equivalent to terminfo names.
+
+       The  SVr4  manual  pages  are not clear on the resolution rules for uussee
+       capabilities.  This implementation of ttiicc will find  uussee  targets  any-
+       where  in  the source file, or anywhere in the file tree rooted at TTEERR--
+       MMIINNFFOO (if TTEERRMMIINNFFOO is defined), or in the user's _$_H_O_M_E_/_._t_e_r_m_i_n_f_o  data-
+       base (if it exists), or (finally) anywhere in the system's file tree of
+       compiled entries.
+
+       The error messages from this ttiicc have the same format as  GNU  C  error
+       messages, and can be parsed by GNU Emacs's compile facility.
+
+       The  --00, --11, --CC, --GG, --II, --NN, --RR, --TT, --VV, --aa, --ee, --ff, --gg, --oo, --rr, --ss, --tt
+       and --xx options are not supported under SVr4.  The SVr4 --cc mode does not
+       report bad use links.
+
+       System  V  does  not  compile  entries  to  or  read  entries from your
+       _$_H_O_M_E_/_._t_e_r_m_i_n_f_o database unless TERMINFO is explicitly set to it.
+
+FFIILLEESS
+       //eettcc//tteerrmmiinnffoo//??//**
+            Compiled terminal description database.
+
+SSEEEE AALLSSOO
+       iinnffooccmmpp(1),  ccaappttooiinnffoo(1),  iinnffoottooccaapp(1),  ttooee(1),   nnccuurrsseess(3NCURSES),
+       tteerrmm(5).  tteerrmmiinnffoo(5).
+
+       This describes nnccuurrsseess version 5.9 (patch 20140118).
+
+AAUUTTHHOORR
+       Eric S. Raymond <esr@snark.thyrsus.com> and
+       Thomas E. Dickey <dickey@invisible-island.net>
+
+
+
+                                                                        tic(1)

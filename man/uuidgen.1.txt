@@ -1,0 +1,57 @@
+UUIDGEN(1)                       User Commands                      UUIDGEN(1)
+
+
+
+NNAAMMEE
+       uuidgen - create a new UUID value
+
+SSYYNNOOPPSSIISS
+       uuuuiiddggeenn [_o_p_t_i_o_n_s]
+
+DDEESSCCRRIIPPTTIIOONN
+       The uuuuiiddggeenn program creates (and prints) a new universally unique iden-
+       tifier (UUID) using the lliibbuuuuiidd(3) library.  The new UUID  can  reason-
+       ably  be considered unique among all UUIDs created on the local system,
+       and among UUIDs created on other systems in the past and in the future.
+
+       There are two types of UUIDs which  uuuuiiddggeenn  can  generate:  time-based
+       UUIDs  and random-based UUIDs.  By default uuuuiiddggeenn will generate a ran-
+       dom-based UUID if a high-quality random number  generator  is  present.
+       Otherwise,  it  will choose a time-based UUID.  It is possible to force
+       the generation of one of these two UUID types by using  the  --rr  or  --tt
+       options.
+
+OOPPTTIIOONNSS
+       --rr, ----rraannddoomm
+              Generate  a  random-based UUID.  This method creates a UUID con-
+              sisting mostly of random bits.  It requires that  the  operating
+              system  have  a  high  quality  random number generator, such as
+              _/_d_e_v_/_r_a_n_d_o_m.
+
+       --tt, ----ttiimmee
+              Generate a time-based UUID.  This method creates a UUID based on
+              the system clock plus the system's ethernet hardware address, if
+              present.
+
+       --hh, ----hheellpp
+              Display help text and exit.
+
+       --VV, ----vveerrssiioonn
+              Display version information and exit.
+
+CCOONNFFOORRMMIINNGG TTOO
+       OSF DCE 1.1
+
+AAUUTTHHOORR
+       uuuuiiddggeenn was written by Andreas Dilger for libuuid.
+
+AAVVAAIILLAABBIILLIITTYY
+       The uuidgen command is part of the util-linux package and is  available
+       from ftp://ftp.kernel.org/pub/linux/utils/util-linux/.
+
+SSEEEE AALLSSOO
+       lliibbuuuuiidd(3)
+
+
+
+util-linux                         June 2011                        UUIDGEN(1)

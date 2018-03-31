@@ -1,0 +1,52 @@
+GRUB-MOUNT(1)                    User Commands                   GRUB-MOUNT(1)
+
+
+
+NNAAMMEE
+       grub-mount - export GRUB filesystem with FUSE
+
+SSYYNNOOPPSSIISS
+       ggrruubb--mmoouunntt [_O_P_T_I_O_N...] _I_M_A_G_E_1 [_I_M_A_G_E_2 ...] _M_O_U_N_T_P_O_I_N_T
+
+DDEESSCCRRIIPPTTIIOONN
+       Debug tool for filesystem driver.
+
+       --CC, ----ccrryyppttoo
+              Mount crypto devices.
+
+       --dd, ----ddeebbuugg=_S_T_R_I_N_G
+              Set debug environment variable.
+
+       --KK, ----zzffss--kkeeyy=_F_I_L_E|prompt
+              Load zfs crypto key.
+
+       --rr, ----rroooott=_D_E_V_I_C_E___N_A_M_E
+              Set root device.
+
+       --vv, ----vveerrbboossee
+              print verbose messages.
+
+       -?, ----hheellpp
+              give this help list
+
+       ----uussaaggee
+              give a short usage message
+
+       --VV, ----vveerrssiioonn
+              print program version
+
+       Mandatory  or  optional arguments to long options are also mandatory or
+       optional for any corresponding short options.
+
+SSEEEE AALLSSOO
+       The full documentation for ggrruubb--mmoouunntt is maintained as a  Texinfo  man-
+       ual.   If  the  iinnffoo  and ggrruubb--mmoouunntt programs are properly installed at
+       your site, the command
+
+              iinnffoo ggrruubb--mmoouunntt
+
+       should give you access to the complete manual.
+
+
+
+grub-mount (GRUB) 2.02~beta2-9ubunDteuc1e.m7ber 2015                   GRUB-MOUNT(1)

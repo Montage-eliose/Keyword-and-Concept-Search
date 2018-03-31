@@ -1,0 +1,43 @@
+GZEXE(1)                    General Commands Manual                   GZEXE(1)
+
+
+
+NNAAMMEE
+       gzexe - compress executable files in place
+
+SSYYNNOOPPSSIISS
+       ggzzeexxee _n_a_m_e _._._.
+
+DDEESSCCRRIIPPTTIIOONN
+       The  _g_z_e_x_e utility allows you to compress executables in place and have
+       them automatically uncompress and execute  when  you  run  them  (at  a
+       penalty   in   performance).    For  example  if  you  execute  ``gzexe
+       /usr/bin/gdb'' it will create the following two files:
+           -rwxr-xr-x  1 root root 1026675 Jun  7 13:53 /usr/bin/gdb
+           -rwxr-xr-x  1 root root 2304524 May 30 13:02 /usr/bin/gdb~
+       /usr/bin/gdb~ is the original file and /usr/bin/gdb is the  self-uncom-
+       pressing  executable  file.   You can remove /usr/bin/gdb~ once you are
+       sure that /usr/bin/gdb works properly.
+
+       This utility is most useful on systems with very small disks.
+
+OOPPTTIIOONNSS
+       --dd     Decompress the given executables instead of compressing them.
+
+SSEEEE AALLSSOO
+       gzip(1), znew(1), zmore(1), zcmp(1), zforce(1)
+
+CCAAVVEEAATTSS
+       The compressed executable is a shell  script.   This  may  create  some
+       security holes.  In particular, the compressed executable relies on the
+       PATH environment variable to find  _g_z_i_p  and  some  standard  utilities
+       (_b_a_s_e_n_a_m_e, _c_h_m_o_d, _l_n, _m_k_d_i_r, _m_k_t_e_m_p, _r_m, _s_l_e_e_p, and _t_a_i_l).
+
+BBUUGGSS
+       _g_z_e_x_e attempts to retain the original file attributes on the compressed
+       executable, but you may have to fix them manually in some cases,  using
+       _c_h_m_o_d or _c_h_o_w_n.
+
+
+
+                                                                      GZEXE(1)

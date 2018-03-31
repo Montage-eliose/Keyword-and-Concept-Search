@@ -1,0 +1,44 @@
+ULOCKMGR_SERVER(1)      Filesystem in Userspace (FUSE)      ULOCKMGR_SERVER(1)
+
+
+
+NNAAMMEE
+       uulloocckkmmggrr__sseerrvveerr - Lock Manager Server for FUSE filesystems
+
+
+SSYYNNOOPPSSIISS
+       uulloocckkmmggrr__sseerrvveerr
+
+
+DDEESSCCRRIIPPTTIIOONN
+       Filesystem in Userspace (FUSE) is a simple interface for userspace pro-
+       grams to export a virtual filesystem to the Linux kernel. It also  aims
+       to provide a secure method for non privileged users to create and mount
+       their own filesystem implementations.
+
+       uulloocckkmmggrr__sseerrvveerr is the Userspace Lock Manager Server for FUSE  filesys-
+       tems.
+
+
+OOPPTTIIOONNSS
+       uulloocckkmmggrr__sseerrvveerr has no options.
+
+
+SSEEEE AALLSSOO
+       _f_u_s_e_r_m_o_u_n_t(1), _m_o_u_n_t(8), _m_o_u_n_t_._f_u_s_e(8).
+
+
+HHOOMMEEPPAAGGEE
+       More  information  about  ulockmgr_server  and  the FUSE project can be
+       found at <_h_t_t_p_:_/_/_f_u_s_e_._s_o_u_r_c_e_f_o_r_g_e_._n_e_t_/>.
+
+
+AAUUTTHHOORR
+       FUSE was written by Miklos Szeredi <_m_i_k_l_o_s_@_s_z_e_r_e_d_i_._h_u>.
+
+       This  manual  page  was  written   by   Daniel   Baumann   <_d_a_n_i_e_l_._b_a_u_-
+       _m_a_n_n_@_p_r_o_g_r_e_s_s_-_t_e_c_h_n_o_l_o_g_i_e_s_._n_e_t>.
+
+
+
+2.8.6                             2011-10-23                ULOCKMGR_SERVER(1)

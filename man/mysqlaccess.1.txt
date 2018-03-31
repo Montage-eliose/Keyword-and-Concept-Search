@@ -1,0 +1,162 @@
+MYSQLACCESS(1)               MySQL Database System              MYSQLACCESS(1)
+
+
+
+NNAAMMEE
+       mysqlaccess - client for checking access privileges
+
+SSYYNNOOPPSSIISS
+       mmyyssqqllaacccceessss [[_h_o_s_t___n_a_m_e [[_u_s_e_r___n_a_m_e [[_d_b___n_a_m_e]]]]]] [[_o_p_t_i_o_n_s]]
+
+DDEESSCCRRIIPPTTIIOONN
+       mmyyssqqllaacccceessss is a diagnostic tool that Yves Carlier has provided for the
+       MySQL distribution. It checks the access privileges for a host name,
+       user name, and database combination. Note that mmyyssqqllaacccceessss checks
+       access using only the user, db, and host tables. It does not check
+       table, column, or routine privileges specified in the tables_priv,
+       columns_priv, or procs_priv tables.
+
+       Invoke mmyyssqqllaacccceessss like this:
+
+           shell> mmyyssqqllaacccceessss [[_h_o_s_t___n_a_m_e [[_u_s_e_r___n_a_m_e [[_d_b___n_a_m_e]]]]]] [[_o_p_t_i_o_n_s]]
+
+       mmyyssqqllaacccceessss supports the following options.
+
+       +o   ----hheellpp, --??
+
+           Display a help message and exit.
+
+       +o   ----bbrriieeff, --bb
+
+           Generate reports in single-line tabular format.
+
+       +o   ----ccoommmmiitt
+
+           Copy the new access privileges from the temporary tables to the
+           original grant tables. The grant tables must be flushed for the new
+           privileges to take effect. (For example, execute a mmyyssqqllaaddmmiinn
+           rreellooaadd command.)
+
+       +o   ----ccooppyy
+
+           Reload the temporary grant tables from original ones.
+
+       +o   ----ddbb==_d_b___n_a_m_e, --dd _d_b___n_a_m_e
+
+           Specify the database name.
+
+       +o   ----ddeebbuugg==_N
+
+           Specify the debug level.  _N can be an integer from 0 to 3.
+
+       +o   ----hhoosstt==_h_o_s_t___n_a_m_e, --hh _h_o_s_t___n_a_m_e
+
+           The host name to use in the access privileges.
+
+       +o   ----hhoowwttoo
+
+           Display some examples that show how to use mmyyssqqllaacccceessss.
+
+       +o   ----oolldd__sseerrvveerr
+
+           Assume that the server is an old MySQL server (before MySQL 3.21)
+           that does not yet know how to handle full WHERE clauses.
+
+       +o   ----ppaasssswwoorrdd[[==_p_a_s_s_w_o_r_d]], --pp[[_p_a_s_s_w_o_r_d]]
+
+           The password to use when connecting to the server. If you omit the
+           _p_a_s_s_w_o_r_d value following the ----ppaasssswwoorrdd or --pp option on the command
+           line, mmyyssqqllaacccceessss prompts for one.
+
+           Specifying a password on the command line should be considered
+           insecure. See Section 6.1.2.1, "End-User Guidelines for Password
+           Security".
+
+       +o   ----ppllaann
+
+           Display suggestions and ideas for future releases.
+
+       +o   ----pprreevviieeww
+
+           Show the privilege differences after making changes to the
+           temporary grant tables.
+
+       +o   ----rreellnnootteess
+
+           Display the release notes.
+
+       +o   ----rrhhoosstt==_h_o_s_t___n_a_m_e, --HH _h_o_s_t___n_a_m_e
+
+           Connect to the MySQL server on the given host.
+
+       +o   ----rroollllbbaacckk
+
+           Undo the most recent changes to the temporary grant tables.
+
+       +o   ----ssppaasssswwoorrdd[[==_p_a_s_s_w_o_r_d]], --PP[[_p_a_s_s_w_o_r_d]]
+
+           The password to use when connecting to the server as the superuser.
+           If you omit the _p_a_s_s_w_o_r_d value following the ----ssppaasssswwoorrdd or --pp
+           option on the command line, mmyyssqqllaacccceessss prompts for one.
+
+           Specifying a password on the command line should be considered
+           insecure. See Section 6.1.2.1, "End-User Guidelines for Password
+           Security".
+
+       +o   ----ssuuppeerruusseerr==_u_s_e_r___n_a_m_e, --UU _u_s_e_r___n_a_m_e
+
+           Specify the user name for connecting as the superuser.
+
+       +o   ----ttaabbllee, --tt
+
+           Generate reports in table format.
+
+       +o   ----uusseerr==_u_s_e_r___n_a_m_e, --uu _u_s_e_r___n_a_m_e
+
+           The user name to use in the access privileges.
+
+       +o   ----vveerrssiioonn, --vv
+
+           Display version information and exit.
+
+       If your MySQL distribution is installed in some nonstandard location,
+       you must change the location where mmyyssqqllaacccceessss expects to find the
+       mmyyssqqll client. Edit the mysqlaccess script at approximately line 18.
+       Search for a line that looks like this:
+
+           $MYSQL     = '/usr/local/bin/mysql';    # path to mysql executable
+
+       Change the path to reflect the location where mmyyssqqll actually is stored
+       on your system. If you do not do this, a Broken pipe error will occur
+       when you run mmyyssqqllaacccceessss.
+
+CCOOPPYYRRIIGGHHTT
+       Copyright (C) 1997, 2016, Oracle and/or its affiliates. All rights
+       reserved.
+
+       This documentation is free software; you can redistribute it and/or
+       modify it only under the terms of the GNU General Public License as
+       published by the Free Software Foundation; version 2 of the License.
+
+       This documentation is distributed in the hope that it will be useful,
+       but WITHOUT ANY WARRANTY; without even the implied warranty of
+       MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+       General Public License for more details.
+
+       You should have received a copy of the GNU General Public License along
+       with the program; if not, write to the Free Software Foundation, Inc.,
+       51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA or see
+       http://www.gnu.org/licenses/.
+
+
+SSEEEE AALLSSOO
+       For more information, please refer to the MySQL Reference Manual, which
+       may already be installed locally and which is also available online at
+       http://dev.mysql.com/doc/.
+
+AAUUTTHHOORR
+       Oracle Corporation (http://dev.mysql.com/).
+
+
+
+MySQL 5.5                         03/01/2016                    MYSQLACCESS(1)

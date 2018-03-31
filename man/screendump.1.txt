@@ -1,0 +1,44 @@
+SCREENDUMP(1)                    Linux Console                   SCREENDUMP(1)
+
+
+
+NNAAMMEE
+       screendump - dump the contents of a virtual console to stdout
+
+
+SSYYNNOOPPSSIISS
+       ssccrreeeenndduummpp [ _N ]
+
+
+DDEESSCCRRIIPPTTIIOONN
+       The  ssccrreeeenndduummpp  command  dumps the contents of virtual console NN , (or
+       the current console if N is omitted) to standard out.
+
+       Just saying
+              cat /dev/vcsN
+       has a similar effect.
+
+
+NNOOTTEESS
+       For security reasons, ssccrreeeenndduummpp uses linux  devices  "virtual  console
+       screen" and "virtual console screen with attributes" to give access for
+       screendump.
+
+       Ensure these files exist, using
+
+              cd /dev for i in 0 1 2 3 ...; do
+                   mknod vcs$i c 7 $i
+                   mknod vcsa$i c 7 `expr 128 + $i`
+              done
+
+       (filling in the ellipses) and give the device files appropriate permis-
+       sions, or run ssccrreeeenndduummpp as root.
+
+
+SSEEEE AALLSSOO
+       setterm(1)
+
+
+
+
+                                  2002-02-24                     SCREENDUMP(1)

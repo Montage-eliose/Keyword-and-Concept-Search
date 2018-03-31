@@ -1,0 +1,54 @@
+nginx(1)                                                              nginx(1)
+
+
+
+NNAAMMEE
+       nginx - small, powerful, scalable web/proxy server
+
+SSYYNNOOPPSSIISS
+       nnggiinnxx [_o_p_t_i_o_n_s] <_c_o_n_f_i_g_u_r_a_t_i_o_n _f_i_l_e>
+
+DDEESSCCRRIIPPTTIIOONN
+       NNggiinnxx  ("engine  X") is a high-performance web and reverse proxy server
+       created by Igor Sysoev. It can be used both as a standalone web  server
+       and as a proxy to reduce the load on back-end HTTP or mail servers.
+
+OOPPTTIIOONNSS
+       A summary of options is included below:
+
+       --??,--hh  Show this help.
+
+       --vv     Show version and exit.
+
+       --VV     Show version and configure options then exit.
+
+       --ss _s_i_g_n_a_l
+              Send signal to a master process: stop, quit, reopen, reload.
+
+       --pp _p_r_e_f_i_x
+              Set prefix path.
+
+       --gg _d_i_r_e_c_t_i_v_e_s
+              Set global directives out of configuration file.
+
+       --cc <_c_o_n_f_i_g_u_r_a_t_i_o_n _f_i_l_e>
+              Specifies a particular configuration file for nginx to load.
+
+       --tt     Tests nginx configuration and exit.
+
+
+       SSEEEE AALLSSOO
+              Website: <http://nginx.org/>
+
+
+       AAUUTTHHOORRSS
+              nnggiinnxx was written by Igor Sysoev <igor@sysoev.ru>.
+
+       This  manual page was written by Jose Parrella <joseparrella@cantv.net>
+       and
+              Kartik Mistry <kartik@debian.org>, for the Debian  project  (but
+              may be used by others).
+
+
+
+                                                                      nginx(1)

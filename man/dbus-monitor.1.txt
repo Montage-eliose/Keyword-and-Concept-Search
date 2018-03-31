@@ -1,0 +1,80 @@
+dbus-monitor(1)             General Commands Manual            dbus-monitor(1)
+
+
+
+NNAAMMEE
+       dbus-monitor - debug probe to print message bus messages
+
+SSYYNNOOPPSSIISS
+       ddbbuuss--mmoonniittoorr  [--system  |  --session | --address ADDRESS] [--profile |
+       --monitor] [watch expressions]
+
+
+DDEESSCCRRIIPPTTIIOONN
+       The _d_b_u_s_-_m_o_n_i_t_o_r command is used to monitor messages  going  through  a
+       D-Bus  message  bus.  See http://www.freedesktop.org/software/dbus/ for
+       more information about the big picture.
+
+
+       There are two well-known message  buses:  the  systemwide  message  bus
+       (installed  on  many  systems  as  the  "messagebus"  service)  and the
+       per-user-login-session message bus (started each time a user logs  in).
+       The  --system  and --session options direct _d_b_u_s_-_m_o_n_i_t_o_r to monitor the
+       system  or  session  buses  respectively.   If  neither  is  specified,
+       _d_b_u_s_-_m_o_n_i_t_o_r monitors the session bus.
+
+
+       _d_b_u_s_-_m_o_n_i_t_o_r  has two different output modes, the 'classic'-style moni-
+       toring mode and profiling mode. The profiling format is a compact  for-
+       mat  with  a  single line per message and microsecond-resolution timing
+       information. The --profile and --monitor options select  the  profiling
+       and  monitoring  output  format  respectively. If neither is specified,
+       _d_b_u_s_-_m_o_n_i_t_o_r uses the monitoring output format.
+
+
+       In order to get _d_b_u_s_-_m_o_n_i_t_o_r to see the messages you are interested in,
+       you should specify a set of watch expressions as you would expect to be
+       passed to the _d_b_u_s___b_u_s___a_d_d___m_a_t_c_h function.
+
+
+       The message bus configuration may keep  _d_b_u_s_-_m_o_n_i_t_o_r  from  seeing  all
+       messages, especially if you run the monitor as a non-root user.
+
+
+OOPPTTIIOONNSS
+       _-_-_s_y_s_t_e_m
+              Monitor the system message bus.
+
+       _-_-_s_e_s_s_i_o_n
+              Monitor the session message bus.  (This is the default.)
+
+       _-_-_a_d_d_r_e_s_s _A_D_D_R_E_S_S
+              Monitor an arbitrary message bus given at ADDRESS.
+
+       _-_-_p_r_o_f_i_l_e
+              Use the profiling output format.
+
+       _-_-_m_o_n_i_t_o_r
+              Use the monitoring output format.  (This is the default.)
+
+
+EEXXAAMMPPLLEE
+       Here  is an example of using dbus-monitor to watch for the gnome typing
+       monitor to say things
+
+         dbus-monitor "type='signal',sender='org.gnome.TypingMonitor',interface='org.gnome.TypingMonitor'"
+
+
+
+AAUUTTHHOORR
+       dbus-monitor was written by Philip Blundell.  The profiling output mode
+       was added by Olli Salli.
+
+
+BBUUGGSS
+       Please  send  bug reports to the D-Bus mailing list or bug tracker, see
+       http://www.freedesktop.org/software/dbus/
+
+
+
+                                                               dbus-monitor(1)

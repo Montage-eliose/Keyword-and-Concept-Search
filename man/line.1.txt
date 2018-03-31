@@ -1,0 +1,25 @@
+LINE(1)                          User Commands                         LINE(1)
+
+
+
+NNAAMMEE
+       line - read one line
+
+SSYYNNOOPPSSIISS
+       lliinnee
+
+DDEESSCCRRIIPPTTIIOONN
+       The  utility lliinnee copies one line (up to a newline) from standard input
+       to standard output.  It always prints at least a newline and returns an
+       exit status of 1 on EOF or read error.
+
+SSEEEE AALLSSOO
+       rreeaadd(1)
+
+AAVVAAIILLAABBIILLIITTYY
+       The  line  command  is  part of the util-linux package and is available
+       from ftp://ftp.kernel.org/pub/linux/utils/util-linux/.
+
+
+
+util-linux                         July 2002                           LINE(1)

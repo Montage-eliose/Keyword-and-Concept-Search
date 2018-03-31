@@ -1,0 +1,27 @@
+GCC-ranlib-4.8(1)                                            GCC-ranlib-4.8(1)
+
+
+
+NNAAMMEE
+       gcc-ranlib - a wrapper around ranlib adding the --plugin option
+
+
+SSYYNNOOPPSSIISS
+       gcc-ranlib [OOPPTTIIOONN] ... [_A_R_G_S...]
+
+
+DDEESSCCRRIIPPTTIIOONN
+       ggcccc--rraannlliibb is a wrapper around ranlib(1) adding the appropriate ----pplluugg--
+       iinn option for the GCC 4.8 compiler.
+
+
+OOPPTTIIOONNSS
+       See ranlib(1) for a list of options that ranlib understands.
+
+
+SSEEEE AALLSSOO
+       rraannlliibb((11))
+
+
+
+gcc-ranlib-4.8                    May 8, 2012                GCC-ranlib-4.8(1)

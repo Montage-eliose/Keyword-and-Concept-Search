@@ -1,0 +1,34 @@
+XZMORE(1)                          XZ Utils                          XZMORE(1)
+
+
+
+NNAAMMEE
+       xzmore, lzmore - view xz or lzma compressed (text) files
+
+SSYYNNOOPPSSIISS
+       xxzzmmoorree [_f_i_l_e_n_a_m_e _._._.]
+       llzzmmoorree [_f_i_l_e_n_a_m_e _._._.]
+
+DDEESSCCRRIIPPTTIIOONN
+       xxzzmmoorree  is  a  filter which allows examination of xxzz(1) or llzzmmaa(1) com-
+       pressed text files one screenful at a time on a soft-copy terminal.
+
+       To use a pager other than the default mmoorree,,  set  environment  variable
+       PPAAGGEERR  to the name of the desired program.  The name llzzmmoorree is provided
+       for backward compatibility with LZMA Utils.
+
+       ee or qq When the prompt --More--(Next file: _f_i_l_e) is printed, this  com-
+              mand causes xxzzmmoorree to exit.
+
+       ss      When  the prompt --More--(Next file: _f_i_l_e) is printed, this com-
+              mand causes xxzzmmoorree to skip the next file and continue.
+
+       For list of keyboard commands supported while actually viewing the con-
+       tent of a file, refer to manual of the pager you use, usually mmoorree(1).
+
+SSEEEE AALLSSOO
+       mmoorree(1), xxzz(1), xxzzlleessss(1), zzmmoorree(1)
+
+
+
+Tukaani                           2010-09-27                         XZMORE(1)

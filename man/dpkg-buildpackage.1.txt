@@ -1,0 +1,235 @@
+dpkg-buildpackage(1)            dpkg utilities            dpkg-buildpackage(1)
+
+
+
+NNAAMMEE
+       dpkg-buildpackage - build binary or source packages from sources
+
+SSYYNNOOPPSSIISS
+       ddppkkgg--bbuuiillddppaacckkaaggee [_o_p_t_i_o_n...]
+
+DDEESSCCRRIIPPTTIIOONN
+       ddppkkgg--bbuuiillddppaacckkaaggee is a program that automates the process of building a
+       Debian package. It consists of the following steps:
+
+       11.. It prepares the build environment  by  setting  various  environment
+          variables  (see  EENNVVIIRROONNMMEENNTT)  and  calls ddppkkgg--ssoouurrccee ----bbeeffoorree--bbuuiilldd
+          (unless --TT or ----ttaarrggeett has been used).
+
+       22.. It checks that the build-dependencies and build-conflicts are satis-
+          fied (unless --dd is specified).
+
+       33.. If  a  specific  target  has  been  selected with the --TT or ----ttaarrggeett
+          option, it calls that target and  stops  here.  Otherwise  it  calls
+          ffaakkeerroooott  ddeebbiiaann//rruulleess  cclleeaann to clean the build-tree (unless --nncc is
+          specified).
+
+       44.. It calls ddppkkgg--ssoouurrccee --bb to generate the  source  package  (unless  a
+          binary-only build has been requested with --bb, --BB or --AA).
+
+       55.. It calls ddeebbiiaann//rruulleess _b_u_i_l_d_-_t_a_r_g_e_t followed by ffaakkeerroooott ddeebbiiaann//rruulleess
+          _b_i_n_a_r_y_-_t_a_r_g_e_t (unless a source-only build has  been  requested  with
+          --SS).  Note  that _b_u_i_l_d_-_t_a_r_g_e_t and _b_i_n_a_r_y_-_t_a_r_g_e_t are either bbuuiilldd and
+          bbiinnaarryy (default case, or if --bb  is  specified),  or  bbuuiilldd--aarrcchh  and
+          bbiinnaarryy--aarrcchh  (if  --BB  is specified), or bbuuiilldd--iinnddeepp and bbiinnaarryy--iinnddeepp
+          (if --AA is specified).
+
+       66.. It calls ggppgg22 or ggppgg to sign the ..ddsscc file (if any,  unless  --uuss  is
+          specified or on UNRELEASED builds).
+
+       77.. It   calls  ddppkkgg--ggeenncchhaannggeess  to  generate  a  ..cchhaannggeess  file.   Many
+          ddppkkgg--bbuuiillddppaacckkaaggee options are forwarded to ddppkkgg--ggeenncchhaannggeess.
+
+       88.. It calls ggppgg22 or ggppgg to sign the ..cchhaannggeess file (unless --uucc is speci-
+          fied or on UNRELEASED builds).
+
+       99.. If --ttcc is specified, it will call ffaakkeerroooott ddeebbiiaann//rruulleess cclleeaann again.
+          Finally it calls ddppkkgg--ssoouurrccee ----aafftteerr--bbuuiilldd.
+
+OOPPTTIIOONNSS
+       --bb     Specifies a binary-only build, no source files are to  be  built
+              and/or distributed. Passed to ddppkkgg--ggeenncchhaannggeess.
+
+       --BB     Specifies a binary-only build, limited to architecture dependent
+              packages.  Passed to ddppkkgg--ggeenncchhaannggeess.
+
+       --AA     Specifies a binary-only build, limited to architecture  indepen-
+              dent packages. Passed to ddppkkgg--ggeenncchhaannggeess.
+
+       --SS     Specifies  a  source-only  build,  no binary packages need to be
+              made.  Passed to ddppkkgg--ggeenncchhaannggeess.
+
+       --FF     Specifies a normal full build, binary and source  packages  will
+              be  built.   This  is the same as the default case when no build
+              option is specified.
+
+       ----ttaarrggeett==_t_a_r_g_e_t
+       ----ttaarrggeett _t_a_r_g_e_t
+       --TT_t_a_r_g_e_t
+              Calls ddeebbiiaann//rruulleess _t_a_r_g_e_t after having setup the build  environ-
+              ment  and  stops the package build process here. If ----aass--rroooott is
+              also given, then the command is executed as root (see --rr).  Note
+              that official targets that are required to be run as root by the
+              Debian policy do not need this option.
+
+       ----aass--rroooott
+              Only meaningful together with ----ttaarrggeett. Requires that the target
+              be run with root rights.
+
+       --ssii
+       --ssaa
+       --ssdd
+       --vv_v_e_r_s_i_o_n
+       --CC_c_h_a_n_g_e_s_-_d_e_s_c_r_i_p_t_i_o_n
+       --mm_m_a_i_n_t_a_i_n_e_r_-_a_d_d_r_e_s_s
+       --ee_m_a_i_n_t_a_i_n_e_r_-_a_d_d_r_e_s_s
+              Passed unchanged to ddppkkgg--ggeenncchhaannggeess. See its manual page.
+
+       --aa_a_r_c_h_i_t_e_c_t_u_r_e
+              Specify  the  Debian architecture we build for. The architecture
+              of the machine we build on is determined automatically,  and  is
+              also the default for the host machine.
+
+       --tt_g_n_u_-_s_y_s_t_e_m_-_t_y_p_e
+              Specify  the  GNU  system  type  we build for. It can be used in
+              place of -a or as a complement to override the default GNU  sys-
+              tem type of the target Debian architecture.
+
+       --PP_p_r_o_f_i_l_e[,,...]
+              Specify  the  profile(s)  we  build,  as a comma-separated list,
+              without the "pprrooffiillee.." namespace prefix. The default behavior is
+              to  build  for  no  specific profile. Also adds them (as a space
+              separated list) to the DDEEBB__BBUUIILLDD__PPRROOFFIILLEESS  environment  variable
+              which allows, for example, ddeebbiiaann//rruulleess files to use this infor-
+              mation for conditional builds.
+
+       --jj_j_o_b_s Number of jobs allowed to be run simultaneously,  equivalent  to
+              the  mmaakkee(1)  option  of  the  same name. Will add itself to the
+              MMAAKKEEFFLLAAGGSS environment variable, which should  cause  all  subse-
+              quent  make  invocations to inherit the option. Also adds ppaarraall--
+              lleell==_j_o_b_s to the  DDEEBB__BBUUIILLDD__OOPPTTIIOONNSS  environment  variable  which
+              allows  debian/rules files to use this information for their own
+              purposes.  The ppaarraalllleell==_j_o_b_s  in  DDEEBB__BBUUIILLDD__OOPPTTIIOONNSS  environment
+              variable will override the --jj value if this option is given.
+
+       --DD     Check  build  dependencies  and conflicts; abort if unsatisfied.
+              This is the default behavior.
+
+       --dd     Do not check build dependencies and conflicts.
+
+       --nncc    Do not clean the source tree (implies --bb  if  nothing  else  has
+              been selected among --BB, --AA or --SS).
+
+       --ttcc    Clean  the  source  tree  (using  _g_a_i_n_-_r_o_o_t_-_c_o_m_m_a_n_d ddeebbiiaann//rruulleess
+              cclleeaann) after the package has been built.
+
+       --rr_g_a_i_n_-_r_o_o_t_-_c_o_m_m_a_n_d
+              When ddppkkgg--bbuuiillddppaacckkaaggee  needs  to  execute  part  of  the  build
+              process  as root, it prefixes the command it executes with _g_a_i_n_-
+              _r_o_o_t_-_c_o_m_m_a_n_d if one has been specified. Otherwise, if  none  has
+              been specified, ffaakkeerroooott will be used by default, if the command
+              is present.  _g_a_i_n_-_r_o_o_t_-_c_o_m_m_a_n_d should start with the name  of  a
+              program  on  the  PPAATTHH and will get as arguments the name of the
+              real command to run and the arguments  it  should  take.   _g_a_i_n_-
+              _r_o_o_t_-_c_o_m_m_a_n_d  can  include  parameters (they must be space-sepa-
+              rated) but no  shell  metacharacters.   _g_a_i_n_-_r_o_o_t_-_c_o_m_m_a_n_d  might
+              typically  be  ffaakkeerroooott, ssuuddoo, ssuuppeerr or rreeaallllyy.  ssuu is not suit-
+              able, since it can only invoke the user's shell with --cc  instead
+              of passing arguments individually to the command to be run.
+
+       --RR_r_u_l_e_s_-_f_i_l_e
+              Building a Debian package usually involves invoking ddeebbiiaann//rruulleess
+              as a command with several standard parameters. With this  option
+              it's  possible  to  use  another program invocation to build the
+              package (it can include space separated  parameters).   Alterna-
+              tively  it  can  be used to execute the standard rules file with
+              another make program (for example by  using  //uussrr//llooccaall//bbiinn//mmaakkee
+              --ff ddeebbiiaann//rruulleess as _r_u_l_e_s_-_f_i_l_e).
+
+       --pp_s_i_g_n_-_c_o_m_m_a_n_d
+              When  ddppkkgg--bbuuiillddppaacckkaaggee  needs  to  execute GPG to sign a source
+              control (..ddsscc) file or a ..cchhaannggeess file it will run  _s_i_g_n_-_c_o_m_m_a_n_d
+              (searching  the PPAATTHH if necessary) instead of ggppgg22 or ggppgg. _s_i_g_n_-
+              _c_o_m_m_a_n_d will get all the arguments that ggppgg22 or ggppgg  would  have
+              gotten.  _s_i_g_n_-_c_o_m_m_a_n_d  should  not  contain  spaces or any other
+              shell metacharacters.
+
+       --kk_k_e_y_-_i_d
+              Specify a key-ID to use when signing packages.
+
+       --uuss    Do not sign the source package.
+
+       --uucc    Do not sign the ..cchhaannggeess file.
+
+       ----ffoorrccee--ssiiggnn
+              Force the signing of the resulting files  (since  dpkg  1.17.0),
+              regardless of --uuss or --uucc or other internal heuristics.
+
+       --ii[_r_e_g_e_x]
+       --II[_p_a_t_t_e_r_n]
+       --ss[nnssAAkkuurrKKUURR]
+       --zz, --ZZ Passed unchanged to ddppkkgg--ssoouurrccee. See its manual page.
+
+       ----ssoouurrccee--ooppttiioonn==_o_p_t
+              Pass option _o_p_t to ddppkkgg--ssoouurrccee.
+
+       ----cchhaannggeess--ooppttiioonn==_o_p_t
+              Pass option _o_p_t to ddppkkgg--ggeenncchhaannggeess.
+
+       ----aaddmmiinnddiirr==_d_i_r
+       ----aaddmmiinnddiirr _d_i_r
+              Change  the  location of the ddppkkgg database. The default location
+              is _/_v_a_r_/_l_i_b_/_d_p_k_g.
+
+       --??, ----hheellpp
+              Show the usage message and exit.
+
+       ----vveerrssiioonn
+              Show the version and exit.
+
+EENNVVIIRROONNMMEENNTT
+       DDEEBB__SSIIGGNN__KKEEYYIIDD
+              If set, it will be used to sign the  ..cchhaannggeess  and  ..ddsscc  files.
+              Overridden by the --kk option.
+
+       DDEEBB__BBUUIILLDD__PPRROOFFIILLEESS
+              If  set,  it will be used as the active build profile(s) for the
+              package being built. It is a space  separated  list  of  profile
+              names,  without  the  "pprrooffiillee.." namespace prefix. Overridden by
+              the --PP option.
+
+
+   RReelliiaannccee oonn eexxppoorrtteedd eennvviirroonnmmeenntt ffllaaggss
+       Even if ddppkkgg--bbuuiillddppaacckkaaggee exports some variables,  ddeebbiiaann//rruulleess  should
+       not rely on their presence and should instead use the respective inter-
+       face to retrieve the needed values.
+
+   VVaarriiaabblleess sseett bbyy ddppkkgg--aarrcchhiitteeccttuurree
+       ddppkkgg--aarrcchhiitteeccttuurree is called with the --aa and  --tt  parameters  forwarded.
+       Any variable that is output by its --ss option is integrated in the build
+       environment.
+
+NNOOTTEESS
+   CCoommppiilleerr ffllaaggss aarree nnoo lloonnggeerr eexxppoorrtteedd
+       Between dpkg 1.14.17 and 1.16.1,  ddppkkgg--bbuuiillddppaacckkaaggee  exported  compiler
+       flags  (CCFFLLAAGGSS,  CCXXXXFFLLAAGGSS, FFFFLLAAGGSS, CCPPPPFFLLAAGGSS and LLDDFFLLAAGGSS) with values as
+       returned by ddppkkgg--bbuuiillddffllaaggss. This is no longer the case.
+
+   DDeeffaauulltt bbuuiilldd ttaarrggeettss
+       ddppkkgg--bbuuiillddppaacckkaaggee is using the bbuuiilldd--aarrcchh and bbuuiilldd--iinnddeepp targets since
+       dpkg  1.16.2.  Those targets are thus mandatory. But to avoid breakages
+       of existing packages, and ease the  transition,  it  will  fallback  to
+       using the bbuuiilldd target if mmaakkee --ff ddeebbiiaann//rruulleess --qqnn _b_u_i_l_d_-_t_a_r_g_e_t returns
+       2 as exit code.
+
+BBUUGGSS
+       It should be possible to specify spaces and shell metacharacters in and
+       initial arguments for _g_a_i_n_-_r_o_o_t_-_c_o_m_m_a_n_d and _s_i_g_n_-_c_o_m_m_a_n_d.
+
+SSEEEE AALLSSOO
+       ddppkkgg--ssoouurrccee(1), ddppkkgg--aarrcchhiitteeccttuurree(1), ddppkkgg--bbuuiillddffllaaggss(1),
+       ddppkkgg--ggeenncchhaannggeess(1), ffaakkeerroooott(1), ggppgg22(1), ggppgg(1).
+
+
+
+Debian Project                    2013-12-12              dpkg-buildpackage(1)

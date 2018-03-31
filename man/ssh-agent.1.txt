@@ -1,0 +1,136 @@
+SSH-AGENT(1)              BSD General Commands Manual             SSH-AGENT(1)
+
+NNAAMMEE
+     sssshh--aaggeenntt -- authentication agent
+
+SSYYNNOOPPSSIISS
+     sssshh--aaggeenntt [--cc | --ss] [--dd] [--aa _b_i_n_d___a_d_d_r_e_s_s] [--tt _l_i_f_e] [_c_o_m_m_a_n_d [_a_r_g _._._.]]
+     sssshh--aaggeenntt [--cc | --ss] --kk
+
+DDEESSCCRRIIPPTTIIOONN
+     sssshh--aaggeenntt is a program to hold private keys used for public key authenti-
+     cation (RSA, DSA, ECDSA, ED25519).  The idea is that sssshh--aaggeenntt is started
+     in the beginning of an X-session or a login session, and all other win-
+     dows or programs are started as clients to the ssh-agent program.
+     Through use of environment variables the agent can be located and auto-
+     matically used for authentication when logging in to other machines using
+     ssh(1).
+
+     The options are as follows:
+
+     --aa _b_i_n_d___a_d_d_r_e_s_s
+             Bind the agent to the UNIX-domain socket _b_i_n_d___a_d_d_r_e_s_s.  The
+             default is _$_T_M_P_D_I_R_/_s_s_h_-_X_X_X_X_X_X_X_X_X_X_/_a_g_e_n_t_._<_p_p_i_d_>.
+
+     --cc      Generate C-shell commands on stdout.  This is the default if
+             SHELL looks like it's a csh style of shell.
+
+     --dd      Debug mode.  When this option is specified sssshh--aaggeenntt will not
+             fork.
+
+     --kk      Kill the current agent (given by the SSH_AGENT_PID environment
+             variable).
+
+     --ss      Generate Bourne shell commands on stdout.  This is the default if
+             SHELL does not look like it's a csh style of shell.
+
+     --tt _l_i_f_e
+             Set a default value for the maximum lifetime of identities added
+             to the agent.  The lifetime may be specified in seconds or in a
+             time format specified in sshd_config(5).  A lifetime specified
+             for an identity with ssh-add(1) overrides this value.  Without
+             this option the default maximum lifetime is forever.
+
+     If a commandline is given, this is executed as a subprocess of the agent.
+     When the command dies, so does the agent.
+
+     The agent initially does not have any private keys.  Keys are added using
+     ssh-add(1).  When executed without arguments, ssh-add(1) adds the files
+     _~_/_._s_s_h_/_i_d___r_s_a, _~_/_._s_s_h_/_i_d___d_s_a, _~_/_._s_s_h_/_i_d___e_c_d_s_a, _~_/_._s_s_h_/_i_d___e_d_2_5_5_1_9 and
+     _~_/_._s_s_h_/_i_d_e_n_t_i_t_y.  If the identity has a passphrase, ssh-add(1) asks for
+     the passphrase on the terminal if it has one or from a small X11 program
+     if running under X11.  If neither of these is the case then the authenti-
+     cation will fail.  It then sends the identity to the agent.  Several
+     identities can be stored in the agent; the agent can automatically use
+     any of these identities.  sssshh--aadddd --ll displays the identities currently
+     held by the agent.
+
+     The idea is that the agent is run in the user's local PC, laptop, or ter-
+     minal.  Authentication data need not be stored on any other machine, and
+     authentication passphrases never go over the network.  However, the con-
+     nection to the agent is forwarded over SSH remote logins, and the user
+     can thus use the privileges given by the identities anywhere in the net-
+     work in a secure way.
+
+     There are two main ways to get an agent set up: The first is that the
+     agent starts a new subcommand into which some environment variables are
+     exported, eg sssshh--aaggeenntt xxtteerrmm &&.  The second is that the agent prints the
+     needed shell commands (either sh(1) or csh(1) syntax can be generated)
+     which can be evaluated in the calling shell, eg eevvaall ``sssshh--aaggeenntt --ss`` for
+     Bourne-type shells such as sh(1) or ksh(1) and eevvaall ``sssshh--aaggeenntt --cc`` for
+     csh(1) and derivatives.
+
+     Later ssh(1) looks at these variables and uses them to establish a con-
+     nection to the agent.
+
+     The agent will never send a private key over its request channel.
+     Instead, operations that require a private key will be performed by the
+     agent, and the result will be returned to the requester.  This way, pri-
+     vate keys are not exposed to clients using the agent.
+
+     A UNIX-domain socket is created and the name of this socket is stored in
+     the SSH_AUTH_SOCK environment variable.  The socket is made accessible
+     only to the current user.  This method is easily abused by root or
+     another instance of the same user.
+
+     The SSH_AGENT_PID environment variable holds the agent's process ID.
+
+     The agent exits automatically when the command given on the command line
+     terminates.
+
+     In Debian, sssshh--aaggeenntt is installed with the set-group-id bit set, to pre-
+     vent ptrace(2) attacks retrieving private key material.  This has the
+     side-effect of causing the run-time linker to remove certain environment
+     variables which might have security implications for set-id programs,
+     including LD_PRELOAD, LD_LIBRARY_PATH, and TMPDIR.  If you need to set
+     any of these environment variables, you will need to do so in the program
+     executed by ssh-agent.
+
+FFIILLEESS
+     ~/.ssh/identity
+             Contains the protocol version 1 RSA authentication identity of
+             the user.
+
+     ~/.ssh/id_dsa
+             Contains the protocol version 2 DSA authentication identity of
+             the user.
+
+     ~/.ssh/id_ecdsa
+             Contains the protocol version 2 ECDSA authentication identity of
+             the user.
+
+     ~/.ssh/id_ed25519
+             Contains the protocol version 2 ED25519 authentication identity
+             of the user.
+
+     ~/.ssh/id_rsa
+             Contains the protocol version 2 RSA authentication identity of
+             the user.
+
+     $TMPDIR/ssh-XXXXXXXXXX/agent.<ppid>
+             UNIX-domain sockets used to contain the connection to the authen-
+             tication agent.  These sockets should only be readable by the
+             owner.  The sockets should get automatically removed when the
+             agent exits.
+
+SSEEEE AALLSSOO
+     ssh(1), ssh-add(1), ssh-keygen(1), sshd(8)
+
+AAUUTTHHOORRSS
+     OpenSSH is a derivative of the original and free ssh 1.2.12 release by
+     Tatu Ylonen.  Aaron Campbell, Bob Beck, Markus Friedl, Niels Provos, Theo
+     de Raadt and Dug Song removed many bugs, re-added newer features and cre-
+     ated OpenSSH.  Markus Friedl contributed the support for SSH protocol
+     versions 1.5 and 2.0.
+
+BSD                             April 29, 2016                             BSD

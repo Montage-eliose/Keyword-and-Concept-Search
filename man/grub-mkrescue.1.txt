@@ -1,0 +1,117 @@
+GRUB-MKRESCUE(1)                 User Commands                GRUB-MKRESCUE(1)
+
+
+
+NNAAMMEE
+       grub-mkrescue - make a GRUB rescue image
+
+SSYYNNOOPPSSIISS
+       ggrruubb--mmkkrreessccuuee [_O_P_T_I_O_N...] [_O_P_T_I_O_N] _S_O_U_R_C_E...
+
+DDEESSCCRRIIPPTTIIOONN
+       Make GRUB CD-ROM, disk, pendrive and floppy bootable image.
+
+       ----ccoommpprreessss[[=_n_o,xz,gz,lzo]
+              compress GRUB files [optional]
+
+       --dd, ----ddiirreeccttoorryy=_D_I_R
+              use  images  and modules under DIR [default=/usr/lib/grub/<plat-
+              form>]
+
+       ----ffoonnttss=_F_O_N_T_S
+              install FONTS [default=unicode]
+
+       ----iinnssttaallll--mmoodduulleess=_M_O_D_U_L_E_S
+              install only MODULES and their dependencies [default=all]
+
+       --kk, ----ppuubbkkeeyy=_F_I_L_E
+              embed FILE as public key for signature checking
+
+       ----llooccaallee--ddiirreeccttoorryy=_D_I_R use translations under DIR
+              [default=/usr/share/locale]
+
+       ----llooccaalleess=_L_O_C_A_L_E_S
+              install only LOCALES [default=all]
+
+       ----mmoodduulleess=_M_O_D_U_L_E_S
+              pre-load specified modules MODULES
+
+       ----tthheemmeess=_T_H_E_M_E_S
+              install THEMES [default=starfield]
+
+       --vv, ----vveerrbboossee
+              print verbose messages.
+
+       ----aarrccss--bboooott
+              enable ARCS (big-endian mips machines, mostly  SGI)  boot.  Dis-
+              ables HFS+, APM, sparc64 and boot as disk image for i386-pc
+
+       ----ccoorree--ccoommpprreessss=_x_z|none|auto
+              choose the compression to use for core image
+
+       ----llaabbeell--bbggccoolloorr=_C_O_L_O_R
+              use COLOR for label background
+
+       ----llaabbeell--ccoolloorr=_C_O_L_O_R
+              use COLOR for label
+
+       ----llaabbeell--ffoonntt=_F_I_L_E
+              use FILE as font for label
+
+       --oo, ----oouuttppuutt=_F_I_L_E
+              save output in FILE [required]
+
+       ----pprroodduucctt--nnaammee=_S_T_R_I_N_G
+              use STRING as product name
+
+       ----pprroodduucctt--vveerrssiioonn=_S_T_R_I_N_G
+              use STRING as product version
+
+       ----rroomm--ddiirreeccttoorryy=_D_I_R
+              save ROM images in DIR [optional]
+
+       ----ssppaarrcc--bboooott
+              enable  sparc  boot.  Disables  HFS+, APM, ARCS and boot as disk
+              image for i386-pc
+
+       ----xxoorrrriissoo=_F_I_L_E
+              use FILE as xorriso [optional]
+
+       -?, ----hheellpp
+              give this help list
+
+       ----uussaaggee
+              give a short usage message
+
+       --VV, ----vveerrssiioonn
+              print program version
+
+       Mandatory or optional arguments to long options are also  mandatory  or
+       optional for any corresponding short options.
+
+       Generates a bootable CD/USB/floppy image.  Arguments other than options
+       to this program are passed  to  xorriso,  and  indicate  source  files,
+       source  directories, or any of the mkisofs options listed by the output
+       of `xorriso --aass mkisofs --hheellpp'.
+
+       Option ---- switches to native xorriso command mode.
+
+       Mail xorriso support requests to <bug-xorriso@gnu.org>.
+
+RREEPPOORRTTIINNGG BBUUGGSS
+       Report bugs to <bug-grub@gnu.org>.
+
+SSEEEE AALLSSOO
+       ggrruubb--mmkkiimmaaggee(1)
+
+       The full documentation for ggrruubb--mmkkrreessccuuee is  maintained  as  a  Texinfo
+       manual.   If the iinnffoo and ggrruubb--mmkkrreessccuuee programs are properly installed
+       at your site, the command
+
+              iinnffoo ggrruubb--mmkkrreessccuuee
+
+       should give you access to the complete manual.
+
+
+
+grub-mkrescue (GRUB) 2.02~beta2-9uDbeucnetmub1e.r72015                GRUB-MKRESCUE(1)

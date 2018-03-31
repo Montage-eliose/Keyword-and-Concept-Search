@@ -1,0 +1,315 @@
+MYSQLD_MULTI(1)              MySQL Database System             MYSQLD_MULTI(1)
+
+
+
+NNAAMMEE
+       mysqld_multi - manage multiple MySQL servers
+
+SSYYNNOOPPSSIISS
+       mmyyssqqlldd__mmuullttii [[_o_p_t_i_o_n_s]] {{ssttaarrtt||ssttoopp||rreeppoorrtt}} [[_G_N_R[[,,_G_N_R]] ......]]
+
+DDEESSCCRRIIPPTTIIOONN
+       mmyyssqqlldd__mmuullttii is designed to manage several mmyyssqqlldd processes that listen
+       for connections on different Unix socket files and TCP/IP ports. It can
+       start or stop servers, or report their current status.
+
+       mmyyssqqlldd__mmuullttii searches for groups named [mysqld_N] in my.cnf (or in the
+       file named by the ----ddeeffaauullttss--ffiillee option).  _N can be any positive
+       integer. This number is referred to in the following discussion as the
+       option group number, or _G_N_R. Group numbers distinguish option groups
+       from one another and are used as arguments to mmyyssqqlldd__mmuullttii to specify
+       which servers you want to start, stop, or obtain a status report for.
+       Options listed in these groups are the same that you would use in the
+       [mysqld] group used for starting mmyyssqqlldd. (See, for example,
+       Section 2.10.5, "Starting and Stopping MySQL Automatically".) However,
+       when using multiple servers, it is necessary that each one use its own
+       value for options such as the Unix socket file and TCP/IP port number.
+       For more information on which options must be unique per server in a
+       multiple-server environment, see Section 5.3, "Running Multiple MySQL
+       Instances on One Machine".
+
+       To invoke mmyyssqqlldd__mmuullttii, use the following syntax:
+
+           shell> mmyyssqqlldd__mmuullttii [[_o_p_t_i_o_n_s]] {{ssttaarrtt||ssttoopp||rreeppoorrtt}} [[_G_N_R[[,,_G_N_R]] ......]]
+
+       start, stop, and report indicate which operation to perform. You can
+       perform the designated operation for a single server or multiple
+       servers, depending on the _G_N_R list that follows the option name. If
+       there is no list, mmyyssqqlldd__mmuullttii performs the operation for all servers
+       in the option file.
+
+       Each _G_N_R value represents an option group number or range of group
+       numbers. The value should be the number at the end of the group name in
+       the option file. For example, the _G_N_R for a group named [mysqld17] is
+       17. To specify a range of numbers, separate the first and last numbers
+       by a dash. The _G_N_R value 10-13 represents groups [mysqld10] through
+       [mysqld13]. Multiple groups or group ranges can be specified on the
+       command line, separated by commas. There must be no whitespace
+       characters (spaces or tabs) in the _G_N_R list; anything after a
+       whitespace character is ignored.
+
+       This command starts a single server using option group [mysqld17]:
+
+           shell> mmyyssqqlldd__mmuullttii ssttaarrtt 1177
+
+       This command stops several servers, using option groups [mysqld8] and
+       [mysqld10] through [mysqld13]:
+
+           shell> mmyyssqqlldd__mmuullttii ssttoopp 88,,1100--1133
+
+       For an example of how you might set up an option file, use this
+       command:
+
+           shell> mmyyssqqlldd__mmuullttii ----eexxaammppllee
+
+       mmyyssqqlldd__mmuullttii searches for option files as follows:
+
+       +o   With ----nnoo--ddeeffaauullttss, no option files are read.
+
+       +o   With ----ddeeffaauullttss--ffiillee==_f_i_l_e___n_a_m_e, only the named file is read.
+
+       +o   Otherwise, option files in the standard list of locations are read,
+           including any file named by the ----ddeeffaauullttss--eexxttrraa--ffiillee==_f_i_l_e___n_a_m_e
+           option, if one is given. (If the option is given multiple times,
+           the last value is used.)
+
+       Option files read are searched for [mysqld_multi] and [mysqld_N] option
+       groups. The [mysqld_multi] group can be used for options to
+       mmyyssqqlldd__mmuullttii itself.  [mysqld_N] groups can be used for options passed
+       to specific mmyyssqqlldd instances.
+
+       The [mysqld] or [mysqld_safe] groups can be used for common options
+       read by all instances of mmyyssqqlldd or mmyyssqqlldd__ssaaffee. You can specify a
+       ----ddeeffaauullttss--ffiillee==_f_i_l_e___n_a_m_e option to use a different configuration file
+       for that instance, in which case the [mysqld] or [mysqld_safe] groups
+       from that file will be used for that instance.
+
+       mmyyssqqlldd__mmuullttii supports the following options.
+
+       +o   ----hheellpp
+
+           Display a help message and exit.
+
+       +o   ----ccoonnffiigg--ffiillee==_f_i_l_e___n_a_m_e
+
+           This option is deprecated. If given, it is treated the same way as
+           ----ddeeffaauullttss--eexxttrraa--ffiillee, described earlier.  ----ccoonnffiigg--ffiillee was
+           removed in MySQL 5.5.3.
+
+       +o   ----eexxaammppllee
+
+           Display a sample option file.
+
+       +o   ----lloogg==_f_i_l_e___n_a_m_e
+
+           Specify the name of the log file. If the file exists, log output is
+           appended to it.
+
+       +o   ----mmyyssqqllaaddmmiinn==_p_r_o_g___n_a_m_e
+
+           The mmyyssqqllaaddmmiinn binary to be used to stop servers.
+
+       +o   ----mmyyssqqlldd==_p_r_o_g___n_a_m_e
+
+           The mmyyssqqlldd binary to be used. Note that you can specify mmyyssqqlldd__ssaaffee
+           as the value for this option also. If you use mmyyssqqlldd__ssaaffee to start
+           the server, you can include the mysqld or ledir options in the
+           corresponding [mysqld_N] option group. These options indicate the
+           name of the server that mmyyssqqlldd__ssaaffee should start and the path name
+           of the directory where the server is located. (See the descriptions
+           for these options in mmyyssqqlldd__ssaaffee(1).) Example:
+
+               [mysqld38]
+               mysqld = mysqld-debug
+               ledir  = /opt/local/mysql/libexec
+
+       +o   ----nnoo--lloogg
+
+           Print log information to stdout rather than to the log file. By
+           default, output goes to the log file.
+
+       +o   ----ppaasssswwoorrdd==_p_a_s_s_w_o_r_d
+
+           The password of the MySQL account to use when invoking mmyyssqqllaaddmmiinn.
+           Note that the password value is not optional for this option,
+           unlike for other MySQL programs.
+
+       +o   ----ssiilleenntt
+
+           Silent mode; disable warnings.
+
+       +o   ----ttccpp--iipp
+
+           Connect to each MySQL server through the TCP/IP port instead of the
+           Unix socket file. (If a socket file is missing, the server might
+           still be running, but accessible only through the TCP/IP port.) By
+           default, connections are made using the Unix socket file. This
+           option affects stop and report operations.
+
+       +o   ----uusseerr==_u_s_e_r___n_a_m_e
+
+           The user name of the MySQL account to use when invoking mmyyssqqllaaddmmiinn.
+
+       +o   ----vveerrbboossee
+
+           Be more verbose.
+
+       +o   ----vveerrssiioonn
+
+           Display version information and exit.
+
+       Some notes about mmyyssqqlldd__mmuullttii:
+
+       +o   MMoosstt iimmppoorrttaanntt: Before using mmyyssqqlldd__mmuullttii be sure that you
+           understand the meanings of the options that are passed to the
+           mmyyssqqlldd servers and _w_h_y you would want to have separate mmyyssqqlldd
+           processes. Beware of the dangers of using multiple mmyyssqqlldd servers
+           with the same data directory. Use separate data directories, unless
+           you _k_n_o_w what you are doing. Starting multiple servers with the
+           same data directory does _n_o_t give you extra performance in a
+           threaded system. See Section 5.3, "Running Multiple MySQL Instances
+           on One Machine".
+
+       +o
+
+               IImmppoorrttaanntt
+               Make sure that the data directory for each server is fully
+               accessible to the Unix account that the specific mmyyssqqlldd process
+               is started as.  _D_o _n_o_t use the Unix _r_o_o_t account for this,
+               unless you _k_n_o_w what you are doing. See Section 6.1.5, "How to
+               Run MySQL as a Normal User".
+
+       +o   Make sure that the MySQL account used for stopping the mmyyssqqlldd
+           servers (with the mmyyssqqllaaddmmiinn program) has the same user name and
+           password for each server. Also, make sure that the account has the
+           SHUTDOWN privilege. If the servers that you want to manage have
+           different user names or passwords for the administrative accounts,
+           you might want to create an account on each server that has the
+           same user name and password. For example, you might set up a common
+           multi_admin account by executing the following commands for each
+           server:
+
+               shell> mmyyssqqll --uu rroooott --SS //ttmmpp//mmyyssqqll..ssoocckk --pp
+               Enter password:
+               mysql> CCRREEAATTEE UUSSEERR ''mmuullttii__aaddmmiinn''@@''llooccaallhhoosstt'' IIDDEENNTTIIFFIIEEDD BBYY ''mmuullttiippaassss'';;
+               mysql> GGRRAANNTT SSHHUUTTDDOOWWNN OONN **..** TTOO ''mmuullttii__aaddmmiinn''@@''llooccaallhhoosstt'';;
+
+           See Section 6.2, "The MySQL Access Privilege System". You have to
+           do this for each mmyyssqqlldd server. Change the connection parameters
+           appropriately when connecting to each one. Note that the host name
+           part of the account name must permit you to connect as multi_admin
+           from the host where you want to run mmyyssqqlldd__mmuullttii.
+
+       +o   The Unix socket file and the TCP/IP port number must be different
+           for every mmyyssqqlldd. (Alternatively, if the host has multiple network
+           addresses, you can use ----bbiinndd--aaddddrreessss to cause different servers to
+           listen to different interfaces.)
+
+       +o   The ----ppiidd--ffiillee option is very important if you are using
+           mmyyssqqlldd__ssaaffee to start mmyyssqqlldd (for example, ----mmyyssqqlldd==mmyyssqqlldd__ssaaffee)
+           Every mmyyssqqlldd should have its own process ID file. The advantage of
+           using mmyyssqqlldd__ssaaffee instead of mmyyssqqlldd is that mmyyssqqlldd__ssaaffee monitors
+           its mmyyssqqlldd process and restarts it if the process terminates due to
+           a signal sent using kill -9 or for other reasons, such as a
+           segmentation fault. Please note that the mmyyssqqlldd__ssaaffee script might
+           require that you start it from a certain place. This means that you
+           might have to change location to a certain directory before running
+           mmyyssqqlldd__mmuullttii. If you have problems starting, please see the
+           mmyyssqqlldd__ssaaffee script. Check especially the lines:
+
+               ----------------------------------------------------------------
+               MY_PWD=`pwd`
+               # Check if we are starting this relative (for the binary release)
+               if test -d $MY_PWD/data/mysql -a \
+                  -f ./share/mysql/english/errmsg.sys -a \
+                  -x ./bin/mysqld
+               ----------------------------------------------------------------
+
+           The test performed by these lines should be successful, or you
+           might encounter problems. See mmyyssqqlldd__ssaaffee(1).
+
+       +o   You might want to use the ----uusseerr option for mmyyssqqlldd, but to do this
+           you need to run the mmyyssqqlldd__mmuullttii script as the Unix superuser
+           (root). Having the option in the option file doesn't matter; you
+           just get a warning if you are not the superuser and the mmyyssqqlldd
+           processes are started under your own Unix account.
+
+       The following example shows how you might set up an option file for use
+       with mmyyssqqlldd__mmuullttii. The order in which the mmyyssqqlldd programs are started
+       or stopped depends on the order in which they appear in the option
+       file. Group numbers need not form an unbroken sequence. The first and
+       fifth [mysqld_N] groups were intentionally omitted from the example to
+       illustrate that you can have "gaps" in the option file. This gives you
+       more flexibility.
+
+           # This is an example of a my.cnf file for mysqld_multi.
+           # Usually this file is located in home dir ~/.my.cnf or /etc/my.cnf
+           [mysqld_multi]
+           mysqld     = /usr/local/mysql/bin/mysqld_safe
+           mysqladmin = /usr/local/mysql/bin/mysqladmin
+           user       = multi_admin
+           password   = my_password
+           [mysqld2]
+           socket     = /tmp/mysql.sock2
+           port       = 3307
+           pid-file   = /usr/local/mysql/data2/hostname.pid2
+           datadir    = /usr/local/mysql/data2
+           language   = /usr/local/mysql/share/mysql/english
+           user       = unix_user1
+           [mysqld3]
+           mysqld     = /path/to/mysqld_safe
+           ledir      = /path/to/mysqld-binary/
+           mysqladmin = /path/to/mysqladmin
+           socket     = /tmp/mysql.sock3
+           port       = 3308
+           pid-file   = /usr/local/mysql/data3/hostname.pid3
+           datadir    = /usr/local/mysql/data3
+           language   = /usr/local/mysql/share/mysql/swedish
+           user       = unix_user2
+           [mysqld4]
+           socket     = /tmp/mysql.sock4
+           port       = 3309
+           pid-file   = /usr/local/mysql/data4/hostname.pid4
+           datadir    = /usr/local/mysql/data4
+           language   = /usr/local/mysql/share/mysql/estonia
+           user       = unix_user3
+           [mysqld6]
+           socket     = /tmp/mysql.sock6
+           port       = 3311
+           pid-file   = /usr/local/mysql/data6/hostname.pid6
+           datadir    = /usr/local/mysql/data6
+           language   = /usr/local/mysql/share/mysql/japanese
+           user       = unix_user4
+
+       See Section 4.2.6, "Using Option Files".
+
+CCOOPPYYRRIIGGHHTT
+       Copyright (C) 1997, 2016, Oracle and/or its affiliates. All rights
+       reserved.
+
+       This documentation is free software; you can redistribute it and/or
+       modify it only under the terms of the GNU General Public License as
+       published by the Free Software Foundation; version 2 of the License.
+
+       This documentation is distributed in the hope that it will be useful,
+       but WITHOUT ANY WARRANTY; without even the implied warranty of
+       MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+       General Public License for more details.
+
+       You should have received a copy of the GNU General Public License along
+       with the program; if not, write to the Free Software Foundation, Inc.,
+       51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA or see
+       http://www.gnu.org/licenses/.
+
+
+SSEEEE AALLSSOO
+       For more information, please refer to the MySQL Reference Manual, which
+       may already be installed locally and which is also available online at
+       http://dev.mysql.com/doc/.
+
+AAUUTTHHOORR
+       Oracle Corporation (http://dev.mysql.com/).
+
+
+
+MySQL 5.5                         03/01/2016                   MYSQLD_MULTI(1)

@@ -1,0 +1,207 @@
+WHIPTAIL(1)                 General Commands Manual                WHIPTAIL(1)
+
+
+
+NNAAMMEE
+       whiptail - display dialog boxes from shell scripts
+
+SSYYNNOOPPSSIISS
+       wwhhiippttaaiill  [  ----ttiittllee  _t_i_t_l_e  ]  [ ----bbaacckkttiittllee _b_a_c_k_t_i_t_l_e ] [ ----cclleeaarr ] [
+       ----ddeeffaauulltt--iitteemm _s_t_r_i_n_g ] [ ----ddeeffaauullttnnoo ] [  ----ffbb  ]  [  ----nnooccaanncceell  ]  [
+       ----yyeess--bbuuttttoonn  _t_e_x_t ] [ ----nnoo--bbuuttttoonn _t_e_x_t ] [ ----ookk--bbuuttttoonn _t_e_x_t ] [ ----ccaann--
+       cceell--bbuuttttoonn _t_e_x_t ] [ ----nnooiitteemm [ ] ----oouuttppuutt--ffdd _f_d ] [ ----sseeppaarraattee--oouuttppuutt ]
+       [ ----ssccrroolllltteexxtt ] [ ----ttoopplleefftt ] bbooxx--ooppttiioonnss
+
+DDEESSCCRRIIPPTTIIOONN
+       wwhhiippttaaiill  is a program that will let you present a variety of questions
+       or display messages using dialog boxes from a shell script.  Currently,
+       these types of dialog boxes are implemented:
+
+       yyeess//nnoo  box,  mmeennuu  box,  iinnppuutt  box,  mmeessssaaggee box, tteexxtt box, iinnffoo box,
+       cchheecckklliisstt box, rraaddiioolliisstt box ggaauuggee box, and ppaasssswwoorrdd box.
+
+OOPPTTIIOONNSS
+       ----cclleeaarr
+              The screen will be cleared to  the  ssccrreeeenn  aattttrriibbuuttee  on  exit.
+              This  doesn't  work  in  an xterm (and descendants) if alternate
+              screen switching is enabled, because in that case  slang  writes
+              to (and clears) an alternate screen.
+
+       ----ddeeffaauullttnnoo
+              The dialog box will open with the cursor over the NNoo button.
+
+       ----ddeeffaauulltt--iitteemm _s_t_r_i_n_g
+              Set  the default item in a menu box.  Normally the first item in
+              the box is the default.
+
+       ----ffbb   Use full buttons. (By default, wwhhiippttaaiill uses compact buttons).
+
+       ----nnooccaanncceell
+              The dialog box won't have a CCaanncceell button..
+
+       ----yyeess--bbuuttttoonn _t_e_x_t
+              Set the text of the YYeess button.
+
+       ----nnoo--bbuuttttoonn _t_e_x_t
+              Set the text of the NNoo button.
+
+       ----ookk--bbuuttttoonn _t_e_x_t
+              Set the text of the OOkk button.
+
+       ----ccaanncceell--bbuuttttoonn _t_e_x_t
+              Set the text of the CCaanncceell button.
+
+       ----nnooiitteemm
+              The menu, checklist and  radiolist  widgets  will  display  tags
+              only,  not  the  item  strings. The menu widget still needs some
+              items specified, but checklist and radiolist expect only tag and
+              status.
+
+       ----sseeppaarraattee--oouuttppuutt
+              For checklist widgets, output result one line at a time, with no
+              quoting.  This facilitates parsing by another program.
+
+       ----oouuttppuutt--ffdd _f_d
+              Direct output to  the  given  file  descriptor.   Most  wwhhiippttaaiill
+              scripts write to standard error, but  error  messages  may  also
+              be written there, depending on your script.
+
+       ----ttiittllee _t_i_t_l_e
+              Specifies a _t_i_t_l_e string to be displayed at the top of the  dia-
+              log box.
+
+       ----bbaacckkttiittllee _b_a_c_k_t_i_t_l_e
+              Specifies a _b_a_c_k_t_i_t_l_e string to be displayed on the backdrop, at
+              the top of the screen.
+
+       ----ssccrroolllltteexxtt
+              Force the display of a vertical scrollbar.
+
+       ----ttoopplleefftt
+              Put window in top-left corner.
+
+       BBooxx OOppttiioonnss
+
+       ----yyeessnnoo _t_e_x_t _h_e_i_g_h_t _w_i_d_t_h
+              A yyeess//nnoo dialog box of size _h_e_i_g_h_t rows by _w_i_d_t_h columns will be
+              displayed.  The string specified by _t_e_x_t is displayed inside the
+              dialog box. If this string is too long to be fit in one line, it
+              will be automatically divided into multiple lines at appropriate
+              places. The _t_e_x_t string may also contain the sub-string _"_\_n_"  or
+              newline  characters  _`_\_n_'  to  control line breaking explicitly.
+              This dialog box is useful for asking questions that require  the
+              user  to answer either yes or no.  The dialog box has a YYeess but-
+              ton and a NNoo button, in which the user  can  switch  between  by
+              pressing the _T_A_B key.
+
+       ----mmssggbbooxx _t_e_x_t _h_e_i_g_h_t _w_i_d_t_h
+              A mmeessssaaggee box is very similar to a yyeess//nnoo box.  The only differ-
+              ence between a mmeessssaaggee box and a yyeess//nnoo box is  that  a  mmeessssaaggee
+              box  has only a single OOKK button. You can use this dialog box to
+              display any message you like.  After reading  the  message,  the
+              user  can press the _E_N_T_E_R key so that wwhhiippttaaiill will exit and the
+              calling shell script can continue its operation.
+
+       ----iinnffoobbooxx _t_e_x_t _h_e_i_g_h_t _w_i_d_t_h
+              An iinnffoo box is basically a mmeessssaaggee box.  However, in this  case,
+              wwhhiippttaaiill  will  exit immediately after displaying the message to
+              the user. The screen is not cleared when wwhhiippttaaiill exits, so that
+              the  message  will  remain on the screen until the calling shell
+              script clears it later. This is useful when you want  to  inform
+              the  user  that some operations are carrying on that may require
+              some time to finish.
+
+       ----iinnppuuttbbooxx _t_e_x_t _h_e_i_g_h_t _w_i_d_t_h _[_i_n_i_t_]
+              An iinnppuutt box is useful when  you  want  to  ask  questions  that
+              require  the  user  to  input a string as the answer. If init is
+              supplied it is used to initialize the input string.  When input-
+              ing  the string, the _B_A_C_K_S_P_A_C_E key can be used to correct typing
+              errors. If the input string is longer than the width of the dia-
+              log  box,  the  input field will be scrolled. On exit, the input
+              string will be printed on _s_t_d_e_r_r.
+
+       ----ppaasssswwoorrddbbooxx _t_e_x_t _h_e_i_g_h_t _w_i_d_t_h _[_i_n_i_t_]
+              A ppaasssswwoorrdd box is similar to an input box, except the  text  the
+              user  enters is not displayed. This is useful when prompting for
+              passwords or other sensitive information. Be aware that if  any-
+              thing  is  passed  in "init", it will be visible in the system's
+              process table to casual snoopers. Also, it is very confusing  to
+              the  user  to  provide  them with a default password they cannot
+              see. For these reasons, using "init" is highly discouraged.
+
+       ----tteexxttbbooxx _f_i_l_e _h_e_i_g_h_t _w_i_d_t_h
+              A tteexxtt box lets you display the contents of a  text  file  in  a
+              dialog  box.  It is like a simple text file viewer. The user can
+              move through the  file  by  using  the  _U_P_/_D_O_W_N,  _P_G_U_P_/_P_G_D_N  and
+              _H_O_M_E_/_E_N_D keys available on most keyboards.  If the lines are too
+              long to be displayed in the box, the _L_E_F_T_/_R_I_G_H_T keys can be used
+              to  scroll  the  text region horizontally. For more convenience,
+              forward and backward searching functions are also provided.
+
+       ----mmeennuu _t_e_x_t _h_e_i_g_h_t _w_i_d_t_h _m_e_n_u_-_h_e_i_g_h_t [ _t_a_g _i_t_e_m ] _._._.
+              As its name suggests, a mmeennuu box is a dialog  box  that  can  be
+              used  to present a list of choices in the form of a menu for the
+              user to choose. Each menu entry consists of a _t_a_g string and  an
+              _i_t_e_m  string.  The  _t_a_g gives the entry a name to distinguish it
+              from the other entries in the menu. The _i_t_e_m is a short descrip-
+              tion  of the option that the entry represents. The user can move
+              between the menu entries by pressing the _U_P_/_D_O_W_N keys, the first
+              letter  of  the  _t_a_g as a hot-key. There are _m_e_n_u_-_h_e_i_g_h_t entries
+              displayed in the menu at one time, but the menu will be scrolled
+              if  there  are  more entries than that. When wwhhiippttaaiill exits, the
+              _t_a_g of the chosen menu entry will be printed on _s_t_d_e_r_r.
+
+       ----cchheecckklliisstt _t_e_x_t _h_e_i_g_h_t _w_i_d_t_h _l_i_s_t_-_h_e_i_g_h_t [ _t_a_g _i_t_e_m _s_t_a_t_u_s ] _._._.
+              A cchheecckklliisstt box is similar to a mmeennuu box in that there are  mul-
+              tiple  entries  presented in the form of a menu.  You can select
+              and deselect items using the  SPACE  key.   The  initial  on/off
+              state  of each entry is specified by _s_t_a_t_u_s.  On exit, a list of
+              the _t_a_g strings of those entries that  are  turned  on  will  be
+              printed on _s_t_d_e_r_r.
+
+
+       ----rraaddiioolliisstt _t_e_x_t _h_e_i_g_h_t _w_i_d_t_h _l_i_s_t_-_h_e_i_g_h_t  [ _t_a_g _i_t_e_m _s_t_a_t_u_s ] _._._.
+              A  rraaddiioolliisstt  box is similar to a mmeennuu box.  The only difference
+              is that you can indicate which entry is currently  selected,  by
+              setting its _s_t_a_t_u_s to _o_n.
+
+
+       ----ggaauuggee _t_e_x_t _h_e_i_g_h_t _w_i_d_t_h _p_e_r_c_e_n_t
+              A  ggaauuggee  box displays a meter along the bottom of the box.  The
+              meter indicates a percentage.  New  percentages  are  read  from
+              standard  input,  one integer per line.  The meter is updated to
+              reflect each new percentage.  If stdin is XXX, the first follow-
+              ing  line is a percentage and subsequent lines up to another XXX
+              are used for a new prompt.  The gauge exits when EOF is  reached
+              on stdin.
+
+
+NNOOTTEESS
+       whiptail  interprets  arguments starting with a dash "-" as being argu-
+       ments.  To avoid this, and start some text in, for example,  a  menubox
+       item,  with a dash, whiptail honours the getopt convention of accepting
+       the special argument "--" which means that all following arguments with
+       dashes are to be treated verbatim and not parsed as options.
+
+DDIIAAGGNNOOSSTTIICCSS
+       Exit  status  is 0 if wwhhiippttaaiill is exited by pressing the YYeess or OOKK but-
+       ton, and 1 if the NNoo or CCaanncceell button is pressed. Otherwise, if  errors
+       occur  inside  wwhhiippttaaiill  or wwhhiippttaaiill is exited by pressing the _E_S_C key,
+       the exit status is -1.
+
+AAUUTTHHOORR
+       Based on the man page for dialog(1) by:
+
+       Savio Lam (lam836@cs.cuhk.hk) - version 0.3
+
+       Stuart Herbert (S.Herbert@sheffield.ac.uk) - patch for version 0.4
+
+       Modifications for whiptail by:
+
+       Enrique Zanardi (ezanard@debian.org)
+
+       Alastair McKinstry (mckinstry@debian.org)
+
+
+
+Whiptail Version 0.52.5         31 January 2007                    WHIPTAIL(1)

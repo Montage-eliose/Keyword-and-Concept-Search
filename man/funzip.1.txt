@@ -1,0 +1,96 @@
+FUNZIP(1)                   General Commands Manual                  FUNZIP(1)
+
+
+
+NNAAMMEE
+       funzip - filter for extracting from a ZIP archive in a pipe
+
+SSYYNNOOPPSSIISS
+       ffuunnzziipp [--ppaasssswwoorrdd] [_i_n_p_u_t_[_._z_i_p_|_._g_z_]]
+
+AARRGGUUMMEENNTTSS
+       [_-_p_a_s_s_w_o_r_d]
+              Optional  password  to  be  used  if  ZIP  archive is encrypted.
+              Decryption may not be supported at some sites.  See  DESCRIPTION
+              for more details.
+
+       [_i_n_p_u_t_[_._z_i_p_|_._g_z_]]
+              Optional  input  archive file specification. See DESCRIPTION for
+              details.
+
+DDEESSCCRRIIPPTTIIOONN
+       _f_u_n_z_i_p without a file argument acts as a filter; that  is,  it  assumes
+       that  a  ZIP archive (or a _g_z_i_p'd(1) file) is being piped into standard
+       input, and it extracts the first member from  the  archive  to  stdout.
+       When  stdin comes from a tty device, _f_u_n_z_i_p assumes that this cannot be
+       a stream of (binary) compressed data  and  shows  a  short  help  text,
+       instead.   If  there  is  a  file argument, then input is read from the
+       specified file instead of from stdin.
+
+       A password for encrypted zip files can be specified on the command line
+       (preceding  the  file  name,  if  any) by prefixing the password with a
+       dash.  Note that this constitutes a security risk on many systems; cur-
+       rently  running  processes are often visible via simple commands (e.g.,
+       _p_s(1) under Unix), and command-line histories  can  be  read.   If  the
+       first  entry  of the zip file is encrypted and no password is specified
+       on the command line, then the user is prompted for a password  and  the
+       password is not echoed on the console.
+
+       Given the limitation on single-member extraction, _f_u_n_z_i_p is most useful
+       in conjunction with a secondary archiver program such as  _t_a_r(1).   The
+       following  section  includes  an example illustrating this usage in the
+       case of disk backups to tape.
+
+EEXXAAMMPPLLEESS
+       To use _f_u_n_z_i_p to extract the first member file of the archive  test.zip
+       and to pipe it into _m_o_r_e(1):
+
+       funzip test.zip | more
+
+       To  use  _f_u_n_z_i_p  to  test the first member file of test.zip (any errors
+       will be reported on standard error):
+
+       funzip test.zip > /dev/null
+
+       To use _z_i_p and _f_u_n_z_i_p in place of _c_o_m_p_r_e_s_s(1) and _z_c_a_t(1)  (or  _g_z_i_p(1)
+       and _g_z_c_a_t(1)) for tape backups:
+
+       tar cf - . | zip -7 | dd of=/dev/nrst0 obs=8k
+       dd if=/dev/nrst0 ibs=8k | funzip | tar xf -
+
+       (where, for example, nrst0 is a SCSI tape drive).
+
+BBUUGGSS
+       When  piping  an encrypted file into _m_o_r_e and allowing _f_u_n_z_i_p to prompt
+       for password, the terminal may sometimes be reset to a  non-echo  mode.
+       This  is  apparently  due to a race condition between the two programs;
+       _f_u_n_z_i_p changes the terminal mode to  non-echo  before  _m_o_r_e  reads  its
+       state,  and  _m_o_r_e  then  ``restores''  the terminal to this mode before
+       exiting.  To recover, run _f_u_n_z_i_p on  the  same  file  but  redirect  to
+       /dev/null  rather  than piping into more; after prompting again for the
+       password, _f_u_n_z_i_p will reset the terminal properly.
+
+       There is presently no way to extract any member but the  first  from  a
+       ZIP  archive.   This would be useful in the case where a ZIP archive is
+       included within another archive.  In the case where the first member is
+       a directory, _f_u_n_z_i_p simply creates the directory and exits.
+
+       The  functionality  of  _f_u_n_z_i_p should be incorporated into _u_n_z_i_p itself
+       (future release).
+
+SSEEEE AALLSSOO
+       _g_z_i_p(1), _u_n_z_i_p(1), _u_n_z_i_p_s_f_x(1), _z_i_p(1), _z_i_p_c_l_o_a_k(1),  _z_i_p_i_n_f_o(1),  _z_i_p_-
+       _n_o_t_e(1), _z_i_p_s_p_l_i_t(1)
+
+UURRLL
+       The Info-ZIP home page is currently at
+       http://www.info-zip.org/pub/infozip/
+       or
+       ftp://ftp.info-zip.org/pub/infozip/ .
+
+AAUUTTHHOORR
+       Mark Adler (Info-ZIP)
+
+
+
+Info-ZIP                     20 April 2009 (v3.95)                   FUNZIP(1)

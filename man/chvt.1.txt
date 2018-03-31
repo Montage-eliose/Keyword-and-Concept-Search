@@ -1,0 +1,19 @@
+CHVT(1)                     General Commands Manual                    CHVT(1)
+
+
+
+NNAAMMEE
+       chvt - change foreground virtual terminal
+
+SSYYNNOOPPSSIISS
+       cchhvvtt _N
+
+DDEESSCCRRIIPPTTIIOONN
+       The  command cchhvvtt _N makes _/_d_e_v_/_t_t_y_N the foreground terminal.  (The cor-
+       responding screen is created if it did not exist yet.  To  get  rid  of
+       unused  VTs,  use ddeeaallllooccvvtt(1).)  The key combination (Ctrl-)LeftAlt-F_N
+       (with _N in the range 1-12) usually has a similar effect.
+
+
+
+                                26 January 1997                        CHVT(1)

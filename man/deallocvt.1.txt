@@ -1,0 +1,27 @@
+DEALLOCVT(1)                General Commands Manual               DEALLOCVT(1)
+
+
+
+NNAAMMEE
+       deallocvt - deallocate unused virtual consoles
+
+SSYYNNOOPPSSIISS
+       ddeeaallllooccvvtt [_N ...]
+
+DDEESSCCRRIIPPTTIIOONN
+       The command ddeeaallllooccvvtt deallocates kernel memory and data structures for
+       all unused virtual consoles.  If one  or  more  arguments  _N  ...   are
+       given, only the corresponding consoles _/_d_e_v_/_t_t_y_N are deallocated.
+
+       A virtual console is unused if it is not the foreground console, and no
+       process has it open for reading  or  writing,  and  no  text  has  been
+       selected on its screen.
+
+SSEEEE AALLSSOO
+       cchhvvtt(1), ooppeennvvtt(1)
+
+
+
+
+
+                                  17 Mar 1997                     DEALLOCVT(1)

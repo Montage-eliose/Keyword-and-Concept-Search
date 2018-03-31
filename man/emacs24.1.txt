@@ -1,0 +1,465 @@
+EMACS(1)                    General Commands Manual                   EMACS(1)
+
+
+
+NNAAMMEE
+       emacs - GNU project Emacs
+
+SSYYNNOOPPSSIISS
+       eemmaaccss [ _c_o_m_m_a_n_d_-_l_i_n_e _s_w_i_t_c_h_e_s ] [ _f_i_l_e_s _._._. ]
+
+DDEESSCCRRIIPPTTIIOONN
+       _G_N_U  _E_m_a_c_s is a version of _E_m_a_c_s, written by the author of the original
+       (PDP-10) _E_m_a_c_s, Richard Stallman.  The user functionality of GNU  Emacs
+       encompasses  everything  other  editors do, and it is easily extensible
+       since its editing commands are written in Lisp.
+
+       The primary documentation of GNU Emacs is  in  the  GNU  Emacs  Manual,
+       which  you  can  read  using Info, either from Emacs or as a standalone
+       program.  Please look there for complete and up-to-date  documentation.
+       This man page is updated only when someone volunteers to do so.
+
+       _E_m_a_c_s  has  an  extensive  interactive  help facility, but the facility
+       assumes that you know how to  manipulate  _E_m_a_c_s  windows  and  buffers.
+       CTRL-h or F1 enters the Help facility.  Help Tutorial (CTRL-h t) starts
+       an interactive tutorial to quickly teach beginners the fundamentals  of
+       _E_m_a_c_s_.   Help  Apropos  (CTRL-h a) helps you find a command with a name
+       matching a given pattern, Help Key (CTRL-h k)  describes  a  given  key
+       sequence, and Help Function (CTRL-h f) describes a given Lisp function.
+
+       _G_N_U _E_m_a_c_s's many special packages handle mail reading (RMail) and send-
+       ing (Mail), outline editing  (Outline),  compiling  (Compile),  running
+       subshells  within _E_m_a_c_s windows (Shell), running a Lisp read-eval-print
+       loop (Lisp-Interaction-Mode),  automated  psychotherapy  (Doctor),  and
+       much more.
+
+   EEmmaaccss OOppttiioonnss
+       The following options are of general interest:
+
+              _f_i_l_e    Edit _f_i_l_e.
+
+              ----ffiillee _f_i_l_e, ----ffiinndd--ffiillee _f_i_l_e, ----vviissiitt _f_i_l_e
+                      The same as specifying _f_i_l_e directly as an argument.
+
+              ++_n_u_m_b_e_r Go  to  the  line  specified  by _n_u_m_b_e_r (do not insert a
+                      space between  the  "+"  sign  and  the  number).   This
+                      applies only to the next file specified.
+
+              ++_l_i_n_e_:_c_o_l_u_m_n
+                      Go to the specified _l_i_n_e and _c_o_l_u_m_n.
+
+              --qq, ----nnoo--iinniitt--ffiillee
+                      Do not load an init file.
+
+              ----nnoo--ssiittee--ffiillee
+                      Do not load the site-wide startup file.
+
+              ----nnoo--ddeesskkttoopp
+                      Do not load a saved desktop.
+
+              --QQ, ----qquuiicckk
+                      Similar to "-q --no-site-file --no-splash".  Also, avoid
+                      processing X resources.
+
+              ----nnoo--ssppllaasshh
+                      Do not display a splash screen during start-up.
+
+              ----ddeebbuugg--iinniitt
+                      Enable _E_m_a_c_s Lisp debugger during the processing of  the
+                      user  init  file ~~//..eemmaaccss.  This is useful for debugging
+                      problems in the init file.
+
+              --uu _u_s_e_r, ----uusseerr _u_s_e_r
+                      Load _u_s_e_r's init file.
+
+              --tt _f_i_l_e, ----tteerrmmiinnaall _f_i_l_e
+                      Use specified _f_i_l_e as  the  terminal  instead  of  using
+                      stdin/stdout.  This must be the first argument specified
+                      in the command line.
+
+              ----ddaaeemmoonn
+                      Start Emacs as a daemon, enabling the Emacs  server  and
+                      disconnecting  from  the terminal.  You can then use the
+                      emacsclient command to connect to the server (see  eemmaacc--
+                      sscclliieenntt(1)).
+
+              ----vveerrssiioonn
+                      Display _E_m_a_c_s version information and exit.
+
+              ----hheellpp  Display this help and exit.
+
+       The following options are Lisp-oriented (these options are processed in
+       the order encountered):
+
+              --ff _f_u_n_c_t_i_o_n, ----ffuunnccaallll _f_u_n_c_t_i_o_n
+                      Execute the lisp function _f_u_n_c_t_i_o_n.
+
+              --ll _f_i_l_e, ----llooaadd _f_i_l_e
+                      Load the lisp code in the file _f_i_l_e.
+
+              ----eevvaall _e_x_p_r, ----eexxeeccuuttee _e_x_p_r
+                      Evaluate the Lisp expression _e_x_p_r.
+
+       The following options are useful when running _E_m_a_c_s as a batch editor:
+
+              ----bbaattcchh Edit in batch mode.  The editor will  send  messages  to
+                      stderr.  You must use -l and -f options to specify files
+                      to execute and functions to call.
+
+              ----ssccrriipptt _f_i_l_e
+                      Run _f_i_l_e as an Emacs Lisp script.
+
+              ----iinnsseerrtt _f_i_l_e
+                      Insert contents of _f_i_l_e into the current buffer.
+
+              ----kkiillll  Exit _E_m_a_c_s while in batch mode.
+
+              --LL _d_i_r, ----ddiirreeccttoorryy _d_i_r
+                      Add _d_i_r to the list of directories  _E_m_a_c_s  searches  for
+                      Lisp files.
+
+   UUssiinngg EEmmaaccss wwiitthh XX
+       _E_m_a_c_s  has been tailored to work well with the X window system.  If you
+       run _E_m_a_c_s from under X windows, it will create its own X window to dis-
+       play  in.   You  will probably want to start the editor as a background
+       process so that you can continue using your original window.
+
+       _E_m_a_c_s can be started with the following X switches:
+
+              ----nnaammee _n_a_m_e
+                      Specify the name which should be assigned to the initial
+                      _E_m_a_c_s  window.   This controls looking up X resources as
+                      well as the window title.
+
+              --TT _n_a_m_e, ----ttiittllee _n_a_m_e
+                      Specify the title for the initial X window.
+
+              --rr, --rrvv, ----rreevveerrssee--vviiddeeoo
+                      Display the _E_m_a_c_s window in reverse video.
+
+              --ffnn _f_o_n_t, ----ffoonntt _f_o_n_t
+                      Set the _E_m_a_c_s window's font to that specified  by  _f_o_n_t.
+                      You   will   find   the   various   _X   fonts   in   the
+                      _/_u_s_r_/_l_i_b_/_X_1_1_/_f_o_n_t_s directory.  Note that _E_m_a_c_s will only
+                      accept fixed width fonts.  Under the X11 Release 4 font-
+                      naming conventions, any font with the value "m"  or  "c"
+                      in  the eleventh field of the font name is a fixed width
+                      font.  Furthermore, fonts whose name  are  of  the  form
+                      _w_i_d_t_hx_h_e_i_g_h_t  are  generally fixed width, as is the font
+                      _f_i_x_e_d.  See xxllssffoonnttss(1) for more information.
+
+                      When you specify a font, be sure to put a space  between
+                      the switch and the font name.
+
+              ----xxrrmm _r_e_s_o_u_r_c_e_s
+                      Set additional X resources.
+
+              ----ccoolloorr, ----ccoolloorr==_m_o_d_e
+                      Override   color  mode  for  character  terminals;  _m_o_d_e
+                      defaults to `auto', and can  also  be  `never',  `auto',
+                      `always', or a mode name like `ansi8'.
+
+              --bbww _p_i_x_e_l_s, ----bboorrddeerr--wwiiddtthh _p_i_x_e_l_s
+                      Set  the  _E_m_a_c_s  window's  border width to the number of
+                      pixels specified by _p_i_x_e_l_s.  Defaults to  one  pixel  on
+                      each side of the window.
+
+              --iibb _p_i_x_e_l_s, ----iinntteerrnnaall--bboorrddeerr _p_i_x_e_l_s
+                      Set  the window's internal border width to the number of
+                      pixels specified by _p_i_x_e_l_s.  Defaults to  one  pixel  of
+                      padding on each side of the window.
+
+              --gg _g_e_o_m_e_t_r_y, ----ggeeoommeettrryy _g_e_o_m_e_t_r_y
+                      Set  the  _E_m_a_c_s  window's width, height, and position as
+                      specified.  The geometry specification is in  the  stan-
+                      dard X format; see XX(7) for more information.  The width
+                      and height are specified in characters; the  default  is
+                      80  by  24.   See the Emacs manual, section "Options for
+                      Window Size and Position", for information on how window
+                      sizes  interact  with  selecting or deselecting the tool
+                      bar and menu bar.
+
+              --llsspp _p_i_x_e_l_s, ----lliinnee--ssppaacciinngg _p_i_x_e_l_s
+                      Additional space to put between lines.
+
+              --vvbb, ----vveerrttiiccaall--ssccrroollll--bbaarrss
+                      Enable vertical scrollbars.
+
+              --ffhh, ----ffuullllhheeiigghhtt
+                      Make the first frame as high as the screen.
+
+              --ffss, ----ffuullllssccrreeeenn
+                      Make the first frame fullscreen.
+
+              --ffww, ----ffuullllwwiiddtthh
+                      Make the first frame as wide as the screen.
+
+              --mmmm, ----mmaaxxiimmiizzeedd
+                      Maximize the first frame, like "-fw -fh".
+
+              --ffgg _c_o_l_o_r, ----ffoorreeggrroouunndd--ccoolloorr _c_o_l_o_r
+                      On color displays, set the color of the text.
+
+                      Use the command _M_-_x _l_i_s_t_-_c_o_l_o_r_s_-_d_i_s_p_l_a_y for  a  list  of
+                      valid color names.
+
+              --bbgg _c_o_l_o_r, ----bbaacckkggrroouunndd--ccoolloorr _c_o_l_o_r
+                      On  color  displays, set the color of the window's back-
+                      ground.
+
+              --bbdd _c_o_l_o_r, ----bboorrddeerr--ccoolloorr _c_o_l_o_r
+                      On color displays, set the color of the window's border.
+
+              --ccrr _c_o_l_o_r, ----ccuurrssoorr--ccoolloorr _c_o_l_o_r
+                      On color displays, set the color of  the  window's  text
+                      cursor.
+
+              --mmss _c_o_l_o_r, ----mmoouussee--ccoolloorr _c_o_l_o_r
+                      On  color  displays, set the color of the window's mouse
+                      cursor.
+
+              --dd _d_i_s_p_l_a_y_n_a_m_e, ----ddiissppllaayy _d_i_s_p_l_a_y_n_a_m_e
+                      Create the _E_m_a_c_s window on the display specified by _d_i_s_-
+                      _p_l_a_y_n_a_m_e.   Must  be  the  first option specified in the
+                      command line.
+
+              --nnbbii, ----nnoo--bbiittmmaapp--iiccoonn
+                      Do not use picture of gnu for Emacs icon.
+
+              ----iiccoonniicc
+                      Start _E_m_a_c_s in iconified state.
+
+              --nnbbcc, ----nnoo--bblliinnkkiinngg--ccuurrssoorr
+                      Disable blinking cursor.
+
+              --nnww, ----nnoo--wwiinnddooww--ssyysstteemm
+                      Tell _E_m_a_c_s not to create a graphical frame.  If you  use
+                      this switch when invoking _E_m_a_c_s from an xxtteerrmm(1) window,
+                      display is done in that window.
+
+              --DD, ----bbaassiicc--ddiissppllaayy
+                      This option disables many display features; use  it  for
+                      debugging Emacs.
+
+       You can set _X default values for your _E_m_a_c_s windows in your _._X_r_e_s_o_u_r_c_e_s
+       file (see xxrrddbb(1)).  Use the following format:
+
+              emacs._k_e_y_w_o_r_d:_v_a_l_u_e
+
+       where _v_a_l_u_e specifies the default value of _k_e_y_w_o_r_d.  _E_m_a_c_s lets you set
+       default values for the following keywords:
+
+              bbaacckkggrroouunndd (class BBaacckkggrroouunndd)
+                      For color displays, sets the window's background color.
+
+              bbiittmmaappIIccoonn (class BBiittmmaappIIccoonn)
+                      If  bbiittmmaappIIccoonn's  value  is  set  to _o_n, the window will
+                      iconify into the "kitchen sink."
+
+              bboorrddeerrCCoolloorr (class BBoorrddeerrCCoolloorr)
+                      For color displays, sets the color of the window's  bor-
+                      der.
+
+              bboorrddeerrWWiiddtthh (class BBoorrddeerrWWiiddtthh)
+                      Sets the window's border width in pixels.
+
+              ccuurrssoorrCCoolloorr (class FFoorreeggrroouunndd)
+                      For  color displays, sets the color of the window's text
+                      cursor.
+
+              ccuurrssoorrBBlliinnkk (class CCuurrssoorrBBlliinnkk)
+                      Specifies whether to make the cursor blink.  The default
+                      is _o_n.  Use _o_f_f or _f_a_l_s_e to turn cursor blinking off.
+
+              ffoonntt (class FFoonntt)
+                      Sets the window's text font.
+
+              ffoorreeggrroouunndd (class FFoorreeggrroouunndd)
+                      For color displays, sets the window's text color.
+
+              ffuullllssccrreeeenn (class FFuullllssccrreeeenn)
+                      The  desired  fullscreen  size.  The value can be one of
+                      _f_u_l_l_b_o_t_h, _m_a_x_i_m_i_z_e_d,  _f_u_l_l_w_i_d_t_h,  or  _f_u_l_l_h_e_i_g_h_t,  which
+                      correspond  to  the  command-line  options `-fs', `-mm',
+                      `-fw', and `-fh', respectively.  Note that this  applies
+                      to the initial frame only.
+
+              ggeeoommeettrryy (class GGeeoommeettrryy)
+                      Sets  the  geometry  of  the  _E_m_a_c_s window (as described
+                      above).
+
+              iiccoonnNNaammee (class TTiittllee)
+                      Sets the icon name for the _E_m_a_c_s window icon.
+
+              iinntteerrnnaallBBoorrddeerr (class BBoorrddeerrWWiiddtthh)
+                      Sets the window's internal border width in pixels.
+
+              lliinneeSSppaacciinngg (class LLiinneeSSppaacciinngg)
+                      Additional space ("leading") between lines, in pixels.
+
+              mmeennuuBBaarr (class MMeennuuBBaarr)
+                      Gives frames menu bars if _o_n; don't have  menu  bars  if
+                      _o_f_f.   See  the Emacs manual, sections "Lucid Resources"
+                      and "LessTif Resources", for how to control the  appear-
+                      ance of the menu bar if you have one.
+
+              mmiinniibbuuffffeerr (class MMiinniibbuuffffeerr)
+                      If _n_o_n_e, don't make a minibuffer in this frame.  It will
+                      use a separate minibuffer frame instead.
+
+              ppaanneeFFoonntt (class FFoonntt)
+                      Font name for menu pane titles, in non-toolkit  versions
+                      of _E_m_a_c_s.
+
+              ppooiinntteerrCCoolloorr (class FFoorreeggrroouunndd)
+                      For color displays, sets the color of the window's mouse
+                      cursor.
+
+              pprriivvaatteeCCoolloorrmmaapp (class PPrriivvaatteeCCoolloorrmmaapp)
+                      If _o_n, use a private color map, in the  case  where  the
+                      "default visual" of class PPsseeuuddooCCoolloorr and EEmmaaccss is using
+                      it.
+
+              rreevveerrsseeVViiddeeoo (class RReevveerrsseeVViiddeeoo)
+                      If rreevveerrsseeVViiddeeoo's value is set to _o_n, the window will be
+                      displayed in reverse video.
+
+              ssccrreeeennGGaammmmaa (class SSccrreeeennGGaammmmaa)
+                      Gamma  correction  for  colors,  equivalent to the frame
+                      parameter `screen-gamma'.
+
+              ssccrroollllBBaarrWWiiddtthh (class SSccrroollllBBaarrWWiiddtthh)
+                      The scroll bar width in pixels, equivalent to the  frame
+                      parameter `scroll-bar-width'.
+
+              sseelleeccttiioonnFFoonntt (class SSeelleeccttiioonnFFoonntt)
+                      Font name for pop-up menu items, in non-toolkit versions
+                      of _E_m_a_c_s.  (For toolkit versions, see the Emacs  manual,
+                      sections "Lucid Resources" and "LessTif Resources".)
+
+              sseelleeccttiioonnTTiimmeeoouutt (class SSeelleeccttiioonnTTiimmeeoouutt)
+                      Number of milliseconds to wait for a selection reply.  A
+                      value of 0 means wait as long as necessary.
+
+              ssyynncchhrroonnoouuss (class SSyynncchhrroonnoouuss)
+                      Run Emacs in synchronous mode if _o_n.   Synchronous  mode
+                      is useful for debugging X problems.
+
+              ttiittllee (class TTiittllee)
+                      Sets the title of the _E_m_a_c_s window.
+
+              ttoooollBBaarr (class TToooollBBaarr)
+                      Number of lines to reserve for the tool bar.
+
+              uusseeXXIIMM (class UUsseeXXIIMM)
+                      Turns off use of X input methods (XIM) if _f_a_l_s_e or _o_f_f.
+
+              vveerrttiiccaallSSccrroollllBBaarrss (class SSccrroollllBBaarrss)
+                      Gives  frames  scroll bars if _o_n; suppresses scroll bars
+                      if _o_f_f.
+
+              vviissuuaallCCllaassss (class VViissuuaallCCllaassss)
+                      Specify the "visual" that X should use.   This  tells  X
+                      how  to  handle colors.  The value should start with one
+                      of  _T_r_u_e_C_o_l_o_r,  _P_s_e_u_d_o_C_o_l_o_r,  _D_i_r_e_c_t_C_o_l_o_r,  _S_t_a_t_i_c_C_o_l_o_r,
+                      _G_r_a_y_S_c_a_l_e,  and  _S_t_a_t_i_c_G_r_a_y,  followed  by --_d_e_p_t_h, where
+                      _d_e_p_t_h is the number of color planes.
+
+MMAANNUUAALLSS
+       You can order printed copies of the GNU  Emacs  Manual  from  the  Free
+       Software Foundation, which develops GNU software.  See the online store
+       at <http://shop.fsf.org/>.
+       Your local administrator might also have copies available.  As with all
+       software  and  publications from FSF, everyone is permitted to make and
+       distribute copies of the Emacs manual.  The Texinfo source to the  man-
+       ual is also included in the Emacs source distribution.
+
+FFIILLEESS
+       /usr/local/share/info -- files for the Info documentation browser.  The
+       complete text of the Emacs reference manual is included in a convenient
+       tree  structured  form.  Also includes the Emacs Lisp Reference Manual,
+       useful to anyone wishing to write programs in the Emacs Lisp  extension
+       language, and the Introduction to Programming in Emacs Lisp.
+
+       /usr/local/share/emacs/$VERSION/lisp  -- Lisp source files and compiled
+       files that define most editing commands.  Some  are  preloaded;  others
+       are autoloaded from this directory when used.
+
+       /usr/local/libexec/emacs/$VERSION/$ARCH  --  various  programs that are
+       used with GNU Emacs.
+
+       /usr/local/share/emacs/$VERSION/etc -- various files of information.
+
+       /usr/local/share/emacs/$VERSION/etc/DOC.* -- contains the documentation
+       strings  for  the  Lisp  primitives and preloaded Lisp functions of GNU
+       Emacs.  They are stored here to reduce the size of Emacs proper.
+
+       /usr/local/share/emacs/$VERSION/etc/SERVICE lists people offering vari-
+       ous  services  to assist users of GNU Emacs, including education, trou-
+       bleshooting, porting and customization.
+
+BBUUGGSS
+       There is a mailing list,  bug-gnu-emacs@gnu.org,  for  reporting  Emacs
+       bugs and fixes.  But before reporting something as a bug, please try to
+       be sure that it really is a bug, not a misunderstanding or a deliberate
+       feature.   We  ask  you  to  read the section ``Reporting Bugs'' in the
+       Emacs manual for hints on how and when to report bugs.   Also,  include
+       the  version  number  of  the Emacs you are running in _e_v_e_r_y bug report
+       that you send in.  Bugs tend actually to be fixed if they can  be  iso-
+       lated, so it is in your interest to report them in such a way that they
+       can be easily reproduced.
+
+       Do not expect a personal answer  to  a  bug  report.   The  purpose  of
+       reporting  bugs  is to get them fixed for everyone in the next release,
+       if possible.  For personal assistance, look in the  SERVICE  file  (see
+       above) for a list of people who offer it.
+
+       Please  do not send anything but bug reports to this mailing list.  For
+       more  information   about   Emacs   mailing   lists,   see   the   file
+       /usr/local/share/emacs/$VERSION/etc/MAILINGLISTS.
+
+UUNNRREESSTTRRIICCTTIIOONNSS
+       _E_m_a_c_s  is free; anyone may redistribute copies of _E_m_a_c_s to anyone under
+       the terms stated in the GNU General Public License,  a  copy  of  which
+       accompanies  each copy of _E_m_a_c_s and which also appears in the reference
+       manual.
+
+       Copies of _E_m_a_c_s may sometimes be received packaged  with  distributions
+       of  Unix  systems, but it is never included in the scope of any license
+       covering those systems.  Such inclusion violates  the  terms  on  which
+       distribution  is  permitted.   In  fact, the primary purpose of the GNU
+       General Public License is to prohibit anyone from attaching  any  other
+       restrictions to redistribution of _E_m_a_c_s.
+
+       Richard  Stallman encourages you to improve and extend _E_m_a_c_s, and urges
+       that you contribute your extensions to the GNU library.  Eventually GNU
+       (Gnu's  Not  Unix)  will  be a complete replacement for Unix.  Everyone
+       will be free to use, copy, study and change the GNU system.
+
+SSEEEE AALLSSOO
+       eemmaaccsscclliieenntt(1), eettaaggss(1), XX(7), xxllssffoonnttss(1), xxtteerrmm(1), xxrrddbb(1)
+
+AAUUTTHHOORRSS
+       _E_m_a_c_s was written by Richard Stallman and the Free Software Foundation.
+       For detailed credits and acknowledgments, see the GNU Emacs manual.
+
+CCOOPPYYIINNGG
+       Copyright (C) 1995, 1999-2013 Free Software Foundation, Inc.
+
+       Permission  is  granted  to make and distribute verbatim copies of this
+       document provided the copyright notice and this permission  notice  are
+       preserved on all copies.
+
+       Permission  is granted to copy and distribute modified versions of this
+       document under the conditions for verbatim copying, provided  that  the
+       entire  resulting derived work is distributed under the terms of a per-
+       mission notice identical to this one.
+
+       Permission is granted to copy and distribute translations of this docu-
+       ment  into  another  language,  under the above conditions for modified
+       versions, except that this permission notice may be stated in a  trans-
+       lation approved by the Free Software Foundation.
+
+
+
+GNU Emacs 24.3                   2007 April 13                        EMACS(1)

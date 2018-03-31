@@ -1,0 +1,59 @@
+ENVSUBST(1)                           GNU                          ENVSUBST(1)
+
+
+
+NNAAMMEE
+       envsubst - substitutes environment variables in shell format strings
+
+SSYYNNOOPPSSIISS
+       eennvvssuubbsstt [_O_P_T_I_O_N] [_S_H_E_L_L_-_F_O_R_M_A_T]
+
+DDEESSCCRRIIPPTTIIOONN
+       Substitutes the values of environment variables.
+
+   OOppeerraattiioonn mmooddee::
+       --vv, ----vvaarriiaabblleess
+              output the variables occurring in SHELL-FORMAT
+
+   IInnffoorrmmaattiivvee oouuttppuutt::
+       --hh, ----hheellpp
+              display this help and exit
+
+       --VV, ----vveerrssiioonn
+              output version information and exit
+
+       In  normal operation mode, standard input is copied to standard output,
+       with references to environment  variables  of  the  form  $VARIABLE  or
+       ${VARIABLE}  being replaced with the corresponding values.  If a SHELL-
+       FORMAT is given, only those environment variables that  are  referenced
+       in  SHELL-FORMAT  are  substituted; otherwise all environment variables
+       references occurring in standard input are substituted.
+
+       When ----vvaarriiaabblleess is used, standard input is  ignored,  and  the  output
+       consists of the environment variables that are referenced in SHELL-FOR-
+       MAT, one per line.
+
+AAUUTTHHOORR
+       Written by Bruno Haible.
+
+RREEPPOORRTTIINNGG BBUUGGSS
+       Report bugs to <bug-gnu-gettext@gnu.org>.
+
+CCOOPPYYRRIIGGHHTT
+       Copyright (C) 2003-2007 Free Software Foundation, Inc.  License GPLv3+:
+       GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+       This  is  free  software:  you  are free to change and redistribute it.
+       There is NO WARRANTY, to the extent permitted by law.
+
+SSEEEE AALLSSOO
+       The full documentation for eennvvssuubbsstt is maintained as a Texinfo  manual.
+       If  the iinnffoo and eennvvssuubbsstt programs are properly installed at your site,
+       the command
+
+              iinnffoo eennvvssuubbsstt
+
+       should give you access to the complete manual.
+
+
+
+GNU gettext-runtime 0.18.3        August 2013                      ENVSUBST(1)

@@ -1,0 +1,69 @@
+dpkg-trigger(1)                   dpkg suite                   dpkg-trigger(1)
+
+
+
+NNAAMMEE
+       dpkg-trigger - a package trigger utility
+
+SSYYNNOOPPSSIISS
+       ddppkkgg--ttrriiggggeerr [_o_p_t_i_o_n...] _t_r_i_g_g_e_r_-_n_a_m_e
+       ddppkkgg--ttrriiggggeerr [_o_p_t_i_o_n...] _c_o_m_m_a_n_d
+
+DDEESSCCRRIIPPTTIIOONN
+       ddppkkgg--ttrriiggggeerr  is  a  tool to explicitly activate triggers and check for
+       its support on the running ddppkkgg.
+
+       This can be used by maintainer scripts in complex and conditional situ-
+       ations  where  the  file triggers, or the declarative aaccttiivvaattee triggers
+       control file directive, are insufficiently rich. It can  also  be  used
+       for  testing  and  by system administrators (but note that the triggers
+       won't actually be run by ddppkkgg--ttrriiggggeerr).
+
+       Unrecognized trigger name syntaxes are an error for ddppkkgg--ttrriiggggeerr.
+
+CCOOMMMMAANNDDSS
+       ----cchheecckk--ssuuppppoorrtteedd
+              Check if the running ddppkkgg supports triggers (usually called from
+              a  postinst). Will exit 00 if a triggers-capable ddppkkgg has run, or
+              11 with an error message to stderr if not. Normally, however,  it
+              is  better  just to activate the desired trigger with ddppkkgg--ttrriigg--
+              ggeerr.
+
+       --??, ----hheellpp
+              Show the usage message and exit.
+
+       ----vveerrssiioonn
+              Show the version and exit.
+
+OOPPTTIIOONNSS
+       ----aaddmmiinnddiirr==_d_i_r
+              Change the location of the ddppkkgg database. The  default  location
+              is _/_v_a_r_/_l_i_b_/_d_p_k_g.
+
+       ----bbyy--ppaacckkaaggee==_p_a_c_k_a_g_e
+              Override  trigger  awaiter  (normally  set  by  ddppkkgg through the
+              DDPPKKGG__MMAAIINNTTSSCCRRIIPPTT__PPAACCKKAAGGEE environment variable of the  maintainer
+              scripts,  naming  the  package  to which the script belongs, and
+              this will be used by default).
+
+       ----nnoo--aawwaaiitt
+              This option arranges that the calling package T  (if  any)  need
+              not  await  the processing of this trigger; the interested pack-
+              age(s) I, will not be added to T's  trigger  processing  awaited
+              list and T's status is unchanged.  T may be considered installed
+              even though I may not yet have processed the trigger.
+
+       ----nnoo--aacctt
+              Just test, do not actually change anything.
+
+EENNVVIIRROONNMMEENNTT
+       DDPPKKGG__AADDMMIINNDDIIRR
+              If set and the ----aaddmmiinnddiirr option has not been specified, it will
+              be used as the ddppkkgg data directory.
+
+SSEEEE AALLSSOO
+       ddppkkgg(1), ddeebb--ttrriiggggeerrss(5), //uussrr//sshhaarree//ddoocc//ddppkkgg--ddeevv//ttrriiggggeerrss..ttxxtt..ggzz.
+
+
+
+Debian Project                    2011-08-14                   dpkg-trigger(1)

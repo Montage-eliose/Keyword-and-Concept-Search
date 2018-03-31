@@ -1,0 +1,141 @@
+LEXGROG(1)                    Manual pager utils                    LEXGROG(1)
+
+
+
+NNAAMMEE
+       lexgrog - parse header information in man pages
+
+SSYYNNOOPPSSIISS
+       lleexxggrroogg [--mm|--cc] [--ddffww??VV] [--EE _e_n_c_o_d_i_n_g] _f_i_l_e ...
+
+DDEESSCCRRIIPPTTIIOONN
+       lleexxggrroogg  is  an implementation of the traditional "groff guess" utility
+       in lleexx.  It reads the list of files on its command line as  either  man
+       page  source files or preformatted "cat" pages, and displays their name
+       and description as used by aapprrooppooss and wwhhaattiiss, the list of  preprocess-
+       ing  filters  required  by the man page before it is passed to nnrrooffff or
+       ttrrooffff, or both.
+
+       If its input is badly formatted, lleexxggrroogg  will  print  "parse  failed";
+       this  may  be useful for external programs that need to check man pages
+       for correctness.  If one of lleexxggrroogg's input files is "-", it will  read
+       from  standard  input;  if any input file is compressed, a decompressed
+       version will be read automatically.
+
+OOPPTTIIOONNSS
+       --dd, ----ddeebbuugg
+              Print debugging information.
+
+       --mm, ----mmaann
+              Parse input as man page source files.  This is  the  default  if
+              neither ----mmaann nor ----ccaatt is given.
+
+       --cc, ----ccaatt
+              Parse  input as preformatted man pages ("cat pages").  ----mmaann and
+              ----ccaatt may not be given simultaneously.
+
+       --ww, ----wwhhaattiiss
+              Display the name and description from the man page's header,  as
+              used  by  aapprrooppooss  and  wwhhaattiiss.   This is the default if neither
+              ----wwhhaattiiss nor ----ffiilltteerrss is given.
+
+       --ff, ----ffiilltteerrss
+              Display the list of filters needed to preprocess  the  man  page
+              before formatting with nnrrooffff or ttrrooffff.
+
+       --EE _e_n_c_o_d_i_n_g, ----eennccooddiinngg _e_n_c_o_d_i_n_g
+              Override the guessed character set for the page to _e_n_c_o_d_i_n_g.
+
+       --??, ----hheellpp
+              Print a help message and exit.
+
+       ----uussaaggee
+              Print a short usage message and exit.
+
+       --VV, ----vveerrssiioonn
+              Display version information.
+
+EEXXIITT SSTTAATTUUSS
+       00      Successful program execution.
+
+       11      Usage error.
+
+       22      lleexxggrroogg failed to parse one or more of its input files.
+
+EEXXAAMMPPLLEESS
+         $ lexgrog man.1
+         man.1: "man - an interface to the on-line reference manuals"
+         $ lexgrog -fw man.1
+         man.1 (t): "man - an interface to the on-line reference manuals"
+         $ lexgrog -c whatis.cat1
+         whatis.cat1: "whatis - display manual page descriptions"
+         $ lexgrog broken.1
+         broken.1: parse failed
+
+WWHHAATTIISS PPAARRSSIINNGG
+       mmaannddbb  (which uses the same code as lleexxggrroogg) parses the NNAAMMEE section at
+       the top of each manual page looking for names and descriptions  of  the
+       features documented in each.  While the parser is quite tolerant, as it
+       has to cope with a number of different  forms  that  have  historically
+       been used, it may sometimes fail to extract the required information.
+
+       When  using the traditional _m_a_n macro set, a correct NNAAMMEE section looks
+       something like this:
+
+              .SH NAME
+              foo \- program to do something
+
+       Some manual pagers require the '\-' to be exactly as  shown;  mmaannddbb  is
+       more tolerant, but for compatibility with other systems it is neverthe-
+       less a good idea to retain the backslash.
+
+       On the left-hand side, there may be several names, separated by commas.
+       Names  containing  whitespace will be ignored to avoid pathological be-
+       haviour on certain ill-formed NNAAMMEE sections.  The text  on  the  right-
+       hand side is free-form, and may be spread over multiple lines.  If sev-
+       eral features with different descriptions are being documented  in  the
+       same manual page, the following form is therefore used:
+
+              .SH NAME
+              foo, bar \- programs to do something
+              .br
+              baz \- program to do nothing
+
+       (A macro which starts a new paragraph, like .PP, may be used instead of
+       the break macro .br.)
+
+       When using the BSD-derived _m_d_o_c macro set, a correct NNAAMMEE section looks
+       something like this:
+
+              .Sh NAME
+              .Nm foo
+              .Nd program to do something
+
+       There  are  several common reasons why whatis parsing fails.  Sometimes
+       authors of manual pages replace '.SH NAME' with  '.SH  MYPROGRAM',  and
+       then  mmaannddbb  cannot find the section from which to extract the informa-
+       tion it needs.  Sometimes authors include a  NAME  section,  but  place
+       free-form  text  there rather than 'name \- description'.  However, any
+       syntax resembling the above should be accepted.
+
+SSEEEE AALLSSOO
+       _a_p_r_o_p_o_s(1), _m_a_n(1), _w_h_a_t_i_s(1), _m_a_n_d_b(8)
+
+NNOOTTEESS
+       lleexxggrroogg attempts to parse files containing .so requests, but will  only
+       be  able  to  do  so correctly if the files are properly installed in a
+       manual page hierarchy.
+
+AAUUTTHHOORR
+       The code used by lleexxggrroogg to scan man pages was written by:
+
+       Wilf. (G.Wilford@ee.surrey.ac.uk).
+       Fabrizio Polacco (fpolacco@debian.org).
+       Colin Watson (cjwatson@debian.org).
+
+       Colin Watson wrote the current incarnation of the  command-line  front-
+       end, as well as this man page.
+
+
+
+2.6.7.1                           2014-04-10                        LEXGROG(1)

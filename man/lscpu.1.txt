@@ -1,0 +1,66 @@
+LSCPU(1)                         User Commands                        LSCPU(1)
+
+
+
+NNAAMMEE
+       lscpu - display information on CPU architecture
+
+SSYYNNOOPPSSIISS
+       llssccppuu [--hhppxx] [--ss _d_i_r_e_c_t_o_r_y]
+
+DDEESSCCRRIIPPTTIIOONN
+       llssccppuu  gathers  CPU  architecture  information  like  number  of  CPUs,
+       threads, cores, sockets, NUMA nodes, information about CPU caches,  CPU
+       family,  model,  bogoMIPS,  byte  order  and  stepping  from  sysfs and
+       /proc/cpuinfo, and prints it in a human-readable format.   It  supports
+       both online and offline CPUs.  It can also print out in a parsable for-
+       mat, including how different caches are shared by different CPUs, which
+       can be fed to other programs.
+
+OOPPTTIIOONNSS
+       --hh, ----hheellpp
+              Print a help message.
+
+       --pp, ----ppaarrssee _[_=_l_i_s_t_]
+              Print out in parsable instead of human-readable format.
+
+              If  the  _l_i_s_t  argument is not given then the default backwardly
+              compatible output is printed.  The backwardly compatible  format
+              uses  two commas to separate CPU cache columns. If no CPU caches
+              are identified, then the cache columns are not printed at all.
+
+              The _l_i_s_t argument is comma delimited list of the  columns.  Cur-
+              rently  supported  are  CPU,  Core, Node, Socket, Book and Cache
+              columns. If the _l_i_s_t argument is given then always all requested
+              columns  are printed in the defined order. The Cache columns are
+              separated by ':'.
+
+              Note that the optional _l_i_s_t argument cannot  be  separated  from
+              the  option  by  a  space,  the  correct  form  is  for  example
+              '--pp==ccppuu,,nnooddee' or '----ppaarrssee==ccppuu,,nnooddee'.
+
+       --ss, ----ssyyssrroooott _d_i_r_e_c_t_o_r_y
+              Use the specified _d_i_r_e_c_t_o_r_y as system root.  This allows you  to
+              inspect a snapshot from a different system.
+
+       --xx, ----hheexx
+              Use  hexadecimal  masks for CPU sets (e.g. 0x3).  The default is
+              to print the sets in list format (e.g. 0,1).
+
+BBUUGGSS
+       The basic overview about CPU family, model, etc. is always based on the
+       first CPU only.
+
+       Sometimes in Xen Dom0 the kernel reports wrong data.
+
+AAUUTTHHOORR
+       Cai Qian <qcai@redhat.com>
+       Karel Zak <kzak@redhat.com>
+
+AAVVAAIILLAABBIILLIITTYY
+       The  lscpu  command  is part of the util-linux package and is available
+       from ftp://ftp.kernel.org/pub/linux/utils/util-linux/.
+
+
+
+util-linux                       February 2011                        LSCPU(1)

@@ -1,0 +1,23 @@
+NEQN(1)                     General Commands Manual                    NEQN(1)
+
+
+
+NNAAMMEE
+       neqn - format equations for ascii output
+
+SSYYNNOOPPSSIISS
+       nneeqqnn [eqn options]
+
+DDEESSCCRRIIPPTTIIOONN
+       The  nneeqqnn  program  is  actually  just a shell script which invokes the
+       eeqqnn(1) command with the aasscciiii output device.
+
+       Note that eeqqnn does not support low-resolution, typewriter-like  devices
+       (although it may work adequately for very simple input).
+
+SSEEEE AALLSSOO
+       eeqqnn(1)
+
+
+
+Groff Version 1.22.2           07 February 2013                        NEQN(1)

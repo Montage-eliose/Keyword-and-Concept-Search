@@ -1,0 +1,56 @@
+MANCONV(1)                    Manual pager utils                    MANCONV(1)
+
+
+
+NNAAMMEE
+       manconv - convert manual page from one encoding to another
+
+SSYYNNOOPPSSIISS
+       mmaannccoonnvv --ff _f_r_o_m_-_c_o_d_e[:_f_r_o_m_-_c_o_d_e...]  --tt _t_o_-_c_o_d_e [--ddqqhhVV] [_f_i_l_e_n_a_m_e]
+
+DDEESSCCRRIIPPTTIIOONN
+       mmaannccoonnvv  converts  a  manual  page  from  one encoding to another, like
+       iiccoonnvv.  Unlike iiccoonnvv, it can try multiple possible input  encodings  in
+       sequence.   This  is  useful  for manual pages installed in directories
+       without an explicit encoding declaration, since they may be in UTF-8 or
+       in a legacy character set.
+
+       If  an  encoding  declaration  is found on the first line of the manual
+       page, that declaration overrides any input encodings specified on  mmaann--
+       ccoonnvv's command line.  Encoding declarations have the following form:
+
+              '\" -*- coding: UTF-8 -*-
+
+       or (if manual page preprocessors are also to be declared):
+
+              '\" t -*- coding: ISO-8859-1 -*-
+
+OOPPTTIIOONNSS
+       --ff _e_n_c_o_d_i_n_g_s, ----ffrroomm--ccooddee _e_n_c_o_d_i_n_g_s
+              Try  each  of  _e_n_c_o_d_i_n_g_s (a colon-separated list) in sequence as
+              the input encoding.
+
+       --tt _e_n_c_o_d_i_n_g, ----ttoo--ccooddee _e_n_c_o_d_i_n_g
+              Convert the manual page to _e_n_c_o_d_i_n_g.
+
+       --qq, ----qquuiieett
+              Do not issue error messages when the page cannot be converted.
+
+       --dd, ----ddeebbuugg
+              Print debugging information.
+
+       --hh, ----hheellpp
+              Print a help message and exit.
+
+       --VV, ----vveerrssiioonn
+              Display version information.
+
+SSEEEE AALLSSOO
+       _i_c_o_n_v(1), _m_a_n(1)
+
+AAUUTTHHOORR
+       Colin Watson (cjwatson@debian.org).
+
+
+
+2.6.7.1                           2014-04-10                        MANCONV(1)

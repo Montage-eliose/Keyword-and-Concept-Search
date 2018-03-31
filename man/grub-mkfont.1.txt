@@ -1,0 +1,78 @@
+GRUB-MKFONT(1)                   User Commands                  GRUB-MKFONT(1)
+
+
+
+NNAAMMEE
+       grub-mkfont - make GRUB font files
+
+SSYYNNOOPPSSIISS
+       ggrruubb--mmkkffoonntt [_O_P_T_I_O_N...] [_O_P_T_I_O_N_S] _F_O_N_T___F_I_L_E_S
+
+DDEESSCCRRIIPPTTIIOONN
+       Convert common font file formats into PF2
+
+       --aa, ----ffoorrccee--aauuttoohhiinntt
+              force autohint
+
+       --bb, ----bboolldd
+              convert to bold font
+
+       --cc, ----aassccee=_N_U_M
+              set font ascent
+
+       --dd, ----ddeesscc=_N_U_M
+              set font descent
+
+       --ii, ----iinnddeexx=_N_U_M
+              select face index
+
+       --nn, ----nnaammee=_N_A_M_E
+              set font family name
+
+       ----nnoo--bbiittmmaapp
+              ignore bitmap strikes when loading
+
+       ----nnoo--hhiinnttiinngg
+              disable hinting
+
+       --oo, ----oouuttppuutt=_F_I_L_E
+              save output in FILE [required]
+
+       --rr, ----rraannggee=_F_R_O_M_-_T_O_[,FROM-TO]
+              set font range
+
+       --ss, ----ssiizzee=_S_I_Z_E
+              set font size
+
+       --vv, ----vveerrbboossee
+              print verbose messages.
+
+       -?, ----hheellpp
+              give this help list
+
+       ----uussaaggee
+              give a short usage message
+
+       --VV, ----vveerrssiioonn
+              print program version
+
+       Mandatory  or  optional arguments to long options are also mandatory or
+       optional for any corresponding short options.
+
+RREEPPOORRTTIINNGG BBUUGGSS
+       Report bugs to <bug-grub@gnu.org>.
+
+SSEEEE AALLSSOO
+       ggrruubb--mmkkccoonnffiigg(8)
+
+       The full documentation for ggrruubb--mmkkffoonntt is maintained as a Texinfo  man-
+       ual.   If  the  iinnffoo and ggrruubb--mmkkffoonntt programs are properly installed at
+       your site, the command
+
+              iinnffoo ggrruubb--mmkkffoonntt
+
+       should give you access to the complete manual.
+
+
+
+grub-mkfont (GRUB) 2.02~beta2-9ubuDnetcue1m.b7er 2015                  GRUB-MKFONT(1)

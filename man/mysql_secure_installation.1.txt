@@ -1,0 +1,66 @@
+MYSQL_SECURE_INST(1)         MySQL Database System        MYSQL_SECURE_INST(1)
+
+
+
+NNAAMMEE
+       mysql_secure_installation - improve MySQL installation security
+
+SSYYNNOOPPSSIISS
+       mmyyssqqll__sseeccuurree__iinnssttaallllaattiioonn
+
+DDEESSCCRRIIPPTTIIOONN
+       This program enables you to improve the security of your MySQL
+       installation in the following ways:
+
+       +o   You can set a password for root accounts.
+
+       +o   You can remove root accounts that are accessible from outside the
+           local host.
+
+       +o   You can remove anonymous-user accounts.
+
+       +o   You can remove the test database (which by default can be accessed
+           by all users, even anonymous users), and privileges that permit
+           anyone to access databases with names that start with test_.
+
+       mmyyssqqll__sseeccuurree__iinnssttaallllaattiioonn helps you implement security recommendations
+       similar to those described at Section 2.10.4, "Securing the Initial
+       MySQL Accounts".
+
+       Invoke mmyyssqqll__sseeccuurree__iinnssttaallllaattiioonn without arguments:
+
+           shell> mmyyssqqll__sseeccuurree__iinnssttaallllaattiioonn
+
+       When executed, the script prompts you to determine which actions to
+       perform.
+
+CCOOPPYYRRIIGGHHTT
+       Copyright (C) 1997, 2016, Oracle and/or its affiliates. All rights
+       reserved.
+
+       This documentation is free software; you can redistribute it and/or
+       modify it only under the terms of the GNU General Public License as
+       published by the Free Software Foundation; version 2 of the License.
+
+       This documentation is distributed in the hope that it will be useful,
+       but WITHOUT ANY WARRANTY; without even the implied warranty of
+       MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+       General Public License for more details.
+
+       You should have received a copy of the GNU General Public License along
+       with the program; if not, write to the Free Software Foundation, Inc.,
+       51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA or see
+       http://www.gnu.org/licenses/.
+
+
+SSEEEE AALLSSOO
+       For more information, please refer to the MySQL Reference Manual, which
+       may already be installed locally and which is also available online at
+       http://dev.mysql.com/doc/.
+
+AAUUTTHHOORR
+       Oracle Corporation (http://dev.mysql.com/).
+
+
+
+MySQL 5.5                         03/01/2016              MYSQL_SECURE_INST(1)

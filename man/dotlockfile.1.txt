@@ -1,0 +1,110 @@
+DOTLOCKFILE(1)                 Cistron Utilities                DOTLOCKFILE(1)
+
+
+
+NNAAMMEE
+       dotlockfile - Utility to manage lockfiles
+
+SSYYNNOOPPSSIISS
+       //uussrr//bbiinn//ddoottlloocckkffiillee [--ll [--rr _r_e_t_r_i_e_s] |--uu|--tt|--cc] [--pp] [--mm|lloocckkffiillee]
+
+DDEESSCCRRIIPPTTIIOONN
+       ddoottlloocckkffiillee  is  a  command  line  utility to reliably create, test and
+       remove lockfiles.  It creates  lockfiles  _r_e_l_i_a_b_l_y  on  local  and  NFS
+       filesystems,  because  the  crucial  steps of testing for a preexisting
+       lockfile and creating it are performed _a_t_o_m_i_c_a_l_l_y by a _s_i_n_g_l_e  call  to
+       _l_i_n_k(2).  Manpage _l_o_c_k_f_i_l_e___c_r_e_a_t_e(3) describes the used algorithm.
+
+       ddoottlloocckkffiillee  is  installed with attribute SSEETTGGIIDD _m_a_i_l and thus can also
+       be used to lock and unlock mailboxes _e_v_e_n if the mailspool directory is
+       only writable by group mail.
+
+       The  name  ddoottlloocckkffiillee  comes  from  the  way  mailboxes are locked for
+       updates on a lot of UNIX systems.  A lockfile is created with the  same
+       filename as the mailbox but with the string "_._l_o_c_k" appended.
+
+       The names ddoottlloocckk and lloocckkffiillee were already taken - hence the name ddoott--
+       lloocckkffiillee _:_).
+
+OOPPTTIIOONNSS
+       --ll     Create a lockfile if no preexisting  valid  lockfile  is  found,
+              else  wait and retry according to option --rr.  This option is the
+              default.
+
+              A lockfile is treated as valid,
+              +o  if it holds the _p_r_o_c_e_s_s_-_i_d of a running process,
+              +o  or if it does not hold any _p_r_o_c_e_s_s_-_i_d and  has  been  touched
+              less than 5 minutes ago (timestamp is younger than 5 minutes).
+
+       --rr rreettrriieess
+              The  number  of times ddoottlloocckkffiillee retries to acquire the lock if
+              it failed the first time before giving up.   The  initial  sleep
+              after  failing  to  acquire  the  lock is 5 seconds.  After each
+              retry the sleep intervall is increased incrementally  by  5 sec-
+              onds  up  to  a  maximum sleep of 60 seconds between tries.  The
+              default number of retries is 5.  To try only once, use  "--rr  00".
+              To try indefinitely, use "--rr --11".
+
+       --uu     Remove a lockfile.
+
+       --tt     Touch  an  existing lockfile (update the timestamp).  Useful for
+              lockfiles on NFS filesystems.  For lockfiles on  local  filesys-
+              tems the --pp option is preferable.
+
+       --cc     For  debugging  only:   Check for the existence of a _v_a_l_i_d lock-
+              file.
+
+              Note:  Testing for a preexisting lockfile  and  writing  of  the
+              lockfile  _m_u_s_t be done by the _s_a_m_e "ddoottlloocckkffiillee --ll" or "ddoottlloocckk--
+              ffiillee --mm" command, else the lockfile creation cannot be reliable.
+
+       --pp     Write the _p_r_o_c_e_s_s_-_i_d of the calling process into  the  lockfile.
+              Also  when  testing for an existing lockfile, check the contents
+              for the _p_r_o_c_e_s_s_-_i_d of a running process to verify if  the  lock-
+              file  is  still  valid.   Obviously useful only for lockfiles on
+              local filesystems.
+
+       --mm     Lock or unlock the current users mailbox.  The path to the mail-
+              box   is   the   default  system  mailspool  directory  (usually
+              _/_v_a_r_/_m_a_i_l) with the username as gotten from _g_e_t_p_w_u_i_d() appended.
+              If  the environment variable _$_M_A_I_L is set, that is used instead.
+              Then the string "_._l_o_c_k" is appended  to  get  the  name  of  the
+              actual lockfile.
+
+       lockfile
+              The  lockfile  to be created or removed.  Must not be specified,
+              if the --mm option is in effect.
+
+RREETTUURRNN VVAALLUUEE
+       Zero on success, and non-zero on failure.  For the  --cc  option,  sucess
+       means  that  a  valid  lockfile  is already present.  When locking (the
+       default, or with the --ll option) ddoottlloocckkffiillee returns the same values  as
+       the  library  function  _l_o_c_k_f_i_l_e___c_r_e_a_t_e(3).   Unlocking  a non-existant
+       lockfile is not an error.
+
+NNOOTTEESS
+       The lockfile is created exactly as named  on  the  command  line.   The
+       extension "_._l_o_c_k" is _n_o_t automatically appended.
+
+       This  utility is a lot like the _l_o_c_k_f_i_l_e(1) utility included with _p_r_o_c_-
+       _m_a_i_l, and the _m_u_t_t___d_o_t_l_o_c_k(1) utility included with _m_u_t_t.  However  the
+       command-line  arguments  differ,  and so does the return status.  It is
+       believed, that _d_o_t_l_o_c_k_f_i_l_e is the most flexible  implementation,  since
+       it  automatically  detects  when  it  needs to use priviliges to lock a
+       mailbox, and does it safely.
+
+       The above  mentioned  _l_o_c_k_f_i_l_e___c_r_e_a_t_e(3)  manpage  is  present  in  the
+       _l_i_b_l_o_c_k_f_i_l_e_-_d_e_v package.
+
+BBUUGGSS
+       None known.
+
+SSEEEE AALLSSOO
+       _l_o_c_k_f_i_l_e___c_r_e_a_t_e(3), _m_a_i_l_l_o_c_k(3)
+
+AAUUTTHHOORR
+       Miquel van Smoorenburg, miquels@cistron.nl
+
+
+
+                               September 8, 2009                DOTLOCKFILE(1)

@@ -1,0 +1,22 @@
+report-hw()                                                        report-hw()
+
+
+
+NNAAMMEE
+       report-hw - dump information on the system's hardware
+
+SSYYNNOOPPSSIISS
+       rreeppoorrtt--hhww
+
+DDEESSCCRRIIPPTTIIOONN
+       _r_e_p_o_r_t_-_h_w  outputs  a summary of the system's hardware to standard out-
+       put. This hardware summary is aimed at diagnosing problems  with  hard-
+       ware  autodetection, or other problems during a Debian install, but can
+       also be useful to run on an installed system.
+
+AAUUTTHHOORR
+       The debian-installer team.
+
+
+
+                                                                   report-hw()

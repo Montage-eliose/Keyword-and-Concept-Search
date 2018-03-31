@@ -1,0 +1,209 @@
+PKEXEC(1)                           pkexec                           PKEXEC(1)
+
+
+
+NNAAMMEE
+       pkexec - Execute a command as another user
+
+SSYYNNOOPPSSIISS
+       ppkkeexxeecc [----vveerrssiioonn] [----ddiissaabbllee--iinntteerrnnaall--aaggeenntt] [----hheellpp]
+
+       ppkkeexxeecc [----uusseerr _u_s_e_r_n_a_m_e] _P_R_O_G_R_A_M [_A_R_G_U_M_E_N_T_S...]
+
+DDEESSCCRRIIPPTTIIOONN
+       ppkkeexxeecc allows an authorized user to execute _P_R_O_G_R_A_M as another user. If
+       _u_s_e_r_n_a_m_e is not specified, then the program will be executed as the
+       administrative super user, _r_o_o_t.
+
+RREETTUURRNN VVAALLUUEE
+       Upon successful completion, the return value is the return value of
+       _P_R_O_G_R_A_M. If the calling process is not authorized or an authorization
+       could not be obtained through authentication or an error occured,
+       ppkkeexxeecc exits with a return value of 127. If the authorization could not
+       be obtained because the user dismissed the authentication dialog,
+       ppkkeexxeecc exits with a return value of 126.
+
+AAUUTTHHEENNTTIICCAATTIIOONN AAGGEENNTT
+       ppkkeexxeecc, like any other PolicyKit application, will use the
+       authentication agent registered for the calling process. However, if no
+       authentication agent is available, then ppkkeexxeecc will register its own
+       textual authentication agent. This behavior can be turned off by
+       passing the ----ddiissaabbllee--iinntteerrnnaall--aaggeenntt option.
+
+SSEECCUURRIITTYY NNOOTTEESS
+       Executing a program as another user is a privileged operation. By
+       default the required authorization (See the section called "REQUIRED
+       AUTHORIZATIONS") requires administrator authentication. In addition,
+       the authentication dialog presented to the user will display the full
+       path to the program to be executed so the user is aware of what will
+       happen:
+
+           [IMAGE][1]
+
+               +----------------------------------------------------------+
+               |                     Authenticate                     [X] |
+               +----------------------------------------------------------+
+               |                                                          |
+               |  [Icon]  Authentication is needed to run `/bin/bash'     |
+               |          as the super user                               |
+               |                                                          |
+               |          An application is attempting to perform an      |
+               |          action that requires privileges. Authentication |
+               |          as the super user is required to perform this   |
+               |          action.                                         |
+               |                                                          |
+               |          Password for root: [_________________________]  |
+               |                                                          |
+               | [V] Details:                                             |
+               |  Command: /bin/bash                                      |
+               |  Run As:  Super User (root)                              |
+               |  Action:  org.freedesktop.policykit.exec                 |
+               |  Vendor:  The PolicyKit Project                          |
+               |                                                          |
+               |                                  [Cancel] [Authenticate] |
+               +----------------------------------------------------------+
+
+       The environment that _P_R_O_G_R_A_M will run it, will be set to a minimal
+       known and safe environment in order to avoid injecting code through
+       LD_LIBRARY_PATH or similar mechanisms. In addition the PKEXEC_UID
+       environment variable is set to the user id of the process invoking
+       ppkkeexxeecc. As a result, ppkkeexxeecc will not allow you to run X11 applications
+       as another user since the $DISPLAY and $XAUTHORITY environment
+       variables are not set. These two variables will be retained if the
+       _o_r_g_._f_r_e_e_d_e_s_k_t_o_p_._p_o_l_i_c_y_k_i_t_._e_x_e_c_._a_l_l_o_w___g_u_i annotation on an action is set
+       to a nonempty value; this is discouraged, though, and should only be
+       used for legacy programs.
+
+RREEQQUUIIRREEDD AAUUTTHHOORRIIZZAATTIIOONNSS
+       By default, the _o_r_g_._f_r_e_e_d_e_s_k_t_o_p_._p_o_l_i_c_y_k_i_t_._e_x_e_c authorization is
+       required unless an action definition file is present for the program in
+       question. To require another authorization, it can be specified using
+       the _o_r_g_._f_r_e_e_d_e_s_k_t_o_p_._p_o_l_i_c_y_k_i_t_._e_x_e_c_._p_a_t_h annotation on an action (See
+       the section called "EXAMPLE" for details).
+
+EEXXAAMMPPLLEE
+       To specify what kind of authorization is needed to execute the program
+       /usr/bin/pk-example-frobnicate as another user, simply write an action
+       definition file like this
+
+           <?xml version="1.0" encoding="UTF-8"?>
+           <!DOCTYPE policyconfig PUBLIC
+            "-//freedesktop//DTD PolicyKit Policy Configuration 1.0//EN"
+            "http://www.freedesktop.org/standards/PolicyKit/1/policyconfig.dtd">
+           <policyconfig>
+
+             <vendor>Examples for the PolicyKit Project</vendor>
+             <vendor_url>http://hal.freedesktop.org/docs/PolicyKit/</vendor_url>
+
+             <action id="org.freedesktop.policykit.example.pkexec.run-frobnicate">
+               <description>Run the PolicyKit example program Frobnicate</description>
+               <description xml:lang="da">Kr PolicyKit eksemplet Frobnicate</description>
+               <message>Authentication is required to run the PolicyKit example program Frobnicate (user=$(user), program=$(program), command_line=$(command_line))</message>
+               <message xml:lang="da">Autorisering er pkrvet for at afvikle PolicyKit eksemplet Frobnicate (user=$(user), program=$(program), command_line=$(command_line))</message>
+               <icon_name>audio-x-generic</icon_name>
+               <defaults>
+                 <allow_any>no</allow_any>
+                 <allow_inactive>no</allow_inactive>
+                 <allow_active>auth_self_keep</allow_active>
+               </defaults>
+               <annotate key="org.freedesktop.policykit.exec.path">/usr/bin/pk-example-frobnicate</annotate>
+             </action>
+
+           </policyconfig>
+
+       and drop it in the /usr/share/polkit-1/actions directory under a
+       suitable name (e.g. matching the namespace of the action). Note that in
+       addition to specifying the program, the authentication message,
+       description, icon and defaults can be specified. Note that occurences
+       of the strings $(user), $(program) and $(command_line) in the message
+       will be replaced with respectively the user (of the form "Real Name
+       (username)" or just "username" if there is no real name for the
+       username), the binary to execute (a fully-qualified path, e.g.
+       "/usr/bin/pk-example-frobnicate") and the command-line, e.g.
+       "pk-example-frobnicate foo bar". For example, for the action defined
+       above, the following authentication dialog will be shown:
+
+           [IMAGE][2]
+
+               +----------------------------------------------------------+
+               |                     Authenticate                     [X] |
+               +----------------------------------------------------------+
+               |                                                          |
+               |  [Icon]  Authentication is required to run the PolicyKit |
+               |          example program Frobnicate                      |
+               |                                                          |
+               |          An application is attempting to perform an      |
+               |          action that requires privileges. Authentication |
+               |          is required to perform this action.             |
+               |                                                          |
+               |          Password: [__________________________________]  |
+               |                                                          |
+               | [V] Details:                                             |
+               |  Command: /usr/bin/pk-example-frobnicate                 |
+               |  Run As:  Super User (root)                              |
+               |  Action:  org.fd.pk.example.pkexec.run-frobnicate        |
+               |  Vendor:  Examples for the PolicyKit Project             |
+               |                                                          |
+               |                                  [Cancel] [Authenticate] |
+               +----------------------------------------------------------+
+
+       If the user is using the da_DK locale, the dialog looks like this:
+
+           [IMAGE][3]
+
+               +----------------------------------------------------------+
+               |                     Autorisering                     [X] |
+               +----------------------------------------------------------+
+               |                                                          |
+               |  [Icon]  Autorisering er pkrvet for at afvikle         |
+               |          PolicyKit eksemplet Frobnicate                  |
+               |                                                          |
+               |          Et program forsger at udfre en handling der   |
+               |          krver privilegier. Autorisering er pkrvet.   |
+               |                                                          |
+               |          Kodeord: [___________________________________]  |
+               |                                                          |
+               | [V] Detaljer:                                            |
+               |  Bruger:   Super User (root)                             |
+               |  Program:  /usr/bin/pk-example-frobnicate                |
+               |  Handling: org.fd.pk.example.pkexec.run-frobnicate       |
+               |  Vendor:   Examples for the PolicyKit Project            |
+               |                                                          |
+               |                                [Annullr] [Autorisering] |
+               +----------------------------------------------------------+
+
+       Note that ppkkeexxeecc does no validation of the _A_R_G_U_M_E_N_T_S passed to _P_R_O_G_R_A_M.
+       In the normal case (where administrator authentication is required
+       every time ppkkeexxeecc is used), this is not a problem since if the user is
+       an administrator he might as well just run ppkkeexxeecc bbaasshh to get root.
+
+       However, if an action is used for which the user can retain
+       authorization (or if the user is implicitly authorized), such as with
+       pk-example-frobnicate above, this could be a security hole. Therefore,
+       as a rule of thumb, programs for which the default required
+       authorization is changed, should never implicitly trust user input
+       (e.g. like any other well-written _s_u_i_d program).
+
+AAUUTTHHOORR
+       Written by David Zeuthen <davidz@redhat.com> with a lot of help from
+       many others.
+
+BBUUGGSS
+       Please send bug reports to either the distribution or the polkit-devel
+       mailing list, see the link
+       hhttttpp::////lliissttss..ffrreeeeddeesskkttoopp..oorrgg//mmaaiillmmaann//lliissttiinnffoo//ppoollkkiitt--ddeevveell on how to
+       subscribe.
+
+SSEEEE AALLSSOO
+       ppoollkkiitt(8), ppkkaaccttiioonn(1), ppkkcchheecckk(1), ppkkttttyyaaggeenntt(1)
+
+NNOOTTEESS
+        1. /usr/share/gtk-doc/html/polkit-1/pkexec-bash.png
+
+        2. /usr/share/gtk-doc/html/polkit-1/pkexec-frobnicate.png
+
+        3. /usr/share/gtk-doc/html/polkit-1/pkexec-frobnicate-da.png
+
+
+
+polkit                             May 2009                          PKEXEC(1)

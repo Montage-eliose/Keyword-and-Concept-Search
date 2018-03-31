@@ -1,0 +1,108 @@
+DDATE(1)                  Emperor Norton User Command                 DDATE(1)
+
+
+
+NNAAMMEE
+       ddate - convert Gregorian dates to Discordian dates
+
+SSYYNNOOPPSSIISS
+       ddddaattee [++_f_o_r_m_a_t_] [_d_a_t_e]
+
+DDEESSCCRRIIPPTTIIOONN
+       ddddaattee prints the date in Discordian date format.
+
+       If  called  with  no arguments, ddddaattee will get the current system date,
+       convert this to the Discordian date format and print this on the  stan-
+       dard  output.  Alternatively,  a Gregorian date may be specified on the
+       command line, in the form of a numerical day, month and year.
+
+       If a format string is specified, the Discordian date will be printed in
+       a format specified by the string. This mechanism works similarly to the
+       format string mechanism of ddaattee((11)),, only almost completely differently.
+       The fields are:
+
+       %A     Full name of the day of the week (i.e., Sweetmorn)
+
+       %a     Abbreviated name of the day of the week (i.e., SM)
+
+       %B     Full name of the season (i.e., Chaos)
+
+       %b     Abbreviated name of the season (i.e., Chs)
+
+       %d     Ordinal number of day in season (i.e., 23)
+
+       %e     Cardinal number of day in season (i.e., 23rd)
+
+       %H     Name of current Holyday, if any
+
+       %N     Magic  code  to prevent rest of format from being printed unless
+              today is a Holyday.
+
+       %n     Newline
+
+       %t     Tab
+
+       %X     Number of days remaining until X-Day. (Not valid if  the  SubGe-
+              nius options are not compiled in.)
+
+       %{
+
+       %}     Used  to  enclose the part of the string which is to be replaced
+              with the words "St. Tib's Day" if the current day is  St.  Tib's
+              Day.
+
+       %.     Try it and see.
+
+EEXXAAMMPPLLEESS
+       % ddate
+       Sweetmorn, Bureaucracy 42, 3161 YOLD
+
+       % ddate +'Today is %{%A, the %e of %B%}, %Y. %N%nCelebrate %H'
+       Today is Sweetmorn, the 42nd of Bureaucracy, 3161.
+
+       % ddate +"It's %{%A, the %e of %B%}, %Y. %N%nCelebrate %H" 26 9 1995
+       It's Prickle-Prickle, the 50th of Bureaucracy, 3161.
+       Celebrate Bureflux
+
+       % ddate +"Today's %{%A, the %e of %B%}, %Y. %N%nCelebrate %H" 29 2 1996
+       Today's St. Tib's Day, 3162.
+
+
+BBUUGGSS
+       ddddaattee((11))  will  produce undefined behavior if asked to produce the date
+       for St. Tib's day and its format string does not contain the St.  Tib's
+       Day delimiters %{ and %}.
+
+
+NNOOTTEE
+       After  `X-Day'  passed  without  incident,  the Church of the SubGenius
+       declared that it had got the year upside down - X-Day  is  actually  in
+       8661 AD rather than 1998 AD.  Thus, the True X-Day is Cfn 40, 9827.
+
+
+AAUUTTHHOORR
+       Original   program   by   Druel   the   Chaotic   aka   Jeremy  Johnson
+       (mpython@gnu.ai.mit.edu)
+       Major  rewrite  by  Lee  H:.  O:.  Smith,  KYTP,  aka   Andrew   Bulhak
+       (acb@dev.null.org)
+       Five tons of flax.
+
+
+DDIISSTTRRIIBBUUTTIIOONN PPOOLLIICCYY
+       Public domain. All rites reversed.
+
+
+SSEEEE AALLSSOO
+       date(1),
+       http://www.subgenius.com/
+       Malaclypse the Younger, _P_r_i_n_c_i_p_i_a _D_i_s_c_o_r_d_i_a_, _O_r _H_o_w _I _F_o_u_n_d _G_o_d_d_e_s_s _A_n_d
+       _W_h_a_t _I _D_i_d _T_o _H_e_r _W_h_e_n _I _F_o_u_n_d _H_e_r
+
+
+AAVVAAIILLAABBIILLIITTYY
+       The ddate command is part of the util-linux package  and  is  available
+       from ftp://ftp.kernel.org/pub/linux/utils/util-linux/.
+
+
+
+util-linux                     Bureaucracy 3161                       DDATE(1)

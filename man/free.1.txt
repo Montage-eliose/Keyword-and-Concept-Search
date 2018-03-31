@@ -1,0 +1,89 @@
+FREE(1)                          User Commands                         FREE(1)
+
+
+
+NNAAMMEE
+       free - Display amount of free and used memory in the system
+
+SSYYNNOOPPSSIISS
+       ffrreeee [_o_p_t_i_o_n_s]
+
+DDEESSCCRRIIPPTTIIOONN
+       ffrreeee  displays the total amount of free and used physical and swap mem-
+       ory in the system, as well as the buffers  used  by  the  kernel.   The
+       shared  memory column represents either the MemShared value (2.4 series
+       kernels) or the Shmem value (2.6 series kernels and later)  taken  from
+       the  /proc/meminfo  file.  The  value is zero if none of the entries is
+       exported by the kernel.
+
+OOPPTTIIOONNSS
+       --bb, ----bbyytteess
+              Display the amount of memory in bytes.
+
+       --kk, ----kkiilloo
+              Display the amount of memory in kilobytes.  This is the default.
+
+       --mm, ----mmeeggaa
+              Display the amount of memory in megabytes.
+
+       --gg, ----ggiiggaa
+              Display the amount of memory in gigabytes.
+
+       ----tteerraa Display the amount of memory in terabytes.
+
+       --hh, ----hhuummaann
+              Show all output fields automatically scaled  to  shortest  three
+              digit  unit and display the units of print out.  Following units
+              are used.
+
+                B = bytes
+                K = kilos
+                M = megas
+                G = gigas
+                T = teras
+
+              If unit is missing, and you have petabyte of RAM  or  swap,  the
+              number  is  in  terabytes  and columns might not be aligned with
+              header.
+
+       --cc, ----ccoouunntt _c_o_u_n_t
+              Display the result _c_o_u_n_t times.  Requires the --ss option.
+
+       --ll, ----lloohhii
+              Show detailed low and high memory statistics.
+
+       --oo, ----oolldd
+              Display the output in old format, the only difference being this
+              option will disable the display of the "buffer adjusted" line.
+
+       --ss, ----sseeccoonnddss _s_e_c_o_n_d_s
+              Continuously  display  the  result delay _s_e_c_o_n_d_s apart.  You may
+              actually specify any floating point number for _d_e_l_a_y,  uusslleeeepp(3)
+              is used for microsecond resolution delay times.
+
+       ----ssii   Use power of 1000 not 1024.
+
+       --tt, ----ttoottaall
+              Display a line showing the column totals.
+
+       ----hheellpp Print help.
+
+       --VV, ----vveerrssiioonn
+              Display version information.
+
+FFIILLEESS
+       /proc/meminfo
+              memory information
+
+SSEEEE AALLSSOO
+       ppss(1), ssllaabbttoopp(1), ttoopp(1), vvmmssttaatt(8).
+
+AAUUTTHHOORRSS
+       Written by Brian Edmonds.
+
+RREEPPOORRTTIINNGG BBUUGGSS
+       Please send bug reports to <procps@freelists.org>
+
+
+
+procps-ng                       September 2011                         FREE(1)

@@ -1,0 +1,21 @@
+CHKDUPEXE(1)                     User Commands                    CHKDUPEXE(1)
+
+
+
+NNAAMMEE
+       chkdupexe - find duplicate executables
+
+SSYYNNOOPPSSIISS
+       cchhkkdduuppeexxee
+
+DDEESSCCRRIIPPTTIIOONN
+       cchhkkdduuppeexxee  will  scan the union of $PATH and a hardcoded list of common
+       locations for binaries.  It will report dangling  symlinks  and  dupli-
+       cately-named binaries.
+
+AAUUTTHHOORR
+       Nicolai Langfeldt, Michael Shields.
+
+
+
+util-linux                        March 1995                      CHKDUPEXE(1)

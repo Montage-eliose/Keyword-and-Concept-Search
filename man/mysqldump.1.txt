@@ -1,0 +1,1095 @@
+MYSQLDUMP(1)                 MySQL Database System                MYSQLDUMP(1)
+
+
+
+NNAAMMEE
+       mysqldump - a database backup program
+
+SSYYNNOOPPSSIISS
+       mmyyssqqlldduummpp [[_o_p_t_i_o_n_s]] [[_d_b___n_a_m_e [[_t_b_l___n_a_m_e ......]]]]
+
+DDEESSCCRRIIPPTTIIOONN
+       +o   Performance and Scalability Considerations
+
+       +o   Invocation Syntax
+
+       +o   Option Syntax - Alphabetical Summary
+
+       The mmyyssqqlldduummpp client utility performs logical backups, producing a set
+       of SQL statements that can be executed to reproduce the original
+       database object definitions and table data. It dumps one or more MySQL
+       databases for backup or transfer to another SQL server. The mmyyssqqlldduummpp
+       command can also generate output in CSV, other delimited text, or XML
+       format.
+
+       mmyyssqqlldduummpp requires at least the SELECT privilege for dumped tables,
+       SHOW VIEW for dumped views, TRIGGER for dumped triggers, and LOCK
+       TABLES if the ----ssiinnggllee--ttrraannssaaccttiioonn option is not used. Certain options
+       might require other privileges as noted in the option descriptions.
+
+       To reload a dump file, you must have the privileges required to execute
+       the statements that it contains, such as the appropriate CREATE
+       privileges for objects created by those statements.
+
+       mmyyssqqlldduummpp output can include ALTER DATABASE statements that change the
+       database collation. These may be used when dumping stored programs to
+       preserve their character encodings. To reload a dump file containing
+       such statements, the ALTER privilege for the affected database is
+       required.
+
+       If you are performing a backup on the server and your tables all are
+       MyISAM tables, you can also use mmyyssqqllhhoottccooppyy for this purpose.
+
+           NNoottee
+           A dump made using PowerShell on Windows with output redirection
+           creates a file that has UTF-16 encoding:
+
+               shell> mmyyssqqlldduummpp [[ooppttiioonnss]] >> dduummpp..ssqqll
+
+           However, UTF-16 is not permitted as a connection character set (see
+           Section 10.1.4, "Connection Character Sets and Collations"), so the
+           dump file will not load correctly. To work around this issue, use
+           the ----rreessuulltt--ffiillee option, which creates the output in ASCII format:
+
+               shell> mmyyssqqlldduummpp [[ooppttiioonnss]] ----rreessuulltt--ffiillee==dduummpp..ssqqll
+       Performance and Scalability Considerations.PP mysqldump advantages
+       include the convenience and flexibility of viewing or even editing the
+       output before restoring. You can clone databases for development and
+       DBA work, or produce slight variations of an existing database for
+       testing. It is not intended as a fast or scalable solution for backing
+       up substantial amounts of data. With large data sizes, even if the
+       backup step takes a reasonable time, restoring the data can be very
+       slow because replaying the SQL statements involves disk I/O for
+       insertion, index creation, and so on.
+
+       For large-scale backup and restore, a physical backup is more
+       appropriate, to copy the data files in their original format that can
+       be restored quickly:
+
+       +o   If your tables are primarily InnoDB tables, or if you have a mix of
+           InnoDB and MyISAM tables, consider using the mmyyssqqllbbaacckkuupp command of
+           the MySQL Enterprise Backup product. (Available as part of the
+           Enterprise subscription.) It provides the best performance for
+           InnoDB backups with minimal disruption; it can also back up tables
+           from MyISAM and other storage engines; and it provides a number of
+           convenient options to accommodate different backup scenarios. See
+           Section 25.2, "MySQL Enterprise Backup Overview".
+
+       +o   If your tables are primarily MyISAM tables, consider using the
+           mmyyssqqllhhoottccooppyy instead, for better performance than mmyyssqqlldduummpp of
+           backup and restore operations. See mmyyssqqllhhoottccooppyy(1).
+
+       mmyyssqqlldduummpp can retrieve and dump table contents row by row, or it can
+       retrieve the entire content from a table and buffer it in memory before
+       dumping it. Buffering in memory can be a problem if you are dumping
+       large tables. To dump tables row by row, use the ----qquuiicckk option (or
+       ----oopptt, which enables ----qquuiicckk). The ----oopptt option (and hence ----qquuiicckk) is
+       enabled by default, so to enable memory buffering, use ----sskkiipp--qquuiicckk.
+
+       If you are using a recent version of mmyyssqqlldduummpp to generate a dump to be
+       reloaded into a very old MySQL server, use the ----sskkiipp--oopptt option
+       instead of the ----oopptt or ----eexxtteennddeedd--iinnsseerrtt option.
+
+       For additional information about mmyyssqqlldduummpp, see Section 7.4, "Using
+       mysqldump for Backups".  Invocation Syntax.PP There are in general
+       three ways to use mmyyssqqlldduummpp--in order to dump a set of one or more
+       tables, a set of one or more complete databases, or an entire MySQL
+       server--as shown here:
+
+           shell> mmyyssqqlldduummpp [[_o_p_t_i_o_n_s]] _d_b___n_a_m_e [[_t_b_l___n_a_m_e ......]]
+           shell> mmyyssqqlldduummpp [[_o_p_t_i_o_n_s]] ----ddaattaabbaasseess _d_b___n_a_m_e ......
+           shell> mmyyssqqlldduummpp [[_o_p_t_i_o_n_s]] ----aallll--ddaattaabbaasseess
+
+       To dump entire databases, do not name any tables following _d_b___n_a_m_e, or
+       use the ----ddaattaabbaasseess or ----aallll--ddaattaabbaasseess option.
+
+       mmyyssqqlldduummpp does not dump the INFORMATION_SCHEMA or performance_schema
+       database by default. To dump either of these, name it explicitly on the
+       command line and also use the ----sskkiipp--lloocckk--ttaabblleess option. You can also
+       name them with the ----ddaattaabbaasseess option. Before MySQL 5.5 mmyyssqqlldduummpp
+       silently ignores INFORMATION_SCHEMA even if you name it explicitly on
+       the command line.
+
+       mmyyssqqlldduummpp does not dump the performance_schema database.
+
+       Before MySQL 5.5.25, mmyyssqqlldduummpp does not dump the general_log or
+       slow_query_log tables for dumps of the mysql database. As of 5.5.25,
+       the dump includes statements to recreate those tables so that they are
+       not missing after reloading the dump file. Log table contents are not
+       dumped.
+
+       mmyyssqqlldduummpp also does not dump the MySQL Cluster ndbinfo information
+       database.
+
+       To see a list of the options your version of mmyyssqqlldduummpp supports,
+       execute mmyyssqqlldduummpp ----hheellpp.
+
+       Some mmyyssqqlldduummpp options are shorthand for groups of other options:
+
+       +o   Use of ----oopptt is the same as specifying ----aadddd--ddrroopp--ttaabbllee,
+           ----aadddd--lloocckkss, ----ccrreeaattee--ooppttiioonnss, ----ddiissaabbllee--kkeeyyss, ----eexxtteennddeedd--iinnsseerrtt,
+           ----lloocckk--ttaabblleess, ----qquuiicckk, and ----sseett--cchhaarrsseett. All of the options that
+           ----oopptt stands for also are on by default because ----oopptt is on by
+           default.
+
+       +o   Use of ----ccoommppaacctt is the same as specifying ----sskkiipp--aadddd--ddrroopp--ttaabbllee,
+           ----sskkiipp--aadddd--lloocckkss, ----sskkiipp--ccoommmmeennttss, ----sskkiipp--ddiissaabbllee--kkeeyyss, and
+           ----sskkiipp--sseett--cchhaarrsseett options.
+
+       To reverse the effect of a group option, uses its ----sskkiipp--_x_x_x form
+       (----sskkiipp--oopptt or ----sskkiipp--ccoommppaacctt). It is also possible to select only part
+       of the effect of a group option by following it with options that
+       enable or disable specific features. Here are some examples:
+
+       +o   To select the effect of ----oopptt except for some features, use the
+           ----sskkiipp option for each feature. To disable extended inserts and
+           memory buffering, use ----oopptt ----sskkiipp--eexxtteennddeedd--iinnsseerrtt ----sskkiipp--qquuiicckk.
+           (Actually, ----sskkiipp--eexxtteennddeedd--iinnsseerrtt ----sskkiipp--qquuiicckk is sufficient
+           because ----oopptt is on by default.)
+
+       +o   To reverse ----oopptt for all features except index disabling and table
+           locking, use ----sskkiipp--oopptt ----ddiissaabbllee--kkeeyyss ----lloocckk--ttaabblleess.
+
+       When you selectively enable or disable the effect of a group option,
+       order is important because options are processed first to last. For
+       example, ----ddiissaabbllee--kkeeyyss ----lloocckk--ttaabblleess ----sskkiipp--oopptt would not have the
+       intended effect; it is the same as ----sskkiipp--oopptt by itself.
+
+       mmyyssqqlldduummpp can retrieve and dump table contents row by row, or it can
+       retrieve the entire content from a table and buffer it in memory before
+       dumping it. Buffering in memory can be a problem if you are dumping
+       large tables. To dump tables row by row, use the ----qquuiicckk option (or
+       ----oopptt, which enables ----qquuiicckk). The ----oopptt option (and hence ----qquuiicckk) is
+       enabled by default, so to enable memory buffering, use ----sskkiipp--qquuiicckk.
+
+       If you are using a recent version of mmyyssqqlldduummpp to generate a dump to be
+       reloaded into a very old MySQL server, you should not use the ----oopptt or
+       ----eexxtteennddeedd--iinnsseerrtt option. Use ----sskkiipp--oopptt instead.
+
+       For additional information about mmyyssqqlldduummpp, see Section 7.4, "Using
+       mysqldump for Backups".  Option Syntax - Alphabetical Summary.PP
+       mmyyssqqlldduummpp supports the following options, which can be specified on the
+       command line or in the [mysqldump] and [client] groups of an option
+       file. For information about option files used by MySQL programs, see
+       Section 4.2.6, "Using Option Files".
+
+       +o   ----hheellpp, --??
+
+           Display a help message and exit.
+
+       +o   ----aadddd--ddrroopp--ddaattaabbaassee
+
+           Write a DROP DATABASE statement before each CREATE DATABASE
+           statement. This option is typically used in conjunction with the
+           ----aallll--ddaattaabbaasseess or ----ddaattaabbaasseess option because no CREATE DATABASE
+           statements are written unless one of those options is specified.
+
+       +o   ----aadddd--ddrroopp--ttaabbllee
+
+           Write a DROP TABLE statement before each CREATE TABLE statement.
+
+       +o   ----aadddd--ddrroopp--ttrriiggggeerr
+
+           Write a DROP TRIGGER statement before each CREATE TRIGGER
+           statement.
+
+               NNoottee
+               This option is supported only by mmyyssqqlldduummpp as supplied with
+               MySQL Cluster. It is not available when using MySQL Server 5.5.
+
+       +o   ----aadddd--lloocckkss
+
+           Surround each table dump with LOCK TABLES and UNLOCK TABLES
+           statements. This results in faster inserts when the dump file is
+           reloaded. See Section 8.2.2.1, "Speed of INSERT Statements".
+
+       +o   ----aallll--ddaattaabbaasseess, --AA
+
+           Dump all tables in all databases. This is the same as using the
+           ----ddaattaabbaasseess option and naming all the databases on the command
+           line.
+
+       +o   ----aallll--ttaabblleessppaacceess, --YY
+
+           Adds to a table dump all SQL statements needed to create any
+           tablespaces used by an NDBCLUSTER table. This information is not
+           otherwise included in the output from mmyyssqqlldduummpp. This option is
+           currently relevant only to MySQL Cluster tables.
+
+       +o   ----aallllooww--kkeeyywwoorrddss
+
+           Permit creation of column names that are keywords. This works by
+           prefixing each column name with the table name.
+
+       +o   ----aappppllyy--ssllaavvee--ssttaatteemmeennttss
+
+           For a slave dump produced with the ----dduummpp--ssllaavvee option, add a STOP
+           SLAVE statement before the CHANGE MASTER TO statement and a START
+           SLAVE statement at the end of the output. This option was added in
+           MySQL 5.5.3.
+
+       +o   ----bbiinndd--aaddddrreessss==_i_p___a_d_d_r_e_s_s
+
+           On a computer having multiple network interfaces, use this option
+           to select which interface to use for connecting to the MySQL
+           server.
+
+           This option is supported only in the version of mmyyssqqlldduummpp that is
+           supplied with MySQL Cluster. It is not available in standard MySQL
+           Server 5.5 releases.
+
+       +o   ----cchhaarraacctteerr--sseettss--ddiirr==_d_i_r___n_a_m_e
+
+           The directory where character sets are installed. See Section 10.5,
+           "Character Set Configuration".
+
+       +o   ----ccoommmmeennttss, --ii
+
+           Write additional information in the dump file such as program
+           version, server version, and host. This option is enabled by
+           default. To suppress this additional information, use
+           ----sskkiipp--ccoommmmeennttss.
+
+       +o   ----ccoommppaacctt
+
+           Produce more compact output. This option enables the
+           ----sskkiipp--aadddd--ddrroopp--ttaabbllee, ----sskkiipp--aadddd--lloocckkss, ----sskkiipp--ccoommmmeennttss,
+           ----sskkiipp--ddiissaabbllee--kkeeyyss, and ----sskkiipp--sseett--cchhaarrsseett options.
+
+       +o   ----ccoommppaattiibbllee==_n_a_m_e
+
+           Produce output that is more compatible with other database systems
+           or with older MySQL servers. The value of _n_a_m_e can be ansi,
+           mysql323, mysql40, postgresql, oracle, mssql, db2, maxdb,
+           no_key_options, no_table_options, or no_field_options. To use
+           several values, separate them by commas. These values have the same
+           meaning as the corresponding options for setting the server SQL
+           mode. See Section 5.1.7, "Server SQL Modes".
+
+           This option does not guarantee compatibility with other servers. It
+           only enables those SQL mode values that are currently available for
+           making dump output more compatible. For example,
+           ----ccoommppaattiibbllee==oorraaccllee does not map data types to Oracle types or use
+           Oracle comment syntax.
+
+           _T_h_i_s _o_p_t_i_o_n _r_e_q_u_i_r_e_s _a _s_e_r_v_e_r _v_e_r_s_i_o_n _o_f _4_._1_._0 _o_r _h_i_g_h_e_r. With
+           older servers, it does nothing.
+
+       +o   ----ccoommpplleettee--iinnsseerrtt, --cc
+
+           Use complete INSERT statements that include column names.
+
+       +o   ----ccoommpprreessss, --CC
+
+           Compress all information sent between the client and the server if
+           both support compression.
+
+       +o   ----ccrreeaattee--ooppttiioonnss
+
+           Include all MySQL-specific table options in the CREATE TABLE
+           statements.
+
+       +o   ----ddaattaabbaasseess, --BB
+
+           Dump several databases. Normally, mmyyssqqlldduummpp treats the first name
+           argument on the command line as a database name and following names
+           as table names. With this option, it treats all name arguments as
+           database names.  CREATE DATABASE and USE statements are included in
+           the output before each new database.
+
+       +o   ----ddeebbuugg[[==_d_e_b_u_g___o_p_t_i_o_n_s]], --## [[_d_e_b_u_g___o_p_t_i_o_n_s]]
+
+           Write a debugging log. A typical _d_e_b_u_g___o_p_t_i_o_n_s string is
+           d:t:o,_f_i_l_e___n_a_m_e. The default value is d:t:o,/tmp/mysqldump.trace.
+
+       +o   ----ddeebbuugg--cchheecckk
+
+           Print some debugging information when the program exits.
+
+       +o   ----ddeebbuugg--iinnffoo
+
+           Print debugging information and memory and CPU usage statistics
+           when the program exits.
+
+       +o   ----ddeeffaauulltt--aauutthh==_p_l_u_g_i_n
+
+           A hint about the client-side authentication plugin to use. See
+           Section 6.3.6, "Pluggable Authentication".
+
+           This option was added in MySQL 5.5.9.
+
+       +o   ----ddeeffaauulltt--cchhaarraacctteerr--sseett==_c_h_a_r_s_e_t___n_a_m_e
+
+           Use _c_h_a_r_s_e_t___n_a_m_e as the default character set. See Section 10.5,
+           "Character Set Configuration". If no character set is specified,
+           mmyyssqqlldduummpp uses utf8.
+
+       +o   ----ddeeffaauullttss--eexxttrraa--ffiillee==_f_i_l_e___n_a_m_e
+
+           Read this option file after the global option file but (on Unix)
+           before the user option file. If the file does not exist or is
+           otherwise inaccessible, an error occurs. Before MySQL 5.5.8,
+           _f_i_l_e___n_a_m_e must be the full path name to the file. As of MySQL
+           5.5.8, the name is interpreted relative to the current directory if
+           given as a relative path name.
+
+       +o   ----ddeeffaauullttss--ffiillee==_f_i_l_e___n_a_m_e
+
+           Use only the given option file. If the file does not exist or is
+           otherwise inaccessible, an error occurs. Before MySQL 5.5.8,
+           _f_i_l_e___n_a_m_e must be the full path name to the file. As of MySQL
+           5.5.8, the name is interpreted relative to the current directory if
+           given as a relative path name.
+
+       +o   ----ddeeffaauullttss--ggrroouupp--ssuuffffiixx==_s_t_r
+
+           Read not only the usual option groups, but also groups with the
+           usual names and a suffix of _s_t_r. For example, mmyyssqqlldduummpp normally
+           reads the [client] and [mysqldump] groups. If the
+           ----ddeeffaauullttss--ggrroouupp--ssuuffffiixx==__ootthheerr option is given, mmyyssqqlldduummpp also
+           reads the [client_other] and [mysqldump_other] groups.
+
+       +o   ----ddeellaayyeedd--iinnsseerrtt
+
+           Write INSERT DELAYED statements rather than INSERT statements.
+
+       +o   ----ddeelleettee--mmaasstteerr--llooggss
+
+           On a master replication server, delete the binary logs by sending a
+           PURGE BINARY LOGS statement to the server after performing the dump
+           operation. This option automatically enables ----mmaasstteerr--ddaattaa.
+
+       +o   ----ddiissaabbllee--kkeeyyss, --KK
+
+           For each table, surround the INSERT statements with /*!40000 ALTER
+           TABLE _t_b_l___n_a_m_e DISABLE KEYS */; and /*!40000 ALTER TABLE _t_b_l___n_a_m_e
+           ENABLE KEYS */; statements. This makes loading the dump file faster
+           because the indexes are created after all rows are inserted. This
+           option is effective only for nonunique indexes of MyISAM tables. It
+           has no effect for other tables.
+
+       +o   ----dduummpp--ddaattee
+
+           If the ----ccoommmmeennttss option is given, mmyyssqqlldduummpp produces a comment at
+           the end of the dump of the following form:
+
+               -- Dump completed on _D_A_T_E
+
+           However, the date causes dump files taken at different times to
+           appear to be different, even if the data are otherwise identical.
+           ----dduummpp--ddaattee and ----sskkiipp--dduummpp--ddaattee control whether the date is added
+           to the comment. The default is ----dduummpp--ddaattee (include the date in the
+           comment).  ----sskkiipp--dduummpp--ddaattee suppresses date printing.
+
+       +o   ----dduummpp--ssllaavvee[[==_v_a_l_u_e]]
+
+           This option is similar to ----mmaasstteerr--ddaattaa except that it is used to
+           dump a replication slave server to produce a dump file that can be
+           used to set up another server as a slave that has the same master
+           as the dumped server. It causes the dump output to include a CHANGE
+           MASTER TO statement that indicates the binary log coordinates (file
+           name and position) of the dumped slave's master. These are the
+           master server coordinates from which the slave should start
+           replicating.
+
+           ----dduummpp--ssllaavvee causes the coordinates from the master to be used
+           rather than those of the dumped server, as is done by the
+           ----mmaasstteerr--ddaattaa option. In addition, specfiying this option causes
+           the ----mmaasstteerr--ddaattaa option to be overridden, if used, and effectively
+           ignored.
+
+           The option value is handled the same way as for ----mmaasstteerr--ddaattaa
+           (setting no value or 1 causes a CHANGE MASTER TO statement to be
+           written to the dump, setting 2 causes the statement to be written
+           but encased in SQL comments) and has the same effect as
+           ----mmaasstteerr--ddaattaa in terms of enabling or disabling other options and
+           in how locking is handled.
+
+           This option causes mmyyssqqlldduummpp to stop the slave SQL thread before
+           the dump and restart it again after.
+
+           In conjunction with ----dduummpp--ssllaavvee, the ----aappppllyy--ssllaavvee--ssttaatteemmeennttss and
+           ----iinncclluuddee--mmaasstteerr--hhoosstt--ppoorrtt options can also be used.
+
+           This option was added in MySQL 5.5.3.
+
+       +o   ----eevveennttss, --EE
+
+           Include Event Scheduler events for the dumped databases in the
+           output. This option requires the EVENT privileges for those
+           databases.
+
+       +o   ----eexxtteennddeedd--iinnsseerrtt, --ee
+
+           Write INSERT statements using multiple-row syntax that includes
+           several VALUES lists. This results in a smaller dump file and
+           speeds up inserts when the file is reloaded.
+
+       +o   ----ffiieellddss--tteerrmmiinnaatteedd--bbyy==......, ----ffiieellddss--eenncclloosseedd--bbyy==......,
+           ----ffiieellddss--ooppttiioonnaallllyy--eenncclloosseedd--bbyy==......, ----ffiieellddss--eessccaappeedd--bbyy==......
+
+           These options are used with the ----ttaabb option and have the same
+           meaning as the corresponding FIELDS clauses for LOAD DATA INFILE.
+           See Section 13.2.6, "LOAD DATA INFILE Syntax".
+
+       +o   ----ffiirrsstt--ssllaavvee
+
+           Deprecated. Use ----lloocckk--aallll--ttaabblleess instead.  ----ffiirrsstt--ssllaavvee was
+           removed in MySQL 5.5.3.
+
+       +o   ----fflluusshh--llooggss, --FF
+
+           Flush the MySQL server log files before starting the dump. This
+           option requires the RELOAD privilege. If you use this option in
+           combination with the ----aallll--ddaattaabbaasseess option, the logs are flushed
+           _f_o_r _e_a_c_h _d_a_t_a_b_a_s_e _d_u_m_p_e_d. The exception is when using
+           ----lloocckk--aallll--ttaabblleess, ----mmaasstteerr--ddaattaa, or (as of MySQL 5.5.21)
+           ----ssiinnggllee--ttrraannssaaccttiioonn: In this case, the logs are flushed only once,
+           corresponding to the moment that all tables are locked. If you want
+           your dump and the log flush to happen at exactly the same moment,
+           you should use ----fflluusshh--llooggss together with ----lloocckk--aallll--ttaabblleess,
+           ----mmaasstteerr--ddaattaa, or ----ssiinnggllee--ttrraannssaaccttiioonn.
+
+       +o   ----fflluusshh--pprriivviilleeggeess
+
+           Add a FLUSH PRIVILEGES statement to the dump output after dumping
+           the mysql database. This option should be used any time the dump
+           contains the mysql database and any other database that depends on
+           the data in the mysql database for proper restoration.
+
+       +o   ----ffoorrccee, --ff
+
+           Continue even if an SQL error occurs during a table dump.
+
+           One use for this option is to cause mmyyssqqlldduummpp to continue executing
+           even when it encounters a view that has become invalid because the
+           definition refers to a table that has been dropped. Without
+           ----ffoorrccee, mmyyssqqlldduummpp exits with an error message. With ----ffoorrccee,
+           mmyyssqqlldduummpp prints the error message, but it also writes an SQL
+           comment containing the view definition to the dump output and
+           continues executing.
+
+       +o   ----eennaabbllee--cclleeaarrtteexxtt--pplluuggiinn
+
+           Enable the mysql_clear_password cleartext authentication plugin.
+           (See Section 6.4.1.5, "The Cleartext Client-Side Authentication
+           Plugin".)
+
+           This option was added in MySQL 5.5.47.
+
+       +o   ----hhoosstt==_h_o_s_t___n_a_m_e, --hh _h_o_s_t___n_a_m_e
+
+           Dump data from the MySQL server on the given host. The default host
+           is localhost.
+
+       +o   ----hheexx--bblloobb
+
+           Dump binary columns using hexadecimal notation (for example, 'abc'
+           becomes 0x616263). The affected data types are BINARY, VARBINARY,
+           the BLOB types, and BIT.
+
+       +o   ----iinncclluuddee--mmaasstteerr--hhoosstt--ppoorrtt
+
+           For the CHANGE MASTER TO statement in a slave dump produced with
+           the ----dduummpp--ssllaavvee option, add MASTER_HOST and MASTER_PORT options
+           for the host name and TCP/IP port number of the slave's master.
+           This option was added in MySQL 5.5.3.
+
+       +o   ----iiggnnoorree--ttaabbllee==_d_b___n_a_m_e_._t_b_l___n_a_m_e
+
+           Do not dump the given table, which must be specified using both the
+           database and table names. To ignore multiple tables, use this
+           option multiple times. This option also can be used to ignore
+           views.
+
+       +o   ----iinnsseerrtt--iiggnnoorree
+
+           Write INSERT IGNORE statements rather than INSERT statements.
+
+       +o   ----lliinneess--tteerrmmiinnaatteedd--bbyy==......
+
+           This option is used with the ----ttaabb option and has the same meaning
+           as the corresponding LINES clause for LOAD DATA INFILE. See
+           Section 13.2.6, "LOAD DATA INFILE Syntax".
+
+       +o   ----lloocckk--aallll--ttaabblleess, --xx
+
+           Lock all tables across all databases. This is achieved by acquiring
+           a global read lock for the duration of the whole dump. This option
+           automatically turns off ----ssiinnggllee--ttrraannssaaccttiioonn and ----lloocckk--ttaabblleess.
+
+       +o   ----lloocckk--ttaabblleess, --ll
+
+           For each dumped database, lock all tables to be dumped before
+           dumping them. The tables are locked with READ LOCAL to permit
+           concurrent inserts in the case of MyISAM tables. For transactional
+           tables such as InnoDB, ----ssiinnggllee--ttrraannssaaccttiioonn is a much better option
+           than ----lloocckk--ttaabblleess because it does not need to lock the tables at
+           all.
+
+           Because ----lloocckk--ttaabblleess locks tables for each database separately,
+           this option does not guarantee that the tables in the dump file are
+           logically consistent between databases. Tables in different
+           databases may be dumped in completely different states.
+
+           Some options, such as ----oopptt, automatically enable ----lloocckk--ttaabblleess. If
+           you want to override this, use ----sskkiipp--lloocckk--ttaabblleess at the end of the
+           option list.
+
+       +o   ----lloogg--eerrrroorr==_f_i_l_e___n_a_m_e
+
+           Log warnings and errors by appending them to the named file. The
+           default is to do no logging.
+
+       +o   ----mmaasstteerr--ddaattaa[[==_v_a_l_u_e]]
+
+           Use this option to dump a master replication server to produce a
+           dump file that can be used to set up another server as a slave of
+           the master. It causes the dump output to include a CHANGE MASTER TO
+           statement that indicates the binary log coordinates (file name and
+           position) of the dumped server. These are the master server
+           coordinates from which the slave should start replicating after you
+           load the dump file into the slave.
+
+           If the option value is 2, the CHANGE MASTER TO statement is written
+           as an SQL comment, and thus is informative only; it has no effect
+           when the dump file is reloaded. If the option value is 1, the
+           statement is not written as a comment and takes effect when the
+           dump file is reloaded. If no option value is specified, the default
+           value is 1.
+
+           This option requires the RELOAD privilege and the binary log must
+           be enabled.
+
+           The ----mmaasstteerr--ddaattaa option automatically turns off ----lloocckk--ttaabblleess. It
+           also turns on ----lloocckk--aallll--ttaabblleess, unless ----ssiinnggllee--ttrraannssaaccttiioonn also
+           is specified, in which case, a global read lock is acquired only
+           for a short time at the beginning of the dump (see the description
+           for ----ssiinnggllee--ttrraannssaaccttiioonn). In all cases, any action on logs happens
+           at the exact moment of the dump.
+
+           It is also possible to set up a slave by dumping an existing slave
+           of the master. In MySQL 5.5.3 and higher, you can create such a
+           dump using the ----dduummpp--ssllaavvee option, which overrides ----mmaasstteerr--ddaattaa
+           and causes it to be ignored if both options are used.
+
+           Before MySQL 5.5.3, use the following procedure on the existing
+           slave:
+
+            1. Stop the slave's SQL thread and get its current status:
+
+                   mysql> SSTTOOPP SSLLAAVVEE SSQQLL__TTHHRREEAADD;;
+                   mysql> SSHHOOWW SSLLAAVVEE SSTTAATTUUSS;;
+
+            2. From the output of the SHOW SLAVE STATUS statement, the binary
+               log coordinates of the master server from which the new slave
+               should start replicating are the values of the
+               Relay_Master_Log_File and Exec_Master_Log_Pos fields. Denote
+               those values as _f_i_l_e___n_a_m_e and _f_i_l_e___p_o_s.
+
+            3. Dump the slave server:
+
+                   shell> mmyyssqqlldduummpp ----mmaasstteerr--ddaattaa==22 ----aallll--ddaattaabbaasseess >> dduummppffiillee
+
+               Using ----mmaasstteerr--ddaattaa==22 works only if binary logging has been
+               enabled on the slave. Otherwise, mmyyssqqlldduummpp fails with the error
+               Binlogging on server not active. In this case you must handle
+               any locking issues in another manner, using one or more of
+               ----aadddd--lloocckkss, ----lloocckk--ttaabblleess, ----lloocckk--aallll--ttaabblleess, or
+               ----ssiinnggllee--ttrraannssaaccttiioonn, as required by your application and
+               environment.
+
+            4. Restart the slave:
+
+                   mysql> SSTTAARRTT SSLLAAVVEE;;
+
+            5. On the new slave, load the dump file:
+
+                   shell> mmyyssqqll << dduummppffiillee
+
+            6. On the new slave, set the replication coordinates to those of
+               the master server obtained earlier:
+
+                   mysql> CCHHAANNGGEE MMAASSTTEERR TTOO
+                       -> MMAASSTTEERR__LLOOGG__FFIILLEE == ''_f_i_l_e___n_a_m_e'',, MMAASSTTEERR__LLOOGG__PPOOSS == _f_i_l_e___p_o_s;;
+
+               The CHANGE MASTER TO statement might also need other
+               parameters, such as MASTER_HOST to point the slave to the
+               correct master server host. Add any such parameters as
+               necessary.
+
+       +o   ----nnoo--aauuttooccoommmmiitt
+
+           Enclose the INSERT statements for each dumped table within SET
+           autocommit = 0 and COMMIT statements.
+
+       +o   ----nnoo--ccrreeaattee--ddbb, --nn
+
+           Suppress the CREATE DATABASE statements that are otherwise included
+           in the output if the ----ddaattaabbaasseess or ----aallll--ddaattaabbaasseess option is
+           given.
+
+       +o   ----nnoo--ccrreeaattee--iinnffoo, --tt
+
+           Do not write CREATE TABLE statements that create each dumped table.
+
+               NNoottee
+               This option does _n_o_t exclude statements creating log file
+               groups or tablespaces from mmyyssqqlldduummpp output; however, you can
+               use the ----nnoo--ttaabblleessppaacceess option for this purpose.
+
+       +o   ----nnoo--ddaattaa, --dd
+
+           Do not write any table row information (that is, do not dump table
+           contents). This is useful if you want to dump only the CREATE TABLE
+           statement for the table (for example, to create an empty copy of
+           the table by loading the dump file).
+
+       +o   ----nnoo--ddeeffaauullttss
+
+           Do not read any option files. If program startup fails due to
+           reading unknown options from an option file, ----nnoo--ddeeffaauullttss can be
+           used to prevent them from being read.
+
+       +o   ----nnoo--sseett--nnaammeess, --NN
+
+           This has the same effect as ----sskkiipp--sseett--cchhaarrsseett.
+
+       +o   ----nnoo--ttaabblleessppaacceess, --yy
+
+           This option suppresses all CREATE LOGFILE GROUP and CREATE
+           TABLESPACE statements in the output of mmyyssqqlldduummpp.
+
+       +o   ----oopptt
+
+           This option is shorthand. It is the same as specifying
+           ----aadddd--ddrroopp--ttaabbllee ----aadddd--lloocckkss ----ccrreeaattee--ooppttiioonnss ----ddiissaabbllee--kkeeyyss
+           ----eexxtteennddeedd--iinnsseerrtt ----lloocckk--ttaabblleess ----qquuiicckk ----sseett--cchhaarrsseett. It should
+           give you a fast dump operation and produce a dump file that can be
+           reloaded into a MySQL server quickly.
+
+           _T_h_e ----oopptt _o_p_t_i_o_n _i_s _e_n_a_b_l_e_d _b_y _d_e_f_a_u_l_t_. _U_s_e ----sskkiipp--oopptt _t_o _d_i_s_a_b_l_e
+           _i_t_.  See the discussion at the beginning of this section for
+           information about selectively enabling or disabling a subset of the
+           options affected by ----oopptt.
+
+       +o   ----oorrddeerr--bbyy--pprriimmaarryy
+
+           Dump each table's rows sorted by its primary key, or by its first
+           unique index, if such an index exists. This is useful when dumping
+           a MyISAM table to be loaded into an InnoDB table, but will make the
+           dump operation take considerably longer.
+
+       +o   ----ppaasssswwoorrdd[[==_p_a_s_s_w_o_r_d]], --pp[[_p_a_s_s_w_o_r_d]]
+
+           The password to use when connecting to the server. If you use the
+           short option form (--pp), you _c_a_n_n_o_t have a space between the option
+           and the password. If you omit the _p_a_s_s_w_o_r_d value following the
+           ----ppaasssswwoorrdd or --pp option on the command line, mmyyssqqlldduummpp prompts for
+           one.
+
+           Specifying a password on the command line should be considered
+           insecure. See Section 6.1.2.1, "End-User Guidelines for Password
+           Security". You can use an option file to avoid giving the password
+           on the command line.
+
+       +o   ----ppiippee, --WW
+
+           On Windows, connect to the server using a named pipe. This option
+           applies only if the server supports named-pipe connections.
+
+       +o   ----pplluuggiinn--ddiirr==_d_i_r___n_a_m_e
+
+           The directory in which to look for plugins. Specify this option if
+           the ----ddeeffaauulltt--aauutthh option is used to specify an authentication
+           plugin but mmyyssqqlldduummpp does not find it. See Section 6.3.6,
+           "Pluggable Authentication".
+
+           This option was added in MySQL 5.5.9.
+
+       +o   ----ppoorrtt==_p_o_r_t___n_u_m, --PP _p_o_r_t___n_u_m
+
+           The TCP/IP port number to use for the connection.
+
+       +o   ----pprriinntt--ddeeffaauullttss
+
+           Print the program name and all options that it gets from option
+           files.
+
+       +o   ----pprroottooccooll=={{TTCCPP||SSOOCCKKEETT||PPIIPPEE||MMEEMMOORRYY}}
+
+           The connection protocol to use for connecting to the server. It is
+           useful when the other connection parameters normally would cause a
+           protocol to be used other than the one you want. For details on the
+           permissible values, see Section 4.2.2, "Connecting to the MySQL
+           Server".
+
+       +o   ----qquuiicckk, --qq
+
+           This option is useful for dumping large tables. It forces mmyyssqqlldduummpp
+           to retrieve rows for a table from the server a row at a time rather
+           than retrieving the entire row set and buffering it in memory
+           before writing it out.
+
+       +o   ----qquuoottee--nnaammeess, --QQ
+
+           Quote identifiers (such as database, table, and column names)
+           within "`" characters. If the ANSI_QUOTES SQL mode is enabled,
+           identifiers are quoted within """ characters. This option is
+           enabled by default. It can be disabled with ----sskkiipp--qquuoottee--nnaammeess, but
+           this option should be given after any option such as ----ccoommppaattiibbllee
+           that may enable ----qquuoottee--nnaammeess.
+
+       +o   ----rreeppllaaccee
+
+           Write REPLACE statements rather than INSERT statements.
+
+       +o   ----rreessuulltt--ffiillee==_f_i_l_e___n_a_m_e, --rr _f_i_l_e___n_a_m_e
+
+           Direct output to the named file. The result file is created and its
+           previous contents overwritten, even if an error occurs while
+           generating the dump.
+
+           This option should be used on Windows to prevent newline "\n"
+           characters from being converted to "\r\n" carriage return/newline
+           sequences.
+
+       +o   ----rroouuttiinneess, --RR
+
+           Include stored routines (procedures and functions) for the dumped
+           databases in the output. Use of this option requires the SELECT
+           privilege for the mysql.proc table.
+
+           The output generated by using ----rroouuttiinneess contains CREATE PROCEDURE
+           and CREATE FUNCTION statements to create the routines. However,
+           these statements do not include attributes such as the routine
+           creation and modification timestamps, so when the routines are
+           reloaded, they are created with timestamps equal to the reload
+           time.
+
+           If you require routines to be created with their original timestamp
+           attributes, do not use ----rroouuttiinneess. Instead, dump and reload the
+           contents of the mysql.proc table directly, using a MySQL account
+           that has appropriate privileges for the mysql database.
+
+           Prior to MySQL 5.5.21, this option had no effect when used together
+           with the ----xxmmll option. (Bug #11760384, Bug #52792)
+
+       +o   ----sseett--cchhaarrsseett
+
+           Write SET NAMES _d_e_f_a_u_l_t___c_h_a_r_a_c_t_e_r___s_e_t to the output. This option is
+           enabled by default. To suppress the SET NAMES statement, use
+           ----sskkiipp--sseett--cchhaarrsseett.
+
+       +o   ----sshhaarreedd--mmeemmoorryy--bbaassee--nnaammee==_n_a_m_e
+
+           On Windows, the shared-memory name to use, for connections made
+           using shared memory to a local server. The default value is MYSQL.
+           The shared-memory name is case sensitive.
+
+           The server must be started with the ----sshhaarreedd--mmeemmoorryy option to
+           enable shared-memory connections.
+
+       +o   ----ssiinnggllee--ttrraannssaaccttiioonn
+
+           This option sets the transaction isolation mode to REPEATABLE READ
+           and sends a START TRANSACTION SQL statement to the server before
+           dumping data. It is useful only with transactional tables such as
+           InnoDB, because then it dumps the consistent state of the database
+           at the time when START TRANSACTION was issued without blocking any
+           applications.
+
+           When using this option, you should keep in mind that only InnoDB
+           tables are dumped in a consistent state. For example, any MyISAM or
+           MEMORY tables dumped while using this option may still change
+           state.
+
+           While a ----ssiinnggllee--ttrraannssaaccttiioonn dump is in process, to ensure a valid
+           dump file (correct table contents and binary log coordinates), no
+           other connection should use the following statements: ALTER TABLE,
+           CREATE TABLE, DROP TABLE, RENAME TABLE, TRUNCATE TABLE. A
+           consistent read is not isolated from those statements, so use of
+           them on a table to be dumped can cause the SELECT that is performed
+           by mmyyssqqlldduummpp to retrieve the table contents to obtain incorrect
+           contents or fail.
+
+           The ----ssiinnggllee--ttrraannssaaccttiioonn option and the ----lloocckk--ttaabblleess option are
+           mutually exclusive because LOCK TABLES causes any pending
+           transactions to be committed implicitly.
+
+           This option is not supported for MySQL Cluster tables; the results
+           cannot be guaranteed to be consistent due to the fact that the
+           NDBCLUSTER storage engine supports only the READ_COMMITTED
+           transaction isolation level. You should always use NDB backup and
+           restore instead.
+
+           To dump large tables, combine the ----ssiinnggllee--ttrraannssaaccttiioonn option with
+           the ----qquuiicckk option.
+
+       +o   ----sskkiipp--ccoommmmeennttss
+
+           See the description for the ----ccoommmmeennttss option.
+
+       +o   ----sskkiipp--oopptt
+
+           See the description for the ----oopptt option.
+
+       +o   ----ssoocckkeett==_p_a_t_h, --SS _p_a_t_h
+
+           For connections to localhost, the Unix socket file to use, or, on
+           Windows, the name of the named pipe to use.
+
+       +o   ----ssssll**
+
+           Options that begin with ----ssssll specify whether to connect to the
+           server using SSL and indicate where to find SSL keys and
+           certificates. See Section 6.3.8.5, "Command Options for Secure
+           Connections".
+
+       +o   ----ttaabb==_d_i_r___n_a_m_e, --TT _d_i_r___n_a_m_e
+
+           Produce tab-separated text-format data files. For each dumped
+           table, mmyyssqqlldduummpp creates a _t_b_l___n_a_m_e.sql file that contains the
+           CREATE TABLE statement that creates the table, and the server
+           writes a _t_b_l___n_a_m_e.txt file that contains its data. The option value
+           is the directory in which to write the files.
+
+               NNoottee
+               This option should be used only when mmyyssqqlldduummpp is run on the
+               same machine as the mmyyssqqlldd server. Because the server creates
+               files *.txt file in the directory that you specify, the
+               directory must be writable by the server and the MySQL account
+               that you use must have the FILE privilege. Because mmyyssqqlldduummpp
+               creates *.sql in the same directory, it must be writable by
+               your system login account.
+           By default, the .txt data files are formatted using tab characters
+           between column values and a newline at the end of each line. The
+           format can be specified explicitly using the ----ffiieellddss--_x_x_x and
+           ----lliinneess--tteerrmmiinnaatteedd--bbyy options.
+
+           Column values are converted to the character set specified by the
+           ----ddeeffaauulltt--cchhaarraacctteerr--sseett option.
+
+       +o   ----ttaabblleess
+
+           Override the ----ddaattaabbaasseess or --BB option.  mmyyssqqlldduummpp regards all name
+           arguments following the option as table names.
+
+       +o   ----ttrriiggggeerrss
+
+           Include triggers for each dumped table in the output. This option
+           is enabled by default; disable it with ----sskkiipp--ttrriiggggeerrss.
+
+       +o   ----ttzz--uuttcc
+
+           This option enables TIMESTAMP columns to be dumped and reloaded
+           between servers in different time zones.  mmyyssqqlldduummpp sets its
+           connection time zone to UTC and adds SET TIME_ZONE='+00:00' to the
+           dump file. Without this option, TIMESTAMP columns are dumped and
+           reloaded in the time zones local to the source and destination
+           servers, which can cause the values to change if the servers are in
+           different time zones.  ----ttzz--uuttcc also protects against changes due
+           to daylight saving time.  ----ttzz--uuttcc is enabled by default. To
+           disable it, use ----sskkiipp--ttzz--uuttcc.
+
+       +o   ----uusseerr==_u_s_e_r___n_a_m_e, --uu _u_s_e_r___n_a_m_e
+
+           The MySQL user name to use when connecting to the server.
+
+       +o   ----vveerrbboossee, --vv
+
+           Verbose mode. Print more information about what the program does.
+
+       +o   ----vveerrssiioonn, --VV
+
+           Display version information and exit.
+
+       +o   ----wwhheerree==''_w_h_e_r_e___c_o_n_d_i_t_i_o_n'', --ww ''_w_h_e_r_e___c_o_n_d_i_t_i_o_n''
+
+           Dump only rows selected by the given WHERE condition. Quotes around
+           the condition are mandatory if it contains spaces or other
+           characters that are special to your command interpreter.
+
+           Examples:
+
+               --where="user='jimf'"
+               -w"userid>1"
+               -w"userid<1"
+
+       +o   ----xxmmll, --XX
+
+           Write dump output as well-formed XML.
+
+           NNUULLLL,, ''NNUULLLL'',, aanndd EEmmppttyy VVaalluueess: For a column named _c_o_l_u_m_n___n_a_m_e, the
+           NULL value, an empty string, and the string value 'NULL' are
+           distinguished from one another in the output generated by this
+           option as follows.
+
+           allbox tab(:); lB lB.  T{ Value: T}:T{ XML Representation: T} l l l
+           l l l.  T{ NULL (_u_n_k_n_o_w_n _v_a_l_u_e) T}:T{ <field name="_c_o_l_u_m_n___n_a_m_e"
+           xsi:nil="true" /> T} T{ '' (_e_m_p_t_y _s_t_r_i_n_g) T}:T{ <field
+           name="_c_o_l_u_m_n___n_a_m_e"></field> T} T{ 'NULL' (_s_t_r_i_n_g _v_a_l_u_e) T}:T{
+           <field name="_c_o_l_u_m_n___n_a_m_e">NULL</field> T}
+
+           The output from the mmyyssqqll client when run using the ----xxmmll option
+           also follows the preceding rules. (See the section called "MYSQL
+           OPTIONS".)
+
+           XML output from mmyyssqqlldduummpp includes the XML namespace, as shown
+           here:
+
+               shell> mmyyssqqlldduummpp ----xxmmll --uu rroooott wwoorrlldd CCiittyy
+               <?xml version="1.0"?>
+               <mysqldump xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+               <database name="world">
+               <table_structure name="City">
+               <field Field="ID" Type="int(11)" Null="NO" Key="PRI" Extra="auto_increment" />
+               <field Field="Name" Type="char(35)" Null="NO" Key="" Default="" Extra="" />
+               <field Field="CountryCode" Type="char(3)" Null="NO" Key="" Default="" Extra="" />
+               <field Field="District" Type="char(20)" Null="NO" Key="" Default="" Extra="" />
+               <field Field="Population" Type="int(11)" Null="NO" Key="" Default="0" Extra="" />
+               <key Table="City" Non_unique="0" Key_name="PRIMARY" Seq_in_index="1" Column_name="ID"
+               Collation="A" Cardinality="4079" Null="" Index_type="BTREE" Comment="" />
+               <options Name="City" Engine="MyISAM" Version="10" Row_format="Fixed" Rows="4079"
+               Avg_row_length="67" Data_length="273293" Max_data_length="18858823439613951"
+               Index_length="43008" Data_free="0" Auto_increment="4080"
+               Create_time="2007-03-31 01:47:01" Update_time="2007-03-31 01:47:02"
+               Collation="latin1_swedish_ci" Create_options="" Comment="" />
+               </table_structure>
+               <table_data name="City">
+               <row>
+               <field name="ID">1</field>
+               <field name="Name">Kabul</field>
+               <field name="CountryCode">AFG</field>
+               <field name="District">Kabol</field>
+               <field name="Population">1780000</field>
+               </row>
+               _._._.
+               <row>
+               <field name="ID">4079</field>
+               <field name="Name">Rafah</field>
+               <field name="CountryCode">PSE</field>
+               <field name="District">Rafah</field>
+               <field name="Population">92020</field>
+               </row>
+               </table_data>
+               </database>
+               </mysqldump>
+
+           Prior to MySQL 5.5.21, this option prevented the ----rroouuttiinneess option
+           from working correctly--that is, no stored routines, triggers, or
+           events could be dumped in XML format. (Bug #11760384, Bug #52792)
+
+       You can also set the following variables by using ----_v_a_r___n_a_m_e==_v_a_l_u_e
+       syntax:
+
+       +o   max_allowed_packet
+
+           The maximum size of the buffer for client/server communication. The
+           default is 24MB, the maximum is 1GB.
+
+       +o   net_buffer_length
+
+           The initial size of the buffer for client/server communication.
+           When creating multiple-row INSERT statements (as with the
+           ----eexxtteennddeedd--iinnsseerrtt or ----oopptt option), mmyyssqqlldduummpp creates rows up to
+           net_buffer_length bytes long. If you increase this variable, ensure
+           that the MySQL server net_buffer_length system variable has a value
+           at least this large.
+
+       A common use of mmyyssqqlldduummpp is for making a backup of an entire database:
+
+           shell> mmyyssqqlldduummpp _d_b___n_a_m_e >> _b_a_c_k_u_p_-_f_i_l_e_._s_q_l
+
+       You can load the dump file back into the server like this:
+
+           shell> mmyyssqqll _d_b___n_a_m_e << _b_a_c_k_u_p_-_f_i_l_e_._s_q_l
+
+       Or like this:
+
+           shell> mmyyssqqll --ee ""ssoouurrccee _/_p_a_t_h_-_t_o_-_b_a_c_k_u_p_/_b_a_c_k_u_p_-_f_i_l_e_._s_q_l"" _d_b___n_a_m_e
+
+       mmyyssqqlldduummpp is also very useful for populating databases by copying data
+       from one MySQL server to another:
+
+           shell> mmyyssqqlldduummpp ----oopptt _d_b___n_a_m_e || mmyyssqqll ----hhoosstt==_r_e_m_o_t_e___h_o_s_t --CC _d_b___n_a_m_e
+
+       It is possible to dump several databases with one command:
+
+           shell> mmyyssqqlldduummpp ----ddaattaabbaasseess _d_b___n_a_m_e_1 [[_d_b___n_a_m_e_2 ......]] >> mmyy__ddaattaabbaasseess..ssqqll
+
+       To dump all databases, use the ----aallll--ddaattaabbaasseess option:
+
+           shell> mmyyssqqlldduummpp ----aallll--ddaattaabbaasseess >> aallll__ddaattaabbaasseess..ssqqll
+
+       For InnoDB tables, mmyyssqqlldduummpp provides a way of making an online backup:
+
+           shell> mmyyssqqlldduummpp ----aallll--ddaattaabbaasseess ----mmaasstteerr--ddaattaa ----ssiinnggllee--ttrraannssaaccttiioonn >> aallll__ddaattaabbaasseess..ssqqll
+
+       This backup acquires a global read lock on all tables (using FLUSH
+       TABLES WITH READ LOCK) at the beginning of the dump. As soon as this
+       lock has been acquired, the binary log coordinates are read and the
+       lock is released. If long updating statements are running when the
+       FLUSH statement is issued, the MySQL server may get stalled until those
+       statements finish. After that, the dump becomes lock free and does not
+       disturb reads and writes on the tables. If the update statements that
+       the MySQL server receives are short (in terms of execution time), the
+       initial lock period should not be noticeable, even with many updates.
+
+       For point-in-time recovery (also known as "roll-forward," when you need
+       to restore an old backup and replay the changes that happened since
+       that backup), it is often useful to rotate the binary log (see
+       Section 5.2.4, "The Binary Log") or at least know the binary log
+       coordinates to which the dump corresponds:
+
+           shell> mmyyssqqlldduummpp ----aallll--ddaattaabbaasseess ----mmaasstteerr--ddaattaa==22 >> aallll__ddaattaabbaasseess..ssqqll
+
+       Or:
+
+           shell> mmyyssqqlldduummpp ----aallll--ddaattaabbaasseess ----fflluusshh--llooggss ----mmaasstteerr--ddaattaa==22
+                         >> aallll__ddaattaabbaasseess..ssqqll
+
+       The ----mmaasstteerr--ddaattaa and ----ssiinnggllee--ttrraannssaaccttiioonn options can be used
+       simultaneously, which provides a convenient way to make an online
+       backup suitable for use prior to point-in-time recovery if tables are
+       stored using the InnoDB storage engine.
+
+       For more information on making backups, see Section 7.2, "Database
+       Backup Methods", and Section 7.3, "Example Backup and Recovery
+       Strategy".
+
+       If you encounter problems backing up views, please read the section
+       that covers restrictions on views which describes a workaround for
+       backing up views when this fails due to insufficient privileges. See
+       Section C.5, "Restrictions on Views".
+
+CCOOPPYYRRIIGGHHTT
+       Copyright (C) 1997, 2016, Oracle and/or its affiliates. All rights
+       reserved.
+
+       This documentation is free software; you can redistribute it and/or
+       modify it only under the terms of the GNU General Public License as
+       published by the Free Software Foundation; version 2 of the License.
+
+       This documentation is distributed in the hope that it will be useful,
+       but WITHOUT ANY WARRANTY; without even the implied warranty of
+       MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+       General Public License for more details.
+
+       You should have received a copy of the GNU General Public License along
+       with the program; if not, write to the Free Software Foundation, Inc.,
+       51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA or see
+       http://www.gnu.org/licenses/.
+
+
+SSEEEE AALLSSOO
+       For more information, please refer to the MySQL Reference Manual, which
+       may already be installed locally and which is also available online at
+       http://dev.mysql.com/doc/.
+
+AAUUTTHHOORR
+       Oracle Corporation (http://dev.mysql.com/).
+
+
+
+MySQL 5.5                         03/01/2016                      MYSQLDUMP(1)

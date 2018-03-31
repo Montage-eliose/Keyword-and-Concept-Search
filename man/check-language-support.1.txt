@@ -1,0 +1,35 @@
+check-language-support(1)   General Commands Manual  check-language-support(1)
+
+
+
+NNAAMMEE
+       cchheecckk--llaanngguuaaggee--ssuuppppoorrtt  - returns the list of missing packages in order
+       to provide a complete language environment
+
+SSYYNNOOPPSSIISS
+       cchheecckk--llaanngguuaaggee--ssuuppppoorrtt [_o_p_t_i_o_n_s]
+
+OOPPTTIIOONNSS
+       --hh, ----hheellpp
+              show this help message and exit
+
+       --ll LANGUAGE, ----llaanngguuaaggee=_L_A_N_G_U_A_G_E
+              target language code - if omitted, check for  all  languages  on
+              the system
+
+       --dd DATADIR, ----ddaattaaddiirr=_D_A_T_A_D_I_R
+              use  an  alternative  data  directory  instead  of  the  default
+              //uussrr//sshhaarree//llaanngguuaaggee--sseelleeccttoorr
+
+       --aa, ----aallll
+              check all available languages
+
+       ----sshhooww--iinnssttaalllleedd
+              show installed packages as well as missing ones
+
+AAUUTTHHOORR
+       This manpage has been written by Arne Goetje <arne@ubuntu.com>
+
+
+
+version 0.1                   September 23, 2009     check-language-support(1)

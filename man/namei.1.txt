@@ -1,0 +1,81 @@
+NAMEI(1)                         User Commands                        NAMEI(1)
+
+
+
+NNAAMMEE
+       namei - follow a pathname until a terminal point is found
+
+SSYYNNOOPPSSIISS
+       nnaammeeii [_o_p_t_i_o_n_s] _p_a_t_h_n_a_m_e...
+
+DDEESSCCRRIIPPTTIIOONN
+       nnaammeeii  uses  its  arguments as pathnames to any type of Unix file (sym-
+       links, files, directories, and so  forth).   nnaammeeii  then  follows  each
+       pathname  until  an  endpoint  is  found (a file, a directory, a device
+       node, etc).  If it finds a symbolic link, it shows the link, and starts
+       following it, indenting the output to show the context.
+
+       This  program is useful for finding "too many levels of symbolic links"
+       problems.
+
+       For each line of output, nnaammeeii uses the following characters  to  iden-
+       tify the file type found:
+
+          f: = the pathname currently being resolved
+           d = directory
+           l = symbolic link (both the link and its contents are output)
+           s = socket
+           b = block device
+           c = character device
+           p = FIFO (named pipe)
+           - = regular file
+           ? = an error of some kind
+
+       nnaammeeii prints an informative message when the maximum number of symbolic
+       links this system can have has been exceeded.
+
+OOPPTTIIOONNSS
+       --ll,, ----lloonngg
+              Use the long listing format (same as -m -o -v).
+
+       --mm,, ----mmooddeess
+              Show the mode bits of each file type in the style of ls(1),  for
+              example 'rwxr-xr-x'.
+
+       --oo,, ----oowwnneerrss
+              Show owner and group name of each file.
+
+       --nn,, ----nnoossyymmlliinnkkss
+              Don't follow symlinks.
+
+       --vv,, ----vveerrttiiccaall
+              Vertically align the modes and owners.
+
+       --xx,, ----mmoouunnttppooiinnttss
+              Show mountpoint directories with a 'D' rather than a 'd'.
+
+       --hh, ----hheellpp
+              Output help text and exit.
+
+       --VV, ----vveerrssiioonn
+              Output version information and exit.
+
+AAUUTTHHOORR
+       The   original   nnaammeeii   program   was   written   by  Roger  Southwick
+       <rogers@amadeus.wr.tek.com>.
+
+       The program was re-written by Karel Zak <kzak@redhat.com>.
+
+BBUUGGSS
+       To be discovered.
+
+SSEEEE AALLSSOO
+       llss(1), ssttaatt(1)
+
+AAVVAAIILLAABBIILLIITTYY
+       The namei command is part of the util-linux package  and  is  available
+       from ftp://ftp.kernel.org/pub/linux/utils/util-linux/.
+
+
+
+util-linux                         June 2011                          NAMEI(1)

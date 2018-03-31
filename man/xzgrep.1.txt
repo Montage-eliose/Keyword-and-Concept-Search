@@ -1,0 +1,39 @@
+XZGREP(1)                          XZ Utils                          XZGREP(1)
+
+
+
+NNAAMMEE
+       xzgrep - search compressed files for a regular expression
+
+SSYYNNOOPPSSIISS
+       xxzzggrreepp [_g_r_e_p___o_p_t_i_o_n_s] [--ee] _p_a_t_t_e_r_n _f_i_l_e...
+       xxzzeeggrreepp ...
+       xxzzffggrreepp ...
+       llzzggrreepp ...
+       llzzeeggrreepp ...
+       llzzffggrreepp ...
+
+DDEESSCCRRIIPPTTIIOONN
+       xxzzggrreepp  invokes  ggrreepp(1)  on  _f_i_l_e_s which may be either uncompressed or
+       compressed with xxzz(1), llzzmmaa(1), ggzziipp(1),  bbzziipp22(1),  or  llzzoopp(1).   All
+       options specified are passed directly to ggrreepp(1).
+
+       If  no _f_i_l_e is specified, then standard input is decompressed if neces-
+       sary and fed to ggrreepp(1).  When reading from  standard  input,  ggzziipp(1),
+       bbzziipp22(1), and llzzoopp(1) compressed files are not supported.
+
+       If xxzzggrreepp is invoked as xxzzeeggrreepp or xxzzffggrreepp then eeggrreepp(1) or ffggrreepp(1) is
+       used instead of ggrreepp(1).  The same applies to  names  llzzggrreepp,  llzzeeggrreepp,
+       and  llzzffggrreepp,  which  are provided for backward compatibility with LZMA
+       Utils.
+
+EENNVVIIRROONNMMEENNTT
+       GGRREEPP   If the GGRREEPP environment variable is set, xxzzggrreepp uses it  instead
+              of ggrreepp(1), eeggrreepp(1), or ffggrreepp(1).
+
+SSEEEE AALLSSOO
+       ggrreepp(1), xxzz(1), ggzziipp(1), bbzziipp22(1), llzzoopp(1), zzggrreepp(1)
+
+
+
+Tukaani                           2011-03-19                         XZGREP(1)

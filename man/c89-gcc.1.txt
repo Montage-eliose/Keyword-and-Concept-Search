@@ -1,0 +1,31 @@
+C89(1)                      General Commands Manual                     C89(1)
+
+
+
+NNAAMMEE
+       c89 - ANSI (1989) C compiler
+
+SSYYNNOOPPSSIISS
+       cc8899 [-pedantic] [-pedantic-errors] [-D_ANSI_SOURCE] options ...
+
+DDEESSCCRRIIPPTTIIOONN
+       Calls  the  C compiler (cc) with the given ooppttiioonnss ,, using a C language
+       environment compatible with the -ansiC specification.
+
+       This includes proper handling of trigraphs, disabling non-ANSI compiler
+       features  (such as aassmm ,, iinnlliinnee ,, ttyyppeeooff ,, and the $ character in iden-
+       tifiers), and definition of the preprocessor symbol __STRICT_ANSI__ .
+
+SSEEEE AALLSSOO
+       cc(1) for a description of all options.
+
+HHIISSTTOORRYY
+       Appeared in NetBSD 1.4 .
+
+BBUUGGSS
+       Since cc8899 is a shell wrapper script to cccc ,, compile errors are prefixed
+       by "cc:".
+
+
+
+                                                                        C89(1)

@@ -1,0 +1,93 @@
+LOGGER(1)                        User Commands                       LOGGER(1)
+
+NNAAMMEE
+     llooggggeerr -- a shell command interface to the syslog(3) system log module
+
+SSYYNNOOPPSSIISS
+     llooggggeerr [--ddhhiissVV] [--ff _f_i_l_e] [--nn _s_e_r_v_e_r] [--PP _p_o_r_t] [--pp _p_r_i] [--tt _t_a_g]
+            [--uu _s_o_c_k_e_t] [_m_e_s_s_a_g_e]
+
+DDEESSCCRRIIPPTTIIOONN
+     llooggggeerr makes entries in the system log.  It provides a shell command
+     interface to the syslog(3) system log module.
+
+     Options:
+
+     --dd,, ----uuddpp
+              Use datagram (UDP) instead of the default stream connection
+              (TCP).
+
+     --ii,, ----iidd
+              Log the process ID of the logger process with each line.
+
+     --ff,, ----ffiillee _f_i_l_e
+              Log the contents of the specified _f_i_l_e.  This option cannot be
+              combined with a command-line message.
+
+     --hh,, ----hheellpp
+              Display a help text and exit.
+
+     --nn,, ----sseerrvveerr _s_e_r_v_e_r
+              Write to the specified remote syslog _s_e_r_v_e_r using UDP instead of
+              to the builtin syslog routines.
+
+     --PP,, ----ppoorrtt _p_o_r_t
+              Use the specified UDP _p_o_r_t.  The default port number is 514.
+
+     --pp,, ----pprriioorriittyy _p_r_i_o_r_i_t_y
+              Enter the message into the log with the specified _p_r_i_o_r_i_t_y.  The
+              priority may be specified numerically or as a _f_a_c_i_l_i_t_y_._l_e_v_e_l
+              pair.  For example, --pp llooccaall33..iinnffoo logs the message as informa-
+              tional in the local3 facility.  The default is _u_s_e_r_._n_o_t_i_c_e.
+
+     --ss,, ----ssttddeerrrr
+              Output the message to standard error as well as to the system
+              log.
+
+     --tt,, ----ttaagg _t_a_g
+              Mark every line to be logged with the specified _t_a_g.
+
+     --uu,, ----ssoocckkeett _s_o_c_k_e_t
+              Write to the specified _s_o_c_k_e_t instead of to the builtin syslog
+              routines.
+
+     --VV,, ----vveerrssiioonn
+              Display version information and exit.
+
+     --       End the argument list. This is to allow the _m_e_s_s_a_g_e to start
+              with a hyphen (-).
+
+     _m_e_s_s_a_g_e  Write the message to log; if not specified, and the --ff flag is
+              not provided, standard input is logged.
+
+     The llooggggeerr utility exits 0 on success, and >0 if an error occurs.
+
+     Valid facility names are: auth, authpriv (for security information of a
+     sensitive nature), cron, daemon, ftp, kern (can't be generated from user
+     process), lpr, mail, news, security (deprecated synonym for auth), sys-
+     log, user, uucp, and local0 to local7, inclusive.
+
+     Valid level names are: alert, crit, debug, emerg, err, error (deprecated
+     synonym for err), info, notice, panic (deprecated synonym for emerg),
+     warning, warn (deprecated synonym for warning).  For the priority order
+     and intended purposes of these levels, see syslog(3).
+
+EEXXAAMMPPLLEESS
+           logger System rebooted
+
+           logger -p local0.notice -t HOSTIDM -f /dev/idmc
+
+           logger -n loghost.example.com System rebooted
+
+SSEEEE AALLSSOO
+     syslog(3), syslogd(8)
+
+SSTTAANNDDAARRDDSS
+     The llooggggeerr command is expected to be IEEE Std 1003.2 (``POSIX.2'') com-
+     patible.
+
+AAVVAAIILLAABBIILLIITTYY
+     The logger command is part of the util-linux package and is available
+     from ftp://ftp.kernel.org/pub/linux/utils/util-linux/.
+
+util-linux                      August 2011                         util-linux

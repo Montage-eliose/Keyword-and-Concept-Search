@@ -1,0 +1,37 @@
+PSFADDTABLE(1)              General Commands Manual             PSFADDTABLE(1)
+
+
+
+NNAAMMEE
+       psfaddtable - add a Unicode character table to a console font
+
+SSYYNNOOPPSSIISS
+       ppssffaaddddttaabbllee _f_o_n_t_f_i_l_e _t_a_b_l_e_f_i_l_e _o_u_t_f_i_l_e
+
+DDEESSCCRRIIPPTTIIOONN
+       ppssffaaddddttaabbllee  takes  a console font in .psf format given by _f_o_n_t_f_i_l_e and
+       merges it with the Unicode character table given by _t_a_b_l_e_f_i_l_e  to  pro-
+       duce  a font file with an embedded character table, which is written to
+       _o_u_t_f_i_l_e.  An input file name of "-" denotes standard input, and an out-
+       put  file name of "-" denotes standard output.  If the _f_o_n_t_f_i_l_e already
+       contains an embedded character table, it is ignored.
+
+TTAABBLLEE FFIILLEE FFOORRMMAATT
+       Each line in the _t_a_b_l_e_f_i_l_e should be either blank,  contain  a  comment
+       (preceded  by  _#),  or  contain a sequence of numbers in either decimal
+       (default), octal (preceded by _0), or hexadecimal (preceded by _0_x)  for-
+       mat,  separated by spaces or tabs.  The first number on each line indi-
+       cates the glyph slot in the font that is being  referred  to,  this  is
+       between  0  and  0xff  for  a  256-character font and 0 and 0x1ff for a
+       512-character font.  Any subsequent numbers on the same line  are  Uni-
+       codes matched by this specific glyph slot.  Instead of a single Unicode
+       one may have a sequence of Unicodes separates by commas, to denote that
+       the glyph depicts the corresponding composed symbol.  It is permissible
+       to have multiple lines for the same glyph.
+
+SSEEEE AALLSSOO
+       sseettffoonntt(8), ppssffggeettttaabbllee(1), ppssffssttrriippttaabbllee(1), ppssffxxttaabbllee(1)
+
+
+
+                                  25 Oct 1994                   PSFADDTABLE(1)

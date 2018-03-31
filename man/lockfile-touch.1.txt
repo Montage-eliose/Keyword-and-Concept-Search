@@ -1,0 +1,121 @@
+lockfile-progs(1)              Lockfile programs             lockfile-progs(1)
+
+
+
+NNAAMMEE
+       lockfile-progs  - command-line programs to safely lock and unlock files
+       and mailboxes (via liblockfile).
+
+SSYYNNOOPPSSIISS
+       mmaaiill--lloocckk [--use-pid] [--retry _r_e_t_r_y_-_c_o_u_n_t]
+       mmaaiill--uunnlloocckk
+       mmaaiill--ttoouucchhlloocckk [--oneshot]
+
+       lloocckkffiillee--ccrreeaattee [--use-pid] [--retry _r_e_t_r_y_-_c_o_u_n_t] [--lock-name] _f_i_l_e_n_a_m_e
+       lloocckkffiillee--rreemmoovvee [--lock-name] _f_i_l_e_n_a_m_e
+       lloocckkffiillee--ttoouucchh [--oneshot] [--lock-name] _f_i_l_e_n_a_m_e
+       lloocckkffiillee--cchheecckk [--use-pid] [--lock-name] _f_i_l_e_n_a_m_e
+
+DDEESSCCRRIIPPTTIIOONN
+       Lockfile-progs provides a set a programs that can be used to  lock  and
+       unlock mailboxes and files safely (via liblockfile):
+
+           mmaaiill--lloocckk - lock the current user's mailbox
+           mmaaiill--uunnlloocckk - unlock the current user's mailbox
+           mmaaiill--ttoouucchhlloocckk - touch the lock on the current user's mailbox
+
+           lloocckkffiillee--ccrreeaattee - lock a given file
+           lloocckkffiillee--rreemmoovvee - remove the lock on a given file
+           lloocckkffiillee--ttoouucchh - touch the lock on a given file
+           lloocckkffiillee--cchheecckk - check the lock on a given file
+
+       By  default, the _f_i_l_e_n_a_m_e argument refers to the name of the file to be
+       locked, and the name of the lockfile will be _f_i_l_e_n_a_m_e .lock.   However,
+       if  the  --lock-name argument is specified, then _f_i_l_e_n_a_m_e will be taken
+       as the name of the lockfile itself.
+
+       Each   of   the   mail    locking    commands    attempts    to    lock
+       /var/spool/mail/<user>,  where  <user>  is the name associated with the
+       effective user ID, as determined by via geteuid(2).
+
+       Once a file is locked, the lock must be touched  at  least  once  every
+       five  minutes or the lock will be considered stale, and subsequent lock
+       attempts will succeed.  Also see the ----uussee--ppiidd  option  and  the  lloocckk--
+       ffiillee__ccrreeaattee(3) manpage.
+
+       The  lloocckkffiillee--cchheecckk  command  tests whether or not a valid lock already
+       exists.
+
+
+OOPPTTIIOONNSS
+       --qq, ----qquuiieett
+           Suppress any output.  Success or failure will only be indicated  by
+           the exit status.
+
+       --vv, ----vveerrbboossee
+           Enable diagnostic output.
+
+       --ll, ----lloocckk--nnaammee
+           Do  not append .lock to the _f_i_l_e_n_a_m_e.  This option applies to lloocckk--
+           ffiillee--ccrreeaattee, lloocckkffiillee--rreemmoovvee, lloocckkffiillee--ttoouucchh, or lloocckkffiillee--cchheecckk.
+
+       --pp, ----uussee--ppiidd
+           Write the parent process id (PPID) to the lockfile whenever a lock-
+           file  is created, and use that pid when checking a lock's validity.
+           See the lloocckkffiillee__ccrreeaattee(3)  manpage  for  more  information.   This
+           option  applies  to lloocckkffiillee--ccrreeaattee and lloocckkffiillee--cchheecckk.  NOTE: this
+           option will not work correctly between machines sharing a  filesys-
+           tem.
+
+       --oo, ----oonneesshhoott
+           Touch  the lock and exit immediately.  This option applies to lloocckk--
+           ffiillee--ttoouucchh and mmaaiill--ttoouucchhlloocckk.  When not provided,  these  commands
+           will run forever, touching the lock once every minute until killed.
+
+       --rr _r_e_t_r_y_-_c_o_u_n_t, ----rreettrryy _r_e_t_r_y_-_c_o_u_n_t
+           Try  to  lock  _f_i_l_e_n_a_m_e  _r_e_t_r_y_-_c_o_u_n_t  times before giving up.  Each
+           attempt will be delayed a bit longer than the  last  (in  5  second
+           increments)  until  reaching  a maximum delay of one minute between
+           retries.  If _r_e_t_r_y_-_c_o_u_n_t is unspecified, the  default  is  9  which
+           will  give  up after 180 seconds (3 minutes) if all 9 lock attempts
+           fail.
+
+
+EEXXAAMMPPLLEESS
+       LLoocckkiinngg aa ffiillee dduurriinngg aa lleennggtthhyy pprroocceessss::
+
+         lockfile-create /some/file
+         lockfile-touch /some/file &
+         # Save the PID of the lockfile-touch process
+         BADGER="$!"
+         do-something-important-with /some/file
+         kill "${BADGER}"
+         lockfile-remove /some/file
+
+
+EEXXIITT SSTTAATTUUSS
+       00
+           For lloocckkffiillee--cchheecckk this indicates that a valid lock exists,  other-
+           wise it just indicates successful program execution.
+
+       NNoott 00
+           For lloocckkffiillee--cchheecckk a non-zero exit status indicates that the speci-
+           fied lock does not exist or is not valid.  For  other  programs  it
+           indicates that some problem was encountered.
+
+SSEEEE AALLSSOO
+       mmaaiilllloocckk(3)
+       ttoouucchhlloocckk(3)
+       mmaaiilluunnlloocckk(3)
+       lloocckkffiillee__ccrreeaattee(3)
+       lloocckkffiillee__rreemmoovvee(3)
+       lloocckkffiillee__ttoouucchh(3)
+       lloocckkffiillee__cchheecckk(3)
+
+
+AAUUTTHHOORR
+       Written by Rob Browning <rlb@defaultvalue.org>
+
+
+
+0.1.12                            2008-02-10                 lockfile-progs(1)

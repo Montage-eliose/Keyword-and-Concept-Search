@@ -1,0 +1,60 @@
+usb-devices(1)                Linux USB Utilities               usb-devices(1)
+
+
+
+NNAAMMEE
+       usb-devices - print USB device details
+
+SSYYNNOOPPSSIISS
+       uussbb--ddeevviicceess
+
+
+DDEESSCCRRIIPPTTIIOONN
+       uussbb--ddeevviicceess  is  a  (bash)  shell  script  that  can be used to display
+       details of USB buses in the system and the devices connected to them.
+
+       The output of the script is similar to the _u_s_b_/_d_e_v_i_c_e_s  file  available
+       either  under  _/_p_r_o_c_/_b_u_s  (if  usbfs  is  mounted),  or under _/_s_y_s_/_k_e_r_-
+       _n_e_l_/_d_e_b_u_g (if debugfs  is  mounted  there).  The  script  is  primarily
+       intended to be used if the file is not available.
+
+       In  contrast  to  the  _u_s_b_/_d_e_v_i_c_e_s  file, this script only lists _a_c_t_i_v_e
+       interfaces (those marked with a "*" in the _u_s_b_/_d_e_v_i_c_e_s file) and  their
+       endpoints.
+
+       Be  advised  that  there  can  be differences in the way information is
+       sorted, as well as in the format of the output.
+
+
+RREETTUURRNN VVAALLUUEE
+       If sysfs is not mounted, a non-zero exit code is returned.
+
+
+FFIILLEESS
+       //ssyyss//bbuuss//uussbb//ddeevviicceess//uussbb**
+              The part of the sysfs tree the script walks through to  assemble
+              the printed information.
+
+       //pprroocc//bbuuss//uussbb//ddeevviicceess
+              Location  where  the  _u_s_b_/_d_e_v_i_c_e_s file can normally be found for
+              Linux kernels before 2.6.31, if usbfs is mounted.
+
+       //ssyyss//kkeerrnneell//ddeebbuugg//uussbb//ddeevviicceess
+              Location where the _u_s_b_/_d_e_v_i_c_e_s file can normally  be  found  for
+              Linux kernel 2.6.31 and later, if debugfs is mounted.
+
+
+SSEEEE AALLSSOO
+       llssuussbb(8), uussbbvviieeww(8).
+
+
+AAUUTTHHOORRSS
+       Greg Kroah-Hartman <greg@kroah.com>
+
+       Randy Dunlap <rdunlap@xenotime.net>
+
+       Frans Pop <elendil@planet.nl>
+
+
+
+usbutils-007                     23 June 2009                   usb-devices(1)

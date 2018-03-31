@@ -1,0 +1,336 @@
+MYSQL_UPGRADE(1)             MySQL Database System            MYSQL_UPGRADE(1)
+
+
+
+NNAAMMEE
+       mysql_upgrade - check and upgrade MySQL tables
+
+SSYYNNOOPPSSIISS
+       mmyyssqqll__uuppggrraaddee [[_o_p_t_i_o_n_s]]
+
+DDEESSCCRRIIPPTTIIOONN
+       mmyyssqqll__uuppggrraaddee examines all tables in all databases for
+       incompatibilities with the current version of MySQL Server.
+       mmyyssqqll__uuppggrraaddee also upgrades the system tables so that you can take
+       advantage of new privileges or capabilities that might have been added.
+
+       If mmyyssqqll__uuppggrraaddee finds that a table has a possible incompatibility, it
+       performs a table check and, if problems are found, attempts a table
+       repair. If the table cannot be repaired, see Section 2.11.4,
+       "Rebuilding or Repairing Tables or Indexes" for manual table repair
+       strategies.
+
+       You should execute mmyyssqqll__uuppggrraaddee each time you upgrade MySQL.
+
+       If you install MySQL from RPM packages on Linux, you must install the
+       server and client RPMs.  mmyyssqqll__uuppggrraaddee is included in the server RPM
+       but requires the client RPM because the latter includes mmyyssqqllcchheecckk.
+       (See Section 2.5.1, "Installing MySQL on Linux Using RPM Packages".)
+
+           NNoottee
+           On Windows Server 2008, Vista, and newer, you must run
+           mmyyssqqll__uuppggrraaddee with administrator privileges. You can do this by
+           running a Command Prompt as Administrator and running the command.
+           Failure to do so may result in the upgrade failing to execute
+           correctly.
+
+           CCaauuttiioonn
+           You should always back up your current MySQL installation _b_e_f_o_r_e
+           performing an upgrade. See Section 7.2, "Database Backup Methods".
+
+           Some upgrade incompatibilities may require special handling before
+           you upgrade your MySQL installation and run mmyyssqqll__uuppggrraaddee. See
+           Section 2.11.1, "Upgrading MySQL", for instructions on determining
+           whether any such incompatibilities apply to your installation and
+           how to handle them.
+
+       To use mmyyssqqll__uuppggrraaddee, make sure that the server is running. Then invoke
+       it like this:
+
+           shell> mmyyssqqll__uuppggrraaddee [[_o_p_t_i_o_n_s]]
+
+       After running mmyyssqqll__uuppggrraaddee, stop the server and restart it so that any
+       changes made to the system tables take effect.
+
+       If you have multiple MySQL server instances running, invoke
+       mmyyssqqll__uuppggrraaddee with connection parameters appropriate for connecting to
+       the desired server. For example, with servers running on the local host
+       on parts 3306 through 3308, upgrade each of them by connecting to the
+       appropriate port:
+
+           shell> mmyyssqqll__uuppggrraaddee ----pprroottooccooll==ttccpp --PP 33330066 [[_o_t_h_e_r___o_p_t_i_o_n_s]]
+           shell> mmyyssqqll__uuppggrraaddee ----pprroottooccooll==ttccpp --PP 33330077 [[_o_t_h_e_r___o_p_t_i_o_n_s]]
+           shell> mmyyssqqll__uuppggrraaddee ----pprroottooccooll==ttccpp --PP 33330088 [[_o_t_h_e_r___o_p_t_i_o_n_s]]
+
+       For local host connections on Unix, the ----pprroottooccooll==ttccpp option forces a
+       connection using TCP/IP rather than the Unix socket file.
+
+       mmyyssqqll__uuppggrraaddee executes the following commands to check and repair
+       tables and to upgrade the system tables:
+
+           mysqlcheck --no-defaults --all-databases
+            --fix-db-names --fix-table-names
+           mysqlcheck --no-defaults --check-upgrade --all-databases
+            --auto-repair
+           mysql < fix_priv_tables
+
+       Notes about the preceding commands:
+
+       +o   mmyyssqqll__uuppggrraaddee also adds ----wwrriittee--bbiinnlloogg or ----sskkiipp--wwrriittee--bbiinnlloogg to
+           the mmyyssqqllcchheecckk commands, depending on whether the ----wwrriittee--bbiinnlloogg
+           option was specified on the mmyyssqqll__uuppggrraaddee command.
+
+       +o   Because mmyyssqqll__uuppggrraaddee invokes mmyyssqqllcchheecckk with the ----aallll--ddaattaabbaasseess
+           option, it processes all tables in all databases, which might take
+           a long time to complete. Each table is locked and therefore
+           unavailable to other sessions while it is being processed. Check
+           and repair operations can be time-consuming, particularly for large
+           tables.
+
+       +o   For details about what checks the ----cchheecckk--uuppggrraaddee option entails,
+           see the description of the FOR UPGRADE option of the CHECK TABLE
+           statement (see Section 13.7.2.2, "CHECK TABLE Syntax").
+
+       +o   _f_i_x___p_r_i_v___t_a_b_l_e_s represents a script generated internally by
+           mmyyssqqll__uuppggrraaddee that contains SQL statements to upgrade the tables in
+           the mysql database.
+
+       All checked and repaired tables are marked with the current MySQL
+       version number. This ensures that next time you run mmyyssqqll__uuppggrraaddee with
+       the same version of the server, it can tell whether there is any need
+       to check or repair the table again.
+
+       mmyyssqqll__uuppggrraaddee also saves the MySQL version number in a file named
+       mysql_upgrade_info in the data directory. This is used to quickly check
+       whether all tables have been checked for this release so that
+       table-checking can be skipped. To ignore this file and perform the
+       check regardless, use the ----ffoorrccee option.
+
+       mmyyssqqll__uuppggrraaddee does not upgrade the contents of the help tables. For
+       upgrade instructions, see Section 5.1.10, "Server-Side Help".
+
+       mmyyssqqll__uuppggrraaddee supports the following options, which can be specified on
+       the command line or in the [mysql_upgrade] and [client] groups of an
+       option file. Unrecognized options are passed to mmyyssqqllcchheecckk. For
+       information about option files, see Section 4.2.6, "Using Option
+       Files".
+
+       +o   ----hheellpp
+
+           Display a short help message and exit.
+
+       +o   ----bbaasseeddiirr==_d_i_r___n_a_m_e
+
+           The path to the MySQL installation directory. This option is
+           accepted for backward compatibility but ignored. It is removed in
+           MySQL 5.7.
+
+       +o   ----cchhaarraacctteerr--sseettss--ddiirr==_d_i_r___n_a_m_e
+
+           The directory where character sets are installed. See Section 10.5,
+           "Character Set Configuration".
+
+       +o   ----ccoommpprreessss
+
+           Compress all information sent between the client and the server if
+           both support compression.
+
+       +o   ----ddaattaaddiirr==_d_i_r___n_a_m_e
+
+           The path to the data directory. This option is accepted for
+           backward compatibility but ignored. It is removed in MySQL 5.7.
+
+       +o   ----ddeebbuugg[[==_d_e_b_u_g___o_p_t_i_o_n_s]], --## [[_d_e_b_u_g___o_p_t_i_o_n_s]]
+
+           Write a debugging log. A typical _d_e_b_u_g___o_p_t_i_o_n_s string is
+           d:t:o,_f_i_l_e___n_a_m_e. The default is d:t:O,/tmp/mysql_upgrade.trace.
+
+       +o   ----ddeebbuugg--cchheecckk
+
+           Print some debugging information when the program exits.
+
+       +o   ----ddeebbuugg--iinnffoo, --TT
+
+           Print debugging information and memory and CPU usage statistics
+           when the program exits.
+
+       +o   ----ddeeffaauulltt--aauutthh==_p_l_u_g_i_n
+
+           A hint about the client-side authentication plugin to use. See
+           Section 6.3.6, "Pluggable Authentication".
+
+           This option was added in MySQL 5.5.10.
+
+       +o   ----ddeeffaauulltt--cchhaarraacctteerr--sseett==_c_h_a_r_s_e_t___n_a_m_e
+
+           Use _c_h_a_r_s_e_t___n_a_m_e as the default character set. See Section 10.5,
+           "Character Set Configuration".
+
+       +o   ----ddeeffaauullttss--eexxttrraa--ffiillee==_f_i_l_e___n_a_m_e
+
+           Read this option file after the global option file but (on Unix)
+           before the user option file. If the file does not exist or is
+           otherwise inaccessible, an error occurs. Before MySQL 5.5.8,
+           _f_i_l_e___n_a_m_e must be the full path name to the file. As of MySQL
+           5.5.8, the name is interpreted relative to the current directory if
+           given as a relative path name.
+
+       +o   ----ddeeffaauullttss--ffiillee==_f_i_l_e___n_a_m_e
+
+           Use only the given option file. If the file does not exist or is
+           otherwise inaccessible, an error occurs. Before MySQL 5.5.8,
+           _f_i_l_e___n_a_m_e must be the full path name to the file. As of MySQL
+           5.5.8, the name is interpreted relative to the current directory if
+           given as a relative path name.
+
+       +o   ----ddeeffaauullttss--ggrroouupp--ssuuffffiixx==_s_t_r
+
+           Read not only the usual option groups, but also groups with the
+           usual names and a suffix of _s_t_r. For example, mmyyssqqll__uuppggrraaddee
+           normally reads the [client] and [mysql_upgrade] groups. If the
+           ----ddeeffaauullttss--ggrroouupp--ssuuffffiixx==__ootthheerr option is given, mmyyssqqll__uuppggrraaddee also
+           reads the [client_other] and [mysql_upgrade_other] groups.
+
+       +o   ----ffoorrccee
+
+           Ignore the mysql_upgrade_info file and force execution even if
+           mmyyssqqll__uuppggrraaddee has already been executed for the current version of
+           MySQL.
+
+       +o   ----hhoosstt==_h_o_s_t___n_a_m_e, --hh _h_o_s_t___n_a_m_e
+
+           Connect to the MySQL server on the given host.
+
+       +o   ----nnoo--ddeeffaauullttss
+
+           Do not read any option files. If program startup fails due to
+           reading unknown options from an option file, ----nnoo--ddeeffaauullttss can be
+           used to prevent them from being read.
+
+       +o   ----ppaasssswwoorrdd[[==_p_a_s_s_w_o_r_d]], --pp[[_p_a_s_s_w_o_r_d]]
+
+           The password to use when connecting to the server. If you use the
+           short option form (--pp), you _c_a_n_n_o_t have a space between the option
+           and the password. If you omit the _p_a_s_s_w_o_r_d value following the
+           ----ppaasssswwoorrdd or --pp option on the command line, mmyyssqqll__uuppggrraaddee prompts
+           for one.
+
+           Specifying a password on the command line should be considered
+           insecure. See Section 6.1.2.1, "End-User Guidelines for Password
+           Security". You can use an option file to avoid giving the password
+           on the command line.
+
+       +o   ----ppiippee, --WW
+
+           On Windows, connect to the server using a named pipe. This option
+           applies only if the server supports named-pipe connections.
+
+       +o   ----pplluuggiinn--ddiirr==_d_i_r___n_a_m_e
+
+           The directory in which to look for plugins. Specify this option if
+           the ----ddeeffaauulltt--aauutthh option is used to specify an authentication
+           plugin but mmyyssqqll__uuppggrraaddee does not find it. See Section 6.3.6,
+           "Pluggable Authentication".
+
+           This option was added in MySQL 5.5.10.
+
+       +o   ----ppoorrtt==_p_o_r_t___n_u_m, --PP _p_o_r_t___n_u_m
+
+           The TCP/IP port number to use for the connection.
+
+       +o   ----pprriinntt--ddeeffaauullttss
+
+           Print the program name and all options that it gets from option
+           files.
+
+       +o   ----pprroottooccooll=={{TTCCPP||SSOOCCKKEETT||PPIIPPEE||MMEEMMOORRYY}}
+
+           The connection protocol to use for connecting to the server. It is
+           useful when the other connection parameters normally would cause a
+           protocol to be used other than the one you want. For details on the
+           permissible values, see Section 4.2.2, "Connecting to the MySQL
+           Server".
+
+       +o   ----sshhaarreedd--mmeemmoorryy--bbaassee--nnaammee==_n_a_m_e
+
+           On Windows, the shared-memory name to use, for connections made
+           using shared memory to a local server. The default value is MYSQL.
+           The shared-memory name is case sensitive.
+
+           The server must be started with the ----sshhaarreedd--mmeemmoorryy option to
+           enable shared-memory connections.
+
+       +o   ----ssoocckkeett==_p_a_t_h, --SS _p_a_t_h
+
+           For connections to localhost, the Unix socket file to use, or, on
+           Windows, the name of the named pipe to use.
+
+       +o   ----ssssll**
+
+           Options that begin with ----ssssll specify whether to connect to the
+           server using SSL and indicate where to find SSL keys and
+           certificates. See Section 6.3.8.5, "Command Options for Secure
+           Connections".
+
+       +o   ----ttmmppddiirr==_d_i_r___n_a_m_e, --tt _d_i_r___n_a_m_e
+
+           The path name of the directory to use for creating temporary files.
+
+       +o   ----uuppggrraaddee--ssyysstteemm--ttaabblleess, --ss
+
+           Upgrade only the system tables, do not upgrade data.
+
+       +o   ----uusseerr==_u_s_e_r___n_a_m_e, --uu _u_s_e_r___n_a_m_e
+
+           The MySQL user name to use when connecting to the server. The
+           default user name is root.
+
+       +o   ----vveerrbboossee
+
+           Verbose mode. Print more information about what the program does.
+
+       +o   ----vveerrssiioonn--cchheecckk, --kk
+
+           Check the version of the server to which mmyyssqqll__uuppggrraaddee is
+           connecting to verify that it is the same as the version for which
+           mmyyssqqll__uuppggrraaddee was built. If not, mmyyssqqll__uuppggrraaddee exits. This option
+           is enabled by default; to disable the check, use
+           ----sskkiipp--vveerrssiioonn--cchheecckk. This option was added in MySQL 5.5.32.
+
+       +o   ----wwrriittee--bbiinnlloogg
+
+           Cause binary logging to be enabled while mmyyssqqll__uuppggrraaddee runs. This
+           is the default behavior; to disable binary logging during the
+           upgrade, use the inverse of this option (that is, start the program
+           with ----sskkiipp--wwrriittee--bbiinnlloogg).
+
+CCOOPPYYRRIIGGHHTT
+       Copyright (C) 1997, 2016, Oracle and/or its affiliates. All rights
+       reserved.
+
+       This documentation is free software; you can redistribute it and/or
+       modify it only under the terms of the GNU General Public License as
+       published by the Free Software Foundation; version 2 of the License.
+
+       This documentation is distributed in the hope that it will be useful,
+       but WITHOUT ANY WARRANTY; without even the implied warranty of
+       MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+       General Public License for more details.
+
+       You should have received a copy of the GNU General Public License along
+       with the program; if not, write to the Free Software Foundation, Inc.,
+       51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA or see
+       http://www.gnu.org/licenses/.
+
+
+SSEEEE AALLSSOO
+       For more information, please refer to the MySQL Reference Manual, which
+       may already be installed locally and which is also available online at
+       http://dev.mysql.com/doc/.
+
+AAUUTTHHOORR
+       Oracle Corporation (http://dev.mysql.com/).
+
+
+
+MySQL 5.5                         03/01/2016                  MYSQL_UPGRADE(1)

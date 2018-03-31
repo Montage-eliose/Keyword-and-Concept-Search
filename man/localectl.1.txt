@@ -1,0 +1,105 @@
+LOCALECTL(1)                       localectl                      LOCALECTL(1)
+
+
+
+NNAAMMEE
+       localectl - Control the system locale and keyboard layout settings
+
+SSYYNNOOPPSSIISS
+       llooccaalleeccttll [[OOPPTTIIOONNSS......]] {{CCOOMMMMAANNDD}}
+
+DDEESSCCRRIIPPTTIIOONN
+       llooccaalleeccttll may be used to query and change the system locale and
+       keyboard layout settings.
+
+       The system locale controls the language settings of system services and
+       of the UI before the user logs in, such as the display manager, as well
+       as the default for users after login.
+
+       The keyboard settings control the keyboard layout used on the text
+       console and of the graphical UI before the user logs in, such as the
+       display manager, as well as the default for users after login.
+
+OOPPTTIIOONNSS
+       The following options are understood:
+
+       --hh, ----hheellpp
+           Prints a short help text and exits.
+
+       ----vveerrssiioonn
+           Prints a short version string and exits.
+
+       ----nnoo--ppaaggeerr
+           Do not pipe output into a pager.
+
+       ----nnoo--aasskk--ppaasssswwoorrdd
+           Don't query the user for authentication for privileged operations.
+
+       --HH, ----hhoosstt
+           Execute the operation remotely. Specify a hostname, or username and
+           hostname separated by @, to connect to. This will use SSH to talk
+           to a remote system.
+
+       ----nnoo--ccoonnvveerrtt
+           If sseett--kkeeyymmaapp or sseett--xx1111--kkeeyymmaapp is invoked and this option is
+           passed then the keymap will not be converted from the console to
+           X11, or X11 to console, respectively.
+
+       The following commands are understood:
+
+       ssttaattuuss
+           Show current settings of the system locale and keyboard mapping.
+
+       sseett--llooccaallee LLOOCCAALLEE......
+           Set the system locale. This takes one or more assignments such as
+           "LANG=de_DE.utf8", "LC_MESSAGES=en_GB.utf8", and so on. See
+           llooccaallee(7) for details on the available settings and their meanings.
+           Use lliisstt--llooccaalleess for a list of available locales (see below).
+
+       lliisstt--llooccaalleess
+           List available locales useful for configuration with sseett--llooccaallee.
+
+       sseett--kkeeyymmaapp MMAAPP [[TTOOGGGGLLEEMMAAPP]]
+           Set the system keyboard mapping for the console. This takes a
+           keyboard mapping name (such as "de" or "us"), and possibly a second
+           one to define a toggle keyboard mapping. Unless ----nnoo--ccoonnvveerrtt is
+           passed the selected setting is also applied to the default keyboard
+           mapping of X11, after converting it to the closest matching X11
+           keyboard mapping. Use lliisstt--kkeeyymmaappss for a list of available keyboard
+           mappings (see below).
+
+       lliisstt--kkeeyymmaappss
+           List available keyboard mappings for the console, useful for
+           configuration with sseett--kkeeyymmaapp.
+
+       sseett--xx1111--kkeeyymmaapp LLAAYYOOUUTT [[MMOODDEELL]] [[VVAARRIIAANNTT]] [[OOPPTTIIOONNSS]]
+           Set the system default keyboard mapping for X11. This takes a
+           keyboard mapping name (such as "de" or "us"), and possibly a model,
+           variant and options, see kkbbdd(4) for details. Unless ----nnoo--ccoonnvveerrtt is
+           passed the selected setting is also applied to the system console
+           keyboard mapping, after converting it to the closest matching
+           console keyboard mapping.
+
+       lliisstt--xx1111--kkeeyymmaapp--mmooddeellss, lliisstt--xx1111--kkeeyymmaapp--llaayyoouuttss,
+       lliisstt--xx1111--kkeeyymmaapp--vvaarriiaannttss [[LLAAYYOOUUTT]], lliisstt--xx1111--kkeeyymmaapp--ooppttiioonnss
+           List available X11 keymap models, layouts, variants and options,
+           useful for configuration with sseett--kkeeyymmaapp. The command
+           lliisstt--xx1111--kkeeyymmaapp--vvaarriiaannttss optionally takes a layout parameter to
+           limit the output to the variants suitable for the specific layout.
+
+EEXXIITT SSTTAATTUUSS
+       On success 0 is returned, a non-zero failure code otherwise.
+
+EENNVVIIRROONNMMEENNTT
+       _$_S_Y_S_T_E_M_D___P_A_G_E_R
+           Pager to use when ----nnoo--ppaaggeerr is not given; overrides _$_P_A_G_E_R.
+           Setting this to an empty string or the value cat is equivalent to
+           passing ----nnoo--ppaaggeerr.
+
+SSEEEE AALLSSOO
+       ssyysstteemmdd(1), llooccaallee(7), llooccaallee..ccoonnff(5), vvccoonnssoollee..ccoonnff(5), llooaaddkkeeyyss(1),
+       kkbbdd(4), ssyysstteemmccttll(1), ssyysstteemmdd--llooccaalleedd..sseerrvviiccee(8)
+
+
+
+systemd 204                                                       LOCALECTL(1)

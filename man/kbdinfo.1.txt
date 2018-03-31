@@ -1,0 +1,41 @@
+KBDINFO(1)                  General Commands Manual                 KBDINFO(1)
+
+
+
+NNAAMMEE
+       kbdinfo - obtain information about the status of a console
+
+SSYYNNOOPPSSIISS
+       kkbbddiinnffoo [-C _D_E_V_I_C_E] getmode [text|graphics]
+
+       kkbbddiinnffoo [-C _D_E_V_I_C_E] gkbmode [raw|xlate|mediumraw|unicode]
+
+       kkbbddiinnffoo [-C _D_E_V_I_C_E] gkbmeta [metabit|escprefix]
+
+       kkbbddiinnffoo [-C _D_E_V_I_C_E] gkbled [scrolllock|numlock|capslock]
+
+DDEESSCCRRIIPPTTIIOONN
+       kkbbddiinnffoo  is  an  interface  to  KDGETMODE,  GKBMODE, GKBMETA and GKBLED
+       ioctls.  Its primary use case is to query the status of the given  _C_O_N_-
+       _S_O_L_E  (or  the currently active one, if no -C option is present) from a
+       shell script.
+
+       If the final value argument is not specified, kkbbddiinnffoo  will  print  the
+       result  of  the  desired  ioctl to the standard output.  Otherwise, the
+       given value is compared to the actual result, and the utility will exit
+       with  a  status code of 0 for a match, 1 otherwise.  No text is printed
+       for this style of invocation.
+
+SSEEEE AALLSSOO
+       kkbbdd__mmooddee(1)
+
+AAUUTTHHOORR
+       kbdinfo   is    Copyright    (C)    2011    Alexey    Gladkov    <glad-
+       kov.alexey@gmail.com>.
+
+       This  manual page was written by Michael Schutte <michi@debian.org> for
+       the Debian GNU/Linux system (but may be used by others).
+
+
+
+                                   June 2011                        KBDINFO(1)

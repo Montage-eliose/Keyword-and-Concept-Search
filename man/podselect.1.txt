@@ -1,0 +1,48 @@
+PODSELECT(1)           Perl Programmers Reference Guide           PODSELECT(1)
+
+
+
+NNAAMMEE
+       podselect - print selected sections of pod documentation on standard
+       output
+
+SSYYNNOOPPSSIISS
+       ppooddsseelleecctt [--hheellpp] [--mmaann] [--sseeccttiioonn _s_e_c_t_i_o_n_-_s_p_e_c] [_f_i_l_e ...]
+
+OOPPTTIIOONNSS AANNDD AARRGGUUMMEENNTTSS
+       --hheellpp   Print a brief help message and exit.
+
+       --mmaann    Print the manual page and exit.
+
+       --sseeccttiioonn _s_e_c_t_i_o_n_-_s_p_e_c
+               Specify a section to include in the output.  See "SECTION
+               SPECIFICATIONS" in Pod::Parser for the format to use for
+               _s_e_c_t_i_o_n_-_s_p_e_c.  This option may be given multiple times on the
+               command line.
+
+       _f_i_l_e    The pathname of a file from which to select sections of pod
+               documentation (defaults to standard input).
+
+DDEESSCCRRIIPPTTIIOONN
+       ppooddsseelleecctt will read the given input files looking for pod documentation
+       and will print out (in raw pod format) all sections that match one ore
+       more of the given section specifications. If no section specifications
+       are given than all pod sections encountered are output.
+
+       ppooddsseelleecctt invokes the _pp_oo_dd_ss_ee_ll_ee_cc_tt_((_)) function exported by PPoodd::::SSeelleecctt
+       Please see "_p_o_d_s_e_l_e_c_t_(_)" in Pod::Select for more details.
+
+SSEEEE AALLSSOO
+       Pod::Parser and Pod::Select
+
+AAUUTTHHOORR
+       Please report bugs using <http://rt.cpan.org>.
+
+       Brad Appleton <bradapp@enteract.com>
+
+       Based on code for _PP_oo_dd_::_::_TT_ee_xx_tt_::_::_pp_oo_dd_22_tt_ee_xx_tt((11)) written by Tom Christiansen
+       <tchrist@mox.perl.com>
+
+
+
+perl v5.18.2                      2016-03-01                      PODSELECT(1)

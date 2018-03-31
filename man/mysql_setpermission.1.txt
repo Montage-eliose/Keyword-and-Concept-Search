@@ -1,0 +1,92 @@
+MYSQL_SETPERMISSI(1)         MySQL Database System        MYSQL_SETPERMISSI(1)
+
+
+
+NNAAMMEE
+       mysql_setpermission - interactively set permissions in grant tables
+
+SSYYNNOOPPSSIISS
+       mmyyssqqll__sseettppeerrmmiissssiioonn [[_o_p_t_i_o_n_s]]
+
+DDEESSCCRRIIPPTTIIOONN
+       mmyyssqqll__sseettppeerrmmiissssiioonn is a Perl script that was originally written and
+       contributed by Luuk de Boer. It interactively sets permissions in the
+       MySQL grant tables.  mmyyssqqll__sseettppeerrmmiissssiioonn is written in Perl and
+       requires that the DBI and DBD::mysql Perl modules be installed (see
+       Section 2.13, "Perl Installation Notes").
+
+       Invoke mmyyssqqll__sseettppeerrmmiissssiioonn like this:
+
+           shell> mmyyssqqll__sseettppeerrmmiissssiioonn [[_o_p_t_i_o_n_s]]
+
+       _o_p_t_i_o_n_s should be either ----hheellpp to display the help message, or options
+       that indicate how to connect to the MySQL server. The account used when
+       you connect determines which permissions you have when attempting to
+       modify existing permissions in the grant tables.
+
+       mmyyssqqll__sseettppeerrmmiissssiioonnss also reads options from the [client] and [perl]
+       groups in the .my.cnf file in your home directory, if the file exists.
+
+       mmyyssqqll__sseettppeerrmmiissssiioonn supports the following options:
+
+       +o   ----hheellpp
+
+           Display a help message and exit.
+
+       +o   ----hhoosstt==_h_o_s_t___n_a_m_e
+
+           Connect to the MySQL server on the given host.
+
+       +o   ----ppaasssswwoorrdd==_p_a_s_s_w_o_r_d
+
+           The password to use when connecting to the server. Note that the
+           password value is not optional for this option, unlike for other
+           MySQL programs.
+
+           Specifying a password on the command line should be considered
+           insecure. See Section 6.1.2.1, "End-User Guidelines for Password
+           Security". You can use an option file to avoid giving the password
+           on the command line.
+
+       +o   ----ppoorrtt==_p_o_r_t___n_u_m
+
+           The TCP/IP port number to use for the connection.
+
+       +o   ----ssoocckkeett==_p_a_t_h
+
+           For connections to localhost, the Unix socket file to use.
+
+       +o   ----uusseerr==_u_s_e_r___n_a_m_e
+
+           The MySQL user name to use when connecting to the server.
+
+CCOOPPYYRRIIGGHHTT
+       Copyright (C) 1997, 2016, Oracle and/or its affiliates. All rights
+       reserved.
+
+       This documentation is free software; you can redistribute it and/or
+       modify it only under the terms of the GNU General Public License as
+       published by the Free Software Foundation; version 2 of the License.
+
+       This documentation is distributed in the hope that it will be useful,
+       but WITHOUT ANY WARRANTY; without even the implied warranty of
+       MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+       General Public License for more details.
+
+       You should have received a copy of the GNU General Public License along
+       with the program; if not, write to the Free Software Foundation, Inc.,
+       51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA or see
+       http://www.gnu.org/licenses/.
+
+
+SSEEEE AALLSSOO
+       For more information, please refer to the MySQL Reference Manual, which
+       may already be installed locally and which is also available online at
+       http://dev.mysql.com/doc/.
+
+AAUUTTHHOORR
+       Oracle Corporation (http://dev.mysql.com/).
+
+
+
+MySQL 5.5                         03/01/2016              MYSQL_SETPERMISSI(1)

@@ -1,0 +1,80 @@
+MYSQL_TZINFO_TO_S(1)         MySQL Database System        MYSQL_TZINFO_TO_S(1)
+
+
+
+NNAAMMEE
+       mysql_tzinfo_to_sql - load the time zone tables
+
+SSYYNNOOPPSSIISS
+       mmyyssqqll__ttzziinnffoo__ttoo__ssqqll _a_r_g_u_m_e_n_t_s
+
+DDEESSCCRRIIPPTTIIOONN
+       The mmyyssqqll__ttzziinnffoo__ttoo__ssqqll program loads the time zone tables in the mysql
+       database. It is used on systems that have a _z_o_n_e_i_n_f_o database (the set
+       of files describing time zones). Examples of such systems are Linux,
+       FreeBSD, Solaris, and OS X. One likely location for these files is the
+       /usr/share/zoneinfo directory (/usr/share/lib/zoneinfo on Solaris). If
+       your system does not have a zoneinfo database, you can use the
+       downloadable package described in Section 10.6, "MySQL Server Time Zone
+       Support".
+
+       mmyyssqqll__ttzziinnffoo__ttoo__ssqqll can be invoked several ways:
+
+           shell> mmyyssqqll__ttzziinnffoo__ttoo__ssqqll _t_z___d_i_r
+           shell> mmyyssqqll__ttzziinnffoo__ttoo__ssqqll _t_z___f_i_l_e _t_z___n_a_m_e
+           shell> mmyyssqqll__ttzziinnffoo__ttoo__ssqqll ----lleeaapp _t_z___f_i_l_e
+
+       For the first invocation syntax, pass the zoneinfo directory path name
+       to mmyyssqqll__ttzziinnffoo__ttoo__ssqqll and send the output into the mmyyssqqll program. For
+       example:
+
+           shell> mmyyssqqll__ttzziinnffoo__ttoo__ssqqll //uussrr//sshhaarree//zzoonneeiinnffoo || mmyyssqqll --uu rroooott mmyyssqqll
+
+       mmyyssqqll__ttzziinnffoo__ttoo__ssqqll reads your system's time zone files and generates
+       SQL statements from them.  mmyyssqqll processes those statements to load the
+       time zone tables.
+
+       The second syntax causes mmyyssqqll__ttzziinnffoo__ttoo__ssqqll to load a single time zone
+       file _t_z___f_i_l_e that corresponds to a time zone name _t_z___n_a_m_e:
+
+           shell> mmyyssqqll__ttzziinnffoo__ttoo__ssqqll _t_z___f_i_l_e _t_z___n_a_m_e || mmyyssqqll --uu rroooott mmyyssqqll
+
+       If your time zone needs to account for leap seconds, invoke
+       mmyyssqqll__ttzziinnffoo__ttoo__ssqqll using the third syntax, which initializes the leap
+       second information.  _t_z___f_i_l_e is the name of your time zone file:
+
+           shell> mmyyssqqll__ttzziinnffoo__ttoo__ssqqll ----lleeaapp _t_z___f_i_l_e || mmyyssqqll --uu rroooott mmyyssqqll
+
+       After running mmyyssqqll__ttzziinnffoo__ttoo__ssqqll, it is best to restart the server so
+       that it does not continue to use any previously cached time zone data.
+
+CCOOPPYYRRIIGGHHTT
+       Copyright (C) 1997, 2016, Oracle and/or its affiliates. All rights
+       reserved.
+
+       This documentation is free software; you can redistribute it and/or
+       modify it only under the terms of the GNU General Public License as
+       published by the Free Software Foundation; version 2 of the License.
+
+       This documentation is distributed in the hope that it will be useful,
+       but WITHOUT ANY WARRANTY; without even the implied warranty of
+       MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+       General Public License for more details.
+
+       You should have received a copy of the GNU General Public License along
+       with the program; if not, write to the Free Software Foundation, Inc.,
+       51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA or see
+       http://www.gnu.org/licenses/.
+
+
+SSEEEE AALLSSOO
+       For more information, please refer to the MySQL Reference Manual, which
+       may already be installed locally and which is also available online at
+       http://dev.mysql.com/doc/.
+
+AAUUTTHHOORR
+       Oracle Corporation (http://dev.mysql.com/).
+
+
+
+MySQL 5.5                         03/01/2016              MYSQL_TZINFO_TO_S(1)

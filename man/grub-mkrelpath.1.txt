@@ -1,0 +1,39 @@
+GRUB-MKRELPATH(1)                User Commands               GRUB-MKRELPATH(1)
+
+
+
+NNAAMMEE
+       grub-mkrelpath - make a system path relative to its root
+
+SSYYNNOOPPSSIISS
+       ggrruubb--mmkkrreellppaatthh [_O_P_T_I_O_N...] _P_A_T_H
+
+DDEESSCCRRIIPPTTIIOONN
+       Transform a system filename into GRUB one.
+
+       -?, ----hheellpp
+              give this help list
+
+       ----uussaaggee
+              give a short usage message
+
+       --VV, ----vveerrssiioonn
+              print program version
+
+RREEPPOORRTTIINNGG BBUUGGSS
+       Report bugs to <bug-grub@gnu.org>.
+
+SSEEEE AALLSSOO
+       ggrruubb--pprroobbee(8)
+
+       The  full  documentation  for ggrruubb--mmkkrreellppaatthh is maintained as a Texinfo
+       manual.  If the iinnffoo and ggrruubb--mmkkrreellppaatthh programs are properly installed
+       at your site, the command
+
+              iinnffoo ggrruubb--mmkkrreellppaatthh
+
+       should give you access to the complete manual.
+
+
+
+grub-mkrelpath (GRUB) 2.02~beta2-9Duebcuenmtbue1r.72015               GRUB-MKRELPATH(1)

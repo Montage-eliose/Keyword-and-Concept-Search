@@ -1,0 +1,32 @@
+HELPZTAGS(1)                     User Commands                    HELPZTAGS(1)
+
+
+
+NNAAMMEE
+       helpztags - generate the help tags file for directory
+
+SSYYNNOOPPSSIISS
+       helpztags _D_I_R_S...
+
+DDEESSCCRRIIPPTTIIOONN
+       _h_e_l_p_z_t_a_g_s scans given directories for _*_._t_x_t and _*_._t_x_t_._g_z files.  Each
+       file is scanned for tags used in _v_i_m help files. For each directory
+       proper _t_a_g_s file is generated.
+
+       There should be at least one directory given. In other case program
+       exits with error.
+
+AAUUTTHHOORRSS
+       Written by Jakub Turski and Artur R. Czechowski based on idea contained
+       in vim sources for its :helptags command.
+
+RREEPPOORRTTIINNGG BBUUGGSS
+       Please use a Debian reportbug command or procedure described at
+       http://bugs.debian.org/.
+
+SSEEEE AALLSSOO
+       Read :help helptags in _v_i_m for detailed information about helptags.
+
+
+
+vim 7.4                           August 2010                     HELPZTAGS(1)

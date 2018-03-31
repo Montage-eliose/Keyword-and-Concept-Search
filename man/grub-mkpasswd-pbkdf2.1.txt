@@ -1,0 +1,51 @@
+GRUB-MKPASSWD-PBKDF2(1)          User Commands         GRUB-MKPASSWD-PBKDF2(1)
+
+
+
+NNAAMMEE
+       grub-mkpasswd-pbkdf2 - generate hashed password for GRUB
+
+SSYYNNOOPPSSIISS
+       ggrruubb--mmkkppaasssswwdd--ppbbkkddff22 [_O_P_T_I_O_N...] [_O_P_T_I_O_N_S]
+
+DDEESSCCRRIIPPTTIIOONN
+       Generate PBKDF2 password hash.
+
+       --cc, ----iitteerraattiioonn--ccoouunntt=_N_U_M
+              Number of PBKDF2 iterations
+
+       --ll, ----bbuufflleenn=_N_U_M
+              Length of generated hash
+
+       --ss, ----ssaalltt=_N_U_M
+              Length of salt
+
+       -?, ----hheellpp
+              give this help list
+
+       ----uussaaggee
+              give a short usage message
+
+       --VV, ----vveerrssiioonn
+              print program version
+
+       Mandatory  or  optional arguments to long options are also mandatory or
+       optional for any corresponding short options.
+
+RREEPPOORRTTIINNGG BBUUGGSS
+       Report bugs to <bug-grub@gnu.org>.
+
+SSEEEE AALLSSOO
+       ggrruubb--mmkkccoonnffiigg(8)
+
+       The full documentation for ggrruubb--mmkkppaasssswwdd--ppbbkkddff22 is maintained as a Tex-
+       info  manual.   If the iinnffoo and ggrruubb--mmkkppaasssswwdd--ppbbkkddff22 programs are prop-
+       erly installed at your site, the command
+
+              iinnffoo ggrruubb--mmkkppaasssswwdd--ppbbkkddff22
+
+       should give you access to the complete manual.
+
+
+
+grub-mkpasswd-pbkdf2 (GRUB) 2.02~bDeetcae2m-b9eurbu2n0t1u51.7      GRUB-MKPASSWD-PBKDF2(1)

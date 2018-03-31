@@ -1,0 +1,66 @@
+TAP2DEB(1)                                                          TAP2DEB(1)
+
+
+
+NNAAMMEE
+       tap2deb - create Debian packages which wrap .tap files
+
+SSYYNNOOPPSSIISS
+       ttaapp22ddeebb [options]
+
+DDEESSCCRRIIPPTTIIOONN
+       Create a ready to upload Debian package in ".build"
+
+       --uu, ----uunnssiiggnneedd
+              do not sign the Debian package
+
+       --tt, ----ttaappffiillee _<_t_a_p_f_i_l_e_>
+              Build the application around the given .tap (default twistd.tap)
+
+       --yy, ----ttyyppee _<_t_y_p_e_>
+              The  configuration has the given type . Allowable types are ttaapp,
+              ssoouurrccee, xxmmll and ppyytthhoonn.  The first three types are mmkkttaapp  output
+              formats,  while the last one is a manual building of application
+              (see ttwwiissttdd((11)), the --yy option).
+
+       --pp, ----pprroottooccooll _<_p_r_o_t_o_c_o_l_>
+              The name of the protocol this will be used  to  serve.  This  is
+              intended  as  a  part of the description. Default is the name of
+              the tapfile, minus any extensions.
+
+       --dd, ----ddeebbffiillee _<_d_e_b_f_i_l_e_>
+              The name of the debian package. Default is 'twisted-'+protocol.
+
+       --VV, ----sseett--vveerrssiioonn _<_v_e_r_s_i_o_n_>
+              The version of the Debian package. The default is 1.0
+
+       --ee, ----ddeessccrriippttiioonn _<_d_e_s_c_r_i_p_t_i_o_n_>
+              The one-line description. Default is uninteresting.
+
+       --ll, ----lloonngg__ddeessccrriippttiioonn _<_l_o_n_g___d_e_s_c_r_i_p_t_i_o_n_>
+              A multi-line description.  Default  is  explanation  about  this
+              being an automatic package created from tap2deb.
+
+       --mm, ----mmaaiinnttaaiinneerr _<_m_a_i_n_t_a_i_n_e_r_>
+              The maintainer, as "Name Lastname <email address>". This will go
+              in the meta-files, as well as be used as  the  id  to  sign  the
+              package.
+
+       ----vveerrssiioonn
+              Output version information and exit.
+
+AAUUTTHHOORR
+       Written by Moshe Zadka, based on twistd's help messages
+
+RREEPPOORRTTIINNGG BBUUGGSS
+       To report a bug, visit _h_t_t_p_:_/_/_t_w_i_s_t_e_d_m_a_t_r_i_x_._c_o_m_/_b_u_g_s_/
+
+CCOOPPYYRRIIGGHHTT
+       Copyright (C) 2000-2008 Twisted Matrix Laboratories.
+       This is free software; see the source for copying conditions.  There is
+       NO warranty; not even for MERCHANTABILITY or FITNESS FOR  A  PARTICULAR
+       PURPOSE.
+
+
+
+                                   July 2001                        TAP2DEB(1)

@@ -1,0 +1,68 @@
+lsb_release(1)              General Commands Manual             lsb_release(1)
+
+
+
+NNAAMMEE
+       lsb_release - print distribution-specific information
+
+SSYYNNOOPPSSIISS
+       llssbb__rreelleeaassee _[_o_p_t_i_o_n_s_]
+
+DDEESSCCRRIIPPTTIIOONN
+       The  llssbb__rreelleeaassee command provides certain LSB (Linux Standard Base) and
+       distribution-specific information.
+
+       If no options are given, the _-_v option is assumed.
+
+OOPPTTIIOONNSS
+       The program follows the  usual  GNU  command  line  syntax,  with  long
+       options  starting  with  two  dashes  (`--').  A summary of options are
+       included below.
+
+       --vv,, ----vveerrssiioonn
+              Show the version of the LSB against which your current installa-
+              tion  is  compliant.   The version is expressed as a colon sepa-
+              rated list of LSB module descriptions.
+
+       --ii,, ----iidd
+              Display the distributor's ID.
+
+       --dd,, ----ddeessccrriippttiioonn
+              Display a description of the currently installed distribution.
+
+       --rr,, ----rreelleeaassee
+              Display the release number of the currently installed  distribu-
+              tion.
+
+       --cc,, ----ccooddeennaammee
+              Display the code name of the currently installed distribution.
+
+       --aa,, ----aallll
+              Display all of the above information.
+
+       --ss,, ----sshhoorrtt
+              Use the short output format for any information displayed.  This
+              format omits the leading header(s).
+
+       --hh,, ----hheellpp
+              Show summary of options.
+
+NNOOTTEESS
+       This is a reimplementation of the llssbb__rreelleeaassee command provided  by  the
+       Free  Standards  Group.   Any bugs are solely the responsibility of the
+       author below.
+
+       Detection of systems using a mix of packages from various distributions
+       or releases is something of a black art; the current heuristic tends to
+       assume that the installation is of the earliest distribution  which  is
+       still being used by aapptt but that heuristic is subject to error.
+
+SSEEEE AALLSSOO
+       lsb(8)
+
+AAUUTTHHOORR
+       Chris Lawrence <lawrencc@debian.org>.
+
+
+
+                                                                lsb_release(1)

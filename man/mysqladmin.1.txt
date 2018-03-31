@@ -1,0 +1,483 @@
+MYSQLADMIN(1)                MySQL Database System               MYSQLADMIN(1)
+
+
+
+NNAAMMEE
+       mysqladmin - client for administering a MySQL server
+
+SSYYNNOOPPSSIISS
+       mmyyssqqllaaddmmiinn [[_o_p_t_i_o_n_s]] _c_o_m_m_a_n_d [[_c_o_m_m_a_n_d_-_o_p_t_i_o_n_s]] [[_c_o_m_m_a_n_d
+                                                                                      [[_c_o_m_m_a_n_d_-_o_p_t_i_o_n_s]]]]
+                                                                                      ......
+
+DDEESSCCRRIIPPTTIIOONN
+       mmyyssqqllaaddmmiinn is a client for performing administrative operations. You
+       can use it to check the server's configuration and current status, to
+       create and drop databases, and more.
+
+       Invoke mmyyssqqllaaddmmiinn like this:
+
+           shell> mmyyssqqllaaddmmiinn [[_o_p_t_i_o_n_s]] _c_o_m_m_a_n_d [[_c_o_m_m_a_n_d_-_a_r_g]] [[_c_o_m_m_a_n_d [[_c_o_m_m_a_n_d_-_a_r_g]]]] ......
+
+       mmyyssqqllaaddmmiinn supports the following commands. Some of the commands take
+       an argument following the command name.
+
+       +o   create _d_b___n_a_m_e
+
+           Create a new database named _d_b___n_a_m_e.
+
+       +o   debug
+
+           Tell the server to write debug information to the error log. Format
+           and content of this information is subject to change.
+
+           This includes information about the Event Scheduler. See
+           Section 20.4.5, "Event Scheduler Status".
+
+       +o   drop _d_b___n_a_m_e
+
+           Delete the database named _d_b___n_a_m_e and all its tables.
+
+       +o   extended-status
+
+           Display the server status variables and their values.
+
+       +o   flush-hosts
+
+           Flush all information in the host cache.
+
+       +o   flush-logs
+
+           Flush all logs.
+
+       +o   flush-privileges
+
+           Reload the grant tables (same as reload).
+
+       +o   flush-status
+
+           Clear status variables.
+
+       +o   flush-tables
+
+           Flush all tables.
+
+       +o   flush-threads
+
+           Flush the thread cache.
+
+       +o   kill _i_d,_i_d,...
+
+           Kill server threads. If multiple thread ID values are given, there
+           must be no spaces in the list.
+
+       +o   old-password _n_e_w___p_a_s_s_w_o_r_d
+
+           This is like the password command but stores the password using the
+           old (pre-4.1) password-hashing format. (See Section 6.1.2.4,
+           "Password Hashing in MySQL".)
+
+       +o   password _n_e_w___p_a_s_s_w_o_r_d
+
+           Set a new password. This changes the password to _n_e_w___p_a_s_s_w_o_r_d for
+           the account that you use with mmyyssqqllaaddmmiinn for connecting to the
+           server. Thus, the next time you invoke mmyyssqqllaaddmmiinn (or any other
+           client program) using the same account, you will need to specify
+           the new password.
+
+           If the _n_e_w___p_a_s_s_w_o_r_d value contains spaces or other characters that
+           are special to your command interpreter, you need to enclose it
+           within quotation marks. On Windows, be sure to use double quotation
+           marks rather than single quotation marks; single quotation marks
+           are not stripped from the password, but rather are interpreted as
+           part of the password. For example:
+
+               shell> mmyyssqqllaaddmmiinn ppaasssswwoorrdd ""mmyy nneeww ppaasssswwoorrdd""
+
+           As of MySQL 5.5.3, the new password can be omitted following the
+           password command. In this case, mmyyssqqllaaddmmiinn prompts for the password
+           value, which enables you to avoid specifying the password on the
+           command line. Omitting the password value should be done only if
+           password is the final command on the mmyyssqqllaaddmmiinn command line.
+           Otherwise, the next argument is taken as the password.
+
+               CCaauuttiioonn
+               Do not use this command used if the server was started with the
+               ----sskkiipp--ggrraanntt--ttaabblleess option. No password change will be applied.
+               This is true even if you precede the password command with
+               flush-privileges on the same command line to re-enable the
+               grant tables because the flush operation occurs after you
+               connect. However, you can use mmyyssqqllaaddmmiinn fflluusshh--pprriivviilleeggeess to
+               re-enable the grant table and then use a separate mmyyssqqllaaddmmiinn
+               ppaasssswwoorrdd command to change the password.
+
+       +o   ping
+
+           Check whether the server is available. The return status from
+           mmyyssqqllaaddmmiinn is 0 if the server is running, 1 if it is not. This is 0
+           even in case of an error such as Access denied, because this means
+           that the server is running but refused the connection, which is
+           different from the server not running.
+
+       +o   processlist
+
+           Show a list of active server threads. This is like the output of
+           the SHOW PROCESSLIST statement. If the ----vveerrbboossee option is given,
+           the output is like that of SHOW FULL PROCESSLIST. (See
+           Section 13.7.5.30, "SHOW PROCESSLIST Syntax".)
+
+       +o   reload
+
+           Reload the grant tables.
+
+       +o   refresh
+
+           Flush all tables and close and open log files.
+
+       +o   shutdown
+
+           Stop the server.
+
+       +o   start-slave
+
+           Start replication on a slave server.
+
+       +o   status
+
+           Display a short server status message.
+
+       +o   stop-slave
+
+           Stop replication on a slave server.
+
+       +o   variables
+
+           Display the server system variables and their values.
+
+       +o   version
+
+           Display version information from the server.
+
+       All commands can be shortened to any unique prefix. For example:
+
+           shell> mmyyssqqllaaddmmiinn pprroocc ssttaatt
+           +----+-------+-----------+----+---------+------+-------+------------------+
+           | Id | User  | Host      | db | Command | Time | State | Info             |
+           +----+-------+-----------+----+---------+------+-------+------------------+
+           | 51 | monty | localhost |    | Query   | 0    |       | show processlist |
+           +----+-------+-----------+----+---------+------+-------+------------------+
+           Uptime: 1473624  Threads: 1  Questions: 39487
+           Slow queries: 0  Opens: 541  Flush tables: 1
+           Open tables: 19  Queries per second avg: 0.0268
+
+
+       The mmyyssqqllaaddmmiinn ssttaattuuss command result displays the following values:
+
+       +o   Uptime
+
+           The number of seconds the MySQL server has been running.
+
+       +o   Threads
+
+           The number of active threads (clients).
+
+       +o   Questions
+
+           The number of questions (queries) from clients since the server was
+           started.
+
+       +o   Slow queries
+
+           The number of queries that have taken more than long_query_time
+           seconds. See Section 5.2.5, "The Slow Query Log".
+
+       +o   Opens
+
+           The number of tables the server has opened.
+
+       +o   Flush tables
+
+           The number of flush-*, refresh, and reload commands the server has
+           executed.
+
+       +o   Open tables
+
+           The number of tables that currently are open.
+
+       +o   Memory in use
+
+           The amount of memory allocated directly by mmyyssqqlldd. This value is
+           displayed only when MySQL has been compiled with safemalloc, which
+           is available only before MySQL 5.5.6.
+
+       +o   Maximum memory used
+
+           The maximum amount of memory allocated directly by mmyyssqqlldd. This
+           value is displayed only when MySQL has been compiled with
+           safemalloc, which is available only before MySQL 5.5.6.
+
+       If you execute mmyyssqqllaaddmmiinn sshhuuttddoowwnn when connecting to a local server
+       using a Unix socket file, mmyyssqqllaaddmmiinn waits until the server's process
+       ID file has been removed, to ensure that the server has stopped
+       properly.
+
+       mmyyssqqllaaddmmiinn supports the following options, which can be specified on
+       the command line or in the [mysqladmin] and [client] groups of an
+       option file. For information about option files used by MySQL programs,
+       see Section 4.2.6, "Using Option Files".
+
+       +o   ----hheellpp, --??
+
+           Display a help message and exit.
+
+       +o   ----bbiinndd--aaddddrreessss==_i_p___a_d_d_r_e_s_s
+
+           On a computer having multiple network interfaces, use this option
+           to select which interface to use for connecting to the MySQL
+           server.
+
+           This option is supported only in the version of mmyyssqqllaaddmmiinn that is
+           supplied with MySQL Cluster. It is not available in standard MySQL
+           Server 5.5 releases.
+
+       +o   ----cchhaarraacctteerr--sseettss--ddiirr==_d_i_r___n_a_m_e
+
+           The directory where character sets are installed. See Section 10.5,
+           "Character Set Configuration".
+
+       +o   ----ccoommpprreessss, --CC
+
+           Compress all information sent between the client and the server if
+           both support compression.
+
+       +o   ----ccoouunntt==_N, --cc _N
+
+           The number of iterations to make for repeated command execution if
+           the ----sslleeeepp option is given.
+
+       +o   ----ddeebbuugg[[==_d_e_b_u_g___o_p_t_i_o_n_s]], --## [[_d_e_b_u_g___o_p_t_i_o_n_s]]
+
+           Write a debugging log. A typical _d_e_b_u_g___o_p_t_i_o_n_s string is
+           d:t:o,_f_i_l_e___n_a_m_e. The default is d:t:o,/tmp/mysqladmin.trace.
+
+       +o   ----ddeebbuugg--cchheecckk
+
+           Print some debugging information when the program exits.
+
+       +o   ----ddeebbuugg--iinnffoo
+
+           Print debugging information and memory and CPU usage statistics
+           when the program exits.
+
+       +o   ----ddeeffaauulltt--aauutthh==_p_l_u_g_i_n
+
+           A hint about the client-side authentication plugin to use. See
+           Section 6.3.6, "Pluggable Authentication".
+
+           This option was added in MySQL 5.5.9.
+
+       +o   ----ddeeffaauulltt--cchhaarraacctteerr--sseett==_c_h_a_r_s_e_t___n_a_m_e
+
+           Use _c_h_a_r_s_e_t___n_a_m_e as the default character set. See Section 10.5,
+           "Character Set Configuration".
+
+       +o   ----ddeeffaauullttss--eexxttrraa--ffiillee==_f_i_l_e___n_a_m_e
+
+           Read this option file after the global option file but (on Unix)
+           before the user option file. If the file does not exist or is
+           otherwise inaccessible, an error occurs. Before MySQL 5.5.8,
+           _f_i_l_e___n_a_m_e must be the full path name to the file. As of MySQL
+           5.5.8, the name is interpreted relative to the current directory if
+           given as a relative path name.
+
+       +o   ----ddeeffaauullttss--ffiillee==_f_i_l_e___n_a_m_e
+
+           Use only the given option file. If the file does not exist or is
+           otherwise inaccessible, an error occurs. Before MySQL 5.5.8,
+           _f_i_l_e___n_a_m_e must be the full path name to the file. As of MySQL
+           5.5.8, the name is interpreted relative to the current directory if
+           given as a relative path name.
+
+       +o   ----ddeeffaauullttss--ggrroouupp--ssuuffffiixx==_s_t_r
+
+           Read not only the usual option groups, but also groups with the
+           usual names and a suffix of _s_t_r. For example, mmyyssqqllaaddmmiinn normally
+           reads the [client] and [mysqladmin] groups. If the
+           ----ddeeffaauullttss--ggrroouupp--ssuuffffiixx==__ootthheerr option is given, mmyyssqqllaaddmmiinn also
+           reads the [client_other] and [mysqladmin_other] groups.
+
+       +o   ----eennaabbllee--cclleeaarrtteexxtt--pplluuggiinn
+
+           Enable the mysql_clear_password cleartext authentication plugin.
+           (See Section 6.4.1.5, "The Cleartext Client-Side Authentication
+           Plugin".) This option was added in MySQL 5.5.27.
+
+       +o   ----ffoorrccee, --ff
+
+           Do not ask for confirmation for the drop _d_b___n_a_m_e command. With
+           multiple commands, continue even if an error occurs.
+
+       +o   ----hhoosstt==_h_o_s_t___n_a_m_e, --hh _h_o_s_t___n_a_m_e
+
+           Connect to the MySQL server on the given host.
+
+       +o   ----nnoo--bbeeeepp, --bb
+
+           Suppress the warning beep that is emitted by default for errors
+           such as a failure to connect to the server.
+
+       +o   ----nnoo--ddeeffaauullttss
+
+           Do not read any option files. If program startup fails due to
+           reading unknown options from an option file, ----nnoo--ddeeffaauullttss can be
+           used to prevent them from being read.
+
+       +o   ----ppaasssswwoorrdd[[==_p_a_s_s_w_o_r_d]], --pp[[_p_a_s_s_w_o_r_d]]
+
+           The password to use when connecting to the server. If you use the
+           short option form (--pp), you _c_a_n_n_o_t have a space between the option
+           and the password. If you omit the _p_a_s_s_w_o_r_d value following the
+           ----ppaasssswwoorrdd or --pp option on the command line, mmyyssqqllaaddmmiinn prompts for
+           one.
+
+           Specifying a password on the command line should be considered
+           insecure. See Section 6.1.2.1, "End-User Guidelines for Password
+           Security". You can use an option file to avoid giving the password
+           on the command line.
+
+       +o   ----ppiippee, --WW
+
+           On Windows, connect to the server using a named pipe. This option
+           applies only if the server supports named-pipe connections.
+
+       +o   ----pplluuggiinn--ddiirr==_d_i_r___n_a_m_e
+
+           The directory in which to look for plugins. Specify this option if
+           the ----ddeeffaauulltt--aauutthh option is used to specify an authentication
+           plugin but mmyyssqqllaaddmmiinn does not find it. See Section 6.3.6,
+           "Pluggable Authentication".
+
+           This option was added in MySQL 5.5.9.
+
+       +o   ----ppoorrtt==_p_o_r_t___n_u_m, --PP _p_o_r_t___n_u_m
+
+           The TCP/IP port number to use for the connection.
+
+       +o   ----pprriinntt--ddeeffaauullttss
+
+           Print the program name and all options that it gets from option
+           files.
+
+       +o   ----pprroottooccooll=={{TTCCPP||SSOOCCKKEETT||PPIIPPEE||MMEEMMOORRYY}}
+
+           The connection protocol to use for connecting to the server. It is
+           useful when the other connection parameters normally would cause a
+           protocol to be used other than the one you want. For details on the
+           permissible values, see Section 4.2.2, "Connecting to the MySQL
+           Server".
+
+       +o   ----rreellaattiivvee, --rr
+
+           Show the difference between the current and previous values when
+           used with the ----sslleeeepp option. This option works only with the
+           extended-status command.
+
+       +o   ----sshhaarreedd--mmeemmoorryy--bbaassee--nnaammee==_n_a_m_e
+
+           On Windows, the shared-memory name to use, for connections made
+           using shared memory to a local server. The default value is MYSQL.
+           The shared-memory name is case sensitive.
+
+           The server must be started with the ----sshhaarreedd--mmeemmoorryy option to
+           enable shared-memory connections.
+
+       +o   ----ssiilleenntt, --ss
+
+           Exit silently if a connection to the server cannot be established.
+
+       +o   ----sslleeeepp==_d_e_l_a_y, --ii _d_e_l_a_y
+
+           Execute commands repeatedly, sleeping for _d_e_l_a_y seconds in between.
+           The ----ccoouunntt option determines the number of iterations. If ----ccoouunntt
+           is not given, mmyyssqqllaaddmmiinn executes commands indefinitely until
+           interrupted.
+
+       +o   ----ssoocckkeett==_p_a_t_h, --SS _p_a_t_h
+
+           For connections to localhost, the Unix socket file to use, or, on
+           Windows, the name of the named pipe to use.
+
+       +o   ----ssssll**
+
+           Options that begin with ----ssssll specify whether to connect to the
+           server using SSL and indicate where to find SSL keys and
+           certificates. See Section 6.3.8.5, "Command Options for Secure
+           Connections".
+
+       +o   ----uusseerr==_u_s_e_r___n_a_m_e, --uu _u_s_e_r___n_a_m_e
+
+           The MySQL user name to use when connecting to the server.
+
+       +o   ----vveerrbboossee, --vv
+
+           Verbose mode. Print more information about what the program does.
+
+       +o   ----vveerrssiioonn, --VV
+
+           Display version information and exit.
+
+       +o   ----vveerrttiiccaall, --EE
+
+           Print output vertically. This is similar to ----rreellaattiivvee, but prints
+           output vertically.
+
+       +o   ----wwaaiitt[[==_c_o_u_n_t]], --ww[[_c_o_u_n_t]]
+
+           If the connection cannot be established, wait and retry instead of
+           aborting. If a _c_o_u_n_t value is given, it indicates the number of
+           times to retry. The default is one time.
+
+       You can also set the following variables by using ----_v_a_r___n_a_m_e==_v_a_l_u_e The
+       ----sseett--vvaarriiaabbllee format is deprecated and was removed in MySQL 5.5.3.
+       syntax:
+
+       +o   connect_timeout
+
+           The maximum number of seconds before connection timeout. The
+           default value is 43200 (12 hours).
+
+       +o   shutdown_timeout
+
+           The maximum number of seconds to wait for server shutdown. The
+           default value is 3600 (1 hour).
+
+CCOOPPYYRRIIGGHHTT
+       Copyright (C) 1997, 2016, Oracle and/or its affiliates. All rights
+       reserved.
+
+       This documentation is free software; you can redistribute it and/or
+       modify it only under the terms of the GNU General Public License as
+       published by the Free Software Foundation; version 2 of the License.
+
+       This documentation is distributed in the hope that it will be useful,
+       but WITHOUT ANY WARRANTY; without even the implied warranty of
+       MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+       General Public License for more details.
+
+       You should have received a copy of the GNU General Public License along
+       with the program; if not, write to the Free Software Foundation, Inc.,
+       51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA or see
+       http://www.gnu.org/licenses/.
+
+
+SSEEEE AALLSSOO
+       For more information, please refer to the MySQL Reference Manual, which
+       may already be installed locally and which is also available online at
+       http://dev.mysql.com/doc/.
+
+AAUUTTHHOORR
+       Oracle Corporation (http://dev.mysql.com/).
+
+
+
+MySQL 5.5                         03/01/2016                     MYSQLADMIN(1)

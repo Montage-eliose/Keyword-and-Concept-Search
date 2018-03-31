@@ -1,0 +1,50 @@
+PYVERSIONS()                                                      PYVERSIONS()
+
+
+
+NNAAMMEE
+       pyversions - print python version information
+
+SSYYNNOOPPSSIISS
+       ppyyvveerrssiioonnss _[_-_h_] _[_-_v_] _[_<_o_p_t_i_o_n_s_>_]
+
+DDEESSCCRRIIPPTTIIOONN
+       ppyyvveerrssiioonnss  prints  information  about installed, supported python run-
+       times, the default runtime, and parses the information of  the  Python-
+       Version fields in the package control file.
+
+OOPPTTIIOONNSS
+       _-_d_, _-_-_d_e_f_a_u_l_t
+              Show the default python version.
+
+       _-_s_, _-_-_s_u_p_p_o_r_t_e_d
+              Show the supported python versions.
+
+       _-_r_, _-_-_r_e_q_u_e_s_t_e_d _[_<_v_e_r_s_i_o_n _s_t_r_i_n_g_>_|_<_c_o_n_t_r_o_l _f_i_l_e_>_]
+              Reads  the  value  of  the XXSS--PPyytthhoonn--VVeerrssiioonn field in the source
+              section of a control file and shows  all  matching  python  ver-
+              sions.  The  parameter is interpreted as a version string, if it
+              is not the name of a file. If  the  XS-Python-Version  field  is
+              missing,  get  the  version  information from debian/pyversions.
+              Without any parameter, it will fall back to list  the  supported
+              Python  versions after checking debian/control and debian/pyver-
+              sions.
+
+       _-_i_, _-_-_i_n_s_t_a_l_l_e_d
+              Show the installed supported python versions.
+
+       _-_v_, _-_-_v_e_r_s_i_o_n
+              Limit the output to the version numbers of the python versions.
+
+       _-_h_, _-_-_h_e_l_p
+              Print a help text.
+
+SSEEEE AALLSSOO
+       Python policy.
+
+AAUUTTHHOORR
+       Matthias Klose
+
+
+
+                                                                  PYVERSIONS()

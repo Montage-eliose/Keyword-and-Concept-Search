@@ -1,0 +1,149 @@
+PG(1)                            User Commands                           PG(1)
+
+
+
+NNAAMMEE
+       pg - browse pagewise through text files
+
+SSYYNNOOPPSSIISS
+       ppgg [--_n_u_m_b_e_r] [--pp _s_t_r_i_n_g] [--cceeffnnrrss] [++_l_i_n_e] [++//_p_a_t_t_e_r_n//] [_f_i_l_e...]
+
+DDEESSCCRRIIPPTTIIOONN
+       ppgg  displays  a  text  file on a CRT one screenful at once.  After each
+       page, a prompt is displayed.  The user may then either press  the  new-
+       line key to view the next page or one of the keys described below.
+
+       If  no  filename  is  given on the command line, ppgg reads from standard
+       input.  If standard output is not a terminal, ppgg acts like  _c_a_t(1)  but
+       precedes each file with its name if there is more than one.
+
+       If  input  comes from a pipe, ppgg stores the data in a buffer file while
+       reading to make navigation possible.
+
+OOPPTTIIOONNSS
+       ppgg accepts the following options:
+
+       --_n_u_m_b_e_r
+              The number of lines per page.  Usually, this is  the  number  of
+              CRT lines minus one.
+
+       --cc     Clear  the  screen  before  a page is displayed, if the terminfo
+              entry for the terminal provides this capability.
+
+       --ee     Do not pause and display (EOF) at the end of a file.
+
+       --ff     Do not split long lines.
+
+       --nn     Without this option, commands must be terminated  by  a  newline
+              character.   With this option, ppgg advances once a command letter
+              is entered.
+
+       --pp _s_t_r_i_n_g
+              Instead of the normal prompt _:, _s_t_r_i_n_g is displayed.  If  _s_t_r_i_n_g
+              contains  _%_d,  its first occurrence is replaced by the number of
+              the current page.
+
+       --rr     Disallow the shell escape.
+
+       --ss     Print messages in _s_t_a_n_d_o_u_t mode, if the terminfo entry  for  the
+              terminal provides this capability.
+
+       ++_n_u_m_b_e_r
+              Start at the given line.
+
+       ++//_p_a_t_t_e_r_n//
+              Start  at  the line containing the Basic Regular Expression _p_a_t_-
+              _t_e_r_n given.
+
+UUSSAAGGEE
+       The following commands may be entered at the prompt.  Commands preceded
+       by  _i  in  this document accept a number as argument, positive or nega-
+       tive.  If this argument starts with _+ or _-_, it is interpreted  relative
+       to  the  current  position in the input file, otherwise relative to the
+       beginning.
+
+       _i<<nneewwlliinnee>>
+              Display the next or the indicated page.
+
+       _idd or ^^DD
+              Display the next halfpage.  If _i is given, it is  always  inter-
+              preted relative to the current position.
+
+       _ill     Display the next or the indicated line.
+
+       _iff     Skip  a page forward.  _i must be a positive number and is always
+              interpreted relative to the current position.
+
+       _iww or _izz
+              Behave as _<_n_e_w_l_i_n_e_> except that _i becomes the new page size.
+
+       .. or ^^LL
+              Redraw the screen.
+
+       $$      Advance to the last line of the input file.
+
+       _i//_p_a_t_t_e_r_n//
+              Search forward until the first or the  _i-th  occurrence  of  the
+              Basic  Regular  Expression  _p_a_t_t_e_r_n is found.  The search starts
+              after the current page and stops at the end  of  the  file.   No
+              wrap-around is performed.  _i must be a positive number.
+
+       _i??_p_a_t_t_e_r_n?? or _i^^_p_a_t_t_e_r_n^^
+              Search  backward  until  the first or the _i-th occurrence of the
+              Basic Regular Expression _p_a_t_t_e_r_n is found.   The  search  starts
+              before  the current page and stops at the beginning of the file.
+              No wrap-around is performed.  _i must be a positive number.
+
+       The search commands accept an added letter.  If tt is  given,  the  line
+       containing  the pattern is displayed at the top of the screen, which is
+       the default.  mm selects the middle and bb the bottom of the screen.  The
+       selected position is used in following searches, too.
+
+       _inn     Advance to the next file or _i files forward.
+
+       _ipp     Reread the previous file or _i files backward.
+
+       ss _f_i_l_e_n_a_m_e
+              Save the current file to the given _f_i_l_e_n_a_m_e_.
+
+       hh      Display a command summary.
+
+       !!_c_o_m_m_a_n_d
+              Execute _c_o_m_m_a_n_d using the shell.
+
+       qq or QQ Quit.
+
+       If  the  user presses the interrupt or quit key while ppgg reads from the
+       input file or writes on the terminal, ppgg will immediately  display  the
+       prompt.  In all other situations these keys will terminate ppgg.
+
+EENNVVIIRROONNMMEENNTT VVAARRIIAABBLLEESS
+       The following environment variables affect the behaviour of ppgg:
+
+       CCOOLLUUMMNNSS
+              Overrides the system-supplied number of columns if set.
+
+       LLAANNGG, LLCC__AALLLL, LLCC__CCOOLLLLAATTEE, LLCC__CCTTYYPPEE, LLCC__MMEESSSSAAGGEESS
+              See _l_o_c_a_l_e(7).
+
+       LLIINNEESS  Overrides the system-supplied number of lines if set.
+
+       SSHHEELLLL  Used by the !! command.
+
+       TTEERRMM   Determines the terminal type.
+
+SSEEEE AALLSSOO
+       ccaatt(1), mmoorree(1), sshh(1), tteerrmmiinnffoo(5), llooccaallee(7), rreeggeexx(7), tteerrmm(7)
+
+NNOOTTEESS
+       ppgg expects the terminal tabulators to be set every eight positions.
+
+       Files that include NUL characters cannot be displayed by ppgg.
+
+AAVVAAIILLAABBIILLIITTYY
+       The  pg command is part of the util-linux package and is available from
+       ftp://ftp.kernel.org/pub/linux/utils/util-linux/.
+
+
+
+util-linux                        April 2001                             PG(1)

@@ -1,0 +1,159 @@
+LSHW(1)                                                                LSHW(1)
+
+
+
+NNAAMMEE
+       lshw - list hardware
+
+SSYYNNOOPPSSIISS
+       llsshhww [ --vveerrssiioonn ]
+
+       llsshhww [ --hheellpp ]
+
+       llsshhww [ --XX ]
+
+       llsshhww  [  [[ --hhttmmll ]]  [[ --sshhoorrtt ]]  [[ --xxmmll ]]  [[ --jjssoonn ]]  [[ --bbuussiinnffoo ]]  ]  [
+       --dduummpp _f_i_l_e_n_a_m_e ]  [ --ccllaassss _c_l_a_s_s_._._. ]  [ --ddiissaabbllee _t_e_s_t_._._. ]  [  --eennaabbllee
+       _t_e_s_t_._._. ]  [ --ssaanniittiizzee ]  [ --nnuummeerriicc ]  [ --qquuiieett ]
+
+DDEESSCCRRIIPPTTIIOONN
+       llsshhww  is  a  small tool to extract detailed information on the hardware
+       configuration of the machine. It can report exact memory configuration,
+       firmware version, mainboard configuration, CPU version and speed, cache
+       configuration, bus speed, etc. on DMI-capable x86 or IA-64 systems  and
+       on some PowerPC machines (PowerMac G4 is known to work).
+
+       It  currently  supports  DMI  (x86 and IA-64 only), OpenFirmware device
+       tree (PowerPC only), PCI/AGP, CPUID (x86), IDE/ATA/ATAPI, PCMCIA  (only
+       tested on x86), SCSI and USB.
+
+       --vveerrssiioonn
+              Displays the version of llsshhww and exits.
+
+       --hheellpp  Displays the available command line options and quits.
+
+       --XX     Launch the X11 GUI (if available).
+
+       --hhttmmll  Outputs the device tree as an HTML page.
+
+       --xxmmll   Outputs the device tree as an XML tree.
+
+       --jjssoonn  Outputs  the  device  tree  as  a JSON object (JavaScript Object
+              Notation).
+
+       --sshhoorrtt Outputs the device tree showing hardware paths, very  much  like
+              the output of HP-UX's iioossccaann.
+
+       --bbuussiinnffoo
+              Outputs the device list showing bus information, detailing SCSI,
+              USB, IDE and PCI addresses.
+
+       --dduummpp _f_i_l_e_n_a_m_e
+              Dump collected information into a file (SQLite database).
+
+       --ccllaassss _c_l_a_s_s
+              Only show the given class of hardware. _c_l_a_s_s can be found  using
+              llsshhww --sshhoorrtt or llsshhww --bbuussiinnffoo.
+
+       --CC _c_l_a_s_s
+              Alias for --ccllaassss _c_l_a_s_s.
+
+       --eennaabbllee _t_e_s_t
+
+       --ddiissaabbllee _t_e_s_t
+              Enables  or  disables  a  test.  _t_e_s_t can be ddmmii (for DMI/SMBIOS
+              extensions), ddeevviiccee--ttrreeee (for  OpenFirmware  device  tree),  ssppdd
+              (for  memory  Serial  Presence  Detect), mmeemmoorryy (for memory-size
+              guessing heuristics), ccppuuiinnffoo (for  kernel-reported  CPU  detec-
+              tion),  ccppuuiidd  (for  CPU  detection),  ppccii (for PCI/AGP access),
+              iissaappnnpp (for ISA PnP extensions), ppccmmcciiaa (for PCMCIA/PCCARD), iiddee
+              (for  IDE/ATAPI),  uussbb (for USB devices),ssccssii (for SCSI) or nneett--
+              wwoorrkk (for network interfaces detection).
+
+       --qquuiieett Don't display status.
+
+       --ssaanniittiizzee
+              Remove  potentially  sensitive  information  from   output   (IP
+              addresses, serial numbers, etc.).
+
+       --nnuummeerriicc
+              Also display numeric IDs (for PCI and USB devices).
+
+BBUUGGSS
+       llsshhww currently does not detect Firewire(IEEE1394) devices.
+
+       Not  all architectures supported by GNU/Linux are fully supported (e.g.
+       CPU detection).
+
+       "Virtual" SCSI interfaces used for SCSI  emulation  over  IDE  are  not
+       reported correctly yet.
+
+NNOOTTEESS
+       llsshhww  must be run as super user or it will only report partial informa-
+       tion.
+
+FFIILLEESS
+       //uussrr//llooccaall//sshhaarree//ppccii..iiddss
+
+       //uussrr//sshhaarree//ppccii..iiddss
+
+       //eettcc//ppccii..iiddss
+
+       //uussrr//sshhaarree//hhwwddaattaa//ppccii..iiddss
+              A list of all known PCI ID's (vendors, devices, classes and sub-
+              classes).
+
+       //pprroocc//bbuuss//ppccii//**
+              Used  to  access  the  configuration of installed PCI busses and
+              devices.
+
+       //pprroocc//iiddee//**
+              Used to access the configuration of  installed  IDE  busses  and
+              devices.
+
+       //pprroocc//ssccssii//**,, //ddeevv//ssgg**
+              Used to access the configuration of installed SCSI devices.
+
+       //ddeevv//ccppuu//**//ccppuuiidd
+              Used on x86 platforms to access CPU-specific configuration.
+
+       //pprroocc//ddeevviiccee--ttrreeee//**
+              Used on PowerPC platforms to access OpenFirmware configuration.
+
+       //pprroocc//bbuuss//uussbb//**
+              Used  to  access  the  configuration of installed USB busses and
+              devices.
+
+       //ssyyss//** Used on 2.6  kernels  to  access  hardware/driver  configuration
+              information.
+
+EEXXAAMMPPLLEESS
+       llsshhww --sshhoorrtt
+              Lists hardware in a compact format.
+
+       llsshhww --ccllaassss ddiisskk --ccllaassss ssttoorraaggee
+              Lists all disks and storage controllers in the system.
+
+       llsshhww --hhttmmll --ccllaassss nneettwwoorrkk
+              Lists all network interfaces in HTML.
+
+       llsshhww --ddiissaabbllee ddmmii
+              Don't use DMI to detect hardware.
+
+SSEEEE AALLSSOO
+       _/_p_r_o_c_/_*, lliinnuuxxiinnffoo(1), llssppccii(8), llssuussbb(8)
+
+CCOOPPYYIINNGG
+       llsshhww  is distributed under the GNU GENERAL PUBLIC LICENSE (GPL) version
+       2.
+
+AAUUTTHHOORR
+       llsshhww is maintained by Lyonel Vincent <lyonel@ezix.org>.
+
+OOTTHHEERR IINNFFOO
+       The webpage for llsshhww is at
+        <URL:http://lshw.org/>
+
+
+
+$Rev: 2179 $                      30 May 2010                          LSHW(1)

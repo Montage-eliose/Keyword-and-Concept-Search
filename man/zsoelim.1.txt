@@ -1,0 +1,52 @@
+ZSOELIM(1)                    Manual pager utils                    ZSOELIM(1)
+
+
+
+NNAAMMEE
+       zsoelim - satisfy .so requests in roff input
+
+SSYYNNOOPPSSIISS
+       zzssooeelliimm [--CCVVhh] [_f_i_l_e ...]
+
+DDEESSCCRRIIPPTTIIOONN
+       zzssooeelliimm  parses  _f_i_l_e arguments, or if none are specified, its standard
+       input for lines of the form:
+
+       ..ssoo <_f_i_l_e_n_a_m_e>
+
+       These requests are replaced by the contents of the _f_i_l_e_n_a_m_e  specified.
+       If the request cannot be met, zzssooeelliimm looks for _f_i_l_e_n_a_m_e_._e_x_t where _._e_x_t
+       can be one of ..ggzz, ..ZZ or ..zz.  Other extension types  may  be  supported
+       depending  upon  compile  time options.  If the request can be met by a
+       compressed file, this file is decompressed using an appropriate  decom-
+       pressor and its output is used to satisfy the request.
+
+       Traditionally, ssooeelliimm programs were used to allow roff preprocessors to
+       be able to preprocess the files referred to by the requests.  This par-
+       ticular  version  was written to circumvent problems created by support
+       for compressed manual pages.
+
+OOPPTTIIOONNSS
+       --CC, ----ccoommppaattiibbllee
+              This flag is available for compatibility with other ssooeelliimm  pro-
+              grams.   Its use is to enable .so requests followed by something
+              other than whitespace.  As this is already  the  default  behav-
+              iour, it is ignored.
+
+       --hh, ----hheellpp
+              Print a help message and exit.
+
+       --VV, ----vveerrssiioonn
+              Display version information.
+
+SSEEEE AALLSSOO
+       ggrrooffff(1), mmaann(1), nnrrooffff(1), ttrrooffff(1)
+
+AAUUTTHHOORR
+       Wilf. (G.Wilford@ee.surrey.ac.uk).
+       Fabrizio Polacco (fpolacco@debian.org).
+       Colin Watson (cjwatson@debian.org).
+
+
+
+2.6.7.1                           2014-04-10                        ZSOELIM(1)

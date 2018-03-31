@@ -1,0 +1,26 @@
+SETSID(1)                        User Commands                       SETSID(1)
+
+
+
+NNAAMMEE
+       setsid - run a program in a new session
+
+SSYYNNOOPPSSIISS
+       sseettssiidd _p_r_o_g_r_a_m [_a_r_g...]
+
+DDEESSCCRRIIPPTTIIOONN
+       sseettssiidd runs a program in a new session.
+
+SSEEEE AALLSSOO
+       sseettssiidd(2)
+
+AAUUTTHHOORR
+       Rick Sladkey <jrs@world.std.com>
+
+AAVVAAIILLAABBIILLIITTYY
+       The  setsid  command is part of the util-linux package and is available
+       from ftp://ftp.kernel.org/pub/linux/utils/util-linux/.
+
+
+
+util-linux                       November 1993                       SETSID(1)

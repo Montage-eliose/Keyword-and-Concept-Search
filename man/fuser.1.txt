@@ -1,0 +1,183 @@
+FUSER(1)                         User Commands                        FUSER(1)
+
+
+
+NNAAMMEE
+       fuser - identify processes using files or sockets
+
+SSYYNNOOPPSSIISS
+       ffuusseerr [--ffuuvv] [--aa|--ss] [--44|--66] [--cc|--mm|--nn _s_p_a_c_e] [ --kk [--ii] [--MM] [--ww]
+       [--_S_I_G_N_A_L] ] _n_a_m_e ...
+       ffuusseerr -l
+       ffuusseerr -V
+
+DDEESSCCRRIIPPTTIIOONN
+       ffuusseerr displays the PIDs of processes using the specified files or  file
+       systems.   In the default display mode, each file name is followed by a
+       letter denoting the type of access:
+
+              cc      current directory.
+              ee      executable being run.
+              ff      open file.  ff is omitted in default display mode.
+              FF      open file for writing.  FF is omitted in  default  display
+                     mode.
+              rr      root directory.
+              mm      mmap'ed file or shared library.
+
+       ffuusseerr  returns a non-zero return code if none of the specified files is
+       accessed or in case of a fatal error.  If at least one access has  been
+       found, ffuusseerr returns zero.
+
+       In  order  to  look  up processes using TCP and UDP sockets, the corre-
+       sponding name space has to be selected with the --nn option.  By  default
+       ffuusseerr  will look in both IPv6 and IPv4 sockets.  To change the default,
+       behavior, use the --44 and --66 options.  The socket(s) can be specified by
+       the  local  and  remote  port,  and the remote address.  All fields are
+       optional, but commas in front of missing fields must be present:
+
+       [[_l_c_l___p_o_r_t]][[,[[_r_m_t___h_o_s_t]][[,[[_r_m_t___p_o_r_t]]]]]]
+
+       Either symbolic or numeric values can be used for IP addresses and port
+       numbers.
+
+       ffuusseerr  outputs  only  the  PIDs  to  stdout, everything else is sent to
+       stderr.
+
+OOPPTTIIOONNSS
+       --aa, ----aallll
+              Show all files specified on the command line.  By default,  only
+              files that are accessed by at least one process are shown.
+
+       --cc     Same as -m option, used for POSIX compatibility.
+
+       --ff     Silently ignored, used for POSIX compatibility.
+
+       --kk, ----kkiillll
+              Kill processes accessing the file.  Unless changed with --_S_I_G_N_A_L,
+              SIGKILL is sent.  An ffuusseerr process never kills itself,  but  may
+              kill  other  ffuusseerr  processes.   The  effective  user  ID of the
+              process executing ffuusseerr is  set  to  its  real  user  ID  before
+              attempting to kill.
+
+       --ii, ----iinntteerraaccttiivvee
+              Ask  the  user  for  confirmation before killing a process. This
+              option is silently ignored if --kk is not present too.
+
+       --ll, ----lliisstt--ssiiggnnaallss
+              List all known signal names.
+
+       --mm _N_A_M_E, ----mmoouunntt _N_A_M_E
+              _N_A_M_E specifies a file on a mounted file system or a block device
+              that  is  mounted.   All  processes accessing files on that file
+              system are listed.  If a directory  file  is  specified,  it  is
+              automatically  changed  to  _N_A_M_E/.   to use any file system that
+              might be mounted on that directory.
+
+       --MM ----iissmmoouunnttppooiinntt
+              Request will be fulfilled only if _N_A_M_E specifies  a  mountpoint.
+              This  is  an invaluable seatbelt which prevents you from killing
+              the machine if _N_A_M_E happens to not be a filesystem.
+
+       --ww     Kill only processes which have write  access.   This  option  is
+              silently ignored if --kk is not present too.
+
+       --nn _S_P_A_C_E, ----nnaammeessppaaccee _S_P_A_C_E
+              Select  a  different  name  space.   The  name spaces ffiillee (file
+              names, the default), uuddpp (local UDP ports), and ttccpp  (local  TCP
+              ports)  are supported.  For ports, either the port number or the
+              symbolic name can be specified.  If there is no  ambiguity,  the
+              shortcut notation _n_a_m_e//_s_p_a_c_e (e.g. _8_0//_t_c_p) can be used.
+
+       --ss, ----ssiilleenntt
+              Silent  operation.  --uu and --vv are ignored in this mode.  --aa must
+              not be used with --ss.
+
+       --_S_I_G_N_A_L
+              Use the specified signal instead of SIGKILL  when  killing  pro-
+              cesses.    Signals   can  be  specified  either  by  name  (e.g.
+              --HHUUPP)oorrby number (e.g.  --11).  This option is silently ignored if
+              the --kk option is not used.
+
+       --uu, ----uusseerr
+              Append the user name of the process owner to each PID.
+
+       --vv, ----vveerrbboossee
+
+              Verbose  mode.   Processes  are  shown  in a ppss-like style.  The
+              fields PID, USER and COMMAND are similar to  ppss.   ACCESS  shows
+              how  the process accesses the file.  Verbose mode will also show
+              when a particular file is being access as a  mount  point,  knfs
+              export  or  swap  file.  In this case kkeerrnneell is shown instead of
+              the PID.
+
+       --VV, ----vveerrssiioonn
+              Display version information.
+
+       --44, ----iippvv44
+              Search only for IPv4 sockets.  This option must not be used with
+              the --66 option and only has an effect with the tcp and udp names-
+              paces.
+
+       --66, ----iippvv66
+              Search only for IPv6 sockets.  This option must not be used with
+              the --44 option and only has an effect with the tcp and udp names-
+              paces.
+
+       --      Reset all options and set the signal back to SIGKILL.
+
+FFIILLEESS
+       /proc  location of the proc file system
+
+EEXXAAMMPPLLEESS
+       ffuusseerr --kkmm //hhoommee
+              kills all processes accessing the file system /home in any way.
+
+       iiff ffuusseerr --ss //ddeevv//ttttyySS11;; tthheenn ::;; eellssee _s_o_m_e_t_h_i_n_g;; ffii
+              invokes _s_o_m_e_t_h_i_n_g if no other process is using /dev/ttyS1.
+
+       ffuusseerr tteellnneett//ttccpp
+              shows all processes at the (local) TELNET port.
+
+RREESSTTRRIICCTTIIOONNSS
+       Processes accessing the same file or file system several times  in  the
+       same way are only shown once.
+
+       If the same object is specified several times on the command line, some
+       of those entries may be ignored.
+
+       ffuusseerr may only be able to gather partial information  unless  run  with
+       privileges.   As  a consequence, files opened by processes belonging to
+       other users may not be listed and  executables  may  be  classified  as
+       mapped only.
+
+       Installing  ffuusseerr SUID root will avoid problems associated with partial
+       information, but may be undesirable for security and privacy reasons.
+
+       uuddpp and ttccpp name spaces, and UNIX domain sockets can't be searched with
+       kernels older than 1.3.78.
+
+       Accesses by the kernel are only shown with the --vv option.
+
+       The  --kk  option  only  works  on processes.  If the user is the kernel,
+       ffuusseerr will print an advice, but take no action beyond that.
+
+BBUUGGSS
+       fuser -m /dev/sgX will show (or kill with the -k flag)  all  processes,
+       even  if  you  don't  have  that device configured.  There may be other
+       devices it does this for too.
+
+       ffuusseerr cannot report on any processes that it doesn't have permission to
+       look at the file descriptor table for.  The most common time this prob-
+       lem occurs is when looking for TCP or UDP sockets when running ffuusseerr as
+       a non-root user.  In this case ffuusseerr will report no access
+
+       The  mount  -m option will match any file within the save device as the
+       specified file, use the -M option as well if you mean to  specify  only
+       the mount point.
+
+SSEEEE AALLSSOO
+       kkiillll(1), kkiillllaallll(1), llssooff(8), ppkkiillll(1), ppss(1), kkiillll(2).
+
+
+
+psmisc                            2012-07-28                          FUSER(1)

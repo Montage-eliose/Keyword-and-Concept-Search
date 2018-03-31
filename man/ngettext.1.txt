@@ -1,0 +1,72 @@
+NGETTEXT(1)                           GNU                          NGETTEXT(1)
+
+
+
+NNAAMMEE
+       ngettext - translate message and choose plural form
+
+SSYYNNOOPPSSIISS
+       nnggeetttteexxtt [_O_P_T_I_O_N] [_T_E_X_T_D_O_M_A_I_N] _M_S_G_I_D _M_S_G_I_D_-_P_L_U_R_A_L _C_O_U_N_T
+
+DDEESSCCRRIIPPTTIIOONN
+       The  nnggeetttteexxtt  program  translates  a natural language message into the
+       user's language, by looking up the translation in  a  message  catalog,
+       and  chooses  the  appropriate plural form, which depends on the number
+       _C_O_U_N_T and the language of the message catalog where the translation was
+       found.
+
+       Display native language translation of a textual message whose grammat-
+       ical form depends on a number.
+
+       --dd, ----ddoommaaiinn=_T_E_X_T_D_O_M_A_I_N
+              retrieve translated message from TEXTDOMAIN
+
+       --ee     enable expansion of some escape sequences
+
+       --EE     (ignored for compatibility)
+
+       --hh, ----hheellpp
+              display this help and exit
+
+       --VV, ----vveerrssiioonn
+              display version information and exit
+
+       [TEXTDOMAIN]
+              retrieve translated message from TEXTDOMAIN
+
+       MSGID MSGID-PLURAL
+              translate MSGID (singular) / MSGID-PLURAL (plural)
+
+       COUNT  choose singular/plural form based on this value
+
+       If the TEXTDOMAIN parameter is not given, the domain is determined from
+       the  environment  variable  TEXTDOMAIN.   If the message catalog is not
+       found in the regular directory, another location can be specified  with
+       the  environment  variable  TEXTDOMAINDIR.   Standard search directory:
+       /usr/share/locale
+
+AAUUTTHHOORR
+       Written by Ulrich Drepper.
+
+RREEPPOORRTTIINNGG BBUUGGSS
+       Report bugs to <bug-gnu-gettext@gnu.org>.
+
+CCOOPPYYRRIIGGHHTT
+       Copyright (C)  1995-1997,  2000-2007  Free  Software  Foundation,  Inc.
+       License      GPLv3+:     GNU     GPL     version     3     or     later
+       <http://gnu.org/licenses/gpl.html>
+       This is free software: you are free  to  change  and  redistribute  it.
+       There is NO WARRANTY, to the extent permitted by law.
+
+SSEEEE AALLSSOO
+       The  full documentation for nnggeetttteexxtt is maintained as a Texinfo manual.
+       If the iinnffoo and nnggeetttteexxtt programs are properly installed at your  site,
+       the command
+
+              iinnffoo nnggeetttteexxtt
+
+       should give you access to the complete manual.
+
+
+
+GNU gettext-runtime 0.18.3        August 2013                      NGETTEXT(1)

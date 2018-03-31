@@ -1,0 +1,164 @@
+MYSQL_INSTALL_DB()                                          MYSQL_INSTALL_DB()
+
+
+
+NNAAMMEE
+       mysql_install_db - initialize MySQL data directory
+
+SSYYNNOOPPSSIISS
+       mmyyssqqll__iinnssttaallll__ddbb [[_o_p_t_i_o_n_s]]
+
+DDEESSCCRRIIPPTTIIOONN
+       mmyyssqqll__iinnssttaallll__ddbb initializes the MySQL data directory and creates the
+       system tables that it contains, if they do not exist.  mmyyssqqll__iinnssttaallll__ddbb
+       is a shell script and is available only on Unix platforms. (As of MySQL
+       5.6, mmyyssqqll__iinnssttaallll__ddbb is a Perl script and can be used on any system
+       with Perl installed.)
+
+       To invoke mmyyssqqll__iinnssttaallll__ddbb, use the following syntax:
+
+           shell> mmyyssqqll__iinnssttaallll__ddbb [[_o_p_t_i_o_n_s]]
+
+       Because the MySQL server, mmyyssqqlldd, must access the data directory when
+       it runs later, you should either run mmyyssqqll__iinnssttaallll__ddbb from the same
+       system account that will be used for running mmyyssqqlldd, or run it as root
+       and specify the ----uusseerr option to indicate the user name that mmyyssqqlldd
+       will run as. It might be necessary to specify other options such as
+       ----bbaasseeddiirr or ----ddaattaaddiirr if mmyyssqqll__iinnssttaallll__ddbb does not use the correct
+       locations for the installation directory or data directory. For
+       example:
+
+           shell> ssccrriippttss//mmyyssqqll__iinnssttaallll__ddbb ----uusseerr==mmyyssqqll \\
+                    ----bbaasseeddiirr==//oopptt//mmyyssqqll//mmyyssqqll \\
+                    ----ddaattaaddiirr==//oopptt//mmyyssqqll//mmyyssqqll//ddaattaa
+
+
+           NNoottee
+           If you have set a custom TMPDIR environment variable when
+           performing the installation, and the specified directory is not
+           accessible, mmyyssqqll__iinnssttaallll__ddbb may fail. If so, unset TMPDIR or set
+           TMPDIR to point to the system temporary directory (usually /tmp).
+
+       mmyyssqqll__iinnssttaallll__ddbb supports the following options, which can be specified
+       on the command line or in the [mysql_install_db] group of an option
+       file. (Options that are common to mmyyssqqlldd can also be specified in the
+       [mysqld] group.) Other options are passed to mmyyssqqlldd. For information
+       about option files used by MySQL programs, see Section 4.2.6, "Using
+       Option Files".
+
+       +o   ----hheellpp
+
+           Display a help message and exit.
+
+       +o   ----bbaasseeddiirr==_d_i_r___n_a_m_e
+
+           The path to the MySQL installation directory.
+
+       +o   ----bbuuiillddddiirr==_d_i_r___n_a_m_e
+
+           For use with ----ssrrccddiirr and out-of-source builds. Set this to the
+           location of the directory where the built files reside.
+
+       +o   ----ccrroossss--bboooottssttrraapp
+
+           For internal use. This option is used for building system tables on
+           one host intended for another.
+
+       +o   ----ddaattaaddiirr==_d_i_r___n_a_m_e
+
+           The path to the MySQL data directory.
+
+       +o   ----ddeeffaauullttss--eexxttrraa--ffiillee==_f_i_l_e___n_a_m_e
+
+           Read this option file after the global option file but (on Unix)
+           before the user option file. If the file does not exist or is
+           otherwise inaccessible, an error occurs.  _f_i_l_e___n_a_m_e is interpreted
+           relative to the current directory if given as a relative path name
+           rather than a full path name.
+
+       +o   ----ddeeffaauullttss--ffiillee==_f_i_l_e___n_a_m_e
+
+           Use only the given option file. If the file does not exist or is
+           otherwise inaccessible, an error occurs.  _f_i_l_e___n_a_m_e is interpreted
+           relative to the current directory if given as a relative path name
+           rather than a full path name.
+
+       +o   ----ffoorrccee
+
+           Cause mmyyssqqll__iinnssttaallll__ddbb to run even if DNS does not work. Grant
+           table entries normally created using host names will use IP
+           addresses instead.
+
+       +o   ----llddaattaa==_d_i_r___n_a_m_e
+
+           A synonym for ----ddaattaaddiirr.
+
+       +o   ----nnoo--ddeeffaauullttss
+
+           Do not read any option files. If program startup fails due to
+           reading unknown options from an option file, ----nnoo--ddeeffaauullttss can be
+           used to prevent them from being read.
+
+       +o   ----rrppmm
+
+           For internal use. This option is used during the MySQL installation
+           process for install operations performed using RPM packages.
+
+       +o   ----sskkiipp--nnaammee--rreessoollvvee
+
+           Use IP addresses rather than host names when creating grant table
+           entries. This option can be useful if your DNS does not work.
+
+       +o   ----ssrrccddiirr==_d_i_r___n_a_m_e
+
+           For internal use. This option specifies the directory under which
+           mmyyssqqll__iinnssttaallll__ddbb looks for support files such as the error message
+           file and the file for populating the help tables.
+
+       +o   ----uusseerr==_u_s_e_r___n_a_m_e
+
+           The system (login) user name to use for running mmyyssqqlldd. Files and
+           directories created by mmyyssqqlldd will be owned by this user. You must
+           be the system root user to use this option. By default, mmyyssqqlldd runs
+           using your current login name and files and directories that it
+           creates will be owned by you.
+
+       +o   ----vveerrbboossee
+
+           Verbose mode. Print more information about what the program does.
+
+       +o   ----wwiinnddoowwss
+
+           For internal use. This option is used for creating Windows
+           distributions.
+
+CCOOPPYYRRIIGGHHTT
+       Copyright (C) 1997, 2016, Oracle and/or its affiliates. All rights
+       reserved.
+
+       This documentation is free software; you can redistribute it and/or
+       modify it only under the terms of the GNU General Public License as
+       published by the Free Software Foundation; version 2 of the License.
+
+       This documentation is distributed in the hope that it will be useful,
+       but WITHOUT ANY WARRANTY; without even the implied warranty of
+       MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+       General Public License for more details.
+
+       You should have received a copy of the GNU General Public License along
+       with the program; if not, write to the Free Software Foundation, Inc.,
+       51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA or see
+       http://www.gnu.org/licenses/.
+
+
+SSEEEE AALLSSOO
+       For more information, please refer to the MySQL Reference Manual, which
+       may already be installed locally and which is also available online at
+       http://dev.mysql.com/doc/.
+
+AAUUTTHHOORR
+       Oracle Corporation (http://dev.mysql.com/).
+
+
+
+                                                            MYSQL_INSTALL_DB()

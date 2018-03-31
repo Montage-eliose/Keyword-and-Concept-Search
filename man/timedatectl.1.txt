@@ -1,0 +1,132 @@
+TIMEDATECTL(1)                    timedatectl                   TIMEDATECTL(1)
+
+
+
+NNAAMMEE
+       timedatectl - Control the system time and date
+
+SSYYNNOOPPSSIISS
+       ttiimmeeddaatteeccttll [[OOPPTTIIOONNSS......]] {{CCOOMMMMAANNDD}}
+
+DDEESSCCRRIIPPTTIIOONN
+       ttiimmeeddaatteeccttll may be used to query and change the system clock and its
+       settings.
+
+OOPPTTIIOONNSS
+       The following options are understood:
+
+       --hh, ----hheellpp
+           Prints a short help text and exits.
+
+       ----vveerrssiioonn
+           Prints a short version string and exits.
+
+       ----nnoo--ppaaggeerr
+           Do not pipe output into a pager.
+
+       ----nnoo--aasskk--ppaasssswwoorrdd
+           Don't query the user for authentication for privileged operations.
+
+       --HH, ----hhoosstt
+           Execute the operation remotely. Specify a hostname, or username and
+           hostname separated by @, to connect to. This will use SSH to talk
+           to a remote system.
+
+       ----aaddjjuusstt--ssyysstteemm--cclloocckk
+           If sseett--llooccaall--rrttcc is invoked and this option is passed the system
+           clock is synchronized from the RTC again, taking the new setting
+           into account. Otherwise the RTC is synchronized from the system
+           clock.
+
+       The following commands are understood:
+
+       ssttaattuuss
+           Show current settings of the system clock and RTC.
+
+       sseett--ttiimmee [[TTIIMMEE]]
+           Set the system clock to the specified time. This will also update
+           the RTC time accordingly. The time may be specified in the format
+           "2012-10-30 18:17:16".
+
+       sseett--ttiimmeezzoonnee [[TTIIMMEEZZOONNEE]]
+           Set the system time zone to the specified value. Available time
+           zones can be listed with lliisstt--ttiimmeezzoonneess. If the RTC is configured
+           to be in the local time this will also update the RTC time. This
+           call will alter the /etc/localtime symlink. See llooccaallttiimmee(5) for
+           more information.
+
+       lliisstt--ttiimmeezzoonneess
+           List available time zones, one per line. Entries from the list can
+           be set as the system time zone with sseett--ttiimmeezzoonnee.
+
+       sseett--llooccaall--rrttcc [[BBOOOOLL]]
+           Takes a boolean argument. If 0 the system is configured to maintain
+           the RTC in universal time, if 1 it will maintain the RTC in local
+           time instead. Note that maintaining the RTC in the local time zone
+           is not fully supported and will create various problems with time
+           zone changes and daylight saving adjustments. If at all possible
+           use RTC in UTC. Note that invoking this will also synchronize the
+           RTC from the system clock, unless ----aaddjjuusstt--ssyysstteemm--cclloocckk is passed
+           (see above). This command will change the 3rd line of /etc/adjtime,
+           as documented in hhwwcclloocckk(8).
+
+       sseett--nnttpp [[BBOOOOLL]]
+           Takes a boolean argument. Controls whether NTP based network time
+           synchronization is enabled (if available).
+
+EEXXIITT SSTTAATTUUSS
+       On success 0 is returned, a non-zero failure code otherwise.
+
+EENNVVIIRROONNMMEENNTT
+       _$_S_Y_S_T_E_M_D___P_A_G_E_R
+           Pager to use when ----nnoo--ppaaggeerr is not given; overrides _$_P_A_G_E_R.
+           Setting this to an empty string or the value cat is equivalent to
+           passing ----nnoo--ppaaggeerr.
+
+EEXXAAMMPPLLEESS
+       Show current settings:
+
+           $ timedatectl
+                 Local time: Fri, 2012-11-02 09:26:46 CET
+             Universal time: Fri, 2012-11-02 08:26:46 UTC
+                   RTC time: Fri, 2012-11-02 08:26:45
+                   Timezone: Europe/Warsaw
+                 UTC offset: +0100
+                NTP enabled: no
+           NTP synchronized: no
+            RTC in local TZ: no
+                 DST active: no
+            Last DST change: CEST  CET, DST became inactive
+                             Sun, 2012-10-28 02:59:59 CEST
+                             Sun, 2012-10-28 02:00:00 CET
+            Next DST change: CET  CEST, DST will become active
+                             the clock will jump one hour forward
+                             Sun, 2013-03-31 01:59:59 CET
+                             Sun, 2013-03-31 03:00:00 CEST
+
+
+       Enable an NTP daemon (chronyd):
+
+           $ timedatectl set-ntp true
+           ==== AUTHENTICATING FOR org.freedesktop.timedate1.set-ntp ===
+           Authentication is required to control whether network time synchronization shall be enabled.
+           Authenticating as: user
+           Password: ********
+           ==== AUTHENTICATION COMPLETE ===
+
+
+           $ systemctl status chronyd.service
+           chronyd.service - NTP client/server
+                     Loaded: loaded (/usr/lib/systemd/system/chronyd.service; enabled)
+                     Active: active (running) since Fri, 2012-11-02 09:36:25 CET; 5s ago
+           ...
+
+
+
+SSEEEE AALLSSOO
+       ssyysstteemmdd(1), hhwwcclloocckk(8), ddaattee(1), llooccaallttiimmee(5), ssyysstteemmccttll(1), ssyysstteemmdd--
+       ttiimmeeddaatteedd..sseerrvviiccee(8)
+
+
+
+systemd 204                                                     TIMEDATECTL(1)

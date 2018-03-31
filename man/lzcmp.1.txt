@@ -1,0 +1,36 @@
+XZDIFF(1)                          XZ Utils                          XZDIFF(1)
+
+
+
+NNAAMMEE
+       xzcmp, xzdiff, lzcmp, lzdiff - compare compressed files
+
+SSYYNNOOPPSSIISS
+       xxzzccmmpp [_c_m_p___o_p_t_i_o_n_s] _f_i_l_e_1 [_f_i_l_e_2]
+       xxzzddiiffff [_d_i_f_f___o_p_t_i_o_n_s] _f_i_l_e_1 [_f_i_l_e_2]
+       llzzccmmpp [_c_m_p___o_p_t_i_o_n_s] _f_i_l_e_1 [_f_i_l_e_2]
+       llzzddiiffff [_d_i_f_f___o_p_t_i_o_n_s] _f_i_l_e_1 [_f_i_l_e_2]
+
+DDEESSCCRRIIPPTTIIOONN
+       xxzzccmmpp  and  xxzzddiiffff  invoke  ccmmpp(1)  or ddiiffff(1) on files compressed with
+       xxzz(1), llzzmmaa(1), ggzziipp(1), bbzziipp22(1), or llzzoopp(1).  All  options  specified
+       are  passed  directly to ccmmpp(1) or ddiiffff(1).  If only one file is speci-
+       fied, then the files compared are _f_i_l_e_1 (which must have a suffix of  a
+       supported compression format) and _f_i_l_e_1 from which the compression for-
+       mat suffix has been stripped.  If two files are  specified,  then  they
+       are  uncompressed  if necessary and fed to ccmmpp(1) or ddiiffff(1).  The exit
+       status from ccmmpp(1) or ddiiffff(1) is preserved.
+
+       The names llzzccmmpp and llzzddiiffff are provided for backward compatibility with
+       LZMA Utils.
+
+SSEEEE AALLSSOO
+       ccmmpp(1), ddiiffff(1), xxzz(1), ggzziipp(1), bbzziipp22(1), llzzoopp(1), zzddiiffff(1)
+
+BBUUGGSS
+       Messages  from  the ccmmpp(1) or ddiiffff(1) programs refer to temporary file-
+       names instead of those specified.
+
+
+
+Tukaani                           2011-03-19                         XZDIFF(1)

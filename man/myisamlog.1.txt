@@ -1,0 +1,105 @@
+MYISAMLOG(1)                 MySQL Database System                MYISAMLOG(1)
+
+
+
+NNAAMMEE
+       myisamlog - display MyISAM log file contents
+
+SSYYNNOOPPSSIISS
+       mmyyiissaammlloogg [[_o_p_t_i_o_n_s]] [[_l_o_g___f_i_l_e [[_t_b_l___n_a_m_e]] ......]]
+
+DDEESSCCRRIIPPTTIIOONN
+       mmyyiissaammlloogg processes the contents of a MyISAM log file. To create such a
+       file, start the server with a ----lloogg--iissaamm==lloogg__ffiillee option.
+
+       Invoke mmyyiissaammlloogg like this:
+
+           shell> mmyyiissaammlloogg [[_o_p_t_i_o_n_s]] [[_f_i_l_e___n_a_m_e [[_t_b_l___n_a_m_e]] ......]]
+
+       The default operation is update (--uu). If a recovery is done (--rr), all
+       writes and possibly updates and deletes are done and errors are only
+       counted. The default log file name is myisam.log if no _l_o_g___f_i_l_e
+       argument is given. If tables are named on the command line, only those
+       tables are updated.
+
+       mmyyiissaammlloogg supports the following options:
+
+       +o   --??, --II
+
+           Display a help message and exit.
+
+       +o   --cc _N
+
+           Execute only _N commands.
+
+       +o   --ff _N
+
+           Specify the maximum number of open files.
+
+       +o   --ii
+
+           Display extra information before exiting.
+
+       +o   --oo _o_f_f_s_e_t
+
+           Specify the starting offset.
+
+       +o   --pp _N
+
+           Remove _N components from path.
+
+       +o   --rr
+
+           Perform a recovery operation.
+
+       +o   --RR _r_e_c_o_r_d___p_o_s___f_i_l_e _r_e_c_o_r_d___p_o_s
+
+           Specify record position file and record position.
+
+       +o   --uu
+
+           Perform an update operation.
+
+       +o   --vv
+
+           Verbose mode. Print more output about what the program does. This
+           option can be given multiple times to produce more and more output.
+
+       +o   --ww _w_r_i_t_e___f_i_l_e
+
+           Specify the write file.
+
+       +o   --VV
+
+           Display version information.
+
+CCOOPPYYRRIIGGHHTT
+       Copyright (C) 1997, 2016, Oracle and/or its affiliates. All rights
+       reserved.
+
+       This documentation is free software; you can redistribute it and/or
+       modify it only under the terms of the GNU General Public License as
+       published by the Free Software Foundation; version 2 of the License.
+
+       This documentation is distributed in the hope that it will be useful,
+       but WITHOUT ANY WARRANTY; without even the implied warranty of
+       MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+       General Public License for more details.
+
+       You should have received a copy of the GNU General Public License along
+       with the program; if not, write to the Free Software Foundation, Inc.,
+       51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA or see
+       http://www.gnu.org/licenses/.
+
+
+SSEEEE AALLSSOO
+       For more information, please refer to the MySQL Reference Manual, which
+       may already be installed locally and which is also available online at
+       http://dev.mysql.com/doc/.
+
+AAUUTTHHOORR
+       Oracle Corporation (http://dev.mysql.com/).
+
+
+
+MySQL 5.5                         03/01/2016                      MYISAMLOG(1)

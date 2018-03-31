@@ -1,0 +1,39 @@
+GENCAT(1)                           Debian                           GENCAT(1)
+
+
+
+NNNNAAAAMMMMEEEE
+       gencat - Generate message catalog
+
+SSSSYYYYNNNNOOOOPPPPSSSSIIIISSSS
+       gencat [OPTION...] -o OUTPUT-FILE [INPUT-FILE]...
+
+DDDDEEEESSSSCCCCRRRRIIIIPPPPTTTTIIIIOOOONNNN
+       The ggggeeeennnnccccaaaatttt program is specified in the X/Open standard and the GNU
+       implementation follows this specification and so processes all
+       correctly formed input files. Additionally some extension are
+       implemented which help to work in a more reasonable way with the
+       ccccaaaattttggggeeeettttssss(3) functions.
+
+       ----HHHH, --------hhhheeeeaaaaddddeeeerrrr _N_A_M_E
+              Create C header file NAME containing symbol definitions
+
+       --------nnnneeeewwww  Do not use existing catalog, force new output file
+
+       ----oooo, --------oooouuuuttttppppuuuutttt _N_A_M_E
+              Write output to file NAME
+
+AAAAUUUUTTTTHHHHOOOORRRR
+       _g_e_n_c_a_t was written by Ulrich Drepper as part of the GNU C Library.
+
+       This man page was written by Jeff Bailey <jbailey@debian.org>.
+
+
+
+
+
+
+
+
+
+3rd Berkeley Distribution        November 2003                       GENCAT(1)

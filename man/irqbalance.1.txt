@@ -1,0 +1,125 @@
+IRQBALANCE(1)                     irqbalance                     IRQBALANCE(1)
+
+
+
+NNAAMMEE
+       irqbalance - distribute hardware interrupts across processors on a mul-
+       tiprocessor system
+
+SSYYNNOOPPSSIISS
+       iirrqqbbaallaannccee
+
+
+DDEESSCCRRIIPPTTIIOONN
+       The purpose of iirrqqbbaallaannccee is distribute hardware interrupts across pro-
+       cessors on a multiprocessor system in order to increase performance.
+
+
+OOPPTTIIOONNSS
+       ----oonneesshhoott
+              Causes irqbalance to be run once, after which the daemon exits
+
+
+       ----ddeebbuugg
+              Causes  irqbalance  to  print  extra debug information.  Implies
+              --foreground
+
+
+       ----ffoorreeggrroouunndd
+              Causes irqbalance to run in the foreground (without --debug)
+
+
+       ----hhiinnttppoolliiccyy==[[eexxaacctt || ssuubbsseett || iiggnnoorree]]
+              Set the policy for how irq kernel affinity hinting  is  treated.
+              Can be one of:
+
+       _e_x_a_c_t irq affinity hint is applied unilaterally and never violated
+
+       _s_u_b_s_e_t irq is balanced, but the assigned object will be a subset of the
+       affintiy hint
+
+       _i_g_n_o_r_e irq affinity hint value is completely ignored
+
+
+       ----ppoowweerrtthhrreesshh==<<tthhrreesshhoolldd>>
+              Set the threshold at which we attempt to move a cpu into  power-
+              save mode If more than <threshold> cpus are more than 1 standard
+              deviation below the average cpu softirq workload,  and  no  cpus
+              are  more  than 1 standard deviation above (and have more than 1
+              irq assigned to them), attempt to place 1 cpu in powersave mode.
+              In  powersave mode, a cpu will not have any irqs balanced to it,
+              in an effort to prevent that cpu from waking up without need.
+
+
+       ----bbaanniirrqq==<<iirrqqnnuumm>>
+              Add the specified irq to the set of banned irqs. irqbalance will
+              not affect the affinity of any irqs on the banned list, allowing
+              them to be specified manually.  This option is addative and  can
+              be  specified  multiple times. For example to ban irqs 43 and 44
+              from balancing,  use  the  following  command  line:  iirrqqbbaallaannccee
+              ----bbaanniirrqq==4433 ----bbaanniirrqq==4444
+
+
+
+       ----ppoolliiccyyssccrriipptt==<<ssccrriipptt>>
+              When specified, the referenced script will execute once for each
+              discovered irq, with the sysfs device path and irq number passed
+              as  arguments.   The  script  may specify zero or more key=value
+              pairs that will guide irqbalance in the management of that  irq.
+              Key=value  pairs are printed by the script on stdout and will be
+              captured and interpreted by irqbalance.   Irqbalance  expects  a
+              zero  exit code from the provided utility.  Recognized key=value
+              pairs are:
+
+       _b_a_n_=_[_t_r_u_e _| _f_a_l_s_e_]
+
+       Directs irqbalance to exclude the passed in irq from balancing
+
+       _b_a_l_a_n_c_e___l_e_v_e_l_=_[_n_o_n_e _| _p_a_c_k_a_g_e _| _c_a_c_h_e _| _c_o_r_e_]
+              This allows a user to override the balance level of a given irq.
+              By  default  the balance level is determined automatically based
+              on the pci device class of the device that owns the irq.
+
+       _n_u_m_a___n_o_d_e_=_<_i_n_t_e_g_e_r_>
+              This allows a user to override the numa node  that  sysfs  indi-
+              cates  a  given device irq is local to.  Often, systems will not
+              specify this information in ACPI, and as a result  devicesa  are
+              considered  equidistant  from  all numa nodes in a system.  This
+              option allows for that hardware provided information to be over-
+              ridden,  so  that  irqbalance  can  bias  irq affinity for these
+              devices toward its most local node.  Note that specifying  a  -1
+              here forces irqbalance to consider an interrupt from a device to
+              be equidistant from all nodes.
+
+       ----ppiidd==<<ffiillee>>
+              Have irqbalance write its process id to the specified file.   By
+              default no pidfile is written.  The written pidfile is automati-
+              cally unlinked when irqbalance exits.
+
+
+EENNVVIIRROONNMMEENNTT VVAARRIIAABBLLEESS
+       IIRRQQBBAALLAANNCCEE__OONNEESSHHOOTT
+              Same as --oneshot
+
+
+       IIRRQQBBAALLAANNCCEE__DDEEBBUUGG
+              Same as --debug
+
+
+       IIRRQQBBAALLAANNCCEE__BBAANNNNEEDD__CCPPUUSS
+              Provides a mask of cpus which irqbalance should ignore and never
+              assign interrupts to
+
+
+SSIIGGNNAALLSS
+       SSIIGGHHUUPP Forces a rescan of the available irqs and system topology
+
+
+HHoommeeppaaggee
+       http://code.google.com/p/irqbalance
+
+
+
+
+
+Linux                              Dec 2006                      IRQBALANCE(1)

@@ -1,0 +1,41 @@
+PKACTION(1)                        pkaction                        PKACTION(1)
+
+
+
+NNAAMMEE
+       pkaction - Get details about a registered action
+
+SSYYNNOOPPSSIISS
+       ppkkaaccttiioonn [----vveerrssiioonn] [----hheellpp]
+
+       ppkkaaccttiioonn [----vveerrbboossee]
+
+       ppkkaaccttiioonn ----aaccttiioonn--iidd _a_c_t_i_o_n [----vveerrbboossee]
+
+DDEESSCCRRIIPPTTIIOONN
+       ppkkaaccttiioonn is used to obtain information about registered PolicyKit
+       actions. If called with ----aaccttiioonn--iidd then all actions are displayed.
+       Otherwise the action _a_c_t_i_o_n. If called without the ----vveerrbboossee option
+       only the name of the action is shown. Otherwise details about the
+       actions are shown.
+
+RREETTUURRNN VVAALLUUEE
+       On success ppkkaaccttiioonn returns 0. Otherwise a non-zero value is returned
+       and a diagnostic message is printed on standard error.
+
+AAUUTTHHOORR
+       Written by David Zeuthen <davidz@redhat.com> with a lot of help from
+       many others.
+
+BBUUGGSS
+       Please send bug reports to either the distribution or the polkit-devel
+       mailing list, see the link
+       hhttttpp::////lliissttss..ffrreeeeddeesskkttoopp..oorrgg//mmaaiillmmaann//lliissttiinnffoo//ppoollkkiitt--ddeevveell on how to
+       subscribe.
+
+SSEEEE AALLSSOO
+       ppoollkkiitt(8), ppkkcchheecckk(1), ppkkeexxeecc(1), ppkkttttyyaaggeenntt(1)
+
+
+
+polkit                             May 2009                        PKACTION(1)

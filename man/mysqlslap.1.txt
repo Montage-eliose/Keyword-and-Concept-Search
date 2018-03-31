@@ -1,0 +1,404 @@
+MYSQLSLAP(1)                 MySQL Database System                MYSQLSLAP(1)
+
+
+
+NNAAMMEE
+       mysqlslap - load emulation client
+
+SSYYNNOOPPSSIISS
+       mmyyssqqllssllaapp [[_o_p_t_i_o_n_s]]
+
+DDEESSCCRRIIPPTTIIOONN
+       mmyyssqqllssllaapp is a diagnostic program designed to emulate client load for a
+       MySQL server and to report the timing of each stage. It works as if
+       multiple clients are accessing the server.
+
+       Invoke mmyyssqqllssllaapp like this:
+
+           shell> mmyyssqqllssllaapp [[_o_p_t_i_o_n_s]]
+
+       Some options such as ----ccrreeaattee or ----qquueerryy enable you to specify a string
+       containing an SQL statement or a file containing statements. If you
+       specify a file, by default it must contain one statement per line.
+       (That is, the implicit statement delimiter is the newline character.)
+       Use the ----ddeelliimmiitteerr option to specify a different delimiter, which
+       enables you to specify statements that span multiple lines or place
+       multiple statements on a single line. You cannot include comments in a
+       file; mmyyssqqllssllaapp does not understand them.
+
+       mmyyssqqllssllaapp runs in three stages:
+
+        1. Create schema, table, and optionally any stored programs or data to
+           use for the test. This stage uses a single client connection.
+
+        2. Run the load test. This stage can use many client connections.
+
+        3. Clean up (disconnect, drop table if specified). This stage uses a
+           single client connection.
+
+       Examples:
+
+       Supply your own create and query SQL statements, with 50 clients
+       querying and 200 selects for each (enter the command on a single line):
+
+           mysqlslap --delimiter=";"
+             --create="CREATE TABLE a (b int);INSERT INTO a VALUES (23)"
+             --query="SELECT * FROM a" --concurrency=50 --iterations=200
+
+       Let mmyyssqqllssllaapp build the query SQL statement with a table of two INT
+       columns and three VARCHAR columns. Use five clients querying 20 times
+       each. Do not create the table or insert the data (that is, use the
+       previous test's schema and data):
+
+           mysqlslap --concurrency=5 --iterations=20
+             --number-int-cols=2 --number-char-cols=3
+             --auto-generate-sql
+
+       Tell the program to load the create, insert, and query SQL statements
+       from the specified files, where the create.sql file has multiple table
+       creation statements delimited by ';' and multiple insert statements
+       delimited by ';'. The ----qquueerryy file will have multiple queries delimited
+       by ';'. Run all the load statements, then run all the queries in the
+       query file with five clients (five times each):
+
+           mysqlslap --concurrency=5
+             --iterations=5 --query=query.sql --create=create.sql
+             --delimiter=";"
+
+       mmyyssqqllssllaapp supports the following options, which can be specified on the
+       command line or in the [mysqlslap] and [client] groups of an option
+       file. For information about option files used by MySQL programs, see
+       Section 4.2.6, "Using Option Files".
+
+       +o   ----hheellpp, --??
+
+           Display a help message and exit.
+
+       +o   ----aauuttoo--ggeenneerraattee--ssqqll, --aa
+
+           Generate SQL statements automatically when they are not supplied in
+           files or using command options.
+
+       +o   ----aauuttoo--ggeenneerraattee--ssqqll--aadddd--aauuttooiinnccrreemmeenntt
+
+           Add an AUTO_INCREMENT column to automatically generated tables.
+
+       +o   ----aauuttoo--ggeenneerraattee--ssqqll--eexxeeccuuttee--nnuummbbeerr==_N
+
+           Specify how many queries to generate automatically.
+
+       +o   ----aauuttoo--ggeenneerraattee--ssqqll--gguuiidd--pprriimmaarryy
+
+           Add a GUID-based primary key to automatically generated tables.
+
+       +o   ----aauuttoo--ggeenneerraattee--ssqqll--llooaadd--ttyyppee==_t_y_p_e
+
+           Specify the test load type. The permissible values are read (scan
+           tables), write (insert into tables), key (read primary keys),
+           update (update primary keys), or mixed (half inserts, half scanning
+           selects). The default is mixed.
+
+       +o   ----aauuttoo--ggeenneerraattee--ssqqll--sseeccoonnddaarryy--iinnddeexxeess==_N
+
+           Specify how many secondary indexes to add to automatically
+           generated tables. By default, none are added.
+
+       +o   ----aauuttoo--ggeenneerraattee--ssqqll--uunniiqquuee--qquueerryy--nnuummbbeerr==_N
+
+           How many different queries to generate for automatic tests. For
+           example, if you run a key test that performs 1000 selects, you can
+           use this option with a value of 1000 to run 1000 unique queries, or
+           with a value of 50 to perform 50 different selects. The default is
+           10.
+
+       +o   ----aauuttoo--ggeenneerraattee--ssqqll--uunniiqquuee--wwrriittee--nnuummbbeerr==_N
+
+           How many different queries to generate for
+           ----aauuttoo--ggeenneerraattee--ssqqll--wwrriittee--nnuummbbeerr. The default is 10.
+
+       +o   ----aauuttoo--ggeenneerraattee--ssqqll--wwrriittee--nnuummbbeerr==_N
+
+           How many row inserts to perform on each thread. The default is 100.
+
+       +o   ----ccoommmmiitt==_N
+
+           How many statements to execute before committing. The default is 0
+           (no commits are done).
+
+       +o   ----ccoommpprreessss, --CC
+
+           Compress all information sent between the client and the server if
+           both support compression.
+
+       +o   ----ccoonnccuurrrreennccyy==_N, --cc _N
+
+           The number of clients to simulate when issuing the SELECT
+           statement.
+
+       +o   ----ccrreeaattee==_v_a_l_u_e
+
+           The file or string containing the statement to use for creating the
+           table.
+
+       +o   ----ccrreeaattee--sscchheemmaa==_v_a_l_u_e
+
+           The schema in which to run the tests.
+
+               NNoottee
+               If the ----aauuttoo--ggeenneerraattee--ssqqll option is also given, mmyyssqqllssllaapp
+               drops the schema at the end of the test run. To avoid this, use
+               the ----nnoo--ddrroopp option as well.
+
+       +o   ----ccssvv[[==_f_i_l_e___n_a_m_e]]
+
+           Generate output in comma-separated values format. The output goes
+           to the named file, or to the standard output if no file is given.
+
+       +o   ----ddeebbuugg[[==_d_e_b_u_g___o_p_t_i_o_n_s]], --## [[_d_e_b_u_g___o_p_t_i_o_n_s]]
+
+           Write a debugging log. A typical _d_e_b_u_g___o_p_t_i_o_n_s string is
+           d:t:o,_f_i_l_e___n_a_m_e. The default is d:t:o,/tmp/mysqlslap.trace.
+
+       +o   ----ddeebbuugg--cchheecckk
+
+           Print some debugging information when the program exits.
+
+       +o   ----ddeebbuugg--iinnffoo, --TT
+
+           Print debugging information and memory and CPU usage statistics
+           when the program exits.
+
+       +o   ----ddeeffaauulltt--aauutthh==_p_l_u_g_i_n
+
+           A hint about the client-side authentication plugin to use. See
+           Section 6.3.6, "Pluggable Authentication".
+
+           This option was added in MySQL 5.5.10.
+
+       +o   ----ddeeffaauullttss--eexxttrraa--ffiillee==_f_i_l_e___n_a_m_e
+
+           Read this option file after the global option file but (on Unix)
+           before the user option file. If the file does not exist or is
+           otherwise inaccessible, an error occurs. Before MySQL 5.5.8,
+           _f_i_l_e___n_a_m_e must be the full path name to the file. As of MySQL
+           5.5.8, the name is interpreted relative to the current directory if
+           given as a relative path name.
+
+       +o   ----ddeeffaauullttss--ffiillee==_f_i_l_e___n_a_m_e
+
+           Use only the given option file. If the file does not exist or is
+           otherwise inaccessible, an error occurs. Before MySQL 5.5.8,
+           _f_i_l_e___n_a_m_e must be the full path name to the file. As of MySQL
+           5.5.8, the name is interpreted relative to the current directory if
+           given as a relative path name.
+
+       +o   ----ddeeffaauullttss--ggrroouupp--ssuuffffiixx==_s_t_r
+
+           Read not only the usual option groups, but also groups with the
+           usual names and a suffix of _s_t_r. For example, mmyyssqqllssllaapp normally
+           reads the [client] and [mysqlslap] groups. If the
+           ----ddeeffaauullttss--ggrroouupp--ssuuffffiixx==__ootthheerr option is given, mmyyssqqllssllaapp also
+           reads the [client_other] and [mysqlslap_other] groups.
+
+       +o   ----ddeelliimmiitteerr==_s_t_r, --FF _s_t_r
+
+           The delimiter to use in SQL statements supplied in files or using
+           command options.
+
+       +o   ----ddeettaacchh==_N
+
+           Detach (close and reopen) each connection after each _N statements.
+           The default is 0 (connections are not detached).
+
+       +o   ----eennaabbllee--cclleeaarrtteexxtt--pplluuggiinn
+
+           Enable the mysql_clear_password cleartext authentication plugin.
+           (See Section 6.4.1.5, "The Cleartext Client-Side Authentication
+           Plugin".) This option was added in MySQL 5.5.27.
+
+       +o   ----eennggiinnee==_e_n_g_i_n_e___n_a_m_e, --ee _e_n_g_i_n_e___n_a_m_e
+
+           The storage engine to use for creating tables.
+
+       +o   ----hhoosstt==_h_o_s_t___n_a_m_e, --hh _h_o_s_t___n_a_m_e
+
+           Connect to the MySQL server on the given host.
+
+       +o   ----iitteerraattiioonnss==_N, --ii _N
+
+           The number of times to run the tests.
+
+       +o   ----nnoo--ddrroopp
+
+           Prevent mmyyssqqllssllaapp from dropping any schema it creates during the
+           test run. This option was added in MySQL 5.5.12.
+
+       +o   ----nnoo--ddeeffaauullttss
+
+           Do not read any option files. If program startup fails due to
+           reading unknown options from an option file, ----nnoo--ddeeffaauullttss can be
+           used to prevent them from being read.
+
+       +o   ----nnuummbbeerr--cchhaarr--ccoollss==_N, --xx _N
+
+           The number of VARCHAR columns to use if ----aauuttoo--ggeenneerraattee--ssqqll is
+           specified.
+
+       +o   ----nnuummbbeerr--iinntt--ccoollss==_N, --yy _N
+
+           The number of INT columns to use if ----aauuttoo--ggeenneerraattee--ssqqll is
+           specified.
+
+       +o   ----nnuummbbeerr--ooff--qquueerriieess==_N
+
+           Limit each client to approximately this many queries. Query
+           counting takes into account the statement delimiter. For example,
+           if you invoke mmyyssqqllssllaapp as follows, the ; delimiter is recognized
+           so that each instance of the query string counts as two queries. As
+           a result, 5 rows (not 10) are inserted.
+
+               shell> mmyyssqqllssllaapp ----ddeelliimmiitteerr=="";;"" ----nnuummbbeerr--ooff--qquueerriieess==1100
+                        ----qquueerryy==""uussee tteesstt;;iinnsseerrtt iinnttoo tt vvaalluueess((nnuullll))""
+
+       +o   ----oonnllyy--pprriinntt
+
+           Do not connect to databases.  mmyyssqqllssllaapp only prints what it would
+           have done.
+
+       +o   ----ppaasssswwoorrdd[[==_p_a_s_s_w_o_r_d]], --pp[[_p_a_s_s_w_o_r_d]]
+
+           The password to use when connecting to the server. If you use the
+           short option form (--pp), you _c_a_n_n_o_t have a space between the option
+           and the password. If you omit the _p_a_s_s_w_o_r_d value following the
+           ----ppaasssswwoorrdd or --pp option on the command line, mmyyssqqllssllaapp prompts for
+           one.
+
+           Specifying a password on the command line should be considered
+           insecure. See Section 6.1.2.1, "End-User Guidelines for Password
+           Security". You can use an option file to avoid giving the password
+           on the command line.
+
+       +o   ----ppiippee, --WW
+
+           On Windows, connect to the server using a named pipe. This option
+           applies only if the server supports named-pipe connections.
+
+       +o   ----pplluuggiinn--ddiirr==_d_i_r___n_a_m_e
+
+           The directory in which to look for plugins. Specify this option if
+           the ----ddeeffaauulltt--aauutthh option is used to specify an authentication
+           plugin but mmyyssqqllssllaapp does not find it. See Section 6.3.6,
+           "Pluggable Authentication".
+
+           This option was added in MySQL 5.5.10.
+
+       +o   ----ppoorrtt==_p_o_r_t___n_u_m, --PP _p_o_r_t___n_u_m
+
+           The TCP/IP port number to use for the connection.
+
+       +o   ----ppoosstt--qquueerryy==_v_a_l_u_e
+
+           The file or string containing the statement to execute after the
+           tests have completed. This execution is not counted for timing
+           purposes.
+
+       +o   ----ppoosstt--ssyysstteemm==_s_t_r
+
+           The string to execute using system() after the tests have
+           completed. This execution is not counted for timing purposes.
+
+       +o   ----pprree--qquueerryy==_v_a_l_u_e
+
+           The file or string containing the statement to execute before
+           running the tests. This execution is not counted for timing
+           purposes.
+
+       +o   ----pprree--ssyysstteemm==_s_t_r
+
+           The string to execute using system() before running the tests. This
+           execution is not counted for timing purposes.
+
+       +o   ----pprriinntt--ddeeffaauullttss
+
+           Print the program name and all options that it gets from option
+           files.
+
+       +o   ----pprroottooccooll=={{TTCCPP||SSOOCCKKEETT||PPIIPPEE||MMEEMMOORRYY}}
+
+           The connection protocol to use for connecting to the server. It is
+           useful when the other connection parameters normally would cause a
+           protocol to be used other than the one you want. For details on the
+           permissible values, see Section 4.2.2, "Connecting to the MySQL
+           Server".
+
+       +o   ----qquueerryy==_v_a_l_u_e, --qq _v_a_l_u_e
+
+           The file or string containing the SELECT statement to use for
+           retrieving data.
+
+       +o   ----sshhaarreedd--mmeemmoorryy--bbaassee--nnaammee==_n_a_m_e
+
+           On Windows, the shared-memory name to use, for connections made
+           using shared memory to a local server. This option applies only if
+           the server supports shared-memory connections.
+
+       +o   ----ssiilleenntt, --ss
+
+           Silent mode. No output.
+
+       +o   ----ssoocckkeett==_p_a_t_h, --SS _p_a_t_h
+
+           For connections to localhost, the Unix socket file to use, or, on
+           Windows, the name of the named pipe to use.
+
+       +o   ----ssssll**
+
+           Options that begin with ----ssssll specify whether to connect to the
+           server using SSL and indicate where to find SSL keys and
+           certificates. See Section 6.3.8.5, "Command Options for Secure
+           Connections".
+
+       +o   ----uusseerr==_u_s_e_r___n_a_m_e, --uu _u_s_e_r___n_a_m_e
+
+           The MySQL user name to use when connecting to the server.
+
+       +o   ----vveerrbboossee, --vv
+
+           Verbose mode. Print more information about what the program does.
+           This option can be used multiple times to increase the amount of
+           information.
+
+       +o   ----vveerrssiioonn, --VV
+
+           Display version information and exit.
+
+CCOOPPYYRRIIGGHHTT
+       Copyright (C) 1997, 2016, Oracle and/or its affiliates. All rights
+       reserved.
+
+       This documentation is free software; you can redistribute it and/or
+       modify it only under the terms of the GNU General Public License as
+       published by the Free Software Foundation; version 2 of the License.
+
+       This documentation is distributed in the hope that it will be useful,
+       but WITHOUT ANY WARRANTY; without even the implied warranty of
+       MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+       General Public License for more details.
+
+       You should have received a copy of the GNU General Public License along
+       with the program; if not, write to the Free Software Foundation, Inc.,
+       51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA or see
+       http://www.gnu.org/licenses/.
+
+
+SSEEEE AALLSSOO
+       For more information, please refer to the MySQL Reference Manual, which
+       may already be installed locally and which is also available online at
+       http://dev.mysql.com/doc/.
+
+AAUUTTHHOORR
+       Oracle Corporation (http://dev.mysql.com/).
+
+
+
+MySQL 5.5                         03/01/2016                      MYSQLSLAP(1)

@@ -1,0 +1,61 @@
+GRUB-EDITENV(1)                  User Commands                 GRUB-EDITENV(1)
+
+
+
+NNAAMMEE
+       grub-editenv - edit GRUB environment block
+
+SSYYNNOOPPSSIISS
+       ggrruubb--eeddiitteennvv [_O_P_T_I_O_N...] _F_I_L_E_N_A_M_E _C_O_M_M_A_N_D
+
+DDEESSCCRRIIPPTTIIOONN
+       Tool to edit environment block.
+
+              Commands:
+
+       create Create a blank environment block file.
+
+       list   List the current variables.
+
+       set [NAME=VALUE ...]
+              Set variables.
+
+       unset [NAME ...]
+              Delete variables.
+
+       -?, ----hheellpp
+              give this help list
+
+       ----uussaaggee
+              give a short usage message
+
+       --vv, ----vveerrbboossee
+              print verbose messages.
+
+       --VV, ----vveerrssiioonn
+              print program version
+
+              Options:
+
+       If FILENAME is `-', the default value _/_b_o_o_t_/_g_r_u_b_/_g_r_u_b_e_n_v is used.
+
+       There  is no `delete' command; if you want to delete the whole environ-
+       ment block, use `rm /boot/grub/grubenv'.
+
+RREEPPOORRTTIINNGG BBUUGGSS
+       Report bugs to <bug-grub@gnu.org>.
+
+SSEEEE AALLSSOO
+       ggrruubb--rreebboooott(8), ggrruubb--sseett--ddeeffaauulltt(8)
+
+       The full documentation for ggrruubb--eeddiitteennvv is maintained as a Texinfo man-
+       ual.   If  the iinnffoo and ggrruubb--eeddiitteennvv programs are properly installed at
+       your site, the command
+
+              iinnffoo ggrruubb--eeddiitteennvv
+
+       should give you access to the complete manual.
+
+
+
+grub-editenv (GRUB) 2.02~beta2-9ubDuencteum1b.e7r 2015                 GRUB-EDITENV(1)

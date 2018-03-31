@@ -1,0 +1,54 @@
+FUSERMOUNT(1)           Filesystem in Userspace (FUSE)           FUSERMOUNT(1)
+
+
+
+NNAAMMEE
+       ffuusseerrmmoouunntt - mount and unmount FUSE filesystems
+
+
+SSYYNNOOPPSSIISS
+       ffuusseerrmmoouunntt [_O_P_T_I_O_N_S] _M_O_U_N_T_P_O_I_N_T
+
+
+DDEESSCCRRIIPPTTIIOONN
+       Filesystem in Userspace (FUSE) is a simple interface for userspace pro-
+       grams to export a virtual filesystem to the Linux kernel. It also  aims
+       to provide a secure method for non privileged users to create and mount
+       their own filesystem implementations.
+
+       ffuusseerrmmoouunntt is a program to mount and unmount FUSE filesystems.
+
+
+OOPPTTIIOONNSS
+       -h  print help.
+
+       -V  print version.
+
+       -o _O_P_T_I_O_N[,_O_P_T_I_O_N...]
+           mount options.
+
+       -u  unmount.
+
+       -q  quiet.
+
+       -z  lazy unmount.
+
+
+SSEEEE AALLSSOO
+       _m_o_u_n_t(8), _m_o_u_n_t_._f_u_s_e(8), _u_l_o_c_k_m_g_r___s_e_r_v_e_r(1).
+
+
+HHOOMMEEPPAAGGEE
+       More information about fusermount and the FUSE project can be found  at
+       <_h_t_t_p_:_/_/_f_u_s_e_._s_o_u_r_c_e_f_o_r_g_e_._n_e_t_/>.
+
+
+AAUUTTHHOORR
+       FUSE was written by Miklos Szeredi <_m_i_k_l_o_s_@_s_z_e_r_e_d_i_._h_u>.
+
+       This   manual   page   was   written  by  Daniel  Baumann  <_d_a_n_i_e_l_._b_a_u_-
+       _m_a_n_n_@_p_r_o_g_r_e_s_s_-_t_e_c_h_n_o_l_o_g_i_e_s_._n_e_t>.
+
+
+
+2.8.6                             2011-10-23                     FUSERMOUNT(1)

@@ -1,0 +1,94 @@
+MY_PRINT_DEFAULTS(1)         MySQL Database System        MY_PRINT_DEFAULTS(1)
+
+
+
+NNAAMMEE
+       my_print_defaults - display options from option files
+
+SSYYNNOOPPSSIISS
+       mmyy__pprriinntt__ddeeffaauullttss [[_o_p_t_i_o_n_s]] _o_p_t_i_o_n___g_r_o_u_p ......
+
+DDEESSCCRRIIPPTTIIOONN
+       mmyy__pprriinntt__ddeeffaauullttss displays the options that are present in option
+       groups of option files. The output indicates what options will be used
+       by programs that read the specified option groups. For example, the
+       mmyyssqqllcchheecckk program reads the [mysqlcheck] and [client] option groups.
+       To see what options are present in those groups in the standard option
+       files, invoke mmyy__pprriinntt__ddeeffaauullttss like this:
+
+           shell> mmyy__pprriinntt__ddeeffaauullttss mmyyssqqllcchheecckk cclliieenntt
+           --user=myusername
+           --password=secret
+           --host=localhost
+
+       The output consists of options, one per line, in the form that they
+       would be specified on the command line.
+
+       mmyy__pprriinntt__ddeeffaauullttss supports the following options.
+
+       +o   ----hheellpp, --??
+
+           Display a help message and exit.
+
+       +o   ----ccoonnffiigg--ffiillee==_f_i_l_e___n_a_m_e, ----ddeeffaauullttss--ffiillee==_f_i_l_e___n_a_m_e, --cc _f_i_l_e___n_a_m_e
+
+           Read only the given option file.
+
+       +o   ----ddeebbuugg==_d_e_b_u_g___o_p_t_i_o_n_s, --## _d_e_b_u_g___o_p_t_i_o_n_s
+
+           Write a debugging log. A typical _d_e_b_u_g___o_p_t_i_o_n_s string is
+           d:t:o,_f_i_l_e___n_a_m_e. The default is d:t:o,/tmp/my_print_defaults.trace.
+
+       +o   ----ddeeffaauullttss--eexxttrraa--ffiillee==_f_i_l_e___n_a_m_e, ----eexxttrraa--ffiillee==_f_i_l_e___n_a_m_e, --ee
+           _f_i_l_e___n_a_m_e
+
+           Read this option file after the global option file but (on Unix)
+           before the user option file.
+
+       +o   ----ddeeffaauullttss--ggrroouupp--ssuuffffiixx==_s_u_f_f_i_x, --gg _s_u_f_f_i_x
+
+           In addition to the groups named on the command line, read groups
+           that have the given suffix.
+
+       +o   ----nnoo--ddeeffaauullttss, --nn
+
+           Return an empty string.
+
+       +o   ----vveerrbboossee, --vv
+
+           Verbose mode. Print more information about what the program does.
+
+       +o   ----vveerrssiioonn, --VV
+
+           Display version information and exit.
+
+CCOOPPYYRRIIGGHHTT
+       Copyright (C) 1997, 2016, Oracle and/or its affiliates. All rights
+       reserved.
+
+       This documentation is free software; you can redistribute it and/or
+       modify it only under the terms of the GNU General Public License as
+       published by the Free Software Foundation; version 2 of the License.
+
+       This documentation is distributed in the hope that it will be useful,
+       but WITHOUT ANY WARRANTY; without even the implied warranty of
+       MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+       General Public License for more details.
+
+       You should have received a copy of the GNU General Public License along
+       with the program; if not, write to the Free Software Foundation, Inc.,
+       51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA or see
+       http://www.gnu.org/licenses/.
+
+
+SSEEEE AALLSSOO
+       For more information, please refer to the MySQL Reference Manual, which
+       may already be installed locally and which is also available online at
+       http://dev.mysql.com/doc/.
+
+AAUUTTHHOORR
+       Oracle Corporation (http://dev.mysql.com/).
+
+
+
+MySQL 5.5                         03/01/2016              MY_PRINT_DEFAULTS(1)

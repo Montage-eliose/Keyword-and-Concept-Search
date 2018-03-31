@@ -1,0 +1,283 @@
+UNZIPSFX(1)                 General Commands Manual                UNZIPSFX(1)
+
+
+
+NNAAMMEE
+       unzipsfx - self-extracting stub for prepending to ZIP archives
+
+SSYYNNOOPPSSIISS
+       <<nnaammee  ooff  uunnzziippssffxx++aarrcchhiivvee  ccoommbboo>>  [--ccffppttuuzz[aajjnnooqqssCCLLVV$$]] [_f_i_l_e_(_s_) ...
+       [--xx _x_f_i_l_e_(_s_) ...]]
+
+DDEESSCCRRIIPPTTIIOONN
+       _u_n_z_i_p_s_f_x is a modified version of _u_n_z_i_p(1) designed to be prepended  to
+       existing  ZIP  archives  in  order  to  form  self-extracting archives.
+       Instead of taking its first non-flag argument to be the  zipfile(s)  to
+       be  extracted,  _u_n_z_i_p_s_f_x  seeks  itself  under the name by which it was
+       invoked and tests or extracts the contents  of  the  appended  archive.
+       Because the executable stub adds bulk to the archive (the whole purpose
+       of which is to be as small as possible), a  number  of  the  less-vital
+       capabilities  in  regular _u_n_z_i_p have been removed.  Among these are the
+       usage (or help) screen, the listing and diagnostic  functions  (--ll  and
+       --vv),   the   ability  to  decompress  older  compression  formats  (the
+       ``reduce,''  ``shrink''  and  ``implode''  methods).   The  ability  to
+       extract  to a directory other than the current one can be selected as a
+       compile-time option, which is now enabled  by  default  since  UnZipSFX
+       version  5.5.   Similarly,  decryption  is  supported as a compile-time
+       option but should be  avoided  unless  the  attached  archive  contains
+       encrypted files. Starting with release 5.5, another compile-time option
+       adds a simple ``run command after extraction'' feature.   This  feature
+       is  currently  incompatible with the ``extract to different directory''
+       feature and remains disabled by default.
+
+       NNoottee tthhaatt sseellff--eexxttrraaccttiinngg aarrcchhiivveess mmaaddee wwiitthh _u_n_z_i_p_s_f_x aarree nnoo  mmoorree  ((oorr
+       lleessss))  ppoorrttaabbllee  aaccrroossss  ddiiffffeerreenntt  ooppeerraattiinngg ssyysstteemmss tthhaann iiss tthhee _u_n_z_i_p
+       eexxeeccuuttaabbllee iittsseellff..  In general a self-extracting archive made on a par-
+       ticular Unix system, for example, will only self-extract under the same
+       flavor of Unix.  Regular _u_n_z_i_p may still be used to extract the  embed-
+       ded  archive  as  with  any normal zipfile, although it will generate a
+       harmless warning about extra bytes at the  beginning  of  the  zipfile.
+       _D_e_s_p_i_t_e _t_h_i_s, however, the self-extracting archive is technically _n_o_t a
+       valid ZIP archive, and PKUNZIP may be unable to  test  or  extract  it.
+       This limitation is due to the simplistic manner in which the archive is
+       created; the internal directory structure is not updated to reflect the
+       extra bytes prepended to the original zipfile.
+
+AARRGGUUMMEENNTTSS
+       [_f_i_l_e_(_s_)]
+              An  optional  list  of archive members to be processed.  Regular
+              expressions (wildcards) similar to those in Unix _e_g_r_e_p(1) may be
+              used to match multiple members.  These wildcards may contain:
+
+              *      matches a sequence of 0 or more characters
+
+              ?      matches exactly 1 character
+
+              [...]  matches  any  single character found inside the brackets;
+                     ranges are specified by a beginning character, a  hyphen,
+                     and  an  ending  character.  If an exclamation point or a
+                     caret (`!' or `^') follows the  left  bracket,  then  the
+                     range  of  characters within the brackets is complemented
+                     (that is,  anything  _e_x_c_e_p_t  the  characters  inside  the
+                     brackets is considered a match).
+
+              (Be  sure  to quote any character that might otherwise be inter-
+              preted or modified by the operating system,  particularly  under
+              Unix and VMS.)
+
+       [--xx _x_f_i_l_e_(_s_)]
+              An optional list of archive members to be excluded from process-
+              ing.   Since  wildcard  characters  match  directory  separators
+              (`/'),  this option may be used to exclude any files that are in
+              subdirectories.  For example, ``foosfx  *.[ch]  -x  */*''  would
+              extract  all  C  source files in the main directory, but none in
+              any subdirectories.  Without the --xx option, all C  source  files
+              in all directories within the zipfile would be extracted.
+
+       If _u_n_z_i_p_s_f_x is compiled with SFX_EXDIR defined, the following option is
+       also enabled:
+
+       [--dd _e_x_d_i_r]
+              An optional directory to which to extract  files.   By  default,
+              all files and subdirectories are recreated in the current direc-
+              tory; the --dd option allows extraction in an arbitrary  directory
+              (always  assuming one has permission to write to the directory).
+              The option and directory may be concatenated without  any  white
+              space  between  them,  but note that this may cause normal shell
+              behavior to be suppressed.  In particular, ``-d ~''  (tilde)  is
+              expanded  by  Unix  C  shells  into  the name of the user's home
+              directory, but ``-d~'' is  treated  as  a  literal  subdirectory
+              ``~~'' of the current directory.
+
+OOPPTTIIOONNSS
+       _u_n_z_i_p_s_f_x  supports  the following _u_n_z_i_p(1) options:  --cc and --pp (extract
+       to standard output/screen), --ff and  --uu  (freshen  and  update  existing
+       files  upon  extraction),  --tt (test archive) and --zz (print archive com-
+       ment).  All normal listing options (--ll, --vv and --ZZ) have  been  removed,
+       but  the  testing  option (--tt) may be used as a ``poor man's'' listing.
+       Alternatively, those creating  self-extracting  archives  may  wish  to
+       include a short listing in the zipfile comment.
+
+       See _u_n_z_i_p(1) for a more complete description of these options.
+
+MMOODDIIFFIIEERRSS
+       _u_n_z_i_p_s_f_x  currently  supports all _u_n_z_i_p(1) modifiers:  --aa (convert text
+       files), --nn (never overwrite),  --oo  (overwrite  without  prompting),  --qq
+       (operate  quietly),  --CC  (match  names case-insensitively), --LL (convert
+       uppercase-OS names to lowercase), --jj (junk paths) and --VV  (retain  ver-
+       sion  numbers);  plus  the following operating-system specific options:
+       --XX (restore VMS owner/protection info), --ss (convert spaces in filenames
+       to  underscores  [DOS,  OS/2,  NT])  and --$$ (restore volume label [DOS,
+       OS/2, NT, Amiga]).
+
+       (Support for regular ASCII text-conversion may  be  removed  in  future
+       versions, since it is simple enough for the archive's creator to ensure
+       that text files have the appropriate format for the local  OS.   EBCDIC
+       conversion  will  of  course continue to be supported since the zipfile
+       format implies ASCII storage of text files.)
+
+       See _u_n_z_i_p(1) for a more complete description of these modifiers.
+
+EENNVVIIRROONNMMEENNTT OOPPTTIIOONNSS
+       _u_n_z_i_p_s_f_x uses the same environment variables as _u_n_z_i_p(1) does, although
+       this  is likely to be an issue only for the person creating and testing
+       the self-extracting archive.  See _u_n_z_i_p(1) for details.
+
+DDEECCRRYYPPTTIIOONN
+       Decryption is supported exactly as in _u_n_z_i_p(1); that is,  interactively
+       with  a  non-echoing  prompt  for  the  password(s).   See _u_n_z_i_p(1) for
+       details.  Once again, note that if the archive has no  encrypted  files
+       there  is  no  reason to use a version of _u_n_z_i_p_s_f_x with decryption sup-
+       port; that only adds to the size of the archive.
+
+AAUUTTOORRUUNN CCOOMMMMAANNDD
+       When _u_n_z_i_p_s_f_x was compiled with  CHEAP_SFX_AUTORUN  defined,  a  simple
+       ``command  autorun'' feature is supported. You may enter a command into
+       the Zip archive comment, using the following format:
+
+       $AUTORUN$>[command line string]
+
+       When _u_n_z_i_p_s_f_x recognizes the ``$AUTORUN$>'' token at the  beginning  of
+       the Zip archive comment, the remainder of the first line of the comment
+       (until the first newline character) is passed as a shell command to the
+       operating  system using the C rtl ``system'' function. Before executing
+       the command, _u_n_z_i_p_s_f_x displays the command on the console  and  prompts
+       the user for confirmation.  When the user has switched off prompting by
+       specifying the --qq option, autorun commands are never executed.
+
+       In case the archive comment contains  additional  lines  of  text,  the
+       remainder  of the archive comment following the first line is displayed
+       normally, unless quiet  operation  was  requested  by  supplying  a  --qq
+       option.
+
+EEXXAAMMPPLLEESS
+       To create a self-extracting archive _l_e_t_t_e_r_s from a regular zipfile _l_e_t_-
+       _t_e_r_s_._z_i_p and change the new  archive's  permissions  to  be  world-exe-
+       cutable under Unix:
+
+       cat unzipsfx letters.zip > letters
+       chmod 755 letters
+       zip -A letters
+
+       To  create  the  same archive under MS-DOS, OS/2 or NT (note the use of
+       the //bb [binary] option to the _c_o_p_y command):
+
+       copy /b unzipsfx.exe+letters.zip letters.exe
+       zip -A letters.exe
+
+       Under VMS:
+
+       copy unzipsfx.exe,letters.zip letters.exe
+       letters == "$currentdisk:[currentdir]letters.exe"
+       zip -A letters.exe
+
+       (The VMS _a_p_p_e_n_d command may also be used.  The second command  installs
+       the  new  program as a ``foreign command'' capable of taking arguments.
+       The third line assumes that Zip is already installed as a foreign  com-
+       mand.)  Under AmigaDOS:
+
+       MakeSFX letters letters.zip UnZipSFX
+
+       (MakeSFX  is included with the UnZip source distribution and with Amiga
+       binary distributions.  ``zip -A'' doesn't work on Amiga self-extracting
+       archives.)   To  test  (or  list) the newly created self-extracting ar-
+       chive:
+
+       letters -t
+
+       To test _l_e_t_t_e_r_s quietly, printing only  a  summary  message  indicating
+       whether the archive is OK or not:
+
+       letters -tqq
+
+       To extract the complete contents into the current directory, recreating
+       all files and subdirectories as necessary:
+
+       letters
+
+       To extract all *.txt files (in Unix quote the `*'):
+
+       letters *.txt
+
+       To extract everything _e_x_c_e_p_t the *.txt files:
+
+       letters -x *.txt
+
+       To extract only the README file to standard output (the screen):
+
+       letters -c README
+
+       To print only the zipfile comment:
+
+       letters -z
+
+LLIIMMIITTAATTIIOONNSS
+       The principle and fundamental limitation of _u_n_z_i_p_s_f_x is that it is  not
+       portable  across architectures or operating systems, and therefore nei-
+       ther are the resulting archives.  For some architectures there is  lim-
+       ited  portability,  however  (e.g., between some flavors of Intel-based
+       Unix).
+
+       Another problem with the current implementation  is  that  any  archive
+       with  ``junk''  prepended  to  the beginning technically is no longer a
+       zipfile (unless _z_i_p(1) is used to adjust the zipfile offsets  appropri-
+       ately, as noted above).  _u_n_z_i_p(1) takes note of the prepended bytes and
+       ignores them since some file-transfer protocols, notably MacBinary, are
+       also  known  to  prepend  junk.  But PKWARE's archiver suite may not be
+       able to deal with the modified archive unless  its  offsets  have  been
+       adjusted.
+
+       _u_n_z_i_p_s_f_x  has no knowledge of the user's PATH, so in general an archive
+       must either be in the current directory when it is invoked, or  else  a
+       full or relative path must be given.  If a user attempts to extract the
+       archive from a directory in  the  PATH  other  than  the  current  one,
+       _u_n_z_i_p_s_f_x  will  print  a  warning to the effect, ``can't find myself.''
+       This is always true under Unix and may be true in some cases under  MS-
+       DOS,  depending  on  the compiler used (Microsoft C fully qualifies the
+       program name, but other compilers may not).  Under OS/2  and  NT  there
+       are  operating-system  calls available that provide the full path name,
+       so the archive may be invoked from anywhere in the  user's  path.   The
+       situation is not known for AmigaDOS, Atari TOS, MacOS, etc.
+
+       As  noted  above,  a  number of the normal _u_n_z_i_p(1) functions have been
+       removed in order to make _u_n_z_i_p_s_f_x smaller:  usage and diagnostic  info,
+       listing  functions  and  extraction  to  other directories.  Also, only
+       stored and deflated files are  supported.   The  latter  limitation  is
+       mainly relevant to those who create SFX archives, however.
+
+       VMS  users  must know how to set up self-extracting archives as foreign
+       commands in order to use any of _u_n_z_i_p_s_f_x's options.  This is not neces-
+       sary  for  simple  extraction,  but  the command to do so then becomes,
+       e.g., ``run letters'' (to continue the examples given above).
+
+       _u_n_z_i_p_s_f_x on the Amiga requires the use of a special  program,  MakeSFX,
+       in  order to create working self-extracting archives; simple concatena-
+       tion does not work.  (For technically oriented users, the attached  ar-
+       chive  is  defined  as  a  ``debug hunk.'')  There may be compatibility
+       problems between the ROM levels of older Amigas and newer ones.
+
+       All current bugs in _u_n_z_i_p(1) exist in _u_n_z_i_p_s_f_x as well.
+
+DDIIAAGGNNOOSSTTIICCSS
+       _u_n_z_i_p_s_f_x's exit status (error level) is identical to that of  _u_n_z_i_p(1);
+       see the corresponding man page.
+
+SSEEEE AALLSSOO
+       _f_u_n_z_i_p(1),  _u_n_z_i_p(1), _z_i_p(1), _z_i_p_c_l_o_a_k(1), _z_i_p_g_r_e_p(1), _z_i_p_i_n_f_o(1), _z_i_p_-
+       _n_o_t_e(1), _z_i_p_s_p_l_i_t(1)
+
+UURRLL
+       The Info-ZIP home page is currently at
+       http://www.info-zip.org/pub/infozip/
+       or
+       ftp://ftp.info-zip.org/pub/infozip/ .
+
+AAUUTTHHOORRSS
+       Greg Roelofs was responsible for the basic modifications to UnZip  nec-
+       essary  to  create UnZipSFX.  See _u_n_z_i_p(1) for the current list of Zip-
+       Bugs authors, or the file CONTRIBS in the UnZip source distribution for
+       the full list of Info-ZIP contributors.
+
+
+
+Info-ZIP                     20 April 2009 (v6.0)                  UNZIPSFX(1)

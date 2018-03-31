@@ -1,0 +1,46 @@
+PYDOC2.7(1)                 General Commands Manual                PYDOC2.7(1)
+
+
+
+NNAAMMEE
+       pydoc2.7 - the Python documentation tool
+
+SSYYNNOOPPSSIISS
+       ppyyddoocc22..77 _n_a_m_e
+
+       ppyyddoocc22..77 --kk _k_e_y_w_o_r_d
+
+       ppyyddoocc22..77 --pp _p_o_r_t
+
+       ppyyddoocc22..77 --gg
+
+       ppyyddoocc22..77 --ww _m_o_d_u_l_e _[_._._._]
+
+DDEESSCCRRIIPPTTIIOONN
+       ppyyddoocc22..77  _n_a_m_e  Show  text documentation on something.  _n_a_m_e may be the
+       name of a Python keyword, topic, function, module,  or  package,  or  a
+       dotted  reference to a class or function within a module or module in a
+       package.  If _n_a_m_e contains a '/', it is used as the path  to  a  Python
+       source file to document. If name is 'keywords', 'topics', or 'modules',
+       a listing of these things is displayed.
+
+       ppyyddoocc22..77 --kk _k_e_y_w_o_r_d Search for a keyword in the synopsis lines  of  all
+       available modules.
+
+       ppyyddoocc22..77  --pp  _p_o_r_t  Start an HTTP server on the given port on the local
+       machine.
+
+       ppyyddoocc22..77 --gg Pop up a graphical interface for finding and serving  docu-
+       mentation.
+
+       ppyyddoocc22..77  --ww  _n_a_m_e _[_._._._]  Write out the HTML documentation for a module
+       to a file in the current directory.  If _n_a_m_e  contains  a  '/',  it  is
+       treated  as a filename; if it names a directory, documentation is writ-
+       ten for all the contents.
+
+AAUUTTHHOORR
+       Moshe Zadka, based on "pydoc --help"
+
+
+
+                                                                   PYDOC2.7(1)

@@ -1,0 +1,21 @@
+UNICODE_STOP(1)             General Commands Manual            UNICODE_STOP(1)
+
+
+
+NNAAMMEE
+       unicode_stop - revert keyboard and console from unicode mode
+
+SSYYNNOOPPSSIISS
+       uunniiccooddee__ssttoopp
+
+DDEESSCCRRIIPPTTIIOONN
+       The  uunniiccooddee__ssttoopp  command  will  more-or-less  undo the effect of uunnii--
+       ccooddee__ssttaarrtt.  It puts the keyboard in ASCII (XLATE) mode, and clears the
+       console UTF-8 mode.
+
+SSEEEE AALLSSOO
+       kkbbdd__mmooddee(1), uunniiccooddee__ssttaarrtt(1), uuttff--88((77)),, sseettffoonntt(8)
+
+
+
+                                  3 Feb 2001                   UNICODE_STOP(1)

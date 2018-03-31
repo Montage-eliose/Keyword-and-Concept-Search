@@ -1,0 +1,115 @@
+PYGETTEXT(1)                General Commands Manual               PYGETTEXT(1)
+
+
+
+NNAAMMEE
+       pygettext - Python equivalent of xgettext(1)
+
+SSYYNNOOPPSSIISS
+       ppyyggeetttteexxtt [_O_P_T_I_O_N_S] _I_N_P_U_T_F_I_L_E ...
+
+DDEESSCCRRIIPPTTIIOONN
+       pygettext  is deprecated. The current version of xgettext supports many
+       languages, including Python.
+
+       pygettext uses Python's standard tokenize module to scan Python  source
+       code,  generating  .pot  files identical to what GNU xgettext generates
+       for C and C++ code.  From there, the standard GNU tools can be used.
+
+       pygettext searches only for _() by default, even  though  GNU  xgettext
+       recognizes  the  following  keywords: gettext, dgettext, dcgettext, and
+       gettext_noop. See the --kk/----kkeeyywwoorrdd flag below for how to augment this.
+
+OOPPTTIIOONNSS
+       --aa, ----eexxttrraacctt--aallll
+              Extract all strings.
+
+       --dd, ----ddeeffaauulltt--ddoommaaiinn=_N_A_M_E
+              Rename the default output file from messages.pot to name.pot.
+
+       --EE, ----eessccaappee
+              Replace non-ASCII characters with octal escape sequences.
+
+       --DD, ----ddooccssttrriinnggss
+              Extract module, class, method, and function  docstrings.   These
+              do  not need to be wrapped in _() markers, and in fact cannot be
+              for Python  to  consider  them  docstrings.  (See  also  the  --XX
+              option).
+
+       --hh, ----hheellpp
+              Print this help message and exit.
+
+       --kk, ----kkeeyywwoorrdd=_W_O_R_D
+              Keywords  to look for in addition to the default set, which are:
+              _
+
+              You can have multiple --kk flags on the command line.
+
+       --KK, ----nnoo--ddeeffaauulltt--kkeeyywwoorrddss
+              Disable the default set of keywords (see above).   Any  keywords
+              explicitly  added  with the --kk/----kkeeyywwoorrdd option are still recog-
+              nized.
+
+       ----nnoo--llooccaattiioonn
+              Do not write filename/lineno location comments.
+
+       --nn, ----aadddd--llooccaattiioonn
+              Write filename/lineno location comments  indicating  where  each
+              extracted  string  is  found  in the source.  These lines appear
+              before each msgid.  The style of comments is controlled  by  the
+              --SS/----ssttyyllee option.  This is the default.
+
+       --oo, ----oouuttppuutt=_F_I_L_E_N_A_M_E
+              Rename  the  default  output file from messages.pot to FILENAME.
+              If FILENAME is `-' then the output is sent to standard out.
+
+       --pp, ----oouuttppuutt--ddiirr=_D_I_R
+              Output files will be placed in directory DIR.
+
+       --SS, ----ssttyyllee=_S_T_Y_L_E_N_A_M_E
+              Specify which style to use for location  comments.   Two  styles
+              are supported:
+
+              +o   Solaris   # File: filename, line: line-number
+
+              +o   GNU       #: filename:line
+
+              The style name is case insensitive.  GNU style is the default.
+
+       --vv, ----vveerrbboossee
+              Print the names of the files being processed.
+
+       --VV, ----vveerrssiioonn
+              Print the version of pygettext and exit.
+
+       --ww, ----wwiiddtthh=_C_O_L_U_M_N_S
+              Set width of output to columns.
+
+       --xx, ----eexxcclluuddee--ffiillee=_F_I_L_E_N_A_M_E
+              Specify  a  file that contains a list of strings that are not be
+              extracted from the input files.  Each string to be excluded must
+              appear on a line by itself in the file.
+
+       --XX, ----nnoo--ddooccssttrriinnggss=_F_I_L_E_N_A_M_E
+              Specify a file that contains a list of files (one per line) that
+              should not have their docstrings extracted.  This is only useful
+              in conjunction with the --DD option above.
+
+       If `INPUTFILE' is -, standard input is read.
+
+BBUUGGSS
+       pygettext  attempts  to be option and feature compatible with GNU xget-
+       text where ever possible.  However some options are  still  missing  or
+       are  not  fully  implemented.   Also,  xgettext's  use  of command line
+       switches with option arguments is broken, and in these cases, pygettext
+       just defines additional switches.
+
+AAUUTTHHOORR
+       pygettext is written by Barry Warsaw <barry@zope.com>.
+
+       Joonas   Paalasmaa   <joonas.paalasmaa@iki.fi>  put  this  manual  page
+       together based on "pygettext --help".
+
+
+
+pygettext 1.4                                                     PYGETTEXT(1)

@@ -1,0 +1,73 @@
+ckbcomp(1)                       User Manuals                       ckbcomp(1)
+
+
+
+NNAAMMEE
+       ckbcomp  -  compile a XKB keyboard description to a keymap suitable for
+       loadkeys
+
+SSYYNNOOPPSSIISS
+       cckkbbccoommpp [_o_p_t_i_o_n ...] _[_l_a_y_o_u_t [variant _[_o_p_t_i_o_n ...]]]
+
+DDEESSCCRRIIPPTTIIOONN
+       The cckkbbccoommpp keymap compiler converts a description  of  an  XKB  keymap
+       into a console keymap that can be read directly by loadkeys.
+
+OOPPTTIIOONNSS
+       --??, --hheellpp
+              Print a usage message and exit.
+
+       --cchhaarrmmaapp  cchhaarrmmaapp
+              The  encoding  to  use.   There should be an unicode ACM map for
+              this encoding in _/_u_s_r_/_s_h_a_r_e_/_c_o_n_s_o_l_e_t_r_a_n_s.
+
+       --II_d_i_r  Search top-level directory _d_i_r for files included by the  keymap
+              description.  This option may be used multiple times.  After all
+              directories  specified  by  --II  options  have   been   searched,
+              _/_e_t_c_/_c_o_n_s_o_l_e_-_s_e_t_u_p_/_c_k_b,   _/_u_s_r_/_s_h_a_r_e_/_X_1_1_/_x_k_b,  _/_e_t_c_/_X_1_1_/_x_k_b  and
+              _/_u_s_r_/_X_1_1_R_6_/_l_i_b_/_X_1_1_/_x_k_b will be searched too.
+
+       --vv _l_e_v_e_l
+              Set level of detail for listing.  _l_e_v_e_l is a number  from  1  to
+              10.
+
+       --ccoommppaacctt
+              Generate  a  compact  keymap with at most two xkb groups and two
+              levels in each or only one xkb-group and up to four levels.
+
+XXKKBB KKEEYYBBOOAARRDD DDEESSCCRRIIPPTTIIOONN
+       The keyboard layout, variant and options components can be also  speci-
+       fied directly on the command line.  See the synopsis of the command.
+
+       --ssyymmbboollss _n_a_m_e
+              Specifies  the  symbols  component  name  of  the  XKB  keyboard
+              description.
+
+       --kkeeyyccooddeess _n_a_m_e
+              Specifies the  keycodes  component  name  of  the  XKB  keyboard
+              description.
+
+       --rruulleess _n_a_m_e
+              The name of the rules file to use.
+
+       --mmooddeell _n_a_m_e
+              Specifies the keyboard model used to choose the component names.
+
+       --llaayyoouutt _n_a_m_e
+              Specifies the layout used to choose the component names.
+
+       --vvaarriiaanntt _n_a_m_e
+              Specifies the layout variant used to choose the component names.
+
+       --ooppttiioonn _n_a_m_e
+              Adds an option used to choose component names.
+
+SSEEEE AALLSSOO
+       xxkkbbccoommpp(1)
+
+AAUUTTHHOORR
+       Anton Zinoviev <anton@lml.bas.bg>, <zinoviev@debian.org>
+
+
+
+console-setup                      MAY 2007                         ckbcomp(1)

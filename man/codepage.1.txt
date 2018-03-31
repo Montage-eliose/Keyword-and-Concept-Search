@@ -1,0 +1,43 @@
+CODEPAGE(1)                      Debian Linux                      CODEPAGE(1)
+
+
+
+NNAAMMEE
+       codepage - extract a codepage from an MSDOS codepage file
+
+
+SSYYNNOOPPSSIISS
+       ccooddeeppaaggee [ _-_c ] | [ _-_l ] | _-_L ] | [ _-_a | _n_n_n ] _<_f_i_l_e_._c_p_i_>
+
+
+DDEESSCCRRIIPPTTIIOONN
+       The ccooddeeppaaggee command extracts codepages from an MSDOS codepage file.
+
+
+OOPPTTIIOONNSS
+       _-_c     Input file is a single codepage
+
+
+       _-_L     Print header info (you don't want to see this).
+
+
+       _-_l     List all codepages contained in the file.
+
+
+       _-_a     Extract all codepages from the file
+
+
+       _n_n_n    (3 digits): extract codepage _n_n_n from the file.
+
+
+EEXXAAMMPPLLEE
+       To  create  a  file 850.cp, with codepage 850 from a file ega.cpi, exe-
+       cute:
+
+                   codepage ega.cpi 850
+
+
+
+
+
+Console Tools                     2002-02-19                       CODEPAGE(1)

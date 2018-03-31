@@ -1,0 +1,235 @@
+fakeroot(1)                      Debian manual                     fakeroot(1)
+
+
+
+NNAAMMEE
+       fakeroot  -  run a command in an environment faking root privileges for
+       file manipulation
+
+SSYYNNOOPPSSIISS
+       ffaakkeerroooott [[--ll||----lliibb _l_i_b_r_a_r_y_] [[----ffaakkeedd _f_a_k_e_d_-_b_i_n_a_r_y]] [[--ii  _l_o_a_d_-_f_i_l_e]]  [[--ss
+       _s_a_v_e_-_f_i_l_e]]   [[--uu||----uunnkknnoowwnn--iiss--rreeaall   ]]  [[--bb||----ffdd--bbaassee  ]]  [[--hh||----hheellpp  ]]
+       [[--vv||----vveerrssiioonn ]] [[----]] [[ccoommmmaanndd]]
+
+DDEESSCCRRIIPPTTIIOONN
+       ffaakkeerroooott runs a command in an environment wherein it  appears  to  have
+       root  privileges  for  file  manipulation.  This is useful for allowing
+       users to create archives (tar, ar, .deb etc.) with files in  them  with
+       root  permissions/ownership.   Without  ffaakkeerroooott one would need to have
+       root privileges to create the constituent files of  the  archives  with
+       the  correct  permissions  and ownership, and then pack them up, or one
+       would have to  construct  the  archives  directly,  without  using  the
+       archiver.
+
+       ffaakkeerroooott  works  by  replacing  the file manipulation library functions
+       (chmod(2), stat(2) etc.) by ones that  simulate  the  effect  the  real
+       library  functions would have had, had the user really been root. These
+       wrapper functions are  in  a  shared  library  //uussrr//lliibb//lliibbffaakkeerroooott..ssoo**
+       which is loaded through the LLDD__PPRREELLOOAADD mechanism of the dynamic loader.
+       (See lldd..ssoo(8))
+
+       If you intend to build packages with ffaakkeerroooott, please try building  the
+       fakeroot  package first: the "debian/rules build" stage has a few tests
+       (testing mostly for bugs in old fakeroot versions). If those tests fail
+       (for  example  because you have certain libc5 programs on your system),
+       other packages you build with fakeroot will quite likely fail too,  but
+       possibly in much more subtle ways.
+
+       Also,  note that it's best not to do the building of the binaries them-
+       selves under fakeroot. Especially configure and friends don't  like  it
+       when  the  system  suddenly  behaves differently from what they expect.
+       (or, they randomly unset some  environment  variables,  some  of  which
+       fakeroot needs).
+
+
+OOPPTTIIOONNSS
+       --ll _l_i_b_r_a_r_y, ----lliibb _l_i_b_r_a_r_y
+              Specify an alternative wrapper library.
+
+       ----ffaakkeedd _b_i_n_a_r_y
+              Specify an alternative binary to use as faked.
+
+       [[----]] _c_o_m_m_a_n_d
+              Any  command  you want to be ran as fakeroot. Use '--' if in the
+              command you have  other  options  that  may  confuse  fakeroot's
+              option parsing.
+
+       --ss _s_a_v_e_-_f_i_l_e
+              Save  the  fakeroot  environment to save-file on exit. This file
+              can be used to restore the environment later using -i.  However,
+              this  file will leak and fakeroot will behave in odd ways unless
+              you leave the files touched inside the fakeroot alone when  out-
+              side the environment. Still, this can be useful. For example, it
+              can be used with rsync(1) to back up and restore whole directory
+              trees  complete  with user, group and device information without
+              needing to be  root.  See  _/_u_s_r_/_s_h_a_r_e_/_d_o_c_/_f_a_k_e_r_o_o_t_/_R_E_A_D_M_E_._s_a_v_i_n_g
+              for more details.
+
+       --ii _l_o_a_d_-_f_i_l_e
+              Load a fakeroot environment previously saved using -s from load-
+              file.  Note that this does not implicitly save the file, use  -s
+              as  well for that behaviour. Using the same file for both -i and
+              -s in a single ffaakkeerroooott invocation is safe.
+
+       --uu, ----uunnkknnoowwnn--iiss--rreeaall
+              Use the real ownership of files previously unknown  to  fakeroot
+              instead of pretending they are owned by root:root.
+
+       --bb _f_d  Specify fd base (TCP mode only). fd is the minimum file descrip-
+              tor number to use for TCP connections; this may be important  to
+              avoid  conflicts  with the file descriptors used by the programs
+              being run under fakeroot.
+
+       --hh     Display help.
+
+       --vv     Display version.
+
+
+EEXXAAMMPPLLEESS
+       Here is an example session with ffaakkeerroooott.  Notice that inside the  fake
+       root  environment  file manipulation that requires root privileges suc-
+       ceeds, but is not really happening.
+
+       $  whoami
+       joost
+       $ fakeroot /bin/bash
+       #  whoami
+       root
+       # mknod hda3 b 3 1
+       # ls -ld hda3
+       brw-r--r--   1 root     root       3,   1 Jul  2 22:58 hda3
+       # chown joost:root hda3
+       # ls -ld hda3
+       brw-r--r--   1 joost    root       3,   1 Jul  2 22:58 hda3
+       # ls -ld /
+       drwxr-xr-x  20 root     root         1024 Jun 17 21:50 /
+       # chown joost:users /
+       # chmod a+w /
+       # ls -ld /
+       drwxrwxrwx  20 joost    users        1024 Jun 17 21:50 /
+       # exit
+       $ ls -ld /
+       drwxr-xr-x  20 root     root         1024 Jun 17 21:50 //
+       $ ls -ld hda3
+       -rw-r--r--   1 joost    users           0 Jul  2 22:58 hda3
+
+       Only the effects that user jjoooosstt could do anyway happen for real.
+
+       ffaakkeerroooott was specifically written to  enable  users  to  create  Debian
+       GNU/Linux  packages  (in  the  ddeebb((55))  format) without giving them root
+       privileges.  This  can  be  done  by  commands  like  ddppkkgg--bbuuiillddppaacckkaaggee
+       --rrffaakkeerroooott  or  ddeebbuuiilldd  --rrffaakkeerroooott (actually, -rfakeroot is default in
+       debuild nowadays, so you don't need that argument).
+
+SSEECCUURRIITTYY AASSPPEECCTTSS
+       ffaakkeerroooott is a regular, non-setuid program. It does not enhance a user's
+       privileges, or decrease the system's security.
+
+FFIILLEESS
+       _/_u_s_r_/_l_i_b_/_l_i_b_f_a_k_e_r_o_o_t_/_l_i_b_f_a_k_e_r_o_o_t_._s_o_*  The shared library containing the
+       wrapper functions.
+
+EENNVVIIRROONNMMEENNTT
+       FFAAKKEERROOOOTTKKEEYY
+              The key used to communicate with the fakeroot daemon.  Any  pro-
+              gram  started  with  the right LLDD__PPRREELLOOAADD and a FFAAKKEERROOOOTTKKEEYY of a
+              running daemon will automatically connect to  that  daemon,  and
+              have  the same "fake" view of the file system's permissions/own-
+              erships.  (assuming  the  daemon  and  connecting  program  were
+              started by the same user).
+
+       LLDD__LLIIBBRRAARRYY__PPAATTHH
+
+       LLDD__PPRREELLOOAADD
+              Fakeroot  is  implemented  by  wrapping  system  calls.  This is
+              accomplished by  setting  LD_LIBRARY_PATH=/usr/lib/fakeroot  and
+              LD_PRELOAD=libfakeroot.so.0.   That library is loaded before the
+              system's C library, and so most of  the  library  functions  are
+              intercepted by it.  If you need to set either LLDD__LLIIBBRRAARRYY__PPAATTHH or
+              LLDD__PPRREELLOOAADD from within a fakeroot environment, it should be  set
+              relative      to      the      given      paths,      as      in
+              LLDD__LLIIBBRRAARRYY__PPAATTHH==$$LLDD__LLIIBBRRAARRYY__PPAATTHH:://ffoooo//bbaarr//
+
+
+LLIIMMIITTAATTIIOONNSS
+       LLiibbrraarryy vveerrssiioonnss
+              Every command executed within ffaakkeerroooott needs to be linked to the
+              same version of the C library as ffaakkeerroooott itself.
+
+       ooppeenn(())//ccrreeaattee(())
+              fakeroot  doesn't  wrap open(), create(), etc. So, if user jjoooosstt
+              does either
+
+              touch foo
+              fakeroot
+              ls -al foo
+
+              or the other way around,
+
+              fakeroot
+              touch foo
+              ls -al foo
+
+              fakeroot has no way of knowing that in the first case, the owner
+              of  foo  really  should be jjoooosstt while the second case it should
+              have been rroooott.  For the Debian packaging, defaulting to  giving
+              all "unknown" files uid=gid=0, is always OK. The real way around
+              this is to wrap ooppeenn(()) and  ccrreeaattee(()),  but  that  creates  other
+              problems, as demonstrated by the libtricks package. This package
+              wrapped many more functions, and tried to do  a  lot  more  than
+              ffaakkeerroooott ..  It turned out that a minor upgrade of libc (from one
+              where the ssttaatt(()) function didn't use ooppeenn(()) to one with a ssttaatt(())
+              function that did (in some cases) use ooppeenn(())), would cause unex-
+              plainable segfaults  (that  is,  the  libc6  ssttaatt(())  called  the
+              wrapped  ooppeenn(()),  which  would then call the libc6 ssttaatt(()), etc).
+              Fixing them wasn't all that easy, but once fixed, it was just  a
+              matter  of  time  before another function started to use open(),
+              never mind trying to port it to a  different  operating  system.
+              Thus  I decided to keep the number of functions wrapped by fake-
+              root as small as possible, to limit the  likelihood  of  'colli-
+              sions'.
+
+       GGNNUU ccoonnffiigguurree ((aanndd ootthheerr ssuucchh pprrooggrraammss))
+              fakeroot,  in  effect,  is  changing the way the system behaves.
+              Programs that probe the system like GNU configure may  get  con-
+              fused  by  this  (or  if they don't, they may stress fakeroot so
+              much that fakeroot itself becomes confused). So, it's  advisable
+              not to run "configure" from within fakeroot. As configure should
+              be  called  in  the   "debian/rules   build"   target,   running
+              "dpkg-buildpackage -rfakeroot" correctly takes care of this.
+
+BBUUGGSS
+       It doesn't wrap open(). This isn't bad by itself, but if a program does
+       open("file", O_WRONLY, 000), writes to file "file", closes it, and then
+       again tries to open to read the file, then that open fails, as the mode
+       of the file will be 000. The bug is that if root does the same,  open()
+       will succeed, as the file permissions aren't checked at all for root. I
+       choose not to wrap open(), as open() is used by many other functions in
+       libc  (also  those  that  are already wrapped), thus creating loops (or
+       possible future loops, when the implementation of  various  libc  func-
+       tions slightly change).
+
+CCOOPPYYIINNGG
+       ffaakkeerroooott is distributed under the GNU General Public License.  (GPL 2.0
+       or greater).
+
+AAUUTTHHOORRSS
+       joost witteveen
+              <_j_o_o_s_t_j_e_@_d_e_b_i_a_n_._o_r_g>
+
+       Clint Adams
+              <_c_l_i_n_t_@_d_e_b_i_a_n_._o_r_g>
+
+       Timo Savola
+
+MMAANNUUAALL PPAAGGEE
+       mostly by J.H.M. Dassen <jdassen@debian.org> Rather  a  lot  mods/addi-
+       tions by joost and Clint.
+
+SSEEEE AALLSSOO
+       ffaakkeedd(1) ddppkkgg--bbuuiillddppaacckkaaggee(1), ddeebbuuiilldd(1) //uussrr//sshhaarree//ddoocc//ffaakkeerroooott//DDEEBBUUGG
+
+
+
+
+Debian Project                   6 August 2004                     fakeroot(1)

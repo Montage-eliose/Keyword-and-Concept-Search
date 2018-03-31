@@ -1,0 +1,38 @@
+MESG(1)                       Linux User's Manual                      MESG(1)
+
+
+
+NNAAMMEE
+       mesg - control write access to your terminal
+
+SSYYNNOOPPSSIISS
+       mmeessgg [yy|nn]
+
+DDEESSCCRRIIPPTTIIOONN
+       MMeessgg  controls  the  access to your terminal by others.  It's typically
+       used to allow or disallow other users to write to  your  terminal  (see
+       wwrriittee(1)).
+
+OOPPTTIIOONNSS
+       yy      Allow write access to your terminal.
+
+       nn      Disallow write access to your terminal.
+
+       If no option is given, mmeessgg prints out the current access state of your
+       terminal.
+
+NNOOTTEESS
+       MMeessgg assumes that its standard input is  connected  to  your  terminal.
+       That  also  means  that  if  you  are logged in multiple times, you can
+       get/set the mesg status of other sessions by  using  redirection.   For
+       example "mesg n < /dev/pts/46".
+
+AAUUTTHHOORR
+       Miquel van Smoorenburg (miquels@cistron.nl)
+
+SSEEEE AALLSSOO
+       ttaallkk(1), wwrriittee(1), wwaallll(1)
+
+
+
+                                 Feb 26, 2001                          MESG(1)

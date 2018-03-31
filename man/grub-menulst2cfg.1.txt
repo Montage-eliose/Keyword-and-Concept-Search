@@ -1,0 +1,25 @@
+GRUB-MENULST2CFG(1)              User Commands             GRUB-MENULST2CFG(1)
+
+
+
+NNAAMMEE
+       grub-menulst2cfg - transform legacy menu.lst into grub.cfg
+
+SSYYNNOOPPSSIISS
+       ggrruubb--mmeennuullsstt22ccffgg [_I_N_F_I_L_E [_O_U_T_F_I_L_E]]
+
+DDEESSCCRRIIPPTTIIOONN
+SSEEEE AALLSSOO
+       ggrruubb--mmkkccoonnffiigg(8)
+
+       The  full documentation for ggrruubb--mmeennuullsstt22ccffgg is maintained as a Texinfo
+       manual.   If  the  iinnffoo  and  ggrruubb--mmeennuullsstt22ccffgg  programs  are  properly
+       installed at your site, the command
+
+              iinnffoo ggrruubb--mmeennuullsstt22ccffgg
+
+       should give you access to the complete manual.
+
+
+
+grub-menulst2cfg grub-menulst2cfgD[eIcNeFmIbLeEr [2O0U1T5FILE]]       GRUB-MENULST2CFG(1)

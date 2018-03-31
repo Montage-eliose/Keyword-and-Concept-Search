@@ -1,0 +1,248 @@
+tput(1)                     General Commands Manual                    tput(1)
+
+
+
+NNAAMMEE
+       ttppuutt, rreesseett - initialize a terminal or query terminfo database
+
+SSYYNNOOPPSSIISS
+       ttppuutt [--TT_t_y_p_e] _c_a_p_n_a_m_e [_p_a_r_m_s ... ]
+       ttppuutt [--TT_t_y_p_e] iinniitt
+       ttppuutt [--TT_t_y_p_e] rreesseett
+       ttppuutt [--TT_t_y_p_e] lloonnggnnaammee
+       ttppuutt --SS  <<<<
+       ttppuutt --VV
+
+DDEESSCCRRIIPPTTIIOONN
+       The  ttppuutt utility uses the tteerrmmiinnffoo database to make the values of ter-
+       minal-dependent capabilities and information  available  to  the  shell
+       (see  sshh(1)),  to  initialize or reset the terminal, or return the long
+       name of the requested terminal type.  The result depends upon the capa-
+       bility's type:
+
+              string
+                   ttppuutt writes the string to the standard output.  No trailing
+                   newline is supplied.
+
+              integer
+                   ttppuutt writes the decimal value to the standard output,  with
+                   a trailing newline.
+
+              boolean
+                   ttppuutt  simply sets the exit code (00 for TRUE if the terminal
+                   has the capability, 11 for FALSE if it does not), and writes
+                   nothing to the standard output.
+
+       Before  using  a value returned on the standard output, the application
+       should test the exit code (e.g., $$??, see sshh(1)) to be  sure  it  is  00.
+       (See  the EEXXIITT CCOODDEESS and DDIIAAGGNNOOSSTTIICCSS sections.)  For a complete list of
+       capabilities and the _c_a_p_n_a_m_e associated with each, see tteerrmmiinnffoo(5).
+
+       --TT_t_y_p_e indicates the _t_y_p_e of terminal.  Normally this option is  unnec-
+              essary,  because the default is taken from the environment vari-
+              able TTEERRMM.  If --TT is specified, then the shell  variables  LLIINNEESS
+              and CCOOLLUUMMNNSS will also be ignored.
+
+       _c_a_p_n_a_m_e
+              indicates the capability from the tteerrmmiinnffoo database.  When tteerrmm--
+              ccaapp support is compiled in, the tteerrmmccaapp name for the  capability
+              is also accepted.
+
+       _p_a_r_m_s  If  the  capability is a string that takes parameters, the argu-
+              ments _p_a_r_m_s will be instantiated into the string.
+
+              Most parameters are numbers.  Only a few  terminfo  capabilities
+              require  string parameters; ttppuutt uses a table to decide which to
+              pass as strings.  Normally ttppuutt uses ttppaarrmm (3X) to  perform  the
+              substitution.   If  no  parameters are given for the capability,
+              ttppuutt writes the string without performing the substitution.
+
+       --SS     allows more than one capability per  invocation  of  ttppuutt.   The
+              capabilities  must  be  passed  to  ttppuutt from the standard input
+              instead of from the command line (see example).  Only  one  _c_a_p_-
+              _n_a_m_e  is allowed per line.  The --SS option changes the meaning of
+              the 00 and 11 boolean and string exit codes (see  the  EXIT  CODES
+              section).
+
+              Again,  ttppuutt  uses a table and the presence of parameters in its
+              input to decide whether to use ttppaarrmm (3X), and how to  interpret
+              the parameters.
+
+       --VV     reports  the  version of ncurses which was used in this program,
+              and exits.
+
+       iinniitt   If the tteerrmmiinnffoo database is present and an entry for the  user's
+              terminal exists (see --TT_t_y_p_e, above), the following will occur:
+
+              (1)    if present, the terminal's initialization strings will be
+                     output as detailed in the tteerrmmiinnffoo(5) section on _T_a_b_s _a_n_d
+                     _I_n_i_t_i_a_l_i_z_a_t_i_o_n,
+
+              (2)    any delays (e.g., newline) specified in the entry will be
+                     set in the tty driver,
+
+              (3)    tabs expansion will be turned on or off according to  the
+                     specification in the entry, and
+
+              (4)    if  tabs  are  not  expanded,  standard  tabs will be set
+                     (every 8 spaces).
+
+              If an entry does not contain the information needed for  any  of
+              the  four  above  activities,  that  activity  will  silently be
+              skipped.
+
+       rreesseett  Instead of putting out initialization  strings,  the  terminal's
+              reset strings will be output if present (rrss11, rrss22, rrss33, rrff).  If
+              the reset strings are not present,  but  initialization  strings
+              are,  the  initialization  strings  will  be output.  Otherwise,
+              rreesseett acts identically to iinniitt.
+
+       lloonnggnnaammee
+              If the tteerrmmiinnffoo database is present and an entry for the  user's
+              terminal  exists  (see  --TT_t_y_p_e above), then the long name of the
+              terminal will be put out.  The long name is the last name in the
+              first  line  of the terminal's description in the tteerrmmiinnffoo data-
+              base [see tteerrmm(5)].
+
+       If ttppuutt is invoked by a link named rreesseett, this has the same  effect  as
+       ttppuutt rreesseett.  See ttsseett for comparison, which has similar behavior.
+
+EEXXAAMMPPLLEESS
+       ttppuutt iinniitt
+            Initialize  the  terminal according to the type of terminal in the
+            environmental variable TTEERRMM.  This command should be  included  in
+            everyone's .profile after the environmental variable TTEERRMM has been
+            exported, as illustrated on the pprrooffiillee(5) manual page.
+
+       ttppuutt --TT55662200 rreesseett
+            Reset an AT&T 5620 terminal, overriding the type  of  terminal  in
+            the environmental variable TTEERRMM.
+
+       ttppuutt ccuupp 00 00
+            Send the sequence to move the cursor to row 00, column 00 (the upper
+            left corner of the screen, usually  known  as  the  "home"  cursor
+            position).
+
+       ttppuutt cclleeaarr
+            Echo the clear-screen sequence for the current terminal.
+
+       ttppuutt ccoollss
+            Print the number of columns for the current terminal.
+
+       ttppuutt --TT445500 ccoollss
+            Print the number of columns for the 450 terminal.
+
+       bboolldd==``ttppuutt ssmmssoo`` ooffffbboolldd==``ttppuutt rrmmssoo``
+            Set  the  shell  variables bboolldd, to begin stand-out mode sequence,
+            and ooffffbboolldd, to end standout mode sequence, for the current termi-
+            nal.  This might be followed by a prompt: eecchhoo ""$${{bboolldd}}PPlleeaassee ttyyppee
+            iinn yyoouurr nnaammee:: $${{ooffffbboolldd}}\\cc""
+
+       ttppuutt hhcc
+            Set exit code to indicate if the current terminal is a  hard  copy
+            terminal.
+
+       ttppuutt ccuupp 2233 44
+            Send the sequence to move the cursor to row 23, column 4.
+
+       ttppuutt ccuupp
+            Send  the  terminfo string for cursor-movement, with no parameters
+            substituted.
+
+       ttppuutt lloonnggnnaammee
+            Print the long name from the tteerrmmiinnffoo database  for  the  type  of
+            terminal specified in the environmental variable TTEERRMM.
+
+            ttppuutt --SS <<<<!!
+            >> cclleeaarr
+            >> ccuupp 1100 1100
+            >> bboolldd
+            >> !!
+
+            This  example  shows  ttppuutt  processing several capabilities in one
+            invocation.  It clears the screen, moves the  cursor  to  position
+            10,  10 and turns on bold (extra bright) mode.  The list is termi-
+            nated by an exclamation mark (!!) on a line by itself.
+
+FFIILLEESS
+       //eettcc//tteerrmmiinnffoo
+              compiled terminal description database
+
+       //uussrr//sshhaarree//ttaabbsseett//**
+              tab settings for some terminals, in a format appropriate  to  be
+              output  to  the  terminal (escape sequences that set margins and
+              tabs); for more information, see the "Tabs  and  Initialization"
+              section of tteerrmmiinnffoo(5)
+
+EEXXIITT CCOODDEESS
+       If the --SS option is used, ttppuutt checks for errors from each line, and if
+       any errors are found, will set the exit code to 4 plus  the  number  of
+       lines  with  errors.   If  no errors are found, the exit code is 00.  No
+       indication of which line failed can be given so exit code 11 will  never
+       appear.   Exit codes 22, 33, and 44 retain their usual interpretation.  If
+       the --SS option is not used, the exit code depends on the  type  of  _c_a_p_-
+       _n_a_m_e:
+
+            _b_o_o_l_e_a_n
+                   a value of 00 is set for TRUE and 11 for FALSE.
+
+            _s_t_r_i_n_g a value of 00 is set if the _c_a_p_n_a_m_e is defined for this ter-
+                   minal _t_y_p_e (the value of _c_a_p_n_a_m_e is  returned  on  standard
+                   output);  a value of 11 is set if _c_a_p_n_a_m_e is not defined for
+                   this terminal _t_y_p_e (nothing is written to standard output).
+
+            _i_n_t_e_g_e_r
+                   a value of 00 is always  set,  whether  or  not  _c_a_p_n_a_m_e  is
+                   defined for this terminal _t_y_p_e.  To determine if _c_a_p_n_a_m_e is
+                   defined for this terminal _t_y_p_e,  the  user  must  test  the
+                   value written to standard output.  A value of --11 means that
+                   _c_a_p_n_a_m_e is not defined for this terminal _t_y_p_e.
+
+            _o_t_h_e_r  rreesseett or iinniitt may fail to find their respective files.   In
+                   that case, the exit code is set to 4 + eerrrrnnoo.
+
+       Any other exit code indicates an error; see the DIAGNOSTICS section.
+
+DDIIAAGGNNOOSSTTIICCSS
+       ttppuutt  prints  the  following  error messages and sets the corresponding
+       exit codes.
+
+       l l.  exit code error message = 00    T{ (_c_a_p_n_a_m_e is a numeric  variable
+       that  is  not  specified  in the tteerrmmiinnffoo(5) database for this terminal
+       type, e.g.  ttppuutt --TT445500 lliinneess and ttppuutt --TT22662211 xxmmcc) T} 11    no error mes-
+       sage  is  printed,  see  the  EEXXIITT  CCOODDEESS  section.   22    usage  error
+       33    unknown terminal _t_y_p_e or no tteerrmmiinnffoo  database  44    unknown  tteerr--
+       mmiinnffoo capability _c_a_p_n_a_m_e >>44   error occurred in -S =
+
+PPOORRTTAABBIILLIITTYY
+       The  lloonnggnnaammee  and  --SS options, and the parameter-substitution features
+       used in the ccuupp example, are not supported in BSD curses or in AT&T/USL
+       curses before SVr4.
+
+       X/Open  documents only the operands for cclleeaarr, iinniitt and rreesseett.  In this
+       implementation, cclleeaarr is part of the _c_a_p_n_a_m_e support.  Other  implemen-
+       tations  of ttppuutt on SVr4-based systems such as Solaris, IRIX64 and HPUX
+       as well as others such as AIX and Tru64 provide support for _c_a_p_n_a_m_e op-
+       erands.
+
+       A  few  platforms  such  as  FreeBSD and NetBSD recognize termcap names
+       rather than terminfo capability names in  their  respective  ttppuutt  com-
+       mands.
+
+       Most implementations which provide support for _c_a_p_n_a_m_e operands use the
+       _t_p_a_r_m function to expand parameters in it.   That  function  expects  a
+       mixture  of numeric and string parameters, requiring ttppuutt to know which
+       type to use.  This implementation uses a table to  determine  that  for
+       the standard _c_a_p_n_a_m_e operands, and an internal library function to ana-
+       lyze nonstandard _c_a_p_n_a_m_e operands.  Other  implementations  may  simply
+       guess  that  an operand containing only digits is intended to be a num-
+       ber.
+
+SSEEEE AALLSSOO
+       cclleeaarr(1), ssttttyy(1), ttaabbss(1), tteerrmmiinnffoo(5), tteerrmmccaapp(3NCURSES).
+
+       This describes nnccuurrsseess version 5.9 (patch 20140118).
+
+
+
+                                                                       tput(1)

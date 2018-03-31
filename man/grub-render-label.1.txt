@@ -1,0 +1,61 @@
+GRUB-RENDER-LABEL(1)             User Commands            GRUB-RENDER-LABEL(1)
+
+
+
+NNAAMMEE
+       grub-render-label - generate a .disk_label for Apple Macs.
+
+SSYYNNOOPPSSIISS
+       ggrruubb--rreennddeerr--llaabbeell [_O_P_T_I_O_N...] [_O_P_T_I_O_N_S]
+
+DDEESSCCRRIIPPTTIIOONN
+       Render Apple .disk_label.
+
+       --bb, ----bbggccoolloorr=_C_O_L_O_R
+              use COLOR for background
+
+       --cc, ----ccoolloorr=_C_O_L_O_R
+              use COLOR for text
+
+       --ff, ----ffoonntt=_F_I_L_E
+              use FILE as font (PF2).
+
+       --ii, ----iinnppuutt=_F_I_L_E
+              read text from FILE.
+
+       --oo, ----oouuttppuutt=_F_I_L_E
+              set output filename. Default is STDOUT
+
+       --tt, ----tteexxtt=_S_T_R_I_N_G
+              set the label to render
+
+       --vv, ----vveerrbboossee
+              print verbose messages.
+
+       -?, ----hheellpp
+              give this help list
+
+       ----uussaaggee
+              give a short usage message
+
+       --VV, ----vveerrssiioonn
+              print program version
+
+       Mandatory  or  optional arguments to long options are also mandatory or
+       optional for any corresponding short options.
+
+RREEPPOORRTTIINNGG BBUUGGSS
+       Report bugs to <bug-grub@gnu.org>.
+
+SSEEEE AALLSSOO
+       The full documentation for ggrruubb--rreennddeerr--llaabbeell is maintained as a Texinfo
+       manual.   If  the  iinnffoo  and  ggrruubb--rreennddeerr--llaabbeell  programs  are properly
+       installed at your site, the command
+
+              iinnffoo ggrruubb--rreennddeerr--llaabbeell
+
+       should give you access to the complete manual.
+
+
+
+grub-render-label (GRUB) 2.02~betaD2e-c9eumbbuenrtu210.175            GRUB-RENDER-LABEL(1)

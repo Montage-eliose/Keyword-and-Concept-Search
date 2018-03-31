@@ -1,0 +1,33 @@
+ON_AC_POWER(1)              General Commands Manual             ON_AC_POWER(1)
+
+
+
+NNAAMMEE
+       on_ac_power - test whether computer is running on AC power
+
+SSYYNNOOPPSSIISS
+       oonn__aacc__ppoowweerr
+
+DDEESSCCRRIIPPTTIIOONN
+       oonn__aacc__ppoowweerr  checks  whether  the  system is running on AC power (i.e.,
+       mains power) as opposed to battery power.
+
+OOPPTTIIOONNSS
+       None.
+
+EEXXIITT SSTTAATTUUSS
+       00 (true)  System is on mains power
+       11 (false) System is not on mains power
+       225555 (false)    Power status could not be determined
+
+FFIILLEESS
+       _/_p_r_o_c_/_a_p_m         APM status information file
+       _/_p_r_o_c_/_a_c_p_i        ACPI status information directory
+
+AAUUTTHHOORR
+       This manual page was written by  Steve  Dodd  <steved@loth.demon.co.uk>
+       and was updated by Thomas Hood.
+
+
+
+                                 9 March 2002                   ON_AC_POWER(1)

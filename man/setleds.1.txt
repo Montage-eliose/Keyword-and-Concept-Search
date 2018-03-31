@@ -1,0 +1,66 @@
+SETLEDS(1)                  General Commands Manual                 SETLEDS(1)
+
+
+
+NNAAMMEE
+       setleds - set the keyboard leds
+
+SSYYNNOOPPSSIISS
+       sseettlleeddss [_-_v] [_-_L] [_-_D] [_-_F] [_{_+_|_-_}_n_u_m] [_{_+_|_-_}_c_a_p_s] [_{_+_|_-_}_s_c_r_o_l_l]
+
+DDEESSCCRRIIPPTTIIOONN
+       SSeettlleeddss  reports and changes the led flag settings of a VT (namely Num-
+       Lock, CapsLock and ScrollLock).  Without arguments, sseettlleeddss prints  the
+       current  settings.   With  arguments,  it  sets or clears the indicated
+       flags (and leaves the others unchanged).  The settings before and after
+       the change are reported if the -v flag is given.
+
+       The  led flag settings are specific for each VT (and the VT correspond-
+       ing to stdin is used).
+
+       By default (or with option -F), sseettlleeddss will only change the  VT  flags
+       (and their setting may be reflected by the keyboard leds).
+
+       With option -D, sseettlleeddss will change both the VT flags and their default
+       settings (so that a subsequent reset will not undo the  change).   This
+       might be useful for people who always want to have numlock set.
+
+       With  option  -L,  sseettlleeddss will not touch the VT flags, but only change
+       the leds.  From this moment on, the leds will no longer reflect the  VT
+       flags  (but display whatever is put into them).  The command sseettlleeddss --LL
+       (without further arguments) will restore the  situation  in  which  the
+       leds reflect the VT flags.
+
+       One  might  use  sseettlleeddss  in  /etc/rc to define the initial and default
+       state of NumLock, e.g. by
+            INITTY=/dev/tty[1-8]
+            for tty in $INITTY; do
+                 setleds -D +num < $tty
+            done
+
+OOPPTTIIOONNSS
+       -num +num
+              Clear or set NumLock.  (At present, the NumLock  setting  influ-
+              ences  the  interpretation of keypad keys.  Pressing the NumLock
+              key complements the NumLock setting.)
+
+       -caps +caps
+              Clear or set CapsLock.  (At present, the CapsLock  setting  com-
+              plements  the  Shift  key when applied to letters.  Pressing the
+              CapsLock key complements the CapsLock setting.)
+
+       -scroll +scroll
+              Clear or set ScrollLock.  (At present, pressing  the  ScrollLock
+              key (or ^S/^Q) stops/starts console output.)
+
+BBUUGGSS
+       In  keyboard  application  mode  the NumLock key does not influence the
+       NumLock flag setting.
+
+SSEEEE AALLSSOO
+       llooaaddkkeeyyss(1)
+
+
+
+
+                                  24 Sep 1994                       SETLEDS(1)

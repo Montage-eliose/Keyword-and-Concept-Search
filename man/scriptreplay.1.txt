@@ -1,0 +1,91 @@
+REPLAY(1)                        User Commands                       REPLAY(1)
+
+
+
+NNNNAAAAMMMMEEEE
+       scriptreplay - play back typescripts, using timing information
+
+SSSSYYYYNNNNOOOOPPPPSSSSIIIISSSS
+       ssssccccrrrriiiippppttttrrrreeeeppppllllaaaayyyy [_o_p_t_i_o_n_s] [----tttt] _t_i_m_i_n_g_f_i_l_e [_t_y_p_e_s_c_r_i_p_t [_d_i_v_i_s_o_r]]
+
+DDDDEEEESSSSCCCCRRRRIIIIPPPPTTTTIIIIOOOONNNN
+       This program replays a typescript, using timing information to ensure
+       that output happens at the same speed as it originally appeared when
+       the script was recorded.
+
+       The replay simply displays the information again; the programs that
+       were run when the typescript was being recorded are not run again.
+       Since the same information is simply being displayed, ssssccccrrrriiiippppttttrrrreeeeppppllllaaaayyyy is
+       only guaranteed to work properly if run on the same type of terminal
+       the typescript was recorded on.  Otherwise, any escape characters in
+       the typescript may be interpreted differently by the terminal to which
+       ssssccccrrrriiiippppttttrrrreeeeppppllllaaaayyyy is sending its output.
+
+       The timing information is what ssssccccrrrriiiipppptttt(1) outputs to standard error if
+       it is run with the ----tttt parameter.
+
+       By default, the typescript to display is assumed to be named "type-
+       script", but other filenames may be specified, as the second parameter
+       or with option ----ssss.
+
+       If the third parameter is specified, it is used as a speed-up multi-
+       plier.  For example, a speed-up of 2 makes ssssccccrrrriiiippppttttrrrreeeeppppllllaaaayyyy go twice as
+       fast, and a speed-up of 0.1 makes it go ten times slower than the orig-
+       inal session.
+
+OOOOPPPPTTTTIIIIOOOONNNNSSSS
+       The first three options will overide old-style arguments.
+
+       ----tttt, --------ttttiiiimmmmiiiinnnngggg _f_i_l_e
+              File containing script timing output.
+
+       ----ssss, --------ttttyyyyppppeeeessssccccrrrriiiipppptttt _f_i_l_e
+              File containing the script terminal output.
+
+       ----dddd, --------ddddiiiivvvviiiissssoooorrrr _n_u_m_b_e_r
+              Speed up the replay displaying this _n_u_m_b_e_r of times.  The argu-
+              ment is a floating point number.  It's called divisor because it
+              divides the timings by this factor.
+
+       ----VVVV, --------vvvveeeerrrrssssiiiioooonnnn
+              Display version information and exit.
+
+       ----hhhh, --------hhhheeeellllpppp
+              Display a help message and exit.
+
+EEEEXXXXAAAAMMMMPPPPLLLLEEEE
+        % script -t 2> timingfile
+        Script started, file is typescript
+        % ls
+        <etc, etc>
+        % exit
+        Script done, file is typescript
+        % scriptreplay timingfile
+
+
+SSSSEEEEEEEE AAAALLLLSSSSOOOO
+       ssssccccrrrriiiipppptttt(1)
+
+CCCCOOOOPPPPYYYYRRRRIIIIGGGGHHHHTTTT
+       Copyright (C) 2008 James Youngman
+
+       Copyright (C) 2008 Karel Zak
+
+       This is free software; see the source for copying conditions.  There is
+       NO warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR
+       PURPOSE.
+
+       Released under the GNU General Public License version 2 or later.
+
+AAAAUUUUTTTTHHHHOOOORRRR
+       The original ssssccccrrrriiiippppttttrrrreeeeppppllllaaaayyyy program was written by Joey Hess
+       <joey@kitenet.net>.  The program was re-written in C by James Youngman
+       <jay@gnu.org> and Karel Zak <kzak@redhat.com>.
+
+AAAAVVVVAAAAIIIILLLLAAAABBBBIIIILLLLIIIITTTTYYYY
+       The ssssccccrrrriiiippppttttrrrreeeeppppllllaaaayyyy command is part of the util-linux package and is
+       available from ftp://ftp.kernel.org/pub/linux/utils/util-linux/.
+
+
+
+3rd Berkeley Distribution       September 2001                       REPLAY(1)

@@ -1,0 +1,72 @@
+ncurses5-config(1)          General Commands Manual         ncurses5-config(1)
+
+
+
+NNAAMMEE
+       ncurses5-config - helper script for ncurses libraries
+
+SSYYNNOOPPSSIISS
+       nnccuurrsseess55--ccoonnffiigg [_o_p_t_i_o_n_s]
+
+DDEESSCCRRIIPPTTIIOONN
+       This  is  a  shell  script  which  simplifies  configuring applications
+       against a particular set of ncurses libraries.
+
+OOPPTTIIOONNSS
+       ----pprreeffiixx
+              echos the package-prefix of ncurses
+
+       ----eexxeecc--pprreeffiixx
+              echos the executable-prefix of ncurses
+
+       ----ccffllaaggss
+              echos the C compiler flags needed to compile with ncurses
+
+       ----lliibbss echos the libraries needed to link with ncurses
+
+       ----vveerrssiioonn
+              echos the release+patchdate version of ncurses
+
+       ----aabbii--vveerrssiioonn
+              echos the ABI version of ncurses
+
+       ----mmoouussee--vveerrssiioonn
+              echos the mouse-interface version of ncurses
+
+       ----bbiinnddiirr
+              echos the directory containing ncurses programs
+
+       ----ddaattaaddiirr
+              echos the directory containing ncurses data
+
+       ----iinncclluuddeeddiirr
+              echos the directory containing ncurses header files
+
+       ----lliibbddiirr
+              echos the directory containing ncurses libraries
+
+       ----mmaannddiirr
+              echos the directory containing ncurses manpages
+
+       ----tteerrmmiinnffoo
+              echos the $TERMINFO terminfo database path, e.g.,
+              /etc/terminfo
+
+       ----tteerrmmiinnffoo--ddiirrss
+              echos the $TERMINFO_DIRS directory list, e.g.,
+              /etc/terminfo:/lib/terminfo:/usr/share/terminfo
+
+       ----tteerrmmppaatthh
+              echos the $TERMPATH termcap list, if support for termcap is con-
+              figured.
+
+       ----hheellpp prints this message
+
+SSEEEE AALLSSOO
+       nnccuurrsseess(3NCURSES)
+
+       This describes nnccuurrsseess version 5.9 (patch 20140118).
+
+
+
+                                                            ncurses5-config(1)

@@ -1,0 +1,30 @@
+SPLITFONT(1)                     Linux Console                    SPLITFONT(1)
+
+
+
+NNAAMMEE
+       splitfont - extract characters from an ISO-type font.
+
+
+SSYYNNOOPPSSIISS
+       sspplliittffoonntt _f_o_n_t_f_i_l_e _<_c_h_a_r_a_c_t_e_r _r_a_n_g_e_>_._._.
+
+
+DDEESSCCRRIIPPTTIIOONN
+       The  command  sspplliittffoonntt  removes  characters from a given font file; it
+       removes all the specified characters from the named font file.
+
+       This works for Linux console fonts, without PSF headers, and containing
+       just 256 characters.
+
+       The character range is of the form
+
+                   17,23-30,
+
+
+SSEEEE AALLSSOO
+       setfont(8).
+
+
+
+                                  2002-02-24                      SPLITFONT(1)

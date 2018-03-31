@@ -1,0 +1,137 @@
+TWISTD(1)                                                            TWISTD(1)
+
+
+
+NNAAMMEE
+       twistd - run Twisted applications (TACs, TAPs)
+
+SSYYNNOOPPSSIISS
+       ttwwiissttdd [options]
+
+DDEESSCCRRIIPPTTIIOONN
+       Read  a  twisted.application.service.Application  out of a file and run
+       it.
+
+OOPPTTIIOONNSS
+       --nn, ----nnooddaaeemmoonn Don't daemonize (stay in foreground).
+
+       --qq, ----qquuiieett
+              No-op for backwards compatibility.
+
+       --pp, ----pprrooffiillee _<_p_r_o_f_i_l_e _o_u_t_p_u_t_>
+              Run the application under the profiler, dumping results  to  the
+              specified file.
+
+       ----pprrooffiilleerr _<_p_r_o_f_i_l_e_r _n_a_m_e_>
+              Specify the profiler to use. Defaults to the 'hotshot' profiler.
+
+       ----ssaavveessttaattss
+              Save  the  Stats  object rather than the text output of the pro-
+              filer.
+
+       --bb, ----ddeebbuugg
+              Run the application in the Python Debugger  (implies  ----nnooddaaeemmoonn
+              option).  Sending a SIGINT or SIGUSR2 signal to the process will
+              drop it into the debugger.
+
+       --ee, ----eennccrryypptteedd _<_f_i_l_e_>
+              The specified tap/aos file is encrypted.
+
+       ----eeuuiidd Set only effective user-id rather than real user-id. This option
+              has  no  effect  unless  the server is running as root, in which
+              case it means not to shed all privileges  after  binding  ports,
+              retaining  the  option  to  regain  privileges  in cases such as
+              spawning processes. Use with caution.
+
+       --oo, ----nnoo__ssaavvee
+              Do not save shutdown state.
+
+       ----oorriiggiinnaallnnaammee
+              Behave as though the specified Application has no  process  name
+              set,  and  run with the standard process name (the Python binary
+              in most cases).
+
+       --ll, ----llooggffiillee _<_l_o_g_f_i_l_e_>
+              Log to a specified file, -  for  stdout  (default:  twistd.log).
+              The log file will be rotated on SIGUSR1.
+
+       --ll, ----llooggggeerr _<_f_u_l_l_y _q_u_a_l_i_f_i_e_d _p_y_t_h_o_n _n_a_m_e_>
+              A  fully-qualified name to a log observer factory to use for the
+              initial log observer. Takes precedence over --logfile and --sys-
+              log.
+
+       ----ppiiddffiillee _<_p_i_d_f_i_l_e_>
+              Save pid in specified file (default: twistd.pid).
+
+       ----cchhrroooott _<_d_i_r_e_c_t_o_r_y_>
+              Chroot  to  a  supplied directory before running (default: don't
+              chroot).  Chrooting is done before changing the  current  direc-
+              tory.
+
+       --dd, ----rruunnddiirr _<_d_i_r_e_c_t_o_r_y_>
+              Change to a supplied directory before running (default: .).
+
+       --uu, ----uuiidd _<_u_i_d_>
+              The uid to run as (default: don't change).
+
+       --gg, ----ggiidd _<_g_i_d_>
+              The gid to run as (default: don't change).
+
+       ----uummaasskk _<_m_a_s_k_>
+              The (octal) file creation mask to apply. (default: 0077 for dae-
+              mons, no change otherwise).
+
+       --rr, ----rreeaaccttoorr _<_r_e_a_c_t_o_r_>
+              Choose which reactor to use. See ----hheellpp--rreeaaccttoorrss for a  list  of
+              possibilities.
+
+       ----hheellpp--rreeaaccttoorrss
+              List the names of possibly available reactors.
+
+       ----ssppeeww Write  an extremely verbose log of everything that happens. Use-
+              ful for debugging freezes or locks in complex code.
+
+       --ff, ----ffiillee _<_t_a_p _f_i_l_e_>
+              Read the given .tap file (default: twistd.tap).
+
+       --ss, ----ssoouurrccee _<_t_a_s _f_i_l_e_>
+              Load an Application from the  given  .tas  (AOT  Python  source)
+              file.
+
+       --yy, ----ppyytthhoonn _<_p_y_t_h_o_n _f_i_l_e_>
+              Use  the variable "application" from the given Python file. This
+              option overrides --ff. This option implies ----nnoo__ssaavvee.
+
+       ----ssyysslloogg
+              Log to syslog instead of a file.
+
+       ----vveerrssiioonn
+              Print version information and exit.
+
+       ----pprreeffiixx _<_p_r_e_f_i_x_>
+              Use the specified prefix when logging  to  logfile.  Default  is
+              "twisted".
+
+       Note  that  if  ttwwiissttdd  is  run  as  root, the working directory is _n_o_t
+       searched for Python modules.
+
+SSIIGGNNAALLSS
+       A running twistd accepts SIGINT for a clean  shutdown  and  SIGUSR1  to
+       rotate log files.
+
+AAUUTTHHOORR
+       Written by Moshe Zadka, based on twistd's help messages.
+
+RREEPPOORRTTIINNGG BBUUGGSS
+       To report a bug, visit _h_t_t_p_:_/_/_t_w_i_s_t_e_d_m_a_t_r_i_x_._c_o_m_/_t_r_a_c_/_w_i_k_i_/_T_w_i_s_t_e_d_D_e_v_e_l_-
+       _o_p_m_e_n_t_#_D_e_v_e_l_o_p_m_e_n_t_P_r_o_c_e_s_s
+
+CCOOPPYYRRIIGGHHTT
+       Copyright (C) 2001-2011 Twisted Matrix Laboratories.
+       This is free software; see the source for copying conditions. There  is
+       NO  warranty;  not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR
+       PURPOSE.
+
+
+
+                                   Dec 2011                          TWISTD(1)

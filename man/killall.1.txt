@@ -1,0 +1,130 @@
+KILLALL(1)                       User Commands                      KILLALL(1)
+
+
+
+NNAAMMEE
+       killall - kill processes by name
+
+SSYYNNOOPPSSIISS
+       kkiillllaallll [--ZZ, ----ccoonntteexxtt _p_a_t_t_e_r_n] [--ee, ----eexxaacctt] [--gg, ----pprroocceessss--ggrroouupp]
+       [--ii, ----iinntteerraaccttiivvee] [--oo, ----oollddeerr--tthhaann _T_I_M_E] [--qq, ----qquuiieett] [--rr, ----rreegg--
+       eexxpp] [--ss, ----ssiiggnnaall _s_i_g_n_a_l] [--uu, ----uusseerr _u_s_e_r] [--vv, ----vveerrbboossee]
+       [--ww, ----wwaaiitt] [--yy, ----yyoouunnggeerr--tthhaann _T_I_M_E] [--II, ----iiggnnoorree--ccaassee] [--VV,, --ver-
+       sion]] [----] _n_a_m_e _._._.
+       kkiillllaallll -l
+       kkiillllaallll -V, ----vveerrssiioonn
+
+DDEESSCCRRIIPPTTIIOONN
+       kkiillllaallll  sends  a  signal to all processes running any of the specified
+       commands.  If no signal name is specified, SIGTERM is sent.
+
+       Signals can be specified either by name (e.g.  --HHUUPP or --SSIIGGHHUUPP)  or  by
+       number (e.g.  --11) or by option --ss.
+
+       If  the command name is not regular expression (option --rr) and contains
+       a slash (//), processes executing that particular file will be  selected
+       for killing, independent of their name.
+
+       kkiillllaallll  returns  a  zero  return code if at least one process has been
+       killed for each listed command, or no commands were listed and at least
+       one  process  matched  the  -u and -Z search criteria.  kkiillllaallll returns
+       non-zero otherwise.
+
+       A kkiillllaallll process never kills itself (but may kill other  kkiillllaallll  pro-
+       cesses).
+
+OOPPTTIIOONNSS
+       --ee, ----eexxaacctt
+              Require  an  exact match for very long names.  If a command name
+              is longer than 15 characters, the full name may  be  unavailable
+              (i.e.   it  is  swapped  out).   In this case, kkiillllaallll will kill
+              everything that matches within the first  15  characters.   With
+              --ee, such entries are skipped.  kkiillllaallll prints a message for each
+              skipped entry if --vv is specified in addition to --ee,
+
+       --II, ----iiggnnoorree--ccaassee
+              Do case insensitive process name match.
+
+       --gg, ----pprroocceessss--ggrroouupp
+              Kill the process group to which the process belongs.   The  kill
+              signal  is  only sent once per group, even if multiple processes
+              belonging to the same process group were found.
+
+       --ii, ----iinntteerraaccttiivvee
+              Interactively ask for confirmation before killing.
+
+       --ll, ----lliisstt
+              List all known signal names.
+
+       --oo, ----oollddeerr--tthhaann
+              Match only processes that are older (started  before)  the  time
+              specified.   The  time is specified as a float then a unit.  The
+              units are  s,m,h,d,w,M,y  for  seconds,  minutes,  hours,  days,
+              weeks, Months and years respectively.
+
+       --qq, ----qquuiieett
+              Do not complain if no processes were killed.
+
+       --rr, ----rreeggeexxpp
+              Interpret  process  name  pattern as an extended regular expres-
+              sion.
+
+       --ss, ----ssiiggnnaall
+              Send this signal instead of SIGTERM.
+
+       --uu, ----uusseerr
+              Kill only processes the specified user owns.  Command names  are
+              optional.
+
+       --vv, ----vveerrbboossee
+              Report if the signal was successfully sent.
+
+       --VV, ----vveerrssiioonn
+              Display version information.
+
+       --ww, ----wwaaiitt
+              Wait  for  all killed processes to die.  kkiillllaallll checks once per
+              second if any of the  killed  processes  still  exist  and  only
+              returns if none are left.  Note that kkiillllaallll may wait forever if
+              the signal was ignored, had no effect, or if the  process  stays
+              in zombie state.
+
+       --yy, ----yyoouunnggeerr--tthhaann
+              Match  only  processes that are younger (started after) the time
+              specified.  The time is specified as a float then a  unit.   The
+              units  are  s,m,h,d,w,M,y  for  seconds,  minutes,  hours, days,
+              weeks, Months and years respectively.
+
+       --ZZ, ----ccoonntteexxtt
+              (SELinux Only) Specify security  context:  kill  only  processes
+              having  security  context that match with given expended regular
+              expression pattern.  Must precede other arguments on the command
+              line.  Command names are optional.
+
+FFIILLEESS
+       /proc  location of the proc file system
+
+KKNNOOWWNN BBUUGGSS
+       Killing  by  file  only works for executables that are kept open during
+       execution, i.e. impure executables can't be killed this way.
+
+       Be warned that typing kkiillllaallll _n_a_m_e may not have the desired  effect  on
+       non-Linux systems, especially when done by a privileged user.
+
+       kkiillllaallll  --ww doesn't detect if a process disappears and is replaced by a
+       new process with the same PID between scans.
+
+       If processes change their name, kkiillllaallll may not be able to  match  them
+       correctly.
+
+       kkiillllaallll has a limit of names that can be specified on the command line.
+       This figure is the size of an unsigned long multiplied by 8.  For  most
+       32  bit  systems  the limit is 32 and similarly for a 64 bit system the
+       limit is usually 64.
+
+SSEEEE AALLSSOO
+       kkiillll(1), ffuusseerr(1), ppggrreepp(1), ppiiddooff(1), ppkkiillll(1), ppss(1), kkiillll(2).
+
+
+
+psmisc                             2012-7-28                        KILLALL(1)

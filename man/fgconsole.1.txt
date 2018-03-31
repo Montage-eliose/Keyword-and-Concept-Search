@@ -1,0 +1,34 @@
+FGCONSOLE(1)                  Linux User's Manual                 FGCONSOLE(1)
+
+
+
+NNAAMMEE
+       fgconsole - print the number of the active VT.
+
+
+SSYYNNOOPPSSIISS
+       ffggccoonnssoollee [[_-_-_h_e_l_p||_-_-_v_e_r_s_i_o_n||_-_-_n_e_x_t_-_a_v_a_i_l_a_b_l_e]]
+
+DDEESSCCRRIIPPTTIIOONN
+       If  the active Virtual Terminal is _/_d_e_v_/_t_t_y_N, then prints _N on standard
+       output.
+
+       If the console is a serial console, then "serial" is printed instead.
+
+       _-_-_n_e_x_t_-_a_v_a_i_l_a_b_l_e
+              Will show the next unallocated virtual terminal. Normally 6 vir-
+              tual  terminals  are  allocated,  with number 7 used for X; this
+              will return "8" in this case.
+
+
+NNOOTTEESS
+       Under _d_e_v_f_s, the consoles are in _/_d_e_v_/_v_c_/_N.  _d_e_v_f_s_d may  maintain  sym-
+       links for compatibility.
+
+SSEEEE AALLSSOO
+       cchhvvtt(1).
+
+
+
+
+                               14 Feburary 2002                   FGCONSOLE(1)

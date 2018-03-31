@@ -1,0 +1,40 @@
+dpkg-distaddfile(1)             dpkg utilities             dpkg-distaddfile(1)
+
+
+
+NNAAMMEE
+       dpkg-distaddfile - add entries to debian/files
+
+SSYYNNOOPPSSIISS
+       ddppkkgg--ddiissttaaddddffiillee [_o_p_t_i_o_n...] _f_i_l_e_n_a_m_e _s_e_c_t_i_o_n _p_r_i_o_r_i_t_y
+
+DDEESSCCRRIIPPTTIIOONN
+       ddppkkgg--ddiissttaaddddffiillee adds an entry for a named file to ddeebbiiaann//ffiilleess.
+
+       It  takes  three non-option arguments, the filename and the section and
+       priority for the ..cchhaannggeess file.
+
+       The filename should  be  specified  relative  to  the  directory  where
+       ddppkkgg--ggeenncchhaannggeess  will expect to find the files, usually ...., rather than
+       being a pathname relative  to  the  current  directory  when  ddppkkgg--ddiiss--
+       ttaaddddffiillee is run.
+
+OOPPTTIIOONNSS
+       --ff_f_i_l_e_s_-_l_i_s_t_-_f_i_l_e
+              Read or write the list of files to be uploaded here, rather than
+              using ddeebbiiaann//ffiilleess.
+
+       --??, ----hheellpp
+              Show the usage message and exit.
+
+       ----vveerrssiioonn
+              Show the version and exit.
+
+FFIILLEESS
+       ddeebbiiaann//ffiilleess
+              The list of generated files which are part of the  upload  being
+              prepared.  ddppkkgg--ddiissttaaddddffiillee can be used to add additional files.
+
+
+
+Debian Project                    2012-05-04               dpkg-distaddfile(1)

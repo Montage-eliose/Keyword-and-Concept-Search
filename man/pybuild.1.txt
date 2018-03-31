@@ -1,0 +1,262 @@
+PYBUILD(1)                                                          PYBUILD(1)
+
+
+
+NNAAMMEE
+       pybuild  -  invokes various build systems for requested Python versions
+       in order to build modules and extensions
+
+SSYYNNOOPPSSIISS
+          pybuild [ACTION] [BUILD SYSTEM ARGUMENTS] [DIRECTORIES] [OPTIONS]
+
+DDEEBBHHEELLPPEERR CCOOMMMMAANNDD SSEEQQUUEENNCCEERR IINNTTEEGGRRAATTIIOONN
+       +o build depend on _d_h_-_p_y_t_h_o_n,
+
+       +o build depend on _p_y_t_h_o_n_3_-_a_l_l, _p_y_t_h_o_n_-_a_l_l_-_d_b_g,  _p_y_p_y,  etc.   (for  all
+         supported  Python  interpreters, pybuild will use it to create a list
+         of interpreters to build for),
+
+       +o add _-_-_b_u_i_l_d_s_y_s_t_e_m_=_p_y_b_u_i_l_d to dh's arguments in debian/rules,
+
+       +o if    more    than    one    binary    package    is    build:    add
+         debian/python-foo.install  files,  or  _e_x_p_o_r_t _P_Y_B_U_I_L_D___N_A_M_E_=_m_o_d_u_l_e_n_a_m_e
+         (modulename will be used to guess binary package prefixes), or _e_x_p_o_r_t
+         _P_Y_B_U_I_L_D___D_E_S_T_D_I_R env. variables in debian/rules
+
+       debian/rules file example:
+
+          #! /usr/bin/make -f
+          export PYBUILD_NAME=foo
+          %:
+                 dh $@ --with python2,python3 --buildsystem=pybuild
+
+       overriding test command with custom build plugin example:
+
+          override_dh_auto_test:
+                 PYBUILD_SYSTEM=custom \
+                 PYBUILD_TEST_ARGS="command --with --options {build_dir}/" dh_auto_test
+
+OOPPTTIIOONNSS
+          Most  options  can be set (in addition to command line) via environ-
+          ment variables. PyBuild will check:
+
+          +o PYBUILD_OPTION_VERSIONED_INTERPRETER                         (f.e.
+            PYBUILD_CLEAN_ARGS_python3.2)
+
+          +o PYBUILD_OPTION_INTERPRETER          (f.e.          PYBUILD_CONFIG-
+            URE_ARGS_python3-dbg)
+
+          +o PYBUILD_OPTION (f.e. PYBUILD_INSTALL_ARGS)
+
+   ooppttiioonnaall aarrgguummeennttss
+          --hh, ----hheellpp
+                 show this help message and exit
+
+          --vv, ----vveerrbboossee
+                 turn verbose mode on
+
+          --qq, ----qquuiieett
+                 doesn't show external command's output
+
+          --qq_q,, ----rreeaallllyy--qquuiieett
+                 be quiet
+
+          ----vveerrssiioonn
+                 show program's version number and exit
+
+   AACCTTIIOONN
+          The default is to build, install and test the library using detected
+          build system version by version. Selecting one of following actions,
+          will invoke given action for all versions - one by one - which (con-
+          trary  to  the  default  action) in some build systems can overwrite
+          previous results.
+
+              ----ddeetteecctt
+                     return the name of detected build system
+
+              ----cclleeaann
+                     clean files using  auto-detected  build  system  specific
+                     methods
+
+              ----ccoonnffiigguurree
+                     invoke configure step for all requested Python versions
+
+              ----bbuuiilldd
+                     invoke build step for all requested Python versions
+
+              ----iinnssttaallll
+                     invoke install step for all requested Python versions
+
+              ----tteesstt invoke tests for auto-detected build system
+
+              ----lliisstt--ssyysstteemmss
+                     list available build systems and exit
+
+   TTEESSTTSS
+          unittest's  discover  from standard library (available in Python 2.7
+          and >= 3.2) is used in test step by default.
+
+          ----tteesstt--nnoossee
+                 use nose module in test step,  remember  to  add  python-nose
+                 and/or python3-nose to Build-Depends
+
+          ----tteesstt--ppyytteesstt
+                 use pytest module in test step, remember to add python-pytest
+                 and/or python3-pytest to Build-Depends
+
+          ----tteesstt--ttooxx
+                 use tox command in test step, remember to add  python-tox  to
+                 Build-Depends. Requires tox.ini file
+
+   BBUUIILLDD SSYYSSTTEEMM AARRGGUUMMEENNTTSS
+          Additional  arguments  passed  to the build system.  --system=custom
+          requires complete command.
+
+              ----bbeeffoorree--cclleeaann _C_O_M_M_A_N_D
+                     invoked before the clean command
+
+              ----cclleeaann--aarrggss _A_R_G_U_M_E_N_T_S
+                     arguments added to clean command generated by build  sys-
+                     tem plugin
+
+              ----aafftteerr--cclleeaann _C_O_M_M_A_N_D
+                     invoked after the clean command
+
+              ----bbeeffoorree--ccoonnffiigguurree _C_O_M_M_A_N_D
+                     invoked before the configure command
+
+              ----ccoonnffiigguurree--aarrggss _A_R_G_U_M_E_N_T_S
+                     arguments  added  to configure command generated by build
+                     system plugin
+
+              ----aafftteerr--ccoonnffiigguurree _C_O_M_M_A_N_D
+                     invoked after the configure command
+
+              ----bbeeffoorree--bbuuiilldd _C_O_M_M_A_N_D
+                     invoked before the build command
+
+              ----bbuuiilldd--aarrggss _A_R_G_U_M_E_N_T_S
+                     arguments added to build command generated by build  sys-
+                     tem plugin
+
+              ----aafftteerr--bbuuiilldd _C_O_M_M_A_N_D
+                     invoked after the build command
+
+              ----bbeeffoorree--iinnssttaallll _C_O_M_M_A_N_D
+                     invoked before the install command
+
+              ----iinnssttaallll--aarrggss _A_R_G_U_M_E_N_T_S
+                     arguments  added  to  install  command generated by build
+                     system plugin
+
+              ----aafftteerr--iinnssttaallll _C_O_M_M_A_N_D
+                     invoked after the install command
+
+              ----bbeeffoorree--tteesstt _C_O_M_M_A_N_D
+                     invoked before the test command
+
+              ----tteesstt--aarrggss _A_R_G_U_M_E_N_T_S
+                     arguments added to test command generated by build system
+                     plugin
+
+              ----aafftteerr--tteesstt _C_O_M_M_A_N_D
+                     invoked after the test command
+
+   vvaarriiaabblleess tthhaatt ccaann bbee uusseedd iinn _A_R_G_U_M_E_N_T_S aanndd _C_O_M_M_A_N_D
+       +o _{_v_e_r_s_i_o_n_}  will be replaced with current Python version, you can also
+         use _{_v_e_r_s_i_o_n_._m_a_j_o_r_}, _{_v_e_r_s_i_o_n_._m_i_n_o_r_}, etc.
+
+       +o _{_i_n_t_e_r_p_r_e_t_e_r_} will be replaced with current interpreter, you can also
+         use _{_i_n_t_e_r_p_r_e_t_e_r_._i_n_c_l_u_d_e___d_i_r_}
+
+       +o _{_d_i_r_} will be replaced with sources directory,
+
+       +o _{_d_e_s_t_d_i_r_} will be replaced with destination directory,
+
+       +o _{_h_o_m_e___d_i_r_}  will  be  replaced  with  temporary HOME directory, where
+         plugins  can  keep  their  data   (.pybuild/interpreter_version/   by
+         default),
+
+       +o _{_b_u_i_l_d___d_i_r_} will be replaced with build directory
+
+       +o _{_i_n_s_t_a_l_l___d_i_r_} will be replaced with install directory.
+
+       +o _{_p_a_c_k_a_g_e_} will be replaced with suggested package name, if --name (or
+         PYBUILD_NAME) is set to  _f_o_o,  this  variable  will  be  replaced  to
+         _p_y_t_h_o_n_-_f_o_o, _p_y_t_h_o_n_3_-_f_o_o or _p_y_p_y_-_f_o_o depending on interpreter which is
+         used in given iteration.
+
+   DDIIRREECCTTOORRIIEESS
+          --dd _D_I_R,, ----ddiirr _D_I_R
+                 set source files directory - base for other relative dirs [by
+                 default: current working directory]
+
+          ----ddeesstt--ddiirr _D_I_R
+                 set destination directory [default: debian/tmp]
+
+          ----eexxtt--ddeesstt--ddiirr _D_I_R
+                 set destination directory for .so files
+
+          ----eexxtt--ppaatttteerrnn _P_A_T_T_E_R_N
+                 regular   expression  for  files  that  should  be  moved  if
+                 --ext-destdir is set [default: _._s_o_(_._[_^_/_]_*_)_?_$]
+
+          ----iinnssttaallll--ddiirr _D_I_R
+                 set installation directory [default: .../dist-packages]
+
+          ----nnaammee _N_A_M_E
+                 use this name to guess destination directories (depending  on
+                 interpreter,        "foo"       sets       debian/python-foo,
+                 debian/python3-foo, debian/python3-foo-dbg, etc.)
+
+   vvaarriiaabblleess tthhaatt ccaann bbee uusseedd iinn _D_I_R
+       +o _{_v_e_r_s_i_o_n_} will be replaced with current Python version,
+
+       +o _{_i_n_t_e_r_p_r_e_t_e_r_} will be replaced with selected interpreter.
+
+   LLIIMMIITTAATTIIOONNSS
+          --ss _S_Y_S_T_E_M,, ----ssyysstteemm _S_Y_S_T_E_M
+                 select a build system [default: auto-detection]
+
+          --pp _V_E_R_S_I_O_N_S,, ----ppyyvveerr _V_E_R_S_I_O_N_S
+                 build for Python VERSIONS. This option can be  used  multiple
+                 times.   Versions  can  be separated by space character.  The
+                 default is all Python 3.X supported versions.
+
+          --ii _I_N_T_E_R_P_R_E_T_E_R,, ----iinntteerrpprreetteerr _I_N_T_E_R_P_R_E_T_E_R
+                 change interpreter [default: python{version}]
+
+          ----ddiissaabbllee _I_T_E_M_S
+                 disable action, interpreter, version  or  any  mix  of  them.
+                 Note  that  f.e.  python3  and  python3-dbg are two different
+                 interpreters,   --disable   python3/test   doesn't    disable
+                 python3-dbg's tests.
+
+   ddiissaabbllee eexxaammpplleess
+       +o _-_-_d_i_s_a_b_l_e _t_e_s_t_/_p_y_t_h_o_n_2_._5_-_d_b_g - disables tests for python2.5-dbg
+
+       +o _-_-_d_i_s_a_b_l_e _'_2_._4 _2_._7_' - disables all actions for version 2.4 and 2.7
+
+       +o _P_Y_B_U_I_L_D___D_I_S_A_B_L_E___p_y_t_h_o_n_2_=_1 - disables all actions for Python 2.X
+
+       +o _P_Y_B_U_I_L_D___D_I_S_A_B_L_E___p_y_t_h_o_n_3_._4_=_t_e_s_t - disables tests for Python 3.3
+
+       +o _P_Y_B_U_I_L_D___D_I_S_A_B_L_E_=_t_e_s_t_/_p_y_t_h_o_n_3_._4 - same as above
+
+       +o _P_Y_B_U_I_L_D___D_I_S_A_B_L_E_=_c_o_n_f_i_g_u_r_e_/_p_y_t_h_o_n_3   _2_._4  _p_y_p_y  -  disables  configure
+         action for all python3 interpreters, all actions for version 2.4, and
+         all actions for pypy
+
+SSEEEE AALLSSOO
+       +o dh_python2(1)
+
+       +o dh_python3(1)
+
+       +o _h_t_t_p_:_/_/_d_e_b_._l_i_/_p_y_b_u_i_l_d - most recent version of this document
+
+AAUUTTHHOORR
+       Piotr Oarowski, 2012-2013
+
+
+
+                                                                    PYBUILD(1)

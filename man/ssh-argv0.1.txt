@@ -1,0 +1,37 @@
+SSH-ARGV0(1)              BSD General Commands Manual             SSH-ARGV0(1)
+
+NNAAMMEE
+     sssshh--aarrggvv00 -- replaces the old ssh command-name as hostname handling
+
+SSYYNNOOPPSSIISS
+     _h_o_s_t_n_a_m_e | _u_s_e_r_@_h_o_s_t_n_a_m_e [--ll _l_o_g_i_n___n_a_m_e] [_c_o_m_m_a_n_d]
+
+     _h_o_s_t_n_a_m_e | _u_s_e_r_@_h_o_s_t_n_a_m_e [--aaffggkknnqqssttvvxxAACCNNTTXX11224466] [--bb _b_i_n_d___a_d_d_r_e_s_s]
+     [--cc _c_i_p_h_e_r___s_p_e_c] [--ee _e_s_c_a_p_e___c_h_a_r] [--ii _i_d_e_n_t_i_t_y___f_i_l_e] [--ll _l_o_g_i_n___n_a_m_e]
+     [--mm _m_a_c___s_p_e_c] [--oo _o_p_t_i_o_n] [--pp _p_o_r_t] [--FF _c_o_n_f_i_g_f_i_l_e] [--LL
+     _p_o_r_t:_h_o_s_t:_h_o_s_t_p_o_r_t] [--RR _p_o_r_t:_h_o_s_t:_h_o_s_t_p_o_r_t] [--DD _p_o_r_t] [_c_o_m_m_a_n_d]
+
+DDEESSCCRRIIPPTTIIOONN
+     sssshh--aarrggvv00 replaces the old ssh command-name as hostname handling.  If you
+     link to this script with a hostname then executing the link is equivalent
+     to having executed ssh with that hostname as an argument.  All other
+     arguments are passed to ssh and will be processed normally.
+
+OOPPTTIIOONNSS
+     See ssh(1).
+
+FFIILLEESS
+     See ssh(1).
+
+AAUUTTHHOORRSS
+     OpenSSH is a derivative of the original and free ssh 1.2.12 release by
+     Tatu Ylonen.  Aaron Campbell, Bob Beck, Markus Friedl, Niels Provos, Theo
+     de Raadt and Dug Song removed many bugs, re-added newer features and cre-
+     ated OpenSSH.  Markus Friedl contributed the support for SSH protocol
+     versions 1.5 and 2.0.  Jonathan Amery wrote this ssh-argv0 script and the
+     associated documentation.
+
+SSEEEE AALLSSOO
+     ssh(1)
+
+Debian Project                 September 7, 2001                Debian Project

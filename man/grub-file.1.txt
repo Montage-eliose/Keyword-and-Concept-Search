@@ -1,0 +1,118 @@
+GRUB-FILE(1)                     User Commands                    GRUB-FILE(1)
+
+
+
+NNAAMMEE
+       grub-file - check file type
+
+SSYYNNOOPPSSIISS
+       ffiillee _O_P_T_I_O_N_S _F_I_L_E
+
+DDEESSCCRRIIPPTTIIOONN
+       Check if FILE is of specified type.
+
+       ----iiss--ii338866--xxeenn--ppaaee--ddoommuu
+              Check  if  FILE can be booted as i386 PAE Xen unprivileged guest
+              kernel
+
+       ----iiss--xx8866__6644--xxeenn--ddoommuu
+              Check if FILE can be booted as  x86_64  Xen  unprivileged  guest
+              kernel
+
+       ----iiss--xx8866--xxeenn--ddoomm00
+              Check if FILE can be used as Xen x86 privileged guest kernel
+
+       ----iiss--xx8866--mmuullttiibboooott
+              Check if FILE can be used as x86 multiboot kernel
+
+       ----iiss--xx8866--mmuullttiibboooott22 Check if FILE can be used as x86 multiboot2 kernel
+
+       ----iiss--aarrmm--lliinnuuxx
+              Check if FILE is ARM Linux
+
+       ----iiss--aarrmm6644--lliinnuuxx
+              Check if FILE is ARM64 Linux
+
+       ----iiss--iiaa6644--lliinnuuxx
+              Check if FILE is IA64 Linux
+
+       ----iiss--mmiippss--lliinnuuxx
+              Check if FILE is MIPS Linux
+
+       ----iiss--mmiippsseell--lliinnuuxx
+              Check if FILE is MIPSEL Linux
+
+       ----iiss--ssppaarrcc6644--lliinnuuxx
+              Check if FILE is SPARC64 Linux
+
+       ----iiss--ppoowweerrppcc--lliinnuuxx
+              Check if FILE is POWERPC Linux
+
+       ----iiss--xx8866--lliinnuuxx
+              Check if FILE is x86 Linux
+
+       ----iiss--xx8866--lliinnuuxx3322
+              Check if FILE is x86 Linux supporting 32-bit protocol
+
+       ----iiss--xx8866--kkffrreeeebbssdd
+              Check if FILE is x86 kFreeBSD
+
+       ----iiss--ii338866--kkffrreeeebbssdd
+              Check if FILE is i386 kFreeBSD
+
+       ----iiss--xx8866__6644--kkffrreeeebbssdd
+              Check if FILE is x86_64 kFreeBSD
+
+       ----iiss--xx8866--kknneettbbssdd
+              Check if FILE is x86 kNetBSD
+
+       ----iiss--ii338866--kknneettbbssdd
+              Check if FILE is i386 kNetBSD
+
+       ----iiss--xx8866__6644--kknneettbbssdd Check if FILE is x86_64 kNetBSD
+
+       ----iiss--ii338866--eeffii
+              Check if FILE is i386 EFI file
+
+       ----iiss--xx8866__6644--eeffii
+              Check if FILE is x86_64 EFI file
+
+       ----iiss--iiaa6644--eeffii
+              Check if FILE is IA64 EFI file
+
+       ----iiss--aarrmm6644--eeffii
+              Check if FILE is ARM64 EFI file
+
+       ----iiss--aarrmm--eeffii
+              Check if FILE is ARM EFI file
+
+       ----iiss--hhiibbeerrnnaatteedd--hhiibbeerrffiill
+              Check if FILE is hiberfil.sys in hibernated state
+
+       ----iiss--xx8866__6644--xxnnuu
+              Check if FILE is x86_64 XNU (Mac OS X kernel)
+
+       ----iiss--ii338866--xxnnuu
+              Check if FILE is i386 XNU (Mac OS X kernel)
+
+       ----iiss--xxnnuu--hhiibbrr
+              Check if FILE is XNU (Mac OS X kernel) hibernated image
+
+       ----iiss--xx8866--bbiiooss--bboooottsseeccttoorr
+              Check if FILE is BIOS bootsector
+
+       --hh,  ----hheellpp               Display  this  help  and  exit.   --uu, ----uussaaggee
+       Display the usage of this command and exit.
+
+SSEEEE AALLSSOO
+       The full documentation for ggrruubb--ffiillee is maintained as a Texinfo manual.
+       If the iinnffoo and ggrruubb--ffiillee programs are properly installed at your site,
+       the command
+
+              iinnffoo ggrruubb--ffiillee
+
+       should give you access to the complete manual.
+
+
+
+grub-file (GRUB) 2.02~beta2-9ubuntDue1c.e7mber 2015                    GRUB-FILE(1)

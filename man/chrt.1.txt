@@ -1,0 +1,103 @@
+CHRT(1)                          User Commands                         CHRT(1)
+
+
+
+NNAAMMEE
+       chrt - manipulate the real-time attributes of a process
+
+SSYYNNOOPPSSIISS
+       cchhrrtt [_o_p_t_i_o_n_s] _p_r_i_o _c_o_m_m_a_n_d [_a_r_g]...
+       cchhrrtt [_o_p_t_i_o_n_s] --pp [_p_r_i_o] _p_i_d
+
+DDEESSCCRRIIPPTTIIOONN
+       cchhrrtt sets or retrieves the real-time scheduling attributes of an exist-
+       ing _p_i_d, or runs _c_o_m_m_a_n_d with the given attributes.  Both  policy  (one
+       of  SSCCHHEEDD__OOTTHHEERR,  SSCCHHEEDD__FFIIFFOO, SSCCHHEEDD__RRRR, SSCCHHEEDD__BBAATTCCHH, or SSCCHHEEDD__IIDDLLEE) and
+       priority can be set and retrieved.
+
+       The SSCCHHEEDD__BBAATTCCHH policy is supported since Linux 2.6.16.  The SSCCHHEEDD__IIDDLLEE
+       policy is supported since Linux 2.6.23.
+
+       The  SSCCHHEEDD__RREESSEETT__OONN__FFOORRKK  flag  for policies SCHED_RR and SCHED_FIFO is
+       supported since Linux 2.6.31.
+
+OOPPTTIIOONNSS
+       --aa,, ----aallll--ttaasskkss
+              Set or retrieve the  scheduling  attributes  of  all  the  tasks
+              (threads) for a given PID.
+
+       --bb,, ----bbaattcchh
+              Set scheduling policy to SSCCHHEEDD__BBAATTCCHH (Linux specific).
+
+       --ff,, ----ffiiffoo
+              Set scheduling policy to SSCCHHEEDD__FFIIFFOO.
+
+       --ii,, ----iiddllee
+              Set scheduling policy to SSCCHHEEDD__IIDDLLEE (Linux specific).
+
+       --mm,, ----mmaaxx
+              Show minimum and maximum valid priorities, then exit.
+
+       --oo,, ----ootthheerr
+              Set policy scheduling policy to SSCCHHEEDD__OOTTHHEERR.
+
+       --pp,, ----ppiidd
+              Operate on an existing PID and do not launch a new task.
+
+       --rr,, ----rrrr
+              Set scheduling policy to SSCCHHEEDD__RRRR (the default).
+
+       --RR,, ----rreesseett--oonn--ffoorrkk
+              Add  SSCCHHEEDD__RREESSEETT__OONN__FFOORRKK  flag  to  the  SSCCHHEEDD__FFIIFFOO  or SSCCHHEEDD__RRRR
+              scheduling policy (Linux specific).
+
+       --vv,, ----vveerrbboossee
+              Show status information.
+
+       --hh,, ----hheellpp
+              Display usage information and exit.
+
+       --VV,, ----vveerrssiioonn
+              Display version information and exit.
+
+UUSSAAGGEE
+       The default behavior is to run a new command:
+              cchhrrtt _p_r_i_o _c_o_m_m_a_n_d [_a_r_g_u_m_e_n_t_s]
+
+       You can also retrieve the real-time attributes of an existing task:
+              cchhrrtt --pp _p_i_d
+
+       Or set them:
+              cchhrrtt --pp _p_r_i_o _p_i_d
+
+PPEERRMMIISSSSIIOONNSS
+       A user must possess CCAAPP__SSYYSS__NNIICCEE to change the scheduling attributes of
+       a process.  Any user can retrieve the scheduling information.
+
+NNOOTTEESS
+       Only  SSCCHHEEDD__FFIIFFOO,  SSCCHHEEDD__OOTTHHEERR  and  SSCCHHEEDD__RRRR are part of POSIX 1003.1b
+       Process Scheduling. The other scheduling attributes may be  ignored  on
+       some systems.
+
+AAUUTTHHOORR
+       Written by Robert M. Love.
+
+CCOOPPYYRRIIGGHHTT
+       Copyright (C) 2004 Robert M. Love
+       This is free software; see the source for copying conditions.  There is
+       NO warranty; not even for MERCHANTABILITY or FITNESS FOR  A  PARTICULAR
+       PURPOSE.
+
+SSEEEE AALLSSOO
+       ttaasskksseett(1), nniiccee(1), rreenniiccee(1)
+
+       See  sscchheedd__sseettsscchheedduulleerr(2)  for  a  description of the Linux scheduling
+       scheme.
+
+AAVVAAIILLAABBIILLIITTYY
+       The chrt command is part of the util-linux  package  and  is  available
+       from ftp://ftp.kernel.org/pub/linux/utils/util-linux/.
+
+
+
+util-linux                         June 2010                           CHRT(1)

@@ -1,0 +1,80 @@
+byobu-ugraph(1)                      byobu                     byobu-ugraph(1)
+
+
+
+NNAAMMEE
+       bbyyoobbuu--uuggrraapphh - helper script for notification history graphs
+
+
+DDEESSCCRRIIPPTTIIOONN
+       bbyyoobbuu--uuggrraapphh  is  a  helper  script  that can be used to create history
+       graphs
+
+
+UUSSAAGGEE
+       bbyyoobbuu--uuggrraapphh [options] [command [args...]]
+
+
+OOPPTTIIOONNSS
+         -f <file>   : File to read data points from.  (only  required  if  no
+       command specified).
+         -h          : Show this help.
+         -m <num>    : Minimum value (default=$min_default).
+         -n          : Supress output of newline character.
+         -p   <points>   :   Specify   number   of   data   points   in  graph
+       (default=$points_default).
+         -r          : Do not rotate  file  <file>  (default  is  to  rotate).
+       Option implies file <file> should not be written to so a command cannot
+       follow script options in this case.
+         -t <theme>  : 'byobu-ulevel' theme to use (default=$theme_default).
+         -x <num>    : Maximum value (default=$max_default).
+
+
+EEXXAAMMPPLLEESS
+       Using byobu-ugraph to run a command, rotate log and display graph.
+
+       Here we specify a command to display available memory.   Trailing  echo
+       adds a required newline Note no filename specified.
+
+           byobu-ugraph "(/usr/lib/byobu/mem_used | sed -e 's/% //g';echo)"
+
+       Using byobu-ugraph just to rotate log and display the graph
+
+           file=/tmp/load.dat
+           awk '{ print $1}' /proc/loadavg >> $file
+           #  Note:  we  need to specify what we consider to be a "reasonable"
+       maximum load
+           byobu-ugraph -m 3.0 -f $file
+
+
+NNOOTTEESS
+       If you specify 'command', care must be  taken  with  shell  quoting  to
+       avoid expansion prior to this script running the command.
+
+       If  '-r' is not specified, the file <file> will be rotated such that at
+       most <points> lines are retained on each invocation of this script.
+
+
+SSEEEE AALLSSOO
+       bbyyoobbuu(1)
+
+
+       _h_t_t_p_:_/_/_b_y_o_b_u_._c_o
+
+
+AAUUTTHHOORR
+       This utility was written by James Hunt <james.hunt@canonical.com>,  and
+       this  manpage  was  written  by Dustin Kirkland <kirkland@byobu.co> for
+       Ubuntu systems (but may be used by others).  Permission is  granted  to
+       copy,  distribute and/or modify this document and the utility under the
+       terms of the GNU General Public License, Version  3  published  by  the
+       Free Software Foundation.
+
+       The  complete  text  of  the GNU General Public License can be found in
+       _/_u_s_r_/_s_h_a_r_e_/_c_o_m_m_o_n_-_l_i_c_e_n_s_e_s_/_G_P_L  on   Debian/Ubuntu   systems,   or   in
+       _/_u_s_r_/_s_h_a_r_e_/_d_o_c_/_f_e_d_o_r_a_-_r_e_l_e_a_s_e_-_*_/_G_P_L on Fedora systems, or on the web at
+       _h_t_t_p_:_/_/_w_w_w_._g_n_u_._o_r_g_/_l_i_c_e_n_s_e_s_/_g_p_l_._t_x_t.
+
+
+
+byobu                             16 Dec 2013                  byobu-ugraph(1)

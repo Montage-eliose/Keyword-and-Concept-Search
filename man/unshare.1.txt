@@ -1,0 +1,70 @@
+UNSHARE(1)                       User Commands                      UNSHARE(1)
+
+
+
+NNAAMMEE
+       unshare - run program with some namespaces unshared from parent
+
+SSYYNNOOPPSSIISS
+       uunnsshhaarree [_o_p_t_i_o_n_s] program [_a_r_g_u_m_e_n_t_s]
+
+DDEESSCCRRIIPPTTIIOONN
+       Unshares  specified  namespaces  from  parent process and then executes
+       specified program. Unshareable namespaces are:
+
+       mmoouunntt nnaammeessppaaccee
+              mounting and unmounting filesystems will not affect rest of  the
+              system (CCLLOONNEE__NNEEWWNNSS flag),
+
+       UUTTSS nnaammeessppaaccee
+              setting  hostname, domainname will not affect rest of the system
+              (CCLLOONNEE__NNEEWWUUTTSS flag),
+
+       IIPPCC nnaammeessppaaccee
+              process will have independent namespace  for  System  V  message
+              queues,  semaphore sets and shared memory segments (CCLLOONNEE__NNEEWWIIPPCC
+              flag),
+
+       nneettwwoorrkk nnaammeessppaaccee
+              process will have independent IPv4 and IPv6 stacks,  IP  routing
+              tables,  firewall rules, the _/_p_r_o_c_/_n_e_t and _/_s_y_s_/_c_l_a_s_s_/_n_e_t direc-
+              tory trees, sockets etc. (CCLLOONNEE__NNEEWWNNEETT flag).
+
+       See the clone(2) for exact semantics of the flags.
+
+OOPPTTIIOONNSS
+       --hh, ----hheellpp
+              Print a help message,
+
+       --mm, ----mmoouunntt
+              Unshare the mount namespace,
+
+       --uu, ----uuttss
+              Unshare the UTS namespace,
+
+       --ii, ----iippcc
+              Unshare the IPC namespace,
+
+       --nn, ----nneett
+              Unshare the network namespace.
+
+NNOOTTEESS
+       The unshare command drops potential  privileges  before  executing  the
+       target program. This allows to setuid unshare.
+
+SSEEEE AALLSSOO
+       unshare(2), clone(2)
+
+BBUUGGSS
+       None known so far.
+
+AAUUTTHHOORR
+       Mikhail Gusarov <dottedmag@dottedmag.net>
+
+AAVVAAIILLAABBIILLIITTYY
+       The  unshare command is part of the util-linux package and is available
+       from ftp://ftp.kernel.org/pub/linux/utils/util-linux/.
+
+
+
+util-linux                       October 2008                       UNSHARE(1)

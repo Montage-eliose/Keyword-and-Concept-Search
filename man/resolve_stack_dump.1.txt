@@ -1,0 +1,72 @@
+RESOLVE_STACK_DUM(1)         MySQL Database System        RESOLVE_STACK_DUM(1)
+
+
+
+NNAAMMEE
+       resolve_stack_dump - resolve numeric stack trace dump to symbols
+
+SSYYNNOOPPSSIISS
+       rreessoollvvee__ssttaacckk__dduummpp [[_o_p_t_i_o_n_s]] _s_y_m_b_o_l_s___f_i_l_e [[_n_u_m_e_r_i_c___d_u_m_p___f_i_l_e]]
+
+DDEESSCCRRIIPPTTIIOONN
+       rreessoollvvee__ssttaacckk__dduummpp resolves a numeric stack dump to symbols.
+
+       Invoke rreessoollvvee__ssttaacckk__dduummpp like this:
+
+           shell> rreessoollvvee__ssttaacckk__dduummpp [[_o_p_t_i_o_n_s]] _s_y_m_b_o_l_s___f_i_l_e [[_n_u_m_e_r_i_c___d_u_m_p___f_i_l_e]]
+
+       The symbols file should include the output from the nnmm ----nnuummeerriicc--ssoorrtt
+       mmyyssqqlldd command. The numeric dump file should contain a numeric stack
+       track from mmyyssqqlldd. If no numeric dump file is named on the command
+       line, the stack trace is read from the standard input.
+
+       rreessoollvvee__ssttaacckk__dduummpp supports the following options.
+
+       +o   ----hheellpp, --hh
+
+           Display a help message and exit.
+
+       +o   ----nnuummeerriicc--dduummpp--ffiillee==_f_i_l_e___n_a_m_e, --nn _f_i_l_e___n_a_m_e
+
+           Read the stack trace from the given file.
+
+       +o   ----ssyymmbboollss--ffiillee==_f_i_l_e___n_a_m_e, --ss _f_i_l_e___n_a_m_e
+
+           Use the given symbols file.
+
+       +o   ----vveerrssiioonn, --VV
+
+           Display version information and exit.
+
+       For more information, see Section 24.5.1.5, "Using a Stack Trace".
+
+CCOOPPYYRRIIGGHHTT
+       Copyright (C) 1997, 2016, Oracle and/or its affiliates. All rights
+       reserved.
+
+       This documentation is free software; you can redistribute it and/or
+       modify it only under the terms of the GNU General Public License as
+       published by the Free Software Foundation; version 2 of the License.
+
+       This documentation is distributed in the hope that it will be useful,
+       but WITHOUT ANY WARRANTY; without even the implied warranty of
+       MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+       General Public License for more details.
+
+       You should have received a copy of the GNU General Public License along
+       with the program; if not, write to the Free Software Foundation, Inc.,
+       51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA or see
+       http://www.gnu.org/licenses/.
+
+
+SSEEEE AALLSSOO
+       For more information, please refer to the MySQL Reference Manual, which
+       may already be installed locally and which is also available online at
+       http://dev.mysql.com/doc/.
+
+AAUUTTHHOORR
+       Oracle Corporation (http://dev.mysql.com/).
+
+
+
+MySQL 5.5                         03/01/2016              RESOLVE_STACK_DUM(1)

@@ -1,0 +1,94 @@
+dbus-uuidgen(1)             General Commands Manual            dbus-uuidgen(1)
+
+
+
+NNAAMMEE
+       dbus-uuidgen - Utility to generate UUIDs
+
+SSYYNNOOPPSSIISS
+       ddbbuuss--uuuuiiddggeenn [[----vveerrssiioonn]] [[----eennssuurree[[==FFIILLEENNAAMMEE]]]] [[----ggeett[[==FFIILLEENNAAMMEE]]]]
+
+
+DDEESSCCRRIIPPTTIIOONN
+       The _d_b_u_s_-_u_u_i_d_g_e_n command generates or reads a universally unique ID.
+
+
+       Note  that  the D-Bus UUID has no relationship to RFC 4122 and does not
+       generate UUIDs compatible with that spec. Many systems have a  separate
+       command for that (often called "uuidgen").
+
+
+       See   http://www.freedesktop.org/software/dbus/  for  more  information
+       about D-Bus.
+
+
+       The primary usage of _d_b_u_s_-_u_u_i_d_g_e_n is to run in the post-install  script
+       of a D-Bus package like this:
+         dbus-uuidgen --ensure
+
+
+       This  will ensure that /var/lib/dbus/machine-id exists and has the uuid
+       in it.  It won't overwrite an  existing  uuid,  since  this  id  should
+       remain fixed for a single machine until the next reboot at least.
+
+
+       The  important  properties  of  the machine UUID are that 1) it remains
+       unchanged until the next reboot and 2) it is different for any two run-
+       ning instances of the OS kernel. That is, if two processes see the same
+       UUID, they should also see the same shared memory, UNIX domain sockets,
+       local X displays, localhost.localdomain resolution, process IDs, and so
+       forth.
+
+
+       If you run _d_b_u_s_-_u_u_i_d_g_e_n with no options it just prints a new uuid  made
+       up out of thin air.
+
+
+       If you run it with --get, it prints the machine UUID by default, or the
+       UUID in the specified file if you specify a file.
+
+
+       If you try to change an existing machine-id on  a  running  system,  it
+       will  probably result in bad things happening. Don't try to change this
+       file. Also, don't make it the same on two different systems;  it  needs
+       to be different anytime there are two different kernels running.
+
+
+       The UUID should be different on two different virtual machines, because
+       there are two different kernels.
+
+
+OOPPTTIIOONNSS
+       The following options are supported:
+
+       _-_-_g_e_t_[_=_F_I_L_E_N_A_M_E_]
+              If  a  filename  is   not   given,   defaults   to   localstate-
+              dir/lib/dbus/machine-id (localstatedir is usually /var). If this
+              file exists and is valid, the uuid in the  file  is  printed  on
+              stdout. Otherwise, the command exits with a nonzero status.
+
+
+       _-_-_e_n_s_u_r_e_[_=_F_I_L_E_N_A_M_E_]
+              If   a   filename   is   not   given,  defaults  to  localstate-
+              dir/lib/dbus/machine-id (localstatedir is usually /var). If this
+              file  exists  then  it  will  be  validated,  and a failure code
+              returned if it contains the wrong thing.  If the file  does  not
+              exist,  it  will  be created with a new uuid in it.  On success,
+              prints no output.
+
+
+       _-_-_v_e_r_s_i_o_n
+              Print the version of dbus-uuidgen
+
+
+AAUUTTHHOORR
+       See http://www.freedesktop.org/software/dbus/doc/AUTHORS
+
+
+BBUUGGSS
+       Please send bug reports to the D-Bus mailing list or bug  tracker,  see
+       http://www.freedesktop.org/software/dbus/
+
+
+
+                                                               dbus-uuidgen(1)

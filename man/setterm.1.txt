@@ -1,0 +1,211 @@
+SETTERM(1)                       User Commands                      SETTERM(1)
+
+
+
+NNAAMMEE
+       setterm - set terminal attributes
+
+SSYYNNOOPPSSIISS
+       sseetttteerrmm [_o_p_t_i_o_n_s]
+
+DDEESSCCRRIIPPTTIIOONN
+       sseetttteerrmm  writes  to standard output a character string that will invoke
+       the specified terminal capabilities.  Where possible _t_e_r_m_i_n_f_o  is  con-
+       sulted  to  find the string to use.  Some options however (marked "vir-
+       tual consoles only" below) do not correspond to a tteerrmmiinnffoo(5)  capabil-
+       ity.  In this case, if the terminal type is "con" or "linux" the string
+       that invokes the specified capabilities on the PC Minix virtual console
+       driver is output.  Options that are not implemented by the terminal are
+       ignored.
+
+OOPPTTIIOONNSS
+       For boolean options (oonn or ooffff), the default is oonn.
+
+       For conciseness, an _8_-_c_o_l_o_r below is bbllaacckk, rreedd, ggrreeeenn,  yyeellllooww,  bblluuee,
+       mmaaggeennttaa, ccyyaann, or wwhhiittee.
+
+       A  _1_6_-_c_o_l_o_r is an _8_-_c_o_l_o_r, ggrreeyy, or bbrriigghhtt followed by rreedd, ggrreeeenn, yyeell--
+       llooww, bblluuee, mmaaggeennttaa, ccyyaann, or wwhhiittee.
+
+       The various color options may be set independently, at least at virtual
+       consoles,  though  the  results of setting multiple modes (for example,
+       --uunnddeerrlliinnee and --hhaallff--bbrriigghhtt) are hardware-dependent.
+
+       --tteerrmm terminal_name
+              Overrides the TERM environment variable.
+
+       --rreesseett Displays the terminal reset string, which typically  resets  the
+              terminal to its power on state.
+
+       --iinniittiiaalliizzee
+              Displays  the  terminal  initialization  string, which typically
+              sets the terminal's rendering options, and other  attributes  to
+              the default values.
+
+       --ccuurrssoorr [oonn|ooffff]
+              Turns the terminal's cursor on or off.
+
+       --rreeppeeaatt [oonn|ooffff] (virtual consoles only)
+              Turns keyboard repeat on or off.
+
+       --aappppccuurrssoorrkkeeyyss [oonn|ooffff] (virtual consoles only)
+              Sets  Cursor  Key  Application Mode on or off. When on, ESC O A,
+              ESC O B, etc.  will be sent for the cursor keys instead of ESC [
+              A,  ESC  [  B, etc.  See the "vi and Cursor-Keys" section of the
+              Text-Terminal-HOWTO for how  this  can  cause  problems  for  vi
+              users.
+
+       --lliinneewwrraapp [oonn|ooffff] (virtual consoles only)
+              Turns automatic line-wrapping on or off.
+
+       --ddeeffaauulltt
+              Sets the terminal's rendering options to the default values.
+
+       --ffoorreeggrroouunndd _8_-_c_o_l_o_r|ddeeffaauulltt (virtual consoles only)
+              Sets the foreground text color.
+
+       --bbaacckkggrroouunndd _8_-_c_o_l_o_r|ddeeffaauulltt (virtual consoles only)
+              Sets the background text color.
+
+       --uullccoolloorr _1_6_-_c_o_l_o_r (virtual consoles only)
+              Sets the color for underlined characters.
+
+       --hhbbccoolloorr _1_6_-_c_o_l_o_r (virtual consoles only)
+              Sets the color for half-bright characters.
+
+       --iinnvveerrsseessccrreeeenn [oonn|ooffff] (virtual consoles only)
+              Inverts  the  screen  colors.   Foreground  and  background  are
+              swapped, as are underline and half-brightness.
+
+       --bboolldd [oonn|ooffff]
+              Turns bold (extra bright) mode on or off.  Except at  a  virtual
+              console,  --bboolldd ooffff turns off all attributes (bold, half-bright-
+              ness, blink, reverse).
+
+       --hhaallff--bbrriigghhtt [oonn|ooffff]
+              Turns dim (half-brightness)  mode  on  or  off  (see  --hhbbccoolloorr).
+              Except  at  a  virtual  console,  --hhaallff--bbrriigghhtt ooffff turns off all
+              attributes (bold, half-brightness, blink, reverse).
+
+       --bblliinnkk [oonn|ooffff]
+              Turns blink mode on or off.  Except at a virtual console, --bblliinnkk
+              ooffff  turns  off  all  attributes  (bold, half-brightness, blink,
+              reverse).
+
+       --rreevveerrssee [oonn|ooffff]
+              Turns reverse video mode on or off.  Except at  a  virtual  con-
+              sole,  --rreevveerrssee ooffff turns off all attributes (bold, half-bright-
+              ness, blink, reverse).
+
+       --uunnddeerrlliinnee [oonn|ooffff]
+              Turns underline mode on or off (see --uullccoolloorr).
+
+       --ssttoorree (virtual consoles only)
+              Stores the terminal's current rendering options (foreground  and
+              background colors) as the values to be used at reset-to-default.
+
+       --cclleeaarr [aallll]
+              Clears the screen and "homes" the cursor, as cclleeaarr(1).
+
+       --cclleeaarr rreesstt
+              Clears  from  the  current  cursor  position  to  the end of the
+              screen.
+
+       --ttaabbss [_t_a_b_1 _t_a_b_2 _t_a_b_3 ...] (virtual consoles only)
+              Sets tab stops at the given horizontal cursor positions, in  the
+              range 1-160.  Without arguments, shows the current tab stop set-
+              tings.
+
+       --ccllrrttaabbss [_t_a_b_1 _t_a_b_2 _t_a_b_3 ...] (virtual consoles only)
+              Clears tab stops from the given horizontal cursor positions,  in
+              the range 1-160.  Without arguments, clears all tab stops.
+
+       --rreeggttaabbss [_1_-_1_6_0] (virtual consoles only)
+              Clears all tab stops, then sets a regular tab stop pattern, with
+              one tab every specified number of positions.  Without  an  argu-
+              ment, defaults to 8.
+
+       --bbllaannkk [_0_-_6_0|ffoorrccee|ppookkee] (virtual consoles only)
+              Sets  the  interval  of  inactivity, in minutes, after which the
+              screen will be automatically blanked (using APM  if  available).
+              Without an argument, gets the blank status (returns which vt was
+              blanked or zero for unblanked vt).
+
+              The ffoorrccee option keeps screen blank even if a key is pressed.
+
+              The ppookkee option unblank the screen.
+
+       --dduummpp [_1_-_N_R___C_O_N_S]
+              Writes a snapshot of the given virtual console (with attributes)
+              to  the file specified in the --ffiillee option, overwriting its con-
+              tents; the default is screen.dump.  Without an  argument,  dumps
+              the current virtual console.  Overrides --aappppeenndd.
+
+       --aappppeenndd [_1_-_N_R___C_O_N_S]
+              Like  --dduummpp,  but  appends to the snapshot file instead of over-
+              writing it.  Only works if no --dduummpp options are given.
+
+       --ffiillee _d_u_m_p_f_i_l_e_n_a_m_e
+              Sets the snapshot file name for any --dduummpp or --aappppeenndd options  on
+              the  same  command  line.   If  this  option is not present, the
+              default is screen.dump in the current directory.   A  path  name
+              that exceeds system maximum will be truncated, see PATH_MAX from
+              linux/limits.h for the value.
+
+       --mmssgg [oonn|ooffff] (virtual consoles only)
+              Enables or disables the sending of kernel pprriinnttkk(())  messages  to
+              the console.
+
+       --mmssgglleevveell _1_-_8 (virtual consoles only)
+              Sets  the  console  logging  level for kernel pprriinnttkk(()) messages.
+              All messages strictly more important than this will be  printed,
+              so  a  logging  level  of 0 has the same effect as --mmssgg oonn and a
+              logging level of 8 will print all kernel messages.  kkllooggdd(8) may
+              be  a  more  convenient  interface to the logging of kernel mes-
+              sages.
+
+       --ppoowweerrssaavvee oonn|vvssyynncc
+              Puts the monitor into VESA vsync suspend mode.
+
+       --ppoowweerrssaavvee hhssyynncc
+              Puts the monitor into VESA hsync suspend mode.
+
+       --ppoowweerrssaavvee ppoowweerrddoowwnn
+              Puts the monitor into VESA powerdown mode.
+
+       --ppoowweerrssaavvee [ooffff]
+              Turns off monitor VESA powersaving features.
+
+       --ppoowweerrddoowwnn [_0_-_6_0]
+              Sets the VESA powerdown interval in minutes.  Without  an  argu-
+              ment,  defaults  to  0  (disable  powerdown).  If the console is
+              blanked or the monitor is in suspend mode, then the monitor will
+              go  into vsync suspend mode or powerdown mode respectively after
+              this period of time has elapsed.
+
+       --bblleennggtthh [_0_-_2_0_0_0]
+              Sets the bell duration in milliseconds.   Without  an  argument,
+              defaults to 0.
+
+       --bbffrreeqq [_f_r_e_q_n_u_m_b_e_r]
+              Sets the bell frequency in Hz.  Without an argument, defaults to
+              0.
+
+       --vveerrssiioonn
+              Output version information and exit.
+
+       --hheellpp  Output help screen and exit.
+
+SSEEEE AALLSSOO
+       ttppuutt(1), ssttttyy(1), tteerrmmiinnffoo(5), ttttyy(4)
+
+BBUUGGSS
+       Differences between the Minix and Linux versions are not documented.
+
+AAVVAAIILLAABBIILLIITTYY
+       The setterm command is part of the util-linux package and is  available
+       from ftp://ftp.kernel.org/pub/linux/utils/util-linux/.
+
+
+
+util-linux                       January 2000                       SETTERM(1)

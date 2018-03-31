@@ -1,0 +1,39 @@
+SPROF(1)                       Debian GNU/Linux                       SPROF(1)
+
+
+
+NNNNAAAAMMMMEEEE
+       sprof - Read and display shared object profiling data
+
+SSSSYYYYNNNNOOOOPPPPSSSSIIIISSSS
+       sssspppprrrrooooffff ----pppp|----cccc [----qqqq]
+
+DDDDEEEESSSSCCCCRRRRIIIIPPPPTTTTIIIIOOOONNNN
+       --------ccccaaaallllllll----ppppaaaaiiiirrrrssss, ----cccc
+
+               print list of count paths and their number of use
+
+       --------ffffllllaaaatttt----pppprrrrooooffffiiiilllleeee, ----pppp
+
+               generate flat profile with counts and ticks
+
+       --------ggggrrrraaaapppphhhh, ----qqqq
+
+               generate call graph
+
+
+AAAAUUUUTTTTHHHHOOOORRRR
+       _s_p_r_o_f was written by Ulrich Drepper for the GNU C Library
+
+       This man page was written by Joel Klecker <espy@debian.org> for the
+       Debian GNU/Linux system.
+
+
+
+
+
+
+
+
+
+3rd Berkeley Distribution            etch                             SPROF(1)

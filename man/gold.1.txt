@@ -1,0 +1,754 @@
+GOLD(1)                          User Commands                         GOLD(1)
+
+
+
+NNAAMMEE
+       gold - The GNU ELF linker
+
+SSYYNNOOPPSSIISS
+       lldd..ggoolldd [_o_p_t_i_o_n_s] _f_i_l_e...
+
+OOPPTTIIOONNSS
+       ----hheellpp Report usage information
+
+       --vv, ----vveerrssiioonn
+              Report version information
+
+       --VV     Report version and target information
+
+       ----aadddd--nneeeeddeedd
+              Not supported
+
+       ----nnoo--aadddd--nneeeeddeedd
+              Do not copy DT_NEEDED tags from shared libraries
+
+       ----aallllooww--mmuullttiippllee--ddeeffiinniittiioonn Allow multiple definitions of symbols
+
+       ----nnoo--aallllooww--mmuullttiippllee--ddeeffiinniittiioonn
+              Do not allow multiple definitions
+
+       ----aallllooww--sshhlliibb--uunnddeeffiinneedd
+              Allow unresolved references in shared libraries
+
+       ----nnoo--aallllooww--sshhlliibb--uunnddeeffiinneedd
+              Do not allow unresolved references in shared libraries
+
+       ----aass--nneeeeddeedd
+              Only set DT_NEEDED for shared libraries if used
+
+       ----nnoo--aass--nneeeeddeedd
+              Always DT_NEEDED for shared libraries
+
+       --aasssseerrtt [ignored]
+              Ignored
+
+       --bb [elf,binary], ----ffoorrmmaatt [elf,binary]
+              Set input format
+
+       --BBddyynnaammiicc                   --ll searches for shared libraries
+
+       --BBssttaattiicc                    --ll does not search for shared libraries
+
+       --ddyy    alias for --BBddyynnaammiicc
+
+       --ddnn    alias for --BBssttaattiicc
+
+       --BBggrroouupp
+              Use group name lookup rules for shared library
+
+       --BBssyymmbboolliicc
+              Bind defined symbols locally
+
+       --BBssyymmbboolliicc--ffuunnccttiioonnss
+              Bind defined function symbols locally
+
+       ----bbuuiilldd--iidd [=STYLE]
+              Generate build ID note
+
+       ----bbuuiilldd--iidd--cchhuunnkk--ssiizzee--ffoorr--ttrreeeehhaasshh SIZE
+              Chunk size for '--build-id=tree'
+
+       ----bbuuiilldd--iidd--mmiinn--ffiillee--ssiizzee--ffoorr--ttrreeeehhaasshh SIZE
+              Minimum  output  file size for '--build-id=tree' to work differ-
+              ently than '--build-id=sha1'
+
+       ----cchheecckk--sseeccttiioonnss
+              Check segment addresses for overlaps (default)
+
+       ----nnoo--cchheecckk--sseeccttiioonnss
+              Do not check segment addresses for overlaps
+
+       ----ccoommpprreessss--ddeebbuugg--sseeccttiioonnss [none,zlib]
+              Compress .debug_* sections in the output file
+
+       ----ccooppyy--ddtt--nneeeeddeedd--eennttrriieess
+              Not supported
+
+       ----nnoo--ccooppyy--ddtt--nneeeeddeedd--eennttrriieess Do not  copy  DT_NEEDED  tags  from  shared
+              libraries
+
+       ----ccrreeff
+              Output cross reference table
+
+       ----nnoo--ccrreeff
+              Do not output cross reference table
+
+       ----ccttoorrss--iinn--iinniitt--aarrrraayy
+              Use DT_INIT_ARRAY for all constructors (default)
+
+       ----nnoo--ccttoorrss--iinn--iinniitt--aarrrraayy
+              Handle constructors as directed by compiler
+
+       --dd, ----ddeeffiinnee--ccoommmmoonn
+              Define common symbols
+
+       ----nnoo--ddeeffiinnee--ccoommmmoonn
+              Do not define common symbols
+
+       --ddcc    Alias for --dd
+
+       --ddpp    Alias for --dd
+
+       ----ddeebbuugg [all,files,script,task][,...]
+              Turn on debugging
+
+       ----ddeeffssyymm SYMBOL=EXPRESSION
+              Define a symbol
+
+       ----ddeemmaannggllee [=STYLE]
+              Demangle C++ symbols in log messages
+
+       ----nnoo--ddeemmaannggllee
+              Do not demangle C++ symbols in log messages
+
+       ----ddeetteecctt--ooddrr--vviioollaattiioonnss
+              Look for violations of the C++ One Definition Rule
+
+       ----nnoo--ddeetteecctt--ooddrr--vviioollaattiioonnss
+              Do not look for violations of the C++ One Definition Rule
+
+       --xx, ----ddiissccaarrdd--aallll
+              Delete all local symbols
+
+       --XX, ----ddiissccaarrdd--llooccaallss
+              Delete all temporary local symbols
+
+       ----ddyynnaammiicc--lliisstt--ddaattaa
+              Add data symbols to dynamic symbols
+
+       ----ddyynnaammiicc--lliisstt--ccpppp--nneeww
+              Add C++ operator new/delete to dynamic symbols
+
+       ----ddyynnaammiicc--lliisstt--ccpppp--ttyyppeeiinnffoo Add C++ typeinfo to dynamic symbols
+
+       ----ddyynnaammiicc--lliisstt FILE
+              Read a list of dynamic symbols
+
+       --ee ADDRESS, ----eennttrryy ADDRESS Set program start address
+
+       ----eexxcclluuddee--lliibbss lib,lib ...
+              Exclude libraries from automatic export
+
+       --EE, ----eexxppoorrtt--ddyynnaammiicc
+              Export all dynamic symbols
+
+       ----nnoo--eexxppoorrtt--ddyynnaammiicc
+              Do not export all dynamic symbols (default)
+
+       ----eexxppoorrtt--ddyynnaammiicc--ssyymmbbooll SYMBOL
+              Export SYMBOL to dynamic symbol table
+
+       --EEBB    Link big-endian objects.
+
+       --EELL    Link little-endian objects.
+
+       ----eehh--ffrraammee--hhddrr
+              Create exception frame header
+
+       ----nnoo--eennuumm--ssiizzee--wwaarrnniinngg
+              (ARM  only)  Do  not  warn  about objects with incompatible enum
+              sizes
+
+       --ff SHLIB, ----aauuxxiilliiaarryy SHLIB Auxiliary filter for shared  object  symbol
+              table
+
+       --FF SHLIB, ----ffiilltteerr SHLIB
+              Filter for shared object symbol table
+
+       ----ffaattaall--wwaarrnniinnggss
+              Treat warnings as errors
+
+       ----nnoo--ffaattaall--wwaarrnniinnggss
+              Do not treat warnings as errors
+
+       --ffiinnii SYMBOL
+              Call SYMBOL at unload-time
+
+       ----ffiixx--ccoorrtteexx--aa88
+              (ARM only) Fix binaries for Cortex-A8 erratum.
+
+       ----nnoo--ffiixx--ccoorrtteexx--aa88
+              (ARM only) Do not fix binaries for Cortex-A8 erratum.
+
+       ----ffiixx--aarrmm11117766
+              (ARM only) Fix binaries for ARM1176 erratum.
+
+       ----nnoo--ffiixx--aarrmm11117766
+              (ARM only) Do not fix binaries for ARM1176 erratum.
+
+       ----mmeerrggee--eexxiiddxx--eennttrriieess
+              (ARM only) Merge exidx entries in debuginfo.
+
+       ----nnoo--mmeerrggee--eexxiiddxx--eennttrriieess
+              (ARM only) Do not merge exidx entries in debuginfo.
+
+       ----ffiixx--vv44bbxx
+              (ARM only) Rewrite BX rn as MOV pc, rn for ARMv4
+
+       ----ffiixx--vv44bbxx--iinntteerrwwoorrkkiinngg
+              (ARM only) Rewrite BX rn branch to ARMv4 interworking veneer
+
+       --gg     Ignored
+
+       ----ggddbb--iinnddeexx
+              Generate .gdb_index section
+
+       ----nnoo--ggddbb--iinnddeexx
+              Do not generate .gdb_index section
+
+       ----ggnnuu--uunniiqquuee
+              Enable STB_GNU_UNIQUE symbol binding (default)
+
+       ----nnoo--ggnnuu--uunniiqquuee
+              Disable STB_GNU_UNIQUE symbol binding
+
+       --hh FILENAME, --ssoonnaammee FILENAME
+              Set shared library name
+
+       ----hhaasshh--bbuucckkeett--eemmppttyy--ffrraaccttiioonn FRACTION
+              Min fraction of empty buckets in dynamic hash
+
+       ----hhaasshh--ssttyyllee [sysv,gnu,both]
+              Dynamic hash style
+
+       --II PROGRAM, ----ddyynnaammiicc--lliinnkkeerr PROGRAM
+              Set dynamic linker path
+
+       ----iinnccrreemmeennttaall
+              Do  an  incremental  link if possible; otherwise, do a full link
+              and prepare output for incremental linking
+
+       ----nnoo--iinnccrreemmeennttaall
+              Do a full link (default)
+
+       ----iinnccrreemmeennttaall--ffuullll
+              Do a full link and prepare output for incremental linking
+
+       ----iinnccrreemmeennttaall--uuppddaattee
+              Do an incremental link; exit if not possible
+
+       ----iinnccrreemmeennttaall--bbaassee FILE
+              Set base file for incremental linking (default is output file)
+
+       ----iinnccrreemmeennttaall--cchhaannggeedd
+              Assume files changed
+
+       ----iinnccrreemmeennttaall--uunncchhaannggeedd
+              Assume files didn't change
+
+       ----iinnccrreemmeennttaall--uunnkknnoowwnn
+              Use timestamps to check files (default)
+
+       ----iinnccrreemmeennttaall--ssttaarrttuupp--uunncchhaannggeedd
+              Assume startup files unchanged (files preceding this option)
+
+       ----iinnccrreemmeennttaall--ppaattcchh PERCENT Amount  of  extra  space  to  allocate  for
+              patches
+
+       --iinniitt SYMBOL
+              Call SYMBOL at load-time
+
+       ----jjuusstt--ssyymmbboollss FILE
+              Read only symbol values from FILE
+
+       ----mmaapp--wwhhoollee--ffiilleess
+              Map whole files to memory (default on 64-bit hosts)
+
+       ----nnoo--mmaapp--wwhhoollee--ffiilleess
+              Map relevant file parts to memory (default on 32-bit hosts)
+
+       ----kkeeeepp--ffiilleess--mmaappppeedd
+              Keep files mapped across passes (default)
+
+       ----nnoo--kkeeeepp--ffiilleess--mmaappppeedd
+              Release mapped files after each pass
+
+       ----lldd--ggeenneerraatteedd--uunnwwiinndd--iinnffoo
+              Generate unwind information for PLT (default)
+
+       ----nnoo--lldd--ggeenneerraatteedd--uunnwwiinndd--iinnffoo
+              Do not generate unwind information for PLT
+
+       --ll LIBNAME, ----lliibbrraarryy LIBNAME
+              Search for library LIBNAME
+
+       --LL DIR, ----lliibbrraarryy--ppaatthh DIR
+              Add directory to search path
+
+       ----tteexxtt--rreeoorrddeerr
+              Enable text section reordering for GCC section names (default)
+
+       ----nnoo--tteexxtt--rreeoorrddeerr
+              Disable text section reordering for GCC section names
+
+       --nnoossttddlliibb
+              Only search directories specified on the command line.
+
+       ----rroosseeggmmeenntt
+              Put read-only non-executable sections in their own segment
+
+       ----rroosseeggmmeenntt--ggaapp OFFSET
+              Set offset between executable and read-only segments
+
+       --mm EMULATION
+              Set GNU linker emulation; obsolete
+
+       ----mmmmaapp--oouuttppuutt--ffiillee
+              Map the output file for writing (default).
+
+       ----nnoo--mmmmaapp--oouuttppuutt--ffiillee
+              Do not map the output file for writing.
+
+       --MM, ----pprriinntt--mmaapp
+              Write map file on standard output
+
+       --MMaapp MAPFILENAME
+              Write map file
+
+       --nn, ----nnmmaaggiicc
+              Do not page align data
+
+       --NN, ----oommaaggiicc
+              Do not page align data, do not make text readonly
+
+       ----nnoo--oommaaggiicc
+              Page align data, make text readonly
+
+       ----eennaabbllee--nneeww--ddttaaggss
+              Enable use of DT_RUNPATH and DT_FLAGS
+
+       ----ddiissaabbllee--nneeww--ddttaaggss
+              Disable use of DT_RUNPATH and DT_FLAGS
+
+       ----nnooiinnhhiibbiitt--eexxeecc
+              Create an output file even if errors occur
+
+       ----nnoo--uunnddeeffiinneedd
+              Report undefined symbols (even with ----sshhaarreedd)
+
+       --oo FILE, ----oouuttppuutt FILE
+              Set output file name
+
+       --OO LEVEL, --ooppttiimmiizzee LEVEL
+              Optimize output file size
+
+       ----ooffoorrmmaatt [binary]
+              Set output format
+
+       --pp     (ARM only) Ignore for backward compatibility
+
+       --ppiiee   Create a position independent executable
+
+       ----ppiicc--eexxeeccuuttaabbllee
+              Create a position independent executable
+
+       --nnoo--ppiippeelliinnee--kknnoowwlleeddggee
+              (ARM only) Ignore for backward compatibility
+
+       ----pplltt--aalliiggnn [=P2ALIGN]
+              (PowerPC64 only) Align PLT call stubs to fit cache lines
+
+       ----pplltt--ssttaattiicc--cchhaaiinn
+              (PowerPC64 only) PLT call stubs should load r11
+
+       ----nnoo--pplltt--ssttaattiicc--cchhaaiinn
+              (PowerPC64 only) PLT call stubs should not load r11
+
+       ----pplltt--tthhrreeaadd--ssaaffee
+              (PowerPC64 only) PLT call stubs with load-load barrier
+
+       ----nnoo--pplltt--tthhrreeaadd--ssaaffee
+              (PowerPC64 only) PLT call stubs without barrier
+
+       ----pplluuggiinn PLUGIN
+              Load a plugin library
+
+       ----pplluuggiinn--oopptt OPTION
+              Pass an option to the plugin
+
+       ----ppoossiixx--ffaallllooccaattee
+              Use   posix_fallocate  to  reserve  space  in  the  output  file
+              (default).
+
+       ----nnoo--ppoossiixx--ffaallllooccaattee
+              Use fallocate or ftruncate to reserve space.
+
+       ----pprreerreeaadd--aarrcchhiivvee--ssyymmbboollss
+              Preread archive symbols when multi-threaded
+
+       ----pprriinntt--oouuttppuutt--ffoorrmmaatt
+              Print default output format
+
+       ----pprriinntt--ssyymmbbooll--ccoouunnttss FILENAME
+              Print symbols defined and used for each input
+
+       --QQyy    Ignored for SVR4 compatibility
+
+       --qq, ----eemmiitt--rreellooccss
+              Generate relocations in output
+
+       --rr, --rreellooccaattaabbllee
+              Generate relocatable output
+
+       --ii     Synonym for --rr
+
+       ----rreellaaxx
+              Relax branches on certain targets
+
+       ----rreettaaiinn--ssyymmbboollss--ffiillee FILE
+              keep only symbols listed in this file
+
+       --RR DIR Add DIR to runtime search path
+
+       --rrppaatthh DIR
+              Add DIR to runtime search path
+
+       ----rrppaatthh--lliinnkk DIR
+              Add DIR to link time shared library search path
+
+       ----sseeccttiioonn--oorrddeerriinngg--ffiillee FILENAME
+              Layout sections in the order specified.
+
+       ----sseeccttiioonn--ssttaarrtt SECTION=ADDRESS
+              Set address of section
+
+       ----ssoorrtt--ccoommmmoonn [={ascending,descending}]
+              Sort common symbols by alignment
+
+       ----ssoorrtt--sseeccttiioonn [none,name]
+              Sort  sections  by  name.   '--no-text-reorder'  will   override
+              '--sort-section=name' for .text
+
+       ----ssppaarree--ddyynnaammiicc--ttaaggss COUNT
+              Dynamic tag slots to reserve (default 5)
+
+       --ss, ----ssttrriipp--aallll
+              Strip all symbols
+
+       --SS, ----ssttrriipp--ddeebbuugg
+              Strip debugging information
+
+       ----ssttrriipp--ddeebbuugg--nnoonn--lliinnee
+              Emit only debug line number information
+
+       ----ssttrriipp--ddeebbuugg--ggddbb
+              Strip debug symbols that are unused by gdb (at least versions <=
+              7.4)
+
+       ----ssttrriipp--llttoo--sseeccttiioonnss
+              Strip LTO intermediate code sections
+
+       ----ssttuubb--ggrroouupp--ssiizzee SIZE
+              (ARM, PowerPC only) The maximum distance from instructions in  a
+              group  of  sections  to their stubs.  Negative values mean stubs
+              are always after  (PowerPC  before)  the  group.   1  means  use
+              default size.
+
+       ----nnoo--kkeeeepp--mmeemmoorryy
+              Use less memory and more disk I/O (included only for compatibil-
+              ity with GNU ld)
+
+       --GG, --sshhaarreedd
+              Generate shared library
+
+       --BBsshhaarreeaabbllee
+              Generate shared library
+
+       ----sspplliitt--ssttaacckk--aaddjjuusstt--ssiizzee SIZE
+              Stack size when --ffsspplliitt--ssttaacckk function calls non-split
+
+       --ssttaattiicc
+              Do not link against shared libraries
+
+       ----iiccff [none,all,safe]
+              Identical Code Folding.  '--icf=safe'  Folds  ctors,  dtors  and
+              functions whose pointers are definitely not taken.
+
+       ----iiccff--iitteerraattiioonnss COUNT
+              Number of iterations of ICF (default 2)
+
+       ----pprriinntt--iiccff--sseeccttiioonnss
+              List folded identical sections on stderr
+
+       ----nnoo--pprriinntt--iiccff--sseeccttiioonnss
+              Do not list folded identical sections
+
+       ----kkeeeepp--uunniiqquuee SYMBOL
+              Do not fold this symbol during ICF
+
+       ----ggcc--sseeccttiioonnss
+              Remove unused sections
+
+       ----nnoo--ggcc--sseeccttiioonnss
+              Don't remove unused sections (default)
+
+       ----pprriinntt--ggcc--sseeccttiioonnss
+              List removed unused sections on stderr
+
+       ----nnoo--pprriinntt--ggcc--sseeccttiioonnss
+              Do not list removed unused sections
+
+       ----ssttaattss
+              Print resource usage statistics
+
+       ----ssyyssrroooott DIR
+              Set target system root directory
+
+       --tt, ----ttrraaccee
+              Print the name of each input file
+
+       --TT FILE, ----ssccrriipptt FILE
+              Read linker script
+
+       ----tthhrreeaaddss
+              Run the linker multi-threaded
+
+       ----nnoo--tthhrreeaaddss
+              Do not run the linker multi-threaded
+
+       ----tthhrreeaadd--ccoouunntt COUNT
+              Number of threads to use
+
+       ----tthhrreeaadd--ccoouunntt--iinniittiiaall COUNT
+              Number of threads to use in initial pass
+
+       ----tthhrreeaadd--ccoouunntt--mmiiddddllee COUNT Number of threads to use in middle pass
+
+       ----tthhrreeaadd--ccoouunntt--ffiinnaall COUNT
+              Number of threads to use in final pass
+
+       --TTbbssss ADDRESS
+              Set the address of the bss segment
+
+       --TTddaattaa ADDRESS
+              Set the address of the data segment
+
+       --TTtteexxtt ADDRESS
+              Set the address of the text segment
+
+       --TTtteexxtt--sseeggmmeenntt ADDRESS
+              Set the address of the text segment
+
+       --TTrrooddaattaa--sseeggmmeenntt ADDRESS
+              Set the address of the rodata segment
+
+       ----ttoocc--ooppttiimmiizzee
+              (PowerPC64 only) Optimize TOC code sequences
+
+       ----nnoo--ttoocc--ooppttiimmiizzee
+              (PowerPC64 only) Don't optimize TOC code sequences
+
+       ----ttoocc--ssoorrtt
+              (PowerPC64 only) Sort TOC and GOT sections
+
+       ----nnoo--ttoocc--ssoorrtt
+              (PowerPC64 only) Don't sort TOC and GOT sections
+
+       --uu SYMBOL, ----uunnddeeffiinneedd SYMBOL
+              Create undefined reference to SYMBOL
+
+       ----uunnrreessoollvveedd--ssyymmbboollss
+       ignore-all,report-all,ignore-in-object-files,ignore-in-shared-libs
+              How to handle unresolved symbols
+
+       ----vveerrbboossee
+              Synonym for ----ddeebbuugg=_f_i_l_e_s
+
+       ----vveerrssiioonn--ssccrriipptt FILE
+              Read version script
+
+       ----wwaarrnn--ccoommmmoonn
+              Warn about duplicate common symbols
+
+       ----nnoo--wwaarrnn--ccoommmmoonn
+              Do not warn about duplicate common symbols (default)
+
+       ----wwaarrnn--ccoonnssttrruuccttoorrss
+              Ignored
+
+       ----nnoo--wwaarrnn--ccoonnssttrruuccttoorrss
+              Ignored
+
+       ----wwaarrnn--eexxeeccssttaacckk
+              Warn if the stack is executable
+
+       ----nnoo--wwaarrnn--eexxeeccssttaacckk
+              Do not warn if the stack is executable (default)
+
+       ----nnoo--wwaarrnn--mmiissmmaattcchh
+              Don't warn about mismatched input files
+
+       ----wwaarrnn--mmuullttiippllee--ggpp
+              Ignored
+
+       ----wwaarrnn--sseeaarrcchh--mmiissmmaattcchh
+              Warn when skipping an incompatible library
+
+       ----nnoo--wwaarrnn--sseeaarrcchh--mmiissmmaattcchh
+              Don't warn when skipping an incompatible library
+
+       ----wwaarrnn--sshhaarreedd--tteexxttrreell
+              Warn if text segment is not shareable
+
+       ----nnoo--wwaarrnn--sshhaarreedd--tteexxttrreell
+              Do not warn if text segment is not shareable (default)
+
+       ----wwaarrnn--uunnrreessoollvveedd--ssyymmbboollss
+              Report unresolved symbols as warnings
+
+       ----eerrrroorr--uunnrreessoollvveedd--ssyymmbboollss
+              Report unresolved symbols as errors
+
+       ----nnoo--wwcchhaarr--ssiizzee--wwaarrnniinngg
+              (ARM only) Do not warn about objects with  incompatible  wchar_t
+              sizes
+
+       ----wwhhoollee--aarrcchhiivvee
+              Include all archive contents
+
+       ----nnoo--wwhhoollee--aarrcchhiivvee
+              Include only needed archive contents
+
+       ----wwrraapp SYMBOL
+              Use wrapper functions for SYMBOL
+
+       --yy SYMBOL, ----ttrraaccee--ssyymmbbooll SYMBOL
+              Trace references to symbol
+
+       ----uunnddeeffiinneedd--vveerrssiioonn
+              Allow unused version in script (default)
+
+       ----nnoo--uunnddeeffiinneedd--vveerrssiioonn
+              Do not allow unused version in script
+
+       --YY PATH
+              Default search path for Solaris compatibility
+
+       -(, ----ssttaarrtt--ggrroouupp
+              Start a library search group
+
+       -), ----eenndd--ggrroouupp
+              End a library search group
+
+       ----ssttaarrtt--lliibb
+              Start a library
+
+       ----eenndd--lliibb
+              End a library
+
+       --ffuussee--lldd
+              Ignored for GCC linker option compatibility
+
+       --zz combreloc
+              Sort dynamic relocs
+
+       --zz nocombreloc
+              Do not sort dynamic relocs
+
+       --zz common-page-size=SIZE
+              Set common page size to SIZE
+
+       --zz defs
+              Report undefined symbols (even with ----sshhaarreedd)
+
+       --zz execstack
+              Mark output as requiring executable stack
+
+       --zz initfirst
+              Mark DSO to be initialized first at runtime
+
+       --zz interpose
+              Mark object to interpose all DSOs but executable
+
+       --zz lazy
+              Mark object for lazy runtime binding (default)
+
+       --zz loadfltr
+              Mark object requiring immediate process
+
+       --zz max-page-size=SIZE
+              Set maximum page size to SIZE
+
+       --zz muldefs
+              Allow multiple definitions of symbols
+
+       --zz nocopyreloc
+              Do not create copy relocs
+
+       --zz nodefaultlib
+              Mark object not to use default search paths
+
+       --zz nodelete
+              Mark DSO non-deletable at runtime
+
+       --zz nodlopen
+              Mark DSO not available to dlopen
+
+       --zz nodump
+              Mark DSO not available to dldump
+
+       --zz noexecstack
+              Mark output as not requiring executable stack
+
+       --zz now Mark object for immediate function binding
+
+       --zz origin
+              Mark  DSO to indicate that needs immediate $ORIGIN processing at
+              runtime
+
+       --zz relro
+              Where possible mark variables read-only after relocation
+
+       --zz norelro
+              Don't mark variables read-only after relocation
+
+       --zz text
+              Do not permit relocations in read-only segments
+
+       --zz notext
+              Permit relocations in read-only segments (default)
+
+       --zz textoff
+              Permit relocations in read-only segments (default)
+
+       --zz buildd
+              Dummy z option
+
+       ld.gold:    supported    targets:     elf32-i386     elf32-i386-freebsd
+       elf32-i386-nacl   elf32-x86-64  elf32-x86-64-freebsd  elf32-x86-64-nacl
+       elf64-x86-64 elf64-x86-64-freebsd elf64-x86-64-nacl ld.gold:  supported
+       emulations:   elf_i386   elf_i386_nacl  elf32_x86_64  elf32_x86_64_nacl
+       elf_x86_64 elf_x86_64_nacl
+
+RREEPPOORRTTIINNGG BBUUGGSS
+       Report bugs to <http://www.sourceware.org/bugzilla/>
+
+CCOOPPYYRRIIGGHHTT
+       Copyright 2013 Free Software Foundation, Inc.   This  program  is  free
+       software;  you  may  redistribute it under the terms of the GNU General
+       Public License version 3 or (at your option)  a  later  version.   This
+       program has absolutely no warranty.
+
+
+
+gold (GNU Binutils for Ubuntu 2.24)J1u.l1y12014                           GOLD(1)

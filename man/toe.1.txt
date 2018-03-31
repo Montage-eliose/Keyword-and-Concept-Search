@@ -1,0 +1,67 @@
+toe(1)                      General Commands Manual                     toe(1)
+
+
+
+NNAAMMEE
+       ttooee - table of (terminfo) entries
+
+SSYYNNOOPPSSIISS
+       ttooee [--vv[_n]] [--aahhssuuUUVV] _f_i_l_e_._._.
+
+DDEESSCCRRIIPPTTIIOONN
+       With no options, ttooee lists all available terminal types by primary name
+       with descriptions.   File  arguments  specify  the  directories  to  be
+       scanned;  if  no such arguments are given, your default terminfo direc-
+       tory is scanned.  If you also specify the --hh option, a directory header
+       will be issued as each directory is entered.
+
+       There are other options intended for use by terminfo file maintainers:
+
+       --aa     report  on  all  of  the  terminal databases which ncurses would
+              search, rather than only the first one that it finds.
+
+              If the --ss is also given, ttooee adds a column to the report,  show-
+              ing  (like  ccoonnfflliicctt(1))  which  entries which belong to a given
+              terminal database.  An "*" marks entries which differ,  and  "+"
+              marks equivalent entries.
+
+       --ss     sort the output by the entry names.
+
+       --uu _f_i_l_e
+              says to write a report to the standard output, listing dependen-
+              cies in the given terminfo/termcap source file.  The report con-
+              denses  the  `use'  relation:  each line consists of the primary
+              name of a terminal that has  use  capabilities,  followed  by  a
+              colon, followed by the whitespace-separated primary names of all
+              terminals which occur in those use capabilities, followed  by  a
+              newline
+
+       --UU _f_i_l_e
+              says  to  write a report to the standard output, listing reverse
+              dependencies in the given  terminfo/termcap  source  file.   The
+              report  reverses  the  `use' relation: each line consists of the
+              primary name of a terminal that occurs in use capabilities, fol-
+              lowed  by  a colon, followed by the whitespace-separated primary
+              names of all terminals which depend on it, followed  by  a  new-
+              line.
+
+       --vv_n    specifies  that  (verbose)  output be written to standard error,
+              showing ttooee's progress.  The optional parameter _n  is  a  number
+              from 1 to 10, interpreted as for ttiicc(1).
+
+       --VV     reports  the  version of ncurses which was used in this program,
+              and exits.
+
+FFIILLEESS
+       //eettcc//tteerrmmiinnffoo//??//**
+            Compiled terminal description database.
+
+SSEEEE AALLSSOO
+       ttiicc(1), iinnffooccmmpp(1), ccaappttooiinnffoo(1), iinnffoottooccaapp(1), nnccuurrsseess(3NCURSES), tteerr--
+       mmiinnffoo(5).
+
+       This describes nnccuurrsseess version 5.9 (patch 20140118).
+
+
+
+                                                                        toe(1)

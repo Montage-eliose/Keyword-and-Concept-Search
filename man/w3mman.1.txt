@@ -1,0 +1,48 @@
+W3MMAN(1)                   General Commands Manual                  W3MMAN(1)
+
+
+
+NNAAMMEE
+       w3mman - an interface to the on-line reference manuals by w3m(1)
+
+SSYYNNOOPPSSIISS
+       ww33mmmmaann [-M _p_a_t_h] [_s_e_c_t_i_o_n] _p_a_g_e
+       ww33mmmmaann [-M _p_a_t_h] -k _k_e_y_w_o_r_d
+       ww33mmmmaann -l _f_i_l_e
+
+DDEESSCCRRIIPPTTIIOONN
+       ww33mmmmaann is the system's manual pager by ww33mm(1).
+
+OOPPTTIIOONNSS
+       A summary of options is included below.
+
+       --MM _p_a_t_h
+              Specify _p_a_t_h as MANPATH.
+
+       --kk _k_e_y_w_o_r_d
+              Specify _k_e_y_w_o_r_d_.
+
+       --ll _f_i_l_e
+              Specify a _f_i_l_e_.
+
+EENNVVIIRROONNMMEENNTT
+       WW33MMMMAANN__WW33MM
+              If W3MMAN_W3M is set, its value is used instead of w3m.
+
+       WW33MMMMAANN__MMAANN
+              If W3MMAN_MAN is set, its value is used instead of /usr/bin/man.
+
+FFIILLEESS
+       _/_u_s_r_/_l_i_b_/_w_3_m_/_c_g_i_-_b_i_n_/_w_3_m_m_a_n_2_h_t_m_l_._c_g_i
+              convert manual page to html.
+
+SSEEEE AALLSSOO
+       mmaann(1), ww33mm(1).
+
+AAUUTTHHOORR
+       This manual page was written by Fumitoshi UKAI <ukai@debian.or.jp>, for
+       the Debian GNU/Linux system (but may be used by others).
+
+
+
+                                  Nov 5, 2005                        W3MMAN(1)

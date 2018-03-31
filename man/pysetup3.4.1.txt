@@ -1,0 +1,44 @@
+PYSETUP3.3(1)                    User Commands                   PYSETUP3.3(1)
+
+
+
+NNAAMMEE
+       pysetup3.3 - pysetup tool
+
+SSYYNNOOPPSSIISS
+       ppyysseettuupp [_o_p_t_i_o_n_s] _a_c_t_i_o_n [_a_c_t_i_o_n___o_p_t_i_o_n_s]
+
+DDEESSCCRRIIPPTTIIOONN
+   AAccttiioonnss::
+              run:  Run one or several commands metadata: Display the metadata
+              of a project install: Install a project remove: Remove a project
+              search: Search for a project in the indexes list: List installed
+              projects graph: Display a graph create: Create a project  gener-
+              ate-setup: Generate a backward-compatible setup.py
+
+       To get more help on an action, use:
+
+              pysetup action ----hheellpp
+
+   GGlloobbaall ooppttiioonnss::
+       ----vveerrbboossee (--vv)
+              run verbosely (default)
+
+       ----qquuiieett (--qq)
+              run quietly (turns verbosity off)
+
+       ----ddrryy--rruunn (--nn)
+              don't actually do anything
+
+       ----hheellpp (--hh)
+              show detailed help message
+
+       ----nnoo--uusseerr--ccffgg
+              ignore pydistutils.cfg in your home directory
+
+       ----vveerrssiioonn
+              Display the version
+
+
+
+pysetup3.3 3.3                   January 2012                    PYSETUP3.3(1)

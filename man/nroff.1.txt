@@ -1,0 +1,54 @@
+NROFF(1)                    General Commands Manual                   NROFF(1)
+
+
+
+NNAAMMEE
+       nroff - emulate nroff command with groff
+
+SSYYNNOOPPSSIISS
+       nnrrooffff [--CCcchhiippSSttUUvvwwWW] [--dd_c_s] [--MM_d_i_r] [--mm_n_a_m_e] [--nn_n_u_m] [--oo_l_i_s_t] [--rr_c_n]
+             [--TT_n_a_m_e] [_f_i_l_e ...]
+       nnrrooffff ----hheellpp
+       nnrrooffff --vv | ----vveerrssiioonn
+
+DDEESSCCRRIIPPTTIIOONN
+       The nnrrooffff script emulates the nnrrooffff command using groff.   Only  aasscciiii,
+       llaattiinn11,  uuttff88,  and  ccpp11004477 are devices accepted by nnrrooffff to select the
+       output encoding emitted by ggrroottttyy, groff's TTY output device.  If  nei-
+       ther  the GGRROOFFFF__TTYYPPEESSEETTTTEERR environment variable nor the --TT command line
+       option (which overrides the environment variable) specifies  a  (valid)
+       device,  nnrrooffff  checks  the  current  locale to select a default output
+       device.  It first tries the llooccaallee program, then the environment  vari-
+       ables  LLCC__AALLLL, LLCC__CCTTYYPPEE, and LLAANNGG, and finally the LLEESSSSCCHHAARRSSEETT environ-
+       ment variable.
+
+       The --hh and --cc options are equivalent to ggrroottttyy's options --hh (using tabs
+       in  the  output)  and  --cc  (using  the old output scheme instead of SGR
+       escape sequences).  The --dd, --CC, --ii, --MM, --mm, --nn,  --oo,  --rr,  --ww,  and  --WW
+       options  have  the  effect  described  in ttrrooffff(1).  In addition, nnrrooffff
+       silently ignores the options --ee, --qq, and --ss (which are not  implemented
+       in ttrrooffff).  Options --pp (pic), --tt (tbl), --SS (safer), and --UU (unsafe) are
+       passed to ggrrooffff.  --vv and ----vveerrssiioonn  show  the  version  number,  ----hheellpp
+       prints a help message.
+
+EENNVVIIRROONNMMEENNTT
+       GGRROOFFFF__TTYYPPEESSEETTTTEERR
+              The  default  device for ggrrooffff.  If not set (which is the normal
+              case), it defaults to `ps'.
+
+       GGRROOFFFF__BBIINN__PPAATTHH
+              A colon separated list of directories in which to search for the
+              ggrrooffff executable before searching in PATH.  If unset, `/usr/bin'
+              is used.
+
+NNOOTTEESS
+       This shell script is basically intended for use  with  mmaann(1).   nroff-
+       style character definitions (in the file tty-char.tmac) are also loaded
+       to emulate unrepresentable glyphs.
+
+SSEEEE AALLSSOO
+       ggrrooffff(1), ttrrooffff(1), ggrroottttyy(1)
+
+
+
+Groff Version 1.22.2           07 February 2013                       NROFF(1)

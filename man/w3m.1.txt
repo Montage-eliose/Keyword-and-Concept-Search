@@ -1,0 +1,201 @@
+W3M(1)                      General Commands Manual                     W3M(1)
+
+
+
+NNAAMMEE
+       w3m - a text based Web browser and pager
+
+SSYYNNOOPPSSIISS
+       ww33mm [options] [URL or filename]
+
+DDEESSCCRRIIPPTTIIOONN
+       _w_3_m is a World Wide Web (WWW) text based client. It has English and Ja-
+       panese help files and an option menu  and  can  be  configured  to  use
+       either language. It will display hypertext markup language (HTML) docu-
+       ments containing links to files residing on the local system,  as  well
+       as  files  residing  on  remote systems. It can display HTML tables and
+       frames.  In addition, it can be used as a "pager" in much the same man-
+       ner as "more" or "less".  Current versions of _w_3_m run on Unix (Solaris,
+       SunOS, HP-UX, Linux, FreeBSD, and EWS4800)  and  on  Microsoft  Windows
+       9x/NT.
+
+OOPPTTIIOONNSS
+       At  start  up,  _w_3_m will load any local file or remote URL specified at
+       the command line.  For help with runtime options, press ""HH"" while  run-
+       ning _w_3_m.  Command line options are:
+
+       --tt ttaabb set tab width
+
+       --rr     ignore backspace effect
+
+       --ll lliinnee
+              # of preserved line (default 10000)
+
+       --II cchhaarrsseett
+              document charset
+
+       --OO cchhaarrsseett
+              display/output charset
+
+       --BB     load bookmark
+
+       --bbooookkmmaarrkk ffiillee
+              specify bookmark file
+
+       --TT ttyyppee
+              specify content-type
+
+       --mm     internet message mode
+
+       --vv     visual startup mode
+
+       --MM     monochrome display
+
+       --NN     open URL of command line on each new tab
+
+       --FF     automatically render frame
+
+       --dduummpp  dump formatted page into stdout
+
+       --ccoollss wwiiddtthh
+              specify column width (used with -dump)
+
+       --ppppcc ccoouunntt
+              specify the number of pixels per character (4.0...32.0).  Larger
+              values will make tables narrower.  [default 8.0]
+
+       --ppppll ccoouunntt
+              specify the number of pixels per line (4.0...64.0)
+
+       --dduummpp__ssoouurrccee
+              dump page source into stdout
+
+       --dduummpp__hheeaadd
+              dump response of HEAD request into stdout
+
+       --dduummpp__bbootthh
+              dump HEAD and source into stdout
+
+       --dduummpp__eexxttrraa
+              dump HEAD, source, and extra information into stdout
+
+       --ppoosstt ffiillee
+              use POST method with file content
+
+       --hheeaaddeerr ssttrriinngg
+              insert string as a header
+
+       ++<<nnuumm>> goto <num> line
+
+       --nnuumm   show line number
+
+       --nnoo--pprrooxxyy
+              don't use proxy
+
+       --44     IPv4 only (-o dns_order=4)
+
+       --66     IPv6 only (-o dns_order=6)
+
+       --nnoo--mmoouussee
+              don't use mouse
+
+       --ccooookkiiee
+              use cookie.
+
+       --nnoo--ccooookkiiee
+              don't use cookie
+
+       --ggrraapphh use graphic character
+
+       --nnoo--ggrraapphh
+              don't use graphic character
+
+       --ss     squeeze multiple blank lines
+
+       --WW     toggle wrap search mode
+
+       --XX     don't use termcap init/deinit
+
+       --ttiittllee [[==TTEERRMM]]
+              set buffer name to terminal title string.  If TERM is specified,
+              use the TERM style title configuration.
+
+       --oo oopptt==vvaalluuee
+              assign value to config option
+
+       --sshhooww--ooppttiioonn
+              show all available config option
+
+       --ccoonnffiigg ffiillee
+              specify config file
+
+       --hheellpp  show usage
+
+       --vveerrssiioonn
+              show w3m version
+
+       --rreeqqlloogg
+              write request logfile
+
+       --ddeebbuugg DO NOT USE
+
+EEXXAAMMPPLLEESS
+       To use w3m as a pager:
+              $ ls | w3m
+
+       To use w3m to translate HTML files:
+              $ cat foo.html | w3m -T text/html
+
+       or
+              $ cat foo.html | w3m -dump -T text/html >foo.txt
+
+FFIILLEESS
+       _$_{_H_O_M_E_}_/_._w_3_m_/_c_o_n_f_i_g
+              configuration file
+
+       _$_{_H_O_M_E_}_/_._w_3_m_/_k_e_y_m_a_p
+              key binding configuration file
+
+       _$_{_H_O_M_E_}_/_._w_3_m_/_m_o_u_s_e
+              mouse configuration file
+
+       _$_{_H_O_M_E_}_/_._w_3_m_/_c_o_o_k_i_e
+              cookie file
+
+       _$_{_H_O_M_E_}_/_._w_3_m_/_h_i_s_t_o_r_y
+              history file
+
+       _$_{_H_O_M_E_}_/_._w_3_m_/_p_a_s_s_w_d
+              passowrd and username file
+
+       _$_{_H_O_M_E_}_/_._w_3_m_/_p_r_e___f_o_r_m
+              form parameters file
+
+       _$_{_H_O_M_E_}_/_._w_3_m_/_m_a_i_l_c_a_p
+              external viewer configuration file
+
+       _$_{_H_O_M_E_}_/_._w_3_m_/_m_i_m_e_._t_y_p_e_s
+              MIME types file
+
+NNOOTTEESS
+       This is the _w_3_m 0.5.3 Release.
+
+       Please  see the MANUAL.html file distributed with w3m for more detailed
+       documentation.
+
+       Additional information about _w_3_m may be found on its Japanese  language
+       Web site located at:
+         http://w3m.sourceforge.net/index.ja.html
+       or on its English version of the site at:
+         http://w3m.sourceforge.net/index.en.html
+
+AACCKKNNOOWWLLEEDDGGMMEENNTTSS
+       _w_3_m has incorporated code from several sources.  Users have contributed
+       patches and suggestions over time.
+
+AAUUTTHHOORR
+       Akinori ITO <aito@fw.ipsj.or.jp>
+
+
+
+4th Berkeley Distribution            Local                              W3M(1)

@@ -1,0 +1,108 @@
+EMACSCLIENT(1)              General Commands Manual             EMACSCLIENT(1)
+
+
+
+NNAAMMEE
+       emacsclient - tells a running Emacs to visit a file
+
+SSYYNNOOPPSSIISS
+       eemmaaccsscclliieenntt _[_o_p_t_i_o_n_s_] _f_i_l_e_s _._._.
+
+DDEESSCCRRIIPPTTIIOONN
+       This manual page documents briefly the eemmaaccsscclliieenntt command.  Full docu-
+       mentation is available in the GNU Info format; see below.  This  manual
+       page  was originally written for the Debian GNU/Linux distribution, but
+       is not specific to that system.
+
+       eemmaaccsscclliieenntt works in conjunction with the built-in Emacs server.
+
+       You can either call eemmaaccsscclliieenntt directly or let other programs  run  it
+       for  you when necessary.  On GNU and Unix systems many programs consult
+       the environment variable EDITOR (sometimes also VISUAL) to  obtain  the
+       command  used  for editing.  Thus, setting this environment variable to
+       'emacsclient' will allow these programs to use an already running Emacs
+       for  editing.  Other operating systems might have their own methods for
+       defining the default editor.
+
+       For eemmaaccsscclliieenntt to work, you need  an  already  running  Emacs  with  a
+       server.   Within  Emacs,  call the functions `server-start' or `server-
+       mode'.  (Your `.emacs' file can do this automatically if you add either
+       `(server-start)' or `(server-mode 1)' to it.)
+
+       When  you've finished editing the buffer, type `C-x #' (`server-edit').
+       This saves the file and sends a message back to the `emacsclient'  pro-
+       gram  telling  it to exit.  The programs that use `EDITOR' wait for the
+       "editor" (actually, `emacsclient') to exit.  `C-x #'  also  checks  for
+       other  pending external requests to edit various files, and selects the
+       next such file.
+
+       If you set the variable `server-window' to a window or a frame, `C-x #'
+       displays the server buffer in that window or in that frame.
+
+
+OOPPTTIIOONNSS
+       The  programs  follow  the  usual  GNU  command  line syntax, with long
+       options starting with two dashes (`-').
+
+       --aa,, ----aalltteerrnnaattee--eeddiittoorr==EEDDIITTOORR
+              if the Emacs server is not running,  run  the  specified  editor
+              instead.   This can also be specified via the `ALTERNATE_EDITOR'
+              environment variable.  If the  value  of  EDITOR  is  the  empty
+              string,  run `emacs --daemon' to start Emacs in daemon mode, and
+              try to connect to it.
+
+       --cc,, ----ccrreeaattee--ffrraammee
+              create a new frame instead of trying to use  the  current  Emacs
+              frame
+
+       --FF,, ----ffrraammee--ppaarraammeetteerrss==AALLIISSTT
+              set the parameters of a newly-created frame.
+
+       --dd,, ----ddiissppllaayy==DDIISSPPLLAAYY
+              tell the server to display the files on the given display.
+
+       --ee,, ----eevvaall
+              do  not  visit files but instead evaluate the arguments as Emacs
+              Lisp expressions.
+
+       --ff,, ----sseerrvveerr--ffiillee==FFIILLEENNAAMMEE
+              use TCP configuration file FILENAME for communication.  This can
+              also  be specified via the `EMACS_SERVER_FILE' environment vari-
+              able.
+
+       --nn,, ----nnoo--wwaaiitt
+              returns immediately without waiting for you to "finish" the buf-
+              fer in Emacs.
+
+       --nnww,, --tt,, ----ttttyy
+              open a new Emacs frame on the current terminal
+
+       --ss,, ----ssoocckkeett--nnaammee==FFIILLEENNAAMMEE
+              use socket named FILENAME for communication.
+
+       --VV,, ----vveerrssiioonn
+              print version information and exit
+
+       --HH,, ----hheellpp
+              print this usage information message and exit
+
+EEXXIITT SSTTAATTUUSS
+       Normally, the exit status is 0.  If emacsclient shuts down due to Emacs
+       signaling an error, the exit status is 1.
+
+SSEEEE AALLSSOO
+       The program is documented fully in _U_s_i_n_g _E_m_a_c_s _a_s  _a  _S_e_r_v_e_r  available
+       via the Info system.
+
+AAUUTTHHOORR
+       This    manual    page    was    written    by    Stephane   Bortzmeyer
+       <bortzmeyer@debian.org>, for the Debian GNU/Linux system  (but  may  be
+       used by others).
+
+CCOOPPYYIINNGG
+       This manual page is in the public domain.
+
+
+
+
+                                                                EMACSCLIENT(1)

@@ -1,0 +1,36 @@
+byobu-reconnect-sockets(1)           byobu          byobu-reconnect-sockets(1)
+
+
+
+NNAAMMEE
+       byobu-reconnect-sockets  - Sourcable script that updates GPG_AGENT_INFO
+       and DBUS_SESSION_BUS_ADDRESS in the environment
+
+
+DDEESSCCRRIIPPTTIIOONN
+       bbyyoobbuu--rreeccoonnnneecctt--ssoocckkeettss is a sourcable bit  of  shell  code  that  will
+       update  the  GPG_AGENT_INFO  and  DBUS_SESSION_BUS_ADDRESS  environment
+       variables in the current shell, such that you may restablish connection
+       to ggppgg--aaggeenntt(1) and ddbbuuss--ddaaeemmoonn((11)).
+
+       This is often useful when reattaching to a detached Byobu session.
+
+
+       _h_t_t_p_:_/_/_b_y_o_b_u_._c_o
+
+
+AAUUTTHHOORR
+       This  manpage  and  the  utility were written by Dustin Kirkland <kirk-
+       land@byobu.co> for Ubuntu systems (but may be used by others).  Permis-
+       sion is granted to copy, distribute and/or modify this document and the
+       utility under the terms of the GNU General Public  License,  Version  3
+       published by the Free Software Foundation.
+
+       The  complete  text  of  the GNU General Public License can be found in
+       _/_u_s_r_/_s_h_a_r_e_/_c_o_m_m_o_n_-_l_i_c_e_n_s_e_s_/_G_P_L  on   Debian/Ubuntu   systems,   or   in
+       _/_u_s_r_/_s_h_a_r_e_/_d_o_c_/_f_e_d_o_r_a_-_r_e_l_e_a_s_e_-_*_/_G_P_L on Fedora systems, or on the web at
+       _h_t_t_p_:_/_/_w_w_w_._g_n_u_._o_r_g_/_l_i_c_e_n_s_e_s_/_g_p_l_._t_x_t.
+
+
+
+byobu                             7 Dec 2009        byobu-reconnect-sockets(1)

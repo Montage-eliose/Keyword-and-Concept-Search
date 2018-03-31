@@ -1,0 +1,231 @@
+DH_PYTHON2(1)                                                    DH_PYTHON2(1)
+
+
+
+NNAAMMEE
+       dh_python2 - calculates Python dependencies, adds maintainer scripts to
+       byte compile files, etc.
+
+SSYYNNOOPPSSIISS
+          dh_python2 -p PACKAGE [-V [X.Y][-][A.B]] DIR_OR_FILE [-X REGEXPR]
+
+DDEESSCCRRIIPPTTIIOONN
+   QQUUIICCKK GGUUIIDDEE FFOORR MMAAIINNTTAAIINNEERRSS
+          +o if necessary, describe supported Python versions via X-Python-Ver-
+            sion field in debian/control,
+
+          +o build-depend   on  python  or  python-all  or  python-all-dev  (>=
+            2.6.6-3~),
+
+          +o build module/application using its standard build system, remember
+            to  build  extensions for all supported Python versions (loop over
+            ppyyvveerrssiioonnss --vvrr),
+
+          +o install files to the _s_t_a_n_d_a_r_d locations, add  _-_-_i_n_s_t_a_l_l_-_l_a_y_o_u_t_=_d_e_b
+            to setup.py's install command if your package is using distutils,
+
+          +o add _p_y_t_h_o_n_2 to dh's --with option, or:
+
+          +o _i_n_c_l_u_d_e       _/_u_s_r_/_s_h_a_r_e_/_c_d_b_s_/_1_/_c_l_a_s_s_/_p_y_t_h_o_n_-_d_i_s_t_u_t_i_l_s_._m_k       in
+            debian/rules and depend on _c_d_b_s _(_>_= _0_._4_._9_0_), or:
+
+          +o call ddhh__ppyytthhoonn22 in the _b_i_n_a_r_y_-_* target,
+
+          +o add _$_{_p_y_t_h_o_n_:_D_e_p_e_n_d_s_} to Depends
+
+   NNOOTTEESS
+       In order to support more than one Python version  in  the  same  binary
+       package, dh_python2 (unlike dh_pycentral and dh_pysupport) creates sym-
+       links to all supported Python versions at build time. It  means  binNMU
+       (or  sourceful  upload in case of architecture independent packages) is
+       required once a list of  supported  Python  version  is  changed.  It's
+       faster and more robust than its competitors, though.
+
+   ddeeppeennddeenncciieess
+       dh_python2  tries  to  translate  Python dependencies from requires.txt
+       file to Debian dependencies. Use debian/pydist-overrides or --no-guess-
+       ing-deps  option  to override it if the guess is incorrect. If you want
+       dh_python2 to generate more strict  dependencies  (f.e.  to  avoid  ABI
+       problems)      create      debian/python-foo.pydist      file.      See
+       /usr/share/doc/python-doc/README.PyDist (provided by  python-doc  pack-
+       age)  for  more information. If the pydist file contains PEP386 flag or
+       set of (uscan like) rules, dh_python2 will make the depedency versioned
+       (version requirements are ignored by default).
+
+   nnaammeessppaaccee ffeeaattuurree
+       dh_python2  parses  Egg's  namespace_packages.txt files (in addition to
+       --namespace command line argument(s)) and drops empty __init__.py files
+       from binary package. pycompile will regenerate them at install time and
+       pyclean will remove them at uninstall time (if they're no  longer  used
+       in  installed  packages). It's still a good idea to provide __init__.py
+       file in one of binary packages (even if all  other  packages  use  this
+       feature).
+
+   pprriivvaattee ddiirrss
+       _/_u_s_r_/_s_h_a_r_e_/_f_o_o,       _/_u_s_r_/_s_h_a_r_e_/_g_a_m_e_s_/_f_o_o,       _/_u_s_r_/_l_i_b_/_f_o_o      and
+       _/_u_s_r_/_l_i_b_/_g_a_m_e_s_/_f_o_o private directories are scanned for Python files  by
+       default (where _f_o_o is binary package name). If your package is shipping
+       Python files in some other directory, add another  dh_python2  call  in
+       debian/rules with directory name as an argument - you can use different
+       set of options in this call. If you need to change options (f.e. a list
+       of  supported  Python versions) for a private directory that is checked
+       by default,  invoke  dh_python2  with  --skip-private  option  and  add
+       another call with a path to this directory and new options.
+
+   ddeebbuugg ppaacckkaaggeess
+       In   binary   packages   which  name  ends  with  _-_d_b_g,  all  files  in
+       _/_u_s_r_/_l_i_b_/_p_y_t_h_o_n_2_._X_/_{_s_i_t_e_,_d_i_s_t_}_-_p_a_c_k_a_g_e_s_/ directory that have extensions
+       different  than  _s_o or _h are removed by default.  Use --no-dbg-cleaning
+       option to disable this feature.
+
+   ppyyiinnssttaallll ffiilleess
+       Files listed in debian/pkg.pyinstall file will be installed  as  public
+       modules  for  all  requested  Python  versions (dh_install doesn't know
+       about python's site- vs. dist-packages issue).
+
+       Syntax: ppaatthh//ttoo//ffiillee [[VVEERRSSIIOONN__RRAANNGGEE]] [[NNAAMMEESSPPAACCEE]]
+
+       debian directory is automatically removed from the  path,  so  you  can
+       place  your files in debian/ directory and install them from this loca-
+       tion (if you want to install them in "debian" namespace, set  NAMESPACE
+       to  debian). If NAMESPACE is set, all listed files will be installed in
+       .../dist-packages/NAMESPACE/ directory.
+
+       EExxaammpplleess::
+
+              +o ffoooo..ppyy installs  .../dist-packages/foo.py  for  all  supported
+                Python versions
+
+              +o ffoooo//bbaarr..ppyy 22..66-- installs .../dist-packages/foo/bar.py for ver-
+                sions >= 2.6
+
+              +o ffoooo//bbaarr..ppyy ssppaamm installs .../dist-packages/spam/bar.py
+
+              +o ddeebbiiaann//**..ppyy  ssppaamm..eegggg  22..55  installs  .../python2.5/site-pack-
+                ages/spam/egg/*.py files
+
+   ppyyrreemmoovvee ffiilleess
+       If  you  want  to remove some files installed by build system (from all
+       supported Python versions or only from a subset of these versions), add
+       them to debian/pkg.pyremove file.
+
+       EExxaammpplleess::
+
+              +o **..pptthh removes .pth files from .../dist-packages/
+
+              +o bbaarr//bbaazz..ppyy 22..55 removes .../python2.5/site-packages/bar/baz.py
+
+   oovveerrrriiddiinngg ssuuppppoorrtteedd // ddeeffaauulltt PPyytthhoonn vveerrssiioonnss
+       If  you  want to override system's list of supported Python versions or
+       the default one (f.e. to build a package  that  includes  symlinks  for
+       older version of Python or compile .py files only for given interpreter
+       version),   you   can   do   that   via   _D_E_B_P_Y_T_H_O_N___S_U_P_P_O_R_T_E_D    and/or
+       _D_E_B_P_Y_T_H_O_N___D_E_F_A_U_L_T env. variables.
+
+       Example: 22..55,,22..77 limits the list of supported Python versions to Python
+       2.5 and Python 2.7.
+
+OOPPTTIIOONNSS
+       ----vveerrssiioonn
+              show program's version number and exit
+
+       --hh, ----hheellpp
+              show help message and exit
+
+       ----nnoo--gguueessssiinngg--vveerrssiioonnss
+              disable guessing other supported Python versions
+
+       ----nnoo--gguueessssiinngg--ddeeppss
+              disable guessing dependencies
+
+       ----nnoo--ddbbgg--cclleeaanniinngg
+              do not remove any files from debug packages
+
+       ----nnoo--sshheebbaanngg--rreewwrriittee
+              do not rewrite shebangs
+
+       ----sskkiipp--pprriivvaattee
+              don't check private directories
+
+       --vv, ----vveerrbboossee
+              turn verbose mode on
+
+       --ii, ----iinnddeepp
+              act on architecture independent packages
+
+       --aa, ----aarrcchh
+              act on architecture dependent packages
+
+       --qq, ----qquuiieett
+              be quiet
+
+       --pp _P_A_C_K_A_G_E,, ----ppaacckkaaggee==_P_A_C_K_A_G_E
+              act on the package named PACKAGE
+
+       --NN _N_O___P_A_C_K_A_G_E,, ----nnoo--ppaacckkaaggee==_N_O___P_A_C_K_A_G_E
+              do not act on the specified package
+
+       --VV _V_R_A_N_G_E
+              specify list of supported Python versions. See pycompile(1)  for
+              examples
+
+       --XX _R_E_G_E_X_P_R,, ----eexxcclluuddee==_R_E_G_E_X_P_R
+              exclude  items that match given REGEXPR. You may use this option
+              multiple times to build up a list of things to exclude.
+
+       ----ccoommppiillee--aallll
+              compile all files from given private directory in postinst/rtup-
+              date not just the ones provided by the package (i.e. do not pass
+              the --package parameter to pycompile/pyclean)
+
+       ----ddeeppeennddss==_D_E_P_E_N_D_S
+              translate given requirements into Debian  dependencies  and  add
+              them   to   ${python:Depends}.  Use  it  for  missing  items  in
+              requires.txt
+
+       ----rreeccoommmmeennddss==_R_E_C_O_M_M_E_N_D_S
+              translate given requirements into Debian  dependencies  and  add
+              them to ${python:Recommends}
+
+       ----ssuuggggeessttss==_S_U_G_G_E_S_T_S
+              translate  given  requirements  into Debian dependencies and add
+              them to ${python:Suggests}
+
+       ----nnaammeessppaaccee
+              use this option (multiple time if necessary) if  namespace_pack-
+              ages.txt is not complete
+
+       ----iiggnnoorree--nnaammeessppaaccee
+              ignore  Egg's namespace declaration and --namespace option. This
+              option will disable removing (and recreating  at  install  time)
+              empty  __init__.py  files.  Removing namespace_packages.txt from
+              egg-info directory has the same effect.
+
+       ----cclleeaann--ppyycceennttrraall
+              generate maintainer script that will remove byte code  generated
+              by python-central helper
+
+       ----sshheebbaanngg==_C_O_M_M_A_N_D
+              use given command as shebang in scripts
+
+       ----iiggnnoorree--sshheebbaannggss
+              do not translate shebangs into Debian dependencies
+
+SSEEEE AALLSSOO
+       +o /usr/share/doc/python/python-policy.txt.gz
+
+       +o /usr/share/doc/python-doc/README.PyDist (python-doc package)
+
+       +o pycompile(1), pyclean(1)
+
+       +o dh_python3(1), py3compile(1), py3clean(1)
+
+       +o Wiki     page     about    converting    package    to    dh_python2:
+         _h_t_t_p_:_/_/_w_i_k_i_._d_e_b_i_a_n_._o_r_g_/_P_y_t_h_o_n_/_T_r_a_n_s_i_t_i_o_n_T_o_D_H_P_y_t_h_o_n_2
+
+AAUUTTHHOORR
+       Piotr Oarowski, 2012-2013
+
+
+
+                                                                 DH_PYTHON2(1)

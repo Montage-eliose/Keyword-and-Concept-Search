@@ -1,0 +1,270 @@
+MYSQLSHOW(1)                 MySQL Database System                MYSQLSHOW(1)
+
+
+
+NNAAMMEE
+       mysqlshow - display database, table, and column information
+
+SSYYNNOOPPSSIISS
+       mmyyssqqllsshhooww [[_o_p_t_i_o_n_s]] [[_d_b___n_a_m_e [[_t_b_l___n_a_m_e [[_c_o_l___n_a_m_e]]]]]]
+
+DDEESSCCRRIIPPTTIIOONN
+       The mmyyssqqllsshhooww client can be used to quickly see which databases exist,
+       their tables, or a table's columns or indexes.
+
+       mmyyssqqllsshhooww provides a command-line interface to several SQL SHOW
+       statements. See Section 13.7.5, "SHOW Syntax". The same information can
+       be obtained by using those statements directly. For example, you can
+       issue them from the mmyyssqqll client program.
+
+       Invoke mmyyssqqllsshhooww like this:
+
+           shell> mmyyssqqllsshhooww [[_o_p_t_i_o_n_s]] [[_d_b___n_a_m_e [[_t_b_l___n_a_m_e [[_c_o_l___n_a_m_e]]]]]]
+
+       +o   If no database is given, a list of database names is shown.
+
+       +o   If no table is given, all matching tables in the database are
+           shown.
+
+       +o   If no column is given, all matching columns and column types in the
+           table are shown.
+
+       The output displays only the names of those databases, tables, or
+       columns for which you have some privileges.
+
+       If the last argument contains shell or SQL wildcard characters ("*",
+       "?", "%", or "_"), only those names that are matched by the wildcard
+       are shown. If a database name contains any underscores, those should be
+       escaped with a backslash (some Unix shells require two) to get a list
+       of the proper tables or columns.  "*" and "?"  characters are converted
+       into SQL "%" and "_" wildcard characters. This might cause some
+       confusion when you try to display the columns for a table with a "_" in
+       the name, because in this case, mmyyssqqllsshhooww shows you only the table
+       names that match the pattern. This is easily fixed by adding an extra
+       "%" last on the command line as a separate argument.
+
+       mmyyssqqllsshhooww supports the following options, which can be specified on the
+       command line or in the [mysqlshow] and [client] groups of an option
+       file. For information about option files used by MySQL programs, see
+       Section 4.2.6, "Using Option Files".
+
+       +o   ----hheellpp, --??
+
+           Display a help message and exit.
+
+       +o   ----bbiinndd--aaddddrreessss==_i_p___a_d_d_r_e_s_s
+
+           On a computer having multiple network interfaces, use this option
+           to select which interface to use for connecting to the MySQL
+           server.
+
+           This option is supported only in the version of mmyyssqqllsshhooww that is
+           supplied with MySQL Cluster. It is not available in standard MySQL
+           Server 5.5 releases.
+
+       +o   ----cchhaarraacctteerr--sseettss--ddiirr==_d_i_r___n_a_m_e
+
+           The directory where character sets are installed. See Section 10.5,
+           "Character Set Configuration".
+
+       +o   ----ccoommpprreessss, --CC
+
+           Compress all information sent between the client and the server if
+           both support compression.
+
+       +o   ----ccoouunntt
+
+           Show the number of rows per table. This can be slow for non-MyISAM
+           tables.
+
+       +o   ----ddeebbuugg[[==_d_e_b_u_g___o_p_t_i_o_n_s]], --## [[_d_e_b_u_g___o_p_t_i_o_n_s]]
+
+           Write a debugging log. A typical _d_e_b_u_g___o_p_t_i_o_n_s string is
+           d:t:o,_f_i_l_e___n_a_m_e. The default is d:t:o.
+
+       +o   ----ddeebbuugg--cchheecckk
+
+           Print some debugging information when the program exits.
+
+       +o   ----ddeebbuugg--iinnffoo
+
+           Print debugging information and memory and CPU usage statistics
+           when the program exits.
+
+       +o   ----ddeeffaauulltt--cchhaarraacctteerr--sseett==_c_h_a_r_s_e_t___n_a_m_e
+
+           Use _c_h_a_r_s_e_t___n_a_m_e as the default character set. See Section 10.5,
+           "Character Set Configuration".
+
+       +o   ----ddeeffaauulltt--aauutthh==_p_l_u_g_i_n
+
+           A hint about the client-side authentication plugin to use. See
+           Section 6.3.6, "Pluggable Authentication".
+
+           This option was added in MySQL 5.5.10.
+
+       +o   ----ddeeffaauullttss--eexxttrraa--ffiillee==_f_i_l_e___n_a_m_e
+
+           Read this option file after the global option file but (on Unix)
+           before the user option file. If the file does not exist or is
+           otherwise inaccessible, an error occurs. Before MySQL 5.5.8,
+           _f_i_l_e___n_a_m_e must be the full path name to the file. As of MySQL
+           5.5.8, the name is interpreted relative to the current directory if
+           given as a relative path name.
+
+       +o   ----ddeeffaauullttss--ffiillee==_f_i_l_e___n_a_m_e
+
+           Use only the given option file. If the file does not exist or is
+           otherwise inaccessible, an error occurs. Before MySQL 5.5.8,
+           _f_i_l_e___n_a_m_e must be the full path name to the file. As of MySQL
+           5.5.8, the name is interpreted relative to the current directory if
+           given as a relative path name.
+
+       +o   ----ddeeffaauullttss--ggrroouupp--ssuuffffiixx==_s_t_r
+
+           Read not only the usual option groups, but also groups with the
+           usual names and a suffix of _s_t_r. For example, mmyyssqqllsshhooww normally
+           reads the [client] and [mysqlshow] groups. If the
+           ----ddeeffaauullttss--ggrroouupp--ssuuffffiixx==__ootthheerr option is given, mmyyssqqllsshhooww also
+           reads the [client_other] and [mysqlshow_other] groups.
+
+       +o   ----eennaabbllee--cclleeaarrtteexxtt--pplluuggiinn
+
+           Enable the mysql_clear_password cleartext authentication plugin.
+           (See Section 6.4.1.5, "The Cleartext Client-Side Authentication
+           Plugin".)
+
+           This option was added in MySQL 5.5.47.
+
+       +o   ----hhoosstt==_h_o_s_t___n_a_m_e, --hh _h_o_s_t___n_a_m_e
+
+           Connect to the MySQL server on the given host.
+
+       +o   ----kkeeyyss, --kk
+
+           Show table indexes.
+
+       +o   ----nnoo--ddeeffaauullttss
+
+           Do not read any option files. If program startup fails due to
+           reading unknown options from an option file, ----nnoo--ddeeffaauullttss can be
+           used to prevent them from being read.
+
+       +o   ----ppaasssswwoorrdd[[==_p_a_s_s_w_o_r_d]], --pp[[_p_a_s_s_w_o_r_d]]
+
+           The password to use when connecting to the server. If you use the
+           short option form (--pp), you _c_a_n_n_o_t have a space between the option
+           and the password. If you omit the _p_a_s_s_w_o_r_d value following the
+           ----ppaasssswwoorrdd or --pp option on the command line, mmyyssqqllsshhooww prompts for
+           one.
+
+           Specifying a password on the command line should be considered
+           insecure. See Section 6.1.2.1, "End-User Guidelines for Password
+           Security". You can use an option file to avoid giving the password
+           on the command line.
+
+       +o   ----ppiippee, --WW
+
+           On Windows, connect to the server using a named pipe. This option
+           applies only if the server supports named-pipe connections.
+
+       +o   ----pplluuggiinn--ddiirr==_d_i_r___n_a_m_e
+
+           The directory in which to look for plugins. Specify this option if
+           the ----ddeeffaauulltt--aauutthh option is used to specify an authentication
+           plugin but mmyyssqqllsshhooww does not find it. See Section 6.3.6,
+           "Pluggable Authentication".
+
+           This option was added in MySQL 5.5.10.
+
+       +o   ----ppoorrtt==_p_o_r_t___n_u_m, --PP _p_o_r_t___n_u_m
+
+           The TCP/IP port number to use for the connection.
+
+       +o   ----pprriinntt--ddeeffaauullttss
+
+           Print the program name and all options that it gets from option
+           files.
+
+       +o   ----pprroottooccooll=={{TTCCPP||SSOOCCKKEETT||PPIIPPEE||MMEEMMOORRYY}}
+
+           The connection protocol to use for connecting to the server. It is
+           useful when the other connection parameters normally would cause a
+           protocol to be used other than the one you want. For details on the
+           permissible values, see Section 4.2.2, "Connecting to the MySQL
+           Server".
+
+       +o   ----sshhaarreedd--mmeemmoorryy--bbaassee--nnaammee==_n_a_m_e
+
+           On Windows, the shared-memory name to use, for connections made
+           using shared memory to a local server. The default value is MYSQL.
+           The shared-memory name is case sensitive.
+
+           The server must be started with the ----sshhaarreedd--mmeemmoorryy option to
+           enable shared-memory connections.
+
+       +o   ----sshhooww--ttaabbllee--ttyyppee, --tt
+
+           Show a column indicating the table type, as in SHOW FULL TABLES.
+           The type is BASE TABLE or VIEW.
+
+       +o   ----ssoocckkeett==_p_a_t_h, --SS _p_a_t_h
+
+           For connections to localhost, the Unix socket file to use, or, on
+           Windows, the name of the named pipe to use.
+
+       +o   ----ssssll**
+
+           Options that begin with ----ssssll specify whether to connect to the
+           server using SSL and indicate where to find SSL keys and
+           certificates. See Section 6.3.8.5, "Command Options for Secure
+           Connections".
+
+       +o   ----ssttaattuuss, --ii
+
+           Display extra information about each table.
+
+       +o   ----uusseerr==_u_s_e_r___n_a_m_e, --uu _u_s_e_r___n_a_m_e
+
+           The MySQL user name to use when connecting to the server.
+
+       +o   ----vveerrbboossee, --vv
+
+           Verbose mode. Print more information about what the program does.
+           This option can be used multiple times to increase the amount of
+           information.
+
+       +o   ----vveerrssiioonn, --VV
+
+           Display version information and exit.
+
+CCOOPPYYRRIIGGHHTT
+       Copyright (C) 1997, 2016, Oracle and/or its affiliates. All rights
+       reserved.
+
+       This documentation is free software; you can redistribute it and/or
+       modify it only under the terms of the GNU General Public License as
+       published by the Free Software Foundation; version 2 of the License.
+
+       This documentation is distributed in the hope that it will be useful,
+       but WITHOUT ANY WARRANTY; without even the implied warranty of
+       MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+       General Public License for more details.
+
+       You should have received a copy of the GNU General Public License along
+       with the program; if not, write to the Free Software Foundation, Inc.,
+       51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA or see
+       http://www.gnu.org/licenses/.
+
+
+SSEEEE AALLSSOO
+       For more information, please refer to the MySQL Reference Manual, which
+       may already be installed locally and which is also available online at
+       http://dev.mysql.com/doc/.
+
+AAUUTTHHOORR
+       Oracle Corporation (http://dev.mysql.com/).
+
+
+
+MySQL 5.5                         03/01/2016                      MYSQLSHOW(1)

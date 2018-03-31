@@ -1,0 +1,26 @@
+clear(1)                    General Commands Manual                   clear(1)
+
+
+
+NNAAMMEE
+       cclleeaarr - clear the terminal screen
+
+SSYYNNOOPPSSIISS
+       cclleeaarr
+
+DDEESSCCRRIIPPTTIIOONN
+       cclleeaarr  clears your screen if this is possible, including its scrollback
+       buffer (if the extended "E3" capability is defined).   cclleeaarr  looks  in
+       the environment for the terminal type and then in the tteerrmmiinnffoo database
+       to determine how to clear the screen.
+
+       cclleeaarr ignores any command-line parameters that may be present.
+
+SSEEEE AALLSSOO
+       ttppuutt(1), tteerrmmiinnffoo(5)
+
+       This describes nnccuurrsseess version 5.9 (patch 20140118).
+
+
+
+                                                                      clear(1)

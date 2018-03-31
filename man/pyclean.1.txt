@@ -1,0 +1,33 @@
+PYCLEAN(1)                                                          PYCLEAN(1)
+
+
+
+NNAAMMEE
+       pyclean - removes .pyc and .pyo files
+
+SSYYNNOOPPSSIISS
+          pyclean [-p PACKAGE | DIR_OR_FILE]
+
+OOPPTTIIOONNSS
+       ----vveerrssiioonn
+              show program's version number and exit
+
+       --hh, ----hheellpp
+              show this help message and exit
+
+       --vv, ----vveerrbboossee
+              turn verbose more one
+
+       --qq, ----qquuiieett
+              be quiet
+
+       --pp _P_A_C_K_A_G_E,, ----ppaacckkaaggee==_P_A_C_K_A_G_E
+              specify Debian package name to clean (combining with DIR_OR_FILE
+              will additionally limit list of files)
+
+AAUUTTHHOORR
+       Piotr Oarowski, 2012-201
+
+
+
+                                                                    PYCLEAN(1)

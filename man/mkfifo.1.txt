@@ -1,0 +1,56 @@
+MKFIFO(1)                        User Commands                       MKFIFO(1)
+
+
+
+NNAAMMEE
+       mkfifo - make FIFOs (named pipes)
+
+SSYYNNOOPPSSIISS
+       mmkkffiiffoo [_O_P_T_I_O_N]... _N_A_M_E...
+
+DDEESSCCRRIIPPTTIIOONN
+       Create named pipes (FIFOs) with the given NAMEs.
+
+       Mandatory  arguments  to  long  options are mandatory for short options
+       too.
+
+       --mm, ----mmooddee=_M_O_D_E
+              set file permission bits to MODE, not a=rw - umask
+
+       --ZZ, ----ccoonntteexxtt=_C_T_X
+              set the SELinux security context of each NAME to CTX
+
+       ----hheellpp display this help and exit
+
+       ----vveerrssiioonn
+              output version information and exit
+
+AAUUTTHHOORR
+       Written by David MacKenzie.
+
+RREEPPOORRTTIINNGG BBUUGGSS
+       Report mkfifo bugs to bug-coreutils@gnu.org
+       GNU coreutils home page: <http://www.gnu.org/software/coreutils/>
+       General help using GNU software: <http://www.gnu.org/gethelp/>
+       Report mkfifo translation bugs to <http://translationproject.org/team/>
+
+CCOOPPYYRRIIGGHHTT
+       Copyright (C) 2013 Free Software Foundation, Inc.  License GPLv3+:  GNU
+       GPL version 3 or later <http://gnu.org/licenses/gpl.html>.
+       This  is  free  software:  you  are free to change and redistribute it.
+       There is NO WARRANTY, to the extent permitted by law.
+
+SSEEEE AALLSSOO
+       mkfifo(3)
+
+       The full documentation for mmkkffiiffoo is maintained as  a  Texinfo  manual.
+       If  the  iinnffoo  and mmkkffiiffoo programs are properly installed at your site,
+       the command
+
+              iinnffoo ccoorreeuuttiillss ''mmkkffiiffoo iinnvvooccaattiioonn''
+
+       should give you access to the complete manual.
+
+
+
+GNU coreutils 8.21                March 2016                         MKFIFO(1)

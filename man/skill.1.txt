@@ -1,0 +1,106 @@
+SKILL(1)                         User Commands                        SKILL(1)
+
+
+
+NNAAMMEE
+       skill, snice - send a signal or report process status
+
+SSYYNNOOPPSSIISS
+       sskkiillll [_s_i_g_n_a_l] [_o_p_t_i_o_n_s] _e_x_p_r_e_s_s_i_o_n
+       ssnniiccee [_n_e_w _p_r_i_o_r_i_t_y] [_o_p_t_i_o_n_s] _e_x_p_r_e_s_s_i_o_n
+
+DDEESSCCRRIIPPTTIIOONN
+       These  tools are obsolete and unportable.  The command syntax is poorly
+       defined.   Consider  using  the  killall,  pkill,  and  pgrep  commands
+       instead.
+
+       The  default  signal for skill is TERM.  Use -l or -L to list available
+       signals.  Particularly useful signals include  HUP,  INT,  KILL,  STOP,
+       CONT,  and  0.   Alternate  signals  may be specified in three ways: -9
+       -SIGKILL -KILL.
+
+       The default priority for snice is +4.  Priority numbers range from  +20
+       (slowest)  to  -20 (fastest).  Negative priority numbers are restricted
+       to administrative users.
+
+OOPPTTIIOONNSS
+       --ff, ----ffaasstt
+              Fast mode.  This option has not been implemented.
+
+       --ii, ----iinntteerraaccttiivvee
+              Interactive use.  You will be asked to approve each action.
+
+       --ll, ----lliisstt
+              List all signal names.
+
+       --LL, ----ttaabbllee
+              List all signal names in a nice table.
+
+       --nn, ----nnoo--aaccttiioonn
+              No action; perform a simulation of events that would  occur  but
+              do not actually change the system.
+
+       --vv, ----vveerrbboossee
+              Verbose; explain what is being done.
+
+       --ww, ----wwaarrnniinnggss
+              Enable warnings.  This option has not been implemented.
+
+       --hh, ----hheellpp
+              Display help text and exit.
+
+       --VV, ----vveerrssiioonn
+              Display version information.
+
+PPRROOCCEESSSS SSEELLEECCTTIIOONN OOPPTTIIOONNSS
+       Selection  criteria  can be: terminal, user, pid, command.  The options
+       below may be used to ensure correct interpretation.
+
+       --tt, ----ttttyy _t_t_y
+              The next expression is a terminal (tty or pty).
+
+       --uu, ----uusseerr _u_s_e_r
+              The next expression is a username.
+
+       --pp, ----ppiidd _p_i_d
+              The next expression is a process ID number.
+
+       --cc, ----ccoommmmaanndd _c_o_m_m_a_n_d
+              The next expression is a command name.
+
+       ----nnss _p_i_d
+              Match the processes that belong to the same namespace as pid.
+
+       ----nnsslliisstt _n_s_,_._._.
+              list which namespaces will be considered for  the  --ns  option.
+              Available namespaces: ipc, mnt, net, pid, user, uts.
+
+SSIIGGNNAALLSS
+       The behavior of signals is explained in ssiiggnnaall(7) manual page.
+
+EEXXAAMMPPLLEESS
+       ssnniiccee --cc sseettii --cc ccrraacckk ++77
+              Slow down seti and crack commands.
+
+       sskkiillll --KKIILLLL --tt //ddeevv//ppttss//**
+              Kill users on PTY devices.
+
+       sskkiillll --SSTTOOPP --uu vviirroo --uu llmm --uu ddaavveemm
+              Stop three users.
+
+SSEEEE AALLSSOO
+       kkiillll(1), kkiillll(2), kkiillllaallll(1), nniiccee(1), ppkkiillll(1), rreenniiccee(1), ssiiggnnaall(7)
+
+SSTTAANNDDAARRDDSS
+       No standards apply.
+
+AAUUTTHHOORR
+       Albert Cahalan <albert@users.sf.net> wrote skill and snice in 1999 as a
+       replacement for a non-free version.
+
+RREEPPOORRTTIINNGG BBUUGGSS
+       Please send bug reports to <procps@freelists.org>
+
+
+
+procps-ng                        October 2011                         SKILL(1)

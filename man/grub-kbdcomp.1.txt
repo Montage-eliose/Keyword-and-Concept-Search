@@ -1,0 +1,44 @@
+GRUB-KBDCOMP(1)                  User Commands                 GRUB-KBDCOMP(1)
+
+
+
+NNAAMMEE
+       grub-kbdcomp - generate a GRUB keyboard layout file
+
+SSYYNNOOPPSSIISS
+       ggrruubb--kkbbddccoommpp _-_o _O_U_T_P_U_T _C_K_B_M_A_P___A_R_G_U_M_E_N_T_S...
+
+DDEESSCCRRIIPPTTIIOONN
+       grub-kbdcomp  processes  a  X keyboard layout description in kkeeyymmaappss(5)
+       format into a format that can be used by GRUB's kkeeyymmaapp command.
+
+       Make GRUB keyboard layout file.
+
+       --hh, ----hheellpp
+              print this message and exit
+
+       --vv, ----vveerrssiioonn
+              print the version information and exit
+
+       --oo, ----oouuttppuutt=_F_I_L_E
+              save output in FILE [required]
+
+       grub-kbdcomp generates a keyboard layout for GRUB using ckbcomp
+
+RREEPPOORRTTIINNGG BBUUGGSS
+       Report bugs to <bug-grub@gnu.org>.
+
+SSEEEE AALLSSOO
+       ggrruubb--mmkkllaayyoouutt(8)
+
+       The full documentation for ggrruubb--kkbbddccoommpp is maintained as a Texinfo man-
+       ual.   If  the iinnffoo and ggrruubb--kkbbddccoommpp programs are properly installed at
+       your site, the command
+
+              iinnffoo ggrruubb--kkbbddccoommpp
+
+       should give you access to the complete manual.
+
+
+
+grub-kbdcomp ()                  December 2015                 GRUB-KBDCOMP(1)

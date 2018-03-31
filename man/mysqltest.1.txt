@@ -1,0 +1,353 @@
+MYSQLTEST(1)                 MySQL Database System                MYSQLTEST(1)
+
+
+
+NNAAMMEE
+       mysqltest - program to run test cases
+       mysqltest_embedded - program to run embedded test cases
+
+SSYYNNOOPPSSIISS
+       mmyyssqqlltteesstt [[_o_p_t_i_o_n_s]] [[_d_b___n_a_m_e]]
+
+       mmyyssqqlltteesstt__eemmbbeeddddeedd [[_o_p_t_i_o_n_s]] [[_d_b___n_a_m_e]]
+
+DDEESSCCRRIIPPTTIIOONN
+       The mmyyssqqlltteesstt program runs a test case against a MySQL server and
+       optionally compares the output with a result file. This program reads
+       input written in a special test language. Typically, you invoke
+       mmyyssqqlltteesstt using mmyyssqqll--tteesstt--rruunn..ppll rather than invoking it directly.
+
+       mmyyssqqlltteesstt__eemmbbeeddddeedd is similar but is built with support for the
+       libmysqld embedded server.
+
+       Features of mmyyssqqlltteesstt:
+
+       +o   Can send SQL statements to MySQL servers for execution
+
+       +o   Can execute external shell commands
+
+       +o   Can test whether the result from an SQL statement or shell command
+           is as expected
+
+       +o   Can connect to one or more standalone mmyyssqqlldd servers and switch
+           between connections
+
+       +o   Can connect to an embedded server (libmysqld), if MySQL is compiled
+           with support for libmysqld. (In this case, the executable is named
+           mmyyssqqlltteesstt__eemmbbeeddddeedd rather than mmyyssqqlltteesstt.)
+
+       By default, mmyyssqqlltteesstt reads the test case on the standard input. To run
+       mmyyssqqlltteesstt this way, you normally invoke it like this:
+
+           shell> mmyyssqqlltteesstt [[_o_p_t_i_o_n_s]] [[_d_b___n_a_m_e]] << _t_e_s_t___f_i_l_e
+
+       You can also name the test case file with a ----tteesstt--ffiillee==_f_i_l_e___n_a_m_e
+       option.
+
+       The exit value from mmyyssqqlltteesstt is 0 for success, 1 for failure, and 62
+       if it skips the test case (for example, if after checking some
+       preconditions it decides not to run the test).
+
+       mmyyssqqlltteesstt supports the following options:
+
+       +o   ----hheellpp, --??
+
+           Display a help message and exit.
+
+       +o   ----bbaasseeddiirr==_d_i_r___n_a_m_e, --bb _d_i_r___n_a_m_e
+
+           The base directory for tests.
+
+       +o   ----cchhaarraacctteerr--sseettss--ddiirr==_p_a_t_h
+
+           The directory where character sets are installed.
+
+       +o   ----ccoommpprreessss, --CC
+
+           Compress all information sent between the client and the server if
+           both support compression.
+
+       +o   ----ccuurrssoorr--pprroottooccooll
+
+           Use cursors for prepared statements.
+
+       +o   ----ddaattaabbaassee==_d_b___n_a_m_e, --DD _d_b___n_a_m_e
+
+           The default database to use.
+
+       +o   ----ddeebbuugg[[==_d_e_b_u_g___o_p_t_i_o_n_s]], --##[[_d_e_b_u_g___o_p_t_i_o_n_s]]
+
+           Write a debugging log if MySQL is built with debugging support. The
+           default _d_e_b_u_g___o_p_t_i_o_n_s value is 'd:t:S:i:O,/tmp/mysqltest.trace'.
+
+       +o   ----ddeebbuugg--cchheecckk
+
+           Print some debugging information when the program exits.
+
+       +o   ----ddeebbuugg--iinnffoo
+
+           Print debugging information and memory and CPU usage statistics
+           when the program exits.
+
+       +o   ----eexxppllaaiinn--pprroottooccooll,
+
+           Run EXPLAIN EXTENDED on all SELECT, INSERT, REPLACE, UPDATE and
+           DELETE queries.
+
+       +o   ----hhoosstt==_h_o_s_t___n_a_m_e, --hh _h_o_s_t___n_a_m_e
+
+           Connect to the MySQL server on the given host.
+
+       +o   ----iinncclluuddee==_f_i_l_e___n_a_m_e, --ii _f_i_l_e___n_a_m_e
+
+           Include the contents of the given file before processing the
+           contents of the test file. The included file should have the same
+           format as other mmyyssqqlltteesstt test files. This option has the same
+           effect as putting a --source _f_i_l_e___n_a_m_e command as the first line of
+           the test file.
+
+       +o   ----jjssoonn--eexxppllaaiinn--pprroottooccooll,
+
+           Run EXPLAIN FORMAT=JSON on all SELECT, INSERT, REPLACE, UPDATE and
+           DELETE queries. The json-explain-protocol option is available from
+           MySQL 5.6.
+
+       +o   ----llooggddiirr==_d_i_r___n_a_m_e
+
+           The directory to use for log files.
+
+       +o   ----mmaarrkk--pprrooggrreessss
+
+           Write the line number and elapsed time to _t_e_s_t___f_i_l_e.progress.
+
+       +o   ----mmaaxx--ccoonnnneecctt--rreettrriieess==_n_u_m
+
+           The maximum number of connection attempts when connecting to
+           server.
+
+       +o   ----mmaaxx--ccoonnnneeccttiioonnss==_n_u_m
+
+           The maximum number of simultaneous server connections per client
+           (that is, per test). If not set, the maximum is 128. Minimum
+           allowed limit is 8, maximum is 5120.
+
+       +o   ----nnoo--ddeeffaauullttss
+
+           Do not read default options from any option files. If used, this
+           must be the first option.
+
+       +o   ----pplluuggiinn--ddiirr==_p_a_t_h
+
+           The directory in which to look for plugins. It may be necessary to
+           specify this option if the _d_e_f_a_u_l_t___a_u_t_h argument is used for the
+           connect() command to specify an authentication plugin but mmyyssqqlltteesstt
+           does not find it. This option was added in MySQL 5.5.7.
+
+       +o   ----ppaasssswwoorrdd[[==_p_a_s_s_w_o_r_d]], --pp[[_p_a_s_s_w_o_r_d]]
+
+           The password to use when connecting to the server. If you use the
+           short option form (--pp), you _c_a_n_n_o_t have a space between the option
+           and the password. If you omit the _p_a_s_s_w_o_r_d value following the
+           ----ppaasssswwoorrdd or --pp option on the command line, you are prompted for
+           one.
+
+       +o   ----ppoorrtt==_p_o_r_t___n_u_m, --PP _p_o_r_t___n_u_m
+
+           The TCP/IP port number to use for the connection.
+
+       +o   ----pprroottooccooll=={{TTCCPP||SSOOCCKKEETT||PPIIPPEE||MMEEMMOORRYY}}
+
+           Choose the protocol for communication with the server.  SOCKET is
+           default.
+
+           The ----pprroottooccooll option is ignored if running with the embedded
+           server.
+
+       +o   ----ppss--pprroottooccooll
+
+           Use the prepared-statement protocol for communication.
+
+       +o   ----qquuiieett
+
+           Suppress all normal output. This is a synonym for ----ssiilleenntt.
+
+       +o   ----rreeccoorrdd, --rr
+
+           Record the output that results from running the test file into the
+           file named by the ----rreessuulltt--ffiillee option, if that option is given. It
+           is an error to use this option without also using ----rreessuulltt--ffiillee.
+
+       +o   ----rreessuulltt--ffiillee==_f_i_l_e___n_a_m_e, --RR _f_i_l_e___n_a_m_e
+
+           This option specifies the file for test case expected results.
+           ----rreessuulltt--ffiillee, together with ----rreeccoorrdd, determines how mmyyssqqlltteesstt
+           treats the test actual and expected results for a test case:
+
+           +o   If the test produces no results, mmyyssqqlltteesstt exits with an error
+               message to that effect, unless ----rreessuulltt--ffiillee is given and the
+               named file is an empty file.
+
+           +o   Otherwise, if ----rreessuulltt--ffiillee is not given, mmyyssqqlltteesstt sends test
+               results to the standard output.
+
+           +o   With ----rreessuulltt--ffiillee but not ----rreeccoorrdd, mmyyssqqlltteesstt reads the
+               expected results from the given file and compares them with the
+               actual results. If the results do not match, mmyyssqqlltteesstt writes a
+               .reject file in the same directory as the result file, outputs
+               a diff of the two files, and exits with an error.
+
+           +o   With both ----rreessuulltt--ffiillee and ----rreeccoorrdd, mmyyssqqlltteesstt updates the
+               given file by writing the actual test results to it.
+
+       +o   ----sseerrvveerr--aarrgg==_v_a_l_u_e, --AA _v_a_l_u_e
+
+           Pass the argument as an argument to the embedded server. For
+           example, ----sseerrvveerr--aarrgg==----ttmmppddiirr==//ttmmpp or ----sseerrvveerr--aarrgg==----ccoorree. Up to
+           64 arguments can be given.
+
+       +o   ----sseerrvveerr--ffiillee==_f_i_l_e___n_a_m_e, --FF _f_i_l_e___n_a_m_e
+
+           Read arguments for the embedded server from the given file. The
+           file should contain one argument per line.
+
+       +o   ----sseerrvveerr--ppuubblliicc--kkeeyy--ppaatthh==ffiillee__nnaammee
+
+           The path name to a file containing the server RSA public key. The
+           file must be in PEM format. The public key is used for RSA
+           encryption of the client password for connections to the server
+           made using accounts that authenticate with the sha256_password
+           plugin. This option is ignored for client accounts that do not
+           authenticate with that plugin. It is also ignored if password
+           encryption is not needed, as is the case when the client connects
+           to the server using an SSL connection.
+
+           The server sends the public key to the client as needed, so it is
+           not necessary to use this option for RSA password encryption to
+           occur. It is more efficient to do so because then the server need
+           not send the key.
+
+           For additional discussion regarding use of the sha256_password
+           plugin, including how to get the RSA public key, see TThhee SSHHAA--225566
+           AAuutthheennttiiccaattiioonn PPlluuggiinn[1].
+
+           This option is available only if MySQL was built using OpenSSL. It
+           was added in MySQL 5.6.6 under the name ----sseerrvveerr--ppuubblliicc--kkeeyy and
+           renamed in 5.6.7 to ----sseerrvveerr--ppuubblliicc--kkeeyy--ppaatthh.
+
+       +o   ----ssiilleenntt, --ss
+
+           Suppress all normal output.
+
+       +o   ----sskkiipp--ssaaffeemmaalllloocc
+
+           Do not use memory allocation checking.
+
+       +o   ----sslleeeepp==_n_u_m, --TT _n_u_m
+
+           Cause all sleep commands in the test case file to sleep _n_u_m
+           seconds. This option does not affect real_sleep commands.
+
+           An option value of 0 can also be used, which effectively disables
+           sleep commands in the test case.
+
+       +o   ----ssoocckkeett==_p_a_t_h, --SS _p_a_t_h
+
+           The socket file to use when connecting to localhost (which is the
+           default host).
+
+       +o   ----sspp--pprroottooccooll
+
+           Execute DML statements within a stored procedure. For every DML
+           statement, mmyyssqqlltteesstt creates and invokes a stored procedure that
+           executes the statement rather than executing the statement
+           directly.
+
+       +o   ----ttaaiill--lliinneess==_n_n
+
+           Specify how many lines of the result to include in the output if
+           the test fails because an SQL statement fails. The default is 0,
+           meaning no lines of result printed.
+
+       +o   ----tteesstt--ffiillee==_f_i_l_e___n_a_m_e, --xx _f_i_l_e___n_a_m_e
+
+           Read test input from this file. The default is to read from the
+           standard input.
+
+       +o   ----ttiimmeerr--ffiillee==_f_i_l_e___n_a_m_e, --mm _f_i_l_e___n_a_m_e
+
+           If given, the number of millisecond spent running the test will be
+           written to this file. This is used by mmyyssqqll--tteesstt--rruunn..ppll for its
+           reporting.
+
+       +o   ----ttllss--vveerrssiioonn==_p_r_o_t_o_c_o_l___l_i_s_t
+
+           The protocols permitted by the client for encrypted connections.
+           The value is a comma-separated list containing one or more of these
+           protocols: TLSv1, TLSv1.1, TLSv1.2. (TLSv1.2 is supported only if
+           MySQL was compiled using OpenSSL 1.0.1 or higher. It is not
+           supported if MySQL was compiled using yaSSL.)
+
+           This option was added in MySQL 5.7.10.
+
+       +o   ----ttmmppddiirr==_d_i_r___n_a_m_e, --tt _d_i_r___n_a_m_e
+
+           The temporary directory where socket files are created.
+
+       +o   ----ttrraaccee--eexxeecc
+
+           If enabled, this option causes mmyyssqqlltteesstt to immediately display the
+           output from executed programs to stdout.
+
+           This option was added in MySQL 5.8.0.
+
+       +o   ----uusseerr==_u_s_e_r___n_a_m_e, --uu _u_s_e_r___n_a_m_e
+
+           The MySQL user name to use when connecting to the server.
+
+       +o   ----vveerrbboossee, --vv
+
+           Verbose mode. Print out more information about what the program
+           does.
+
+       +o   ----vveerrssiioonn, --VV
+
+           Display version information and exit.
+
+       +o   ----vviieeww--pprroottooccooll
+
+           Every SELECT statement is wrapped inside a view.
+
+CCOOPPYYRRIIGGHHTT
+       Copyright (C) 2006, 2016, Oracle and/or its affiliates. All rights
+       reserved.
+
+       This documentation is free software; you can redistribute it and/or
+       modify it only under the terms of the GNU General Public License as
+       published by the Free Software Foundation; version 2 of the License.
+
+       This documentation is distributed in the hope that it will be useful,
+       but WITHOUT ANY WARRANTY; without even the implied warranty of
+       MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+       General Public License for more details.
+
+       You should have received a copy of the GNU General Public License along
+       with the program; if not, write to the Free Software Foundation, Inc.,
+       51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA or see
+       http://www.gnu.org/licenses/.
+
+
+NNOOTTEESS
+        1. The SHA-256 Authentication Plugin
+           http://dev.mysql.com/doc/refman/5.7/en/sha256-authentication-plugin.html
+
+SSEEEE AALLSSOO
+       For more information, please refer to the MySQL Reference Manual, which
+       may already be installed locally and which is also available online at
+       http://dev.mysql.com/doc/.
+
+AAUUTTHHOORR
+       Oracle Corporation (http://dev.mysql.com/).
+
+
+
+MySQL                             02/29/2016                      MYSQLTEST(1)

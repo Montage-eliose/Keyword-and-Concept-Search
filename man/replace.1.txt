@@ -1,0 +1,91 @@
+REPLACE(1)                   MySQL Database System                  REPLACE(1)
+
+
+
+NNAAMMEE
+       replace - a string-replacement utility
+
+SSYYNNOOPPSSIISS
+       rreeppllaaccee _a_r_g_u_m_e_n_t_s
+
+DDEESSCCRRIIPPTTIIOONN
+       The rreeppllaaccee utility program changes strings in place in files or on the
+       standard input.
+
+       Invoke rreeppllaaccee in one of the following ways:
+
+           shell> rreeppllaaccee _f_r_o_m _t_o [[_f_r_o_m _t_o]] ...... ---- _f_i_l_e___n_a_m_e [[_f_i_l_e___n_a_m_e]] ......
+           shell> rreeppllaaccee _f_r_o_m _t_o [[_f_r_o_m _t_o]] ...... << _f_i_l_e___n_a_m_e
+
+       _f_r_o_m represents a string to look for and _t_o represents its replacement.
+       There can be one or more pairs of strings.
+
+       Use the ---- option to indicate where the string-replacement list ends
+       and the file names begin. In this case, any file named on the command
+       line is modified in place, so you may want to make a copy of the
+       original before converting it.  _r_e_p_l_a_c_e prints a message indicating
+       which of the input files it actually modifies.
+
+       If the ---- option is not given, rreeppllaaccee reads the standard input and
+       writes to the standard output.
+
+       rreeppllaaccee uses a finite state machine to match longer strings first. It
+       can be used to swap strings. For example, the following command swaps a
+       and b in the given files, file1 and file2:
+
+           shell> rreeppllaaccee aa bb bb aa ---- ffiillee11 ffiillee22 ......
+
+       The rreeppllaaccee program is used by mmssqqll22mmyyssqqll. See mmssqqll22mmyyssqqll(1).
+
+       rreeppllaaccee supports the following options.
+
+       +o   --??, --II
+
+           Display a help message and exit.
+
+       +o   --##_d_e_b_u_g___o_p_t_i_o_n_s
+
+           Enable debugging.
+
+       +o   --ss
+
+           Silent mode. Print less information what the program does.
+
+       +o   --vv
+
+           Verbose mode. Print more information about what the program does.
+
+       +o   --VV
+
+           Display version information and exit.
+
+CCOOPPYYRRIIGGHHTT
+       Copyright (C) 1997, 2016, Oracle and/or its affiliates. All rights
+       reserved.
+
+       This documentation is free software; you can redistribute it and/or
+       modify it only under the terms of the GNU General Public License as
+       published by the Free Software Foundation; version 2 of the License.
+
+       This documentation is distributed in the hope that it will be useful,
+       but WITHOUT ANY WARRANTY; without even the implied warranty of
+       MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+       General Public License for more details.
+
+       You should have received a copy of the GNU General Public License along
+       with the program; if not, write to the Free Software Foundation, Inc.,
+       51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA or see
+       http://www.gnu.org/licenses/.
+
+
+SSEEEE AALLSSOO
+       For more information, please refer to the MySQL Reference Manual, which
+       may already be installed locally and which is also available online at
+       http://dev.mysql.com/doc/.
+
+AAUUTTHHOORR
+       Oracle Corporation (http://dev.mysql.com/).
+
+
+
+MySQL 5.5                         03/01/2016                        REPLACE(1)

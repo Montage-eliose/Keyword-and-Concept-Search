@@ -1,0 +1,50 @@
+TLOAD(1)                         User Commands                        TLOAD(1)
+
+
+
+NNAAMMEE
+       tload - graphic representation of system load average
+
+SSYYNNOOPPSSIISS
+       ttllooaadd [_o_p_t_i_o_n_s] [_t_t_y]
+
+DDEESSCCRRIIPPTTIIOONN
+       ttllooaadd  prints  a graph of the current system load average to the speci-
+       fied _t_t_y (or the tty of the tload process if none is specified).
+
+OOPPTTIIOONNSS
+       --ss, ----ssccaallee _n_u_m_b_e_r
+              The scale option allows a vertical scale to be specified for the
+              display  (in  characters  between  graph ticks); thus, a smaller
+              value represents a larger scale, and vice versa.
+
+       --dd, ----ddeellaayy _s_e_c_o_n_d_s
+              The delay sets the delay between graph updates in _s_e_c_o_n_d_s.
+
+       --hh, ----hheellpp
+              Display this help text.
+
+       --VV, ----vveerrssiioonn
+              Display version information and exit.
+
+FFIILLEESS
+       _/_p_r_o_c_/_l_o_a_d_a_v_g load average information
+
+SSEEEE AALLSSOO
+       ppss(1), ttoopp(1), uuppttiimmee(1), ww(1)
+
+BBUUGGSS
+       The --dd _d_e_l_a_y option sets the time argument for an aallaarrmm(2); if -d 0  is
+       specified, the alarm is set to 0, which will never send the SSIIGGAALLRRMM and
+       update the display.
+
+AAUUTTHHOORRSS
+       Branko Lankester, David Engel <david@ods.com>, and Michael  K.  Johnson
+       <johnsonm@redhat.com>.
+
+RREEPPOORRTTIINNGG BBUUGGSS
+       Please send bug reports to <procps@freelists.org>
+
+
+
+procps-ng                          June 2011                          TLOAD(1)

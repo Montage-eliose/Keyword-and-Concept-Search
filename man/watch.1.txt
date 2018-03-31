@@ -1,0 +1,149 @@
+WATCH(1)                         User Commands                        WATCH(1)
+
+
+
+NNAAMMEE
+       watch - execute a program periodically, showing output fullscreen
+
+SSYYNNOOPPSSIISS
+       wwaattcchh [_o_p_t_i_o_n_s] _c_o_m_m_a_n_d
+
+DDEESSCCRRIIPPTTIIOONN
+       wwaattcchh  runs  _c_o_m_m_a_n_d  repeatedly, displaying its output and errors (the
+       first screenfull).  This allows you to watch the program output  change
+       over  time.   By  default,  the  program  is  run  every 2 seconds.  By
+       default, wwaattcchh will run until interrupted.
+
+OOPPTTIIOONNSS
+       --dd, ----ddiiffffeerreenncceess [_p_e_r_m_a_n_e_n_t]
+              Highlight the differences between  successive  updates.   Option
+              will  read optional argument that changes highlight to be perma-
+              nent, allowing to see what has changed at least once since first
+              iteration.
+
+       --nn, ----iinntteerrvvaall _s_e_c_o_n_d_s
+              Specify  update  interval.   The  command will not allow quicker
+              than 0.1 second interval, in which the smaller values  are  con-
+              verted.
+
+       --pp, ----pprreecciissee
+              Make wwaattcchh attempt to run _c_o_m_m_a_n_d every _i_n_t_e_r_v_a_l seconds. Try it
+              with  nnttppttiimmee  and  notice  how  the  fractional  seconds  stays
+              (nearly) the same, as opposed to normal mode where they continu-
+              ously increase.
+
+       --tt, ----nnoo--ttiittllee
+              Turn off the header showing the interval, command,  and  current
+              time  at  the top of the display, as well as the following blank
+              line.
+
+       --bb, ----bbeeeepp
+              Beep if command has a non-zero exit.
+
+       --ee, ----eerrrreexxiitt
+              Freeze updates on command error, and exit after a key press.
+
+       --gg, ----cchhggeexxiitt
+              Exit when the output of _c_o_m_m_a_n_d changes.
+
+       --cc, ----ccoolloorr
+              Interpret ANSI color sequences.
+
+       --xx, ----eexxeecc
+              _c_o_m_m_a_n_d is given to sshh --cc which means that you may need  to  use
+              extra  quoting  to get the desired effect.  This with the --exec
+              option, which passes the command to eexxeecc(2) instead.
+
+       --hh, ----hheellpp
+              Display help text and exit.
+
+       --vv, ----vveerrssiioonn
+              Display version information and exit.
+
+NNOOTTEE
+       Note that POSIX option processing  is  used  (i.e.,  option  processing
+       stops  at  the first non-option argument).  This means that flags after
+       _c_o_m_m_a_n_d don't get interpreted by wwaattcchh itself.
+
+EEXXAAMMPPLLEESS
+       To watch for mail, you might do
+
+              watch -n 60 from
+
+       To watch the contents of a directory change, you could use
+
+              watch -d ls -l
+
+       If you're only interested in files owned by user joe, you might use
+
+              watch -d 'ls -l | fgrep joe'
+
+       To see the effects of quoting, try these out
+
+              watch echo $$
+              watch echo '$$'
+              watch echo "'"'$$'"'"
+
+       To see the effect of precision time keeping, try adding _-_p to
+
+              watch -n 10 sleep 1
+
+       You can watch for your administrator to install the latest kernel with
+
+              watch uname -r
+
+       (Note that _-_p isn't guaranteed to work across  reboots,  especially  in
+       the face of nnttppddaattee or other bootup time-changing mechanisms)
+
+BBUUGGSS
+       Upon  terminal resize, the screen will not be correctly repainted until
+       the next scheduled update.  All ----ddiiffffeerreenncceess highlighting is  lost  on
+       that update as well.
+
+       Non-printing characters are stripped from program output.  Use "cat -v"
+       as part of the command pipeline if you want to see them.
+
+       Combining Characters that are supposed to display on the  character  at
+       the last column on the screen may display one column early, or they may
+       not display at all.
+
+       Combining Characters never count as different  in  _-_-_d_i_f_f_e_r_e_n_c_e_s  mode.
+       Only the base character counts.
+
+       Blank  lines directly after a line which ends in the last column do not
+       display.
+
+       _-_-_p_r_e_c_i_s_e mode doesn't yet have advanced temporal distortion technology
+       to  compensate  for  a _c_o_m_m_a_n_d that takes more than _i_n_t_e_r_v_a_l seconds to
+       execute.  wwaattcchh also can get into a state where it rapid-fires as  many
+       executions  of _c_o_m_m_a_n_d as it can to catch up from a previous executions
+       running longer than _i_n_t_e_r_v_a_l (for example, nneettssttaatt taking ages on a DNS
+       lookup).
+
+EEXXIITT SSTTAATTUUSS
+              00      Success.
+              11      Various failures.
+              22      Forking the process to watch failed.
+              33      Replacing  child  process  stdout  with  write  side pipe
+                     failed.
+              44      Command execution failed.
+              55      Closign child process write pipe failed.
+              77      IPC pipe creation failed.
+              88      Getting  child  process  return  value  with   wwaaiittppiidd(2)
+                     failed, or command exited up on error.
+              ootthheerr  The  watch  will  propagate  command exit status as child
+                     exit status.
+AAUUTTHHOORRSS
+       The original wwaattcchh was written  by  Tony  Rems  <rembo@unisoft.com>  in
+       1991,  with  mods  and corrections by Francois Pinard.  It was reworked
+       and new features added by Mike Coleman <mkc@acm.org> in 1999. The beep,
+       exec,  and  error  handling  features were added by Morty Abzug <morty@
+       frakir.org> in 2008.  On a not so dark and stormy morning in  March  of
+       2003,  Anthony DeRobertis <asd@suespammers.org> got sick of his watches
+       that should update every minute eventually updating many seconds  after
+       the  minute  started, and added microsecond precision.  Unicode support
+       was added in 2009 by Jarrod Lowe <procps@rrod.net>
+
+
+
+procps-ng                          June 2011                          WATCH(1)

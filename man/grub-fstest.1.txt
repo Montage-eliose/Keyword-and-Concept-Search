@@ -1,0 +1,92 @@
+GRUB-FSTEST(1)                   User Commands                  GRUB-FSTEST(1)
+
+
+
+NNAAMMEE
+       grub-fstest - debug tool for GRUB filesystem drivers
+
+SSYYNNOOPPSSIISS
+       ggrruubb--ffsstteesstt [_O_P_T_I_O_N...] _I_M_A_G_E___P_A_T_H _C_O_M_M_A_N_D_S
+
+DDEESSCCRRIIPPTTIIOONN
+       Debug tool for filesystem driver.
+
+              Commands:
+
+       blocklist FILE
+              Display blocklist of FILE.
+
+       cat FILE
+              Copy FILE to standard output.
+
+       cmp FILE LOCAL
+              Compare FILE with local file LOCAL.
+
+       cp FILE LOCAL
+              Copy FILE to local file LOCAL.
+
+       crc FILE
+              Get crc32 checksum of FILE.
+
+       hex FILE
+              Show contents of FILE in hex.
+
+       ls PATH
+              List files in PATH.
+
+       xnu_uuid DEVICE
+              Compute XNU UUID of the device.
+
+       --cc, ----ddiisskkccoouunntt=_N_U_M
+              Specify the number of input files.
+
+       --CC, ----ccrryyppttoo
+              Mount crypto devices.
+
+       --dd, ----ddeebbuugg=_S_T_R_I_N_G
+              Set debug environment variable.
+
+       --KK, ----zzffss--kkeeyy=_F_I_L_E|prompt
+              Load zfs crypto key.
+
+       --nn, ----lleennggtthh=_N_U_M
+              Handle N bytes in output file.
+
+       --rr, ----rroooott=_D_E_V_I_C_E___N_A_M_E
+              Set root device.
+
+       --ss, ----sskkiipp=_N_U_M
+              Skip N bytes from output file.
+
+       --uu, ----uunnccoommpprreessss
+              Uncompress data.
+
+       --vv, ----vveerrbboossee
+              print verbose messages.
+
+       -?, ----hheellpp
+              give this help list
+
+       ----uussaaggee
+              give a short usage message
+
+       --VV, ----vveerrssiioonn
+              print program version
+
+       Mandatory  or  optional arguments to long options are also mandatory or
+       optional for any corresponding short options.
+
+SSEEEE AALLSSOO
+       ggrruubb--pprroobbee(8)
+
+       The full documentation for ggrruubb--ffsstteesstt is maintained as a Texinfo  man-
+       ual.   If  the  iinnffoo and ggrruubb--ffsstteesstt programs are properly installed at
+       your site, the command
+
+              iinnffoo ggrruubb--ffsstteesstt
+
+       should give you access to the complete manual.
+
+
+
+grub-fstest (GRUB) 2.02~beta2-9ubuDnetcue1m.b7er 2015                  GRUB-FSTEST(1)

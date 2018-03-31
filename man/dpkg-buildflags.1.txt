@@ -1,0 +1,352 @@
+dpkg-buildflags(1)                dpkg suite                dpkg-buildflags(1)
+
+
+
+NNAAMMEE
+       dpkg-buildflags - returns build flags to use during package build
+
+SSYYNNOOPPSSIISS
+       ddppkkgg--bbuuiillddffllaaggss [_o_p_t_i_o_n...] [_c_o_m_m_a_n_d]
+
+DDEESSCCRRIIPPTTIIOONN
+       ddppkkgg--bbuuiillddffllaaggss  is  a tool to retrieve compilation flags to use during
+       build of Debian packages.  The default flags are defined by the  vendor
+       but they can be extended/overriden in several ways:
+
+       1.     system-wide with //eettcc//ddppkkgg//bbuuiillddffllaaggss..ccoonnff;
+
+       2.     for  the current user with $$XXDDGG__CCOONNFFIIGG__HHOOMMEE//ddppkkgg//bbuuiillddffllaaggss..ccoonnff
+              where $$XXDDGG__CCOONNFFIIGG__HHOOMMEE defaults to $$HHOOMMEE//..ccoonnffiigg;
+
+       3.     temporarily by the user with environment variables (see  section
+              EENNVVIIRROONNMMEENNTT);
+
+       4.     dynamically by the package maintainer with environment variables
+              set via ddeebbiiaann//rruulleess (see section EENNVVIIRROONNMMEENNTT).
+
+       The configuration files can contain two types of directives:
+
+       SSEETT _f_l_a_g _v_a_l_u_e
+              Override the flag named _f_l_a_g to have the value _v_a_l_u_e.
+
+       SSTTRRIIPP _f_l_a_g _v_a_l_u_e
+              Strip from the flag named _f_l_a_g all the  build  flags  listed  in
+              _v_a_l_u_e.
+
+       AAPPPPEENNDD _f_l_a_g _v_a_l_u_e
+              Extend  the  flag  named  _f_l_a_g by appending the options given in
+              _v_a_l_u_e.  A space is prepended to the appended value if the flag's
+              current value is non-empty.
+
+       PPRREEPPEENNDD _f_l_a_g _v_a_l_u_e
+              Extend  the  flag  named _f_l_a_g by prepending the options given in
+              _v_a_l_u_e.  A space is appended to the prepended value if the flag's
+              current value is non-empty.
+
+       The  configuration  files can contain comments on lines starting with a
+       hash (#). Empty lines are also ignored.
+
+CCOOMMMMAANNDDSS
+       ----dduummpp Print to standard output all compilation flags and their values.
+              It prints one flag per line separated from its value by an equal
+              sign ("_f_l_a_g=_v_a_l_u_e"). This is the default action.
+
+       ----lliisstt Print the list of flags supported by the current vendor (one per
+              line).  See  the  SSUUPPPPOORRTTEEDD  FFLLAAGGSS  section for more information
+              about them.
+
+       ----ssttaattuuss
+              Display any information that can be useful to explain the behav-
+              iour of ddppkkgg--bbuuiillddffllaaggss: relevant environment variables, current
+              vendor, state of all feature flags.  Also  print  the  resulting
+              compiler flags with their origin.
+
+              This  is intended to be run from ddeebbiiaann//rruulleess, so that the build
+              log keeps a clear trace of the build flags  used.  This  can  be
+              useful to diagnose problems related to them.
+
+       ----eexxppoorrtt==_f_o_r_m_a_t
+              Print to standard output commands that can be used to export all
+              the compilation flags for some particular tool.  If  the  _f_o_r_m_a_t
+              value is not given, sshh is assumed. Only compilation flags start-
+              ing with an  upper  case  character  are  included,  others  are
+              assumed  to  not be suitable for the environment. Supported for-
+              mats:
+
+              sshh     Shell commands to set  and  export  all  the  compilation
+                     flags  in  the environment. The flag values are quoted so
+                     the output is ready for evaluation by a shell.
+
+              ccmmddlliinnee
+                     Arguments to pass to a build program's  command  line  to
+                     use  all  the  compilation flags (since dpkg 1.17.0). The
+                     flag values are quoted in shell syntax.
+
+              ccoonnffiigguurree
+                     This is a legacy alias for ccmmddlliinnee.
+
+              mmaakkee   Make directives to set and  export  all  the  compilation
+                     flags  in  the  environment.  Output  can be written to a
+                     makefile fragment and evaluated using an  iinncclluuddee  direc-
+                     tive.
+
+       ----ggeett _f_l_a_g
+              Print  the value of the flag on standard output. Exits with 0 if
+              the flag is known otherwise exits with 1.
+
+       ----oorriiggiinn _f_l_a_g
+              Print the origin of the value that is returned by  ----ggeett.  Exits
+              with  0  if the flag is known otherwise exits with 1. The origin
+              can be one of the following values:
+
+              vveennddoorr the original flag set by the vendor is returned;
+
+              ssyysstteemm the flag is set/modified by a system-wide configuration;
+
+              uusseerr   the flag is set/modified by  a  user-specific  configura-
+                     tion;
+
+              eennvv    the  flag is set/modified by an environment-specific con-
+                     figuration.
+
+       ----qquueerryy--ffeeaattuurreess _a_r_e_a
+              Print the features enabled for a given area. The only  currently
+              recognized  area is hhaarrddeenniinngg, see the FFEEAATTUURREE AARREEAASS section for
+              more details.  Exits with 0 if the area is known otherwise exits
+              with 1.
+
+              The  output  is  in RFC822 format, with one section per feature.
+              For example:
+
+                Feature: pie
+                Enabled: no
+
+                Feature: stackprotector
+                Enabled: yes
+
+       ----hheellpp Show the usage message and exit.
+
+       ----vveerrssiioonn
+              Show the version and exit.
+
+SSUUPPPPOORRTTEEDD FFLLAAGGSS
+       CCFFLLAAGGSS Options for the C compiler. The default value set by the  vendor
+              includes  --gg and the default optimization level (--OO22 usually, or
+              --OO00  if  the  DDEEBB__BBUUIILLDD__OOPPTTIIOONNSS  environment  variable   defines
+              _n_o_o_p_t).
+
+       CCPPPPFFLLAAGGSS
+              Options for the C preprocessor. Default value: empty.
+
+       CCXXXXFFLLAAGGSS
+              Options for the C++ compiler. Same as CCFFLLAAGGSS.
+
+       GGCCJJFFLLAAGGSS
+              Options for the GNU Java compiler (gcj). A subset of CCFFLLAAGGSS.
+
+       FFFFLLAAGGSS Options for the Fortran compiler. A subset of CCFFLLAAGGSS.
+
+       LLDDFFLLAAGGSS
+              Options  passed  to  the  compiler  when  linking executables or
+              shared objects (if the linker is called directly, then --WWll and ,,
+              have to be stripped from these options). Default value: empty.
+
+       New  flags might be added in the future if the need arises (for example
+       to support other languages).
+
+FFEEAATTUURREE AARREEAASS
+   HHaarrddeenniinngg
+       Several compile-time options (detailed  below)  can  be  used  to  help
+       harden a resulting binary against memory corruption attacks, or provide
+       additional warning messages during compilation. Except as noted  below,
+       these are enabled by default for architectures that support them.
+
+       Each   hardening   feature   can   be   enabled  and  disabled  in  the
+       DDEEBB__BBUUIILLDD__MMAAIINNTT__OOPPTTIIOONNSS environment variable's hhaarrddeenniinngg value with the
+       "+" and "-" modifier. For example, to enable the "pie" feature and dis-
+       able the "fortify" feature you can do this in ddeebbiiaann//rruulleess:
+
+         export DEB_BUILD_MAINT_OPTIONS=hardening=+pie,-fortify
+
+       The special feature aallll can be used to enable or disable all  hardening
+       features  at the same time. Thus disabling everything and enabling only
+       "format" and "fortify" can be achieved with:
+
+         export DEB_BUILD_MAINT_OPTIONS=hardening=-all,+format,+fortify
+
+       ffoorrmmaatt This setting (enabled by  default)  adds  --WWffoorrmmaatt  --WWeerrrroorr==ffoorr--
+              mmaatt--sseeccuurriittyy  to  CCFFLLAAGGSS  and  CCXXXXFFLLAAGGSS.  This  will  warn about
+              improper format string uses, and will fail when format functions
+              are  used in a way that represent possible security problems. At
+              present, this warns about calls to pprriinnttff  and  ssccaannff  functions
+              where the format string is not a string literal and there are no
+              format arguments, as in  pprriinnttff((ffoooo));;  instead  of  pprriinnttff((""%%ss"",,
+              ffoooo));; This may be a security hole if the format string came from
+              untrusted input and contains "%n".
+
+       ffoorrttiiffyy
+              This setting (enabled by default)  adds  --DD__FFOORRTTIIFFYY__SSOOUURRCCEE==22  to
+              CCPPPPFFLLAAGGSS. During code generation the compiler knows a great deal
+              of information about buffer sizes (where possible), and attempts
+              to  replace insecure unlimited length buffer function calls with
+              length-limited ones. This is especially useful for  old,  crufty
+              code.  Additionally, format strings in writable memory that con-
+              tain '%n' are blocked. If an application depends on such a  for-
+              mat string, it will need to be worked around.
+
+              Note  that  for  this option to have any effect, the source must
+              also be compiled with --OO11 or higher. If the environment variable
+              DDEEBB__BBUUIILLDD__OOPPTTIIOONNSS  contains  _n_o_o_p_t, then ffoorrttiiffyy support will be
+              disabled, due to new warnings being issued  by  glibc  2.16  and
+              later.
+
+       ssttaacckkpprrootteeccttoorr
+              This   setting   (enabled  by  default)  adds  --ffssttaacckk--pprrootteeccttoorr
+              ----ppaarraamm==sssspp--bbuuffffeerr--ssiizzee==44 to  CCFFLLAAGGSS  and  CCXXXXFFLLAAGGSS.  This  adds
+              safety checks against stack overwrites. This renders many poten-
+              tial code injection attacks into  aborting  situations.  In  the
+              best  case this turns code injection vulnerabilities into denial
+              of service or into non-issues (depending on the application).
+
+              This feature requires linking against glibc (or another provider
+              of ____ssttaacckk__cchhkk__ffaaiill), so needs to be disabled when building with
+              --nnoossttddlliibb or --ffffrreeeessttaannddiinngg or similar.
+
+       rreellrroo  This setting (enabled by default) adds --WWll,,--zz,,rreellrroo to  LLDDFFLLAAGGSS.
+              During  program  load,  several  ELF  memory sections need to be
+              written to by the linker. This flags the loader  to  turn  these
+              sections  read-only  before turning over control to the program.
+              Most notably this prevents GOT overwrite attacks. If this option
+              is disabled, bbiinnddnnooww will become disabled as well.
+
+       bbiinnddnnooww
+              This  setting  (disabled by default) adds --WWll,,--zz,,nnooww to LLDDFFLLAAGGSS.
+              During program load, all dynamic symbols are resolved,  allowing
+              for  the entire PLT to be marked read-only (due to rreellrroo above).
+              The option cannot become enabled if rreellrroo is not enabled.
+
+       ppiiee    This setting (disabled by default)  adds  --ffPPIIEE  to  CCFFLLAAGGSS  and
+              CCXXXXFFLLAAGGSS,  and  --ffPPIIEE --ppiiee to LLDDFFLLAAGGSS. Position Independent Exe-
+              cutable are needed to take advantage  of  Address  Space  Layout
+              Randomization, supported by some kernel versions. While ASLR can
+              already be enforced for data areas in the stack  and  heap  (brk
+              and  mmap), the code areas must be compiled as position-indepen-
+              dent. Shared libraries already do this  (-fPIC),  so  they  gain
+              ASLR  automatically,  but  binary .text regions need to be build
+              PIE to gain ASLR. When this happens, ROP (Return  Oriented  Pro-
+              gramming)  attacks  are  much  harder  since there are no static
+              locations to bounce off of during a memory corruption attack.
+
+              This is not compatible with --ffPPIICC so care  must  be  taken  when
+              building shared objects.
+
+              Additionally,  since  PIE is implemented via a general register,
+              some architectures  (most  notably  i386)  can  see  performance
+              losses of up to 15% in very text-segment-heavy application work-
+              loads; most workloads see less than 1%. Architectures with  more
+              general  registers  (e.g. amd64) do not see as high a worst-case
+              penalty.
+
+EENNVVIIRROONNMMEENNTT
+       There are 2 sets of environment variables doing  the  same  operations,
+       the  first  one (DEB__f_l_a_g__o_p) should never be used within ddeebbiiaann//rruulleess.
+       It's meant for any user that wants to rebuild the source  package  with
+       different  build  flags. The second set (DEB__f_l_a_g_MAINT__o_p) should only
+       be used in ddeebbiiaann//rruulleess by package maintainers to change the  resulting
+       build flags.
+
+       DDEEBB___f_l_a_g__SSEETT
+       DDEEBB___f_l_a_g__MMAAIINNTT__SSEETT
+              This  variable  can  be used to force the value returned for the
+              given _f_l_a_g.
+
+       DDEEBB___f_l_a_g__SSTTRRIIPP
+       DDEEBB___f_l_a_g__MMAAIINNTT__SSTTRRIIPP
+              This variable can be used to provide a space separated  list  of
+              options that will be stripped from the set of flags returned for
+              the given _f_l_a_g.
+
+       DDEEBB___f_l_a_g__AAPPPPEENNDD
+       DDEEBB___f_l_a_g__MMAAIINNTT__AAPPPPEENNDD
+              This variable can be used to append supplementary options to the
+              value returned for the given _f_l_a_g.
+
+       DDEEBB___f_l_a_g__PPRREEPPEENNDD
+       DDEEBB___f_l_a_g__MMAAIINNTT__PPRREEPPEENNDD
+              This  variable  can  be used to prepend supplementary options to
+              the value returned for the given _f_l_a_g.
+
+       DDEEBB__BBUUIILLDD__MMAAIINNTT__OOPPTTIIOONNSS
+              This variable can be used to  disable/enable  various  hardening
+              build  flags through the hhaarrddeenniinngg option. See the FFEEAATTUURREE AARREEAASS
+              section for details.
+
+FFIILLEESS
+   CCoonnffiigguurraattiioonn ffiilleess
+       //eettcc//ddppkkgg//bbuuiillddffllaaggss..ccoonnff
+              System wide configuration file.
+
+       $$XXDDGG__CCOONNFFIIGG__HHOOMMEE//ddppkkgg//bbuuiillddffllaaggss..ccoonnff   or    $$HHOOMMEE//..ccoonnffiigg//ddppkkgg//bbuuiilldd--
+       ffllaaggss..ccoonnff
+              User configuration file.
+
+   PPaacckkaaggiinngg ssuuppppoorrtt
+       //uussrr//sshhaarree//ddppkkgg//bbuuiillddffllaaggss..mmkk
+              Makefile  snippet  that  will  load  (and optionally export) all
+              flags supported by ddppkkgg--bbuuiillddffllaaggss into  variables  (since  dpkg
+              1.16.1).
+
+EEXXAAMMPPLLEESS
+       To pass build flags to a build command in a makefile:
+
+           $(MAKE) $(shell dpkg-buildflags --export=cmdline)
+
+           ./configure $(shell dpkg-buildflags --export=cmdline)
+
+       To  set  build flags in a shell script or shell fragment, "eval" can be
+       used to interpret the output and to export the flags  in  the  environ-
+       ment:
+
+           eval "$(dpkg-buildflags --export=sh)" && make
+
+       or to set the positional parameters to pass to a command:
+
+           eval "set -- $(dpkg-buildflags --export=cmdline)"
+           for dir in a b c; do (cd $dir && ./configure "$@" && make); done
+
+   UUssaaggee iinn ddeebbiiaann//rruulleess
+       You  should  call  ddppkkgg--bbuuiillddffllaaggss  or  include  bbuuiillddffllaaggss..mmkk from the
+       ddeebbiiaann//rruulleess file to obtain the needed build flags to pass to the build
+       system.   Note  that  older  versions of ddppkkgg--bbuuiillddppaacckkaaggee (before dpkg
+       1.16.1) exported these flags automatically.  However,  you  should  not
+       rely on this, since this breaks manual invocation of ddeebbiiaann//rruulleess.
+
+       For  packages  with autoconf-like build systems, you can pass the rele-
+       vant options to configure or mmaakkee(1) directly, as shown above.
+
+       For other build systems, or when you  need  more  fine-grained  control
+       about  which  flags  are  passed  where,  you can use ----ggeett. Or you can
+       include bbuuiillddffllaaggss..mmkk instead, which takes care of calling  ddppkkgg--bbuuiilldd--
+       ffllaaggss and storing the build flags in make variables.
+
+       If  you  want to export all buildflags into the environment (where they
+       can be picked up by your build system):
+
+           DPKG_EXPORT_BUILDFLAGS = 1
+           include /usr/share/dpkg/buildflags.mk
+
+       For some extra control over what is exported, you can  manually  export
+       the variables (as none are exported by default):
+
+           include /usr/share/dpkg/buildflags.mk
+           export CPPFLAGS CFLAGS LDFLAGS
+
+       And you can of course pass the flags to commands manually:
+
+           include /usr/share/dpkg/buildflags.mk
+           build-arch:
+                $(CC) -o hello hello.c $(CPPFLAGS) $(CFLAGS) $(LDFLAGS)
+
+
+
+Debian Project                    2013-10-20                dpkg-buildflags(1)

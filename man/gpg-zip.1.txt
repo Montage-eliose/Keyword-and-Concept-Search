@@ -1,0 +1,97 @@
+GPG-ZIP(1)                  General Commands Manual                 GPG-ZIP(1)
+
+
+
+NNAAMMEE
+       gpg-zip - encrypt or sign files into an archive
+
+
+SSYYNNOOPPSSIISS
+       ggppgg--zziipp  [OOPPTTIIOONNSS]  _f_i_l_e_n_a_m_e_1 [_f_i_l_e_n_a_m_e_2_, _._._.]  _d_i_r_e_c_t_o_r_y_1 [_d_i_r_e_c_t_o_r_y_2_,
+       _._._.]
+
+
+DDEESSCCRRIIPPTTIIOONN
+       This manual page documents briefly the ggppgg--zziipp command.
+
+       ggppgg--zziipp encrypts or signs files into an archive. It is an gpg-ized  tar
+       using the same format as PGP's PGP Zip.
+
+
+OOPPTTIIOONNSS
+       --ee, ----eennccrryypptt
+              Encrypt  data. This option may be combined with ----ssyymmmmeettrriicc (for
+              output that may be decrypted via a secret key or a passphrase).
+
+       --dd, ----ddeeccrryypptt
+              Decrypt data.
+
+       --cc, ----ssyymmmmeettrriicc
+              Encrypt with a symmetric cipher using a passphrase.  The default
+              symmetric  cipher  used  is  CAST5,  but  may be chosen with the
+              ----cciipphheerr--aallggoo option to ggppgg(1).
+
+       --ss, ----ssiiggnn
+              Make a signature. See ggppgg(1).
+
+       --rr, ----rreecciippiieenntt _U_S_E_R
+              Encrypt for user id _U_S_E_R. See ggppgg(1).
+
+       --uu, ----llooccaall--uusseerr _U_S_E_R
+              Use _U_S_E_R as the key to sign with. See ggppgg(1).
+
+       ----lliisstt--aarrcchhiivvee
+              List the contents of the specified archive.
+
+       --oo, ----oouuttppuutt _F_I_L_E"
+              Write output to specified file _F_I_L_E.
+
+       ----ggppgg _G_P_G
+              Use the specified command instead of ggppgg.
+
+       ----ggppgg--aarrggss _A_R_G_S
+              Pass the specified options to ggppgg(1).
+
+       ----ttaarr _T_A_R
+              Use the specified command instead of ttaarr.
+
+       ----ttaarr--aarrggss _A_R_G_S
+              Pass the specified options to ttaarr(1).
+
+       --hh, ----hheellpp
+              Output a short usage information.
+
+       ----vveerrssiioonn
+              Output the program version.
+
+
+DDIIAAGGNNOOSSTTIICCSS
+       The program returns 00 if everything was fine, 11 otherwise.
+
+
+EEXXAAMMPPLLEESS
+       Encrypt the contents of directory _m_y_d_o_c_s for user Bob to file _t_e_s_t_1:
+
+              ggppgg--zziipp ----eennccrryypptt ----oouuttppuutt tteesstt11 ----ggppgg--aarrggss  --rr BBoobb"""" mmyyddooccss
+
+       List the contents of archive _t_e_s_t_1:
+
+              ggppgg--zziipp ----lliisstt--aarrcchhiivvee tteesstt11
+
+
+SSEEEE AALLSSOO
+       ggppgg(1), ttaarr(1)
+
+
+AAUUTTHHOORR
+       Copyright (C) 2005 Free Software Foundation, Inc. Please report bugs to
+       <bug-gnupg@gnu.org>.
+
+       This  manpage  was  written  by  CCoolliinn  TTuucckklleeyy <colin@tuckley.org> and
+       DDaanniieell LLeeiiddeerrtt <daniel.leidert@wgdd.de>  for  the  Debian  distribution
+       (but may be used by others).
+
+
+
+
+                                 November 2006                      GPG-ZIP(1)

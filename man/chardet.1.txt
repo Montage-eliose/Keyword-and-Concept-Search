@@ -1,0 +1,36 @@
+CHARDET(1)                       User Commands                      CHARDET(1)
+
+
+
+NNAAMMEE
+       chardet - universal character encoding detector
+
+SSYYNNOOPPSSIISS
+       cchhaarrddeett [_o_p_t_i_o_n_s] [_f_i_l_e ...]
+
+DDEESSCCRRIIPPTTIIOONN
+       Report heuristically-detected character encoding for each file.
+
+       For  every  specified  file (defaulting to stdin if no files are speci-
+       fied), reads and determines the character encoding of the file content.
+       Reports  the name and confidence level for each file's detected charac-
+       ter encoding.
+
+OOPPTTIIOONNSS
+       --hh, ----hheellpp
+              show this help message and exit
+
+SSEEEE AALLSSOO
+       /usr/share/doc/python-chardet/index.html
+
+AAUUTTHHOORR
+       chardet module was written by Mark Pilgrim <mark@diveintomark.org>
+
+       chardet script was written by Ben Finney <ben+python@benfinney.id.au>
+
+       This manual page was written by Piotr Oarowski <piotr@debian.org>,  for
+       the Debian project (but may be used by others).
+
+
+
+chardet 2.0.1                    November 2009                      CHARDET(1)

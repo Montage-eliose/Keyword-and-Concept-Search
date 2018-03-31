@@ -1,0 +1,419 @@
+MYSQLCHECK(1)                MySQL Database System               MYSQLCHECK(1)
+
+
+
+NNAAMMEE
+       mysqlcheck - a table maintenance program
+
+SSYYNNOOPPSSIISS
+       mmyyssqqllcchheecckk [[_o_p_t_i_o_n_s]] [[_d_b___n_a_m_e [[_t_b_l___n_a_m_e ......]]]]
+
+DDEESSCCRRIIPPTTIIOONN
+       The mmyyssqqllcchheecckk client performs table maintenance: It checks, repairs,
+       optimizes, or analyzes tables.
+
+       Each table is locked and therefore unavailable to other sessions while
+       it is being processed, although for check operations, the table is
+       locked with a READ lock only (see Section 13.3.5, "LOCK TABLES and
+       UNLOCK TABLES Syntax", for more information about READ and WRITE
+       locks). Table maintenance operations can be time-consuming,
+       particularly for large tables. If you use the ----ddaattaabbaasseess or
+       ----aallll--ddaattaabbaasseess option to process all tables in one or more databases,
+       an invocation of mmyyssqqllcchheecckk might take a long time. (This is also true
+       for mmyyssqqll__uuppggrraaddee because that program invokes mmyyssqqllcchheecckk to check all
+       tables and repair them if necessary.)
+
+       mmyyssqqllcchheecckk is similar in function to mmyyiissaammcchhkk, but works differently.
+       The main operational difference is that mmyyssqqllcchheecckk must be used when
+       the mmyyssqqlldd server is running, whereas mmyyiissaammcchhkk should be used when it
+       is not. The benefit of using mmyyssqqllcchheecckk is that you do not have to stop
+       the server to perform table maintenance.
+
+       mmyyssqqllcchheecckk uses the SQL statements CHECK TABLE, REPAIR TABLE, ANALYZE
+       TABLE, and OPTIMIZE TABLE in a convenient way for the user. It
+       determines which statements to use for the operation you want to
+       perform, and then sends the statements to the server to be executed.
+       For details about which storage engines each statement works with, see
+       the descriptions for those statements in Section 13.7.2, "Table
+       Maintenance Statements".
+
+       The MyISAM storage engine supports all four maintenance operations, so
+       mmyyssqqllcchheecckk can be used to perform any of them on MyISAM tables. Other
+       storage engines do not necessarily support all operations. In such
+       cases, an error message is displayed. For example, if test.t is a
+       MEMORY table, an attempt to check it produces this result:
+
+           shell> mmyyssqqllcchheecckk tteesstt tt
+           test.t
+           note     : The storage engine for the table doesn't support check
+
+       If mmyyssqqllcchheecckk is unable to repair a table, see Section 2.11.4,
+       "Rebuilding or Repairing Tables or Indexes" for manual table repair
+       strategies. This will be the case, for example, for InnoDB tables,
+       which can be checked with CHECK TABLE, but not repaired with REPAIR
+       TABLE.
+
+           CCaauuttiioonn
+           It is best to make a backup of a table before performing a table
+           repair operation; under some circumstances the operation might
+           cause data loss. Possible causes include but are not limited to
+           file system errors.
+
+       There are three general ways to invoke mmyyssqqllcchheecckk:
+
+           shell> mmyyssqqllcchheecckk [[_o_p_t_i_o_n_s]] _d_b___n_a_m_e [[_t_b_l___n_a_m_e ......]]
+           shell> mmyyssqqllcchheecckk [[_o_p_t_i_o_n_s]] ----ddaattaabbaasseess _d_b___n_a_m_e ......
+           shell> mmyyssqqllcchheecckk [[_o_p_t_i_o_n_s]] ----aallll--ddaattaabbaasseess
+
+       If you do not name any tables following _d_b___n_a_m_e or if you use the
+       ----ddaattaabbaasseess or ----aallll--ddaattaabbaasseess option, entire databases are checked.
+
+       mmyyssqqllcchheecckk has a special feature compared to other client programs. The
+       default behavior of checking tables (----cchheecckk) can be changed by
+       renaming the binary. If you want to have a tool that repairs tables by
+       default, you should just make a copy of mmyyssqqllcchheecckk named mmyyssqqllrreeppaaiirr,
+       or make a symbolic link to mmyyssqqllcchheecckk named mmyyssqqllrreeppaaiirr. If you invoke
+       mmyyssqqllrreeppaaiirr, it repairs tables.
+
+       The names shown in the following table can be used to change mmyyssqqllcchheecckk
+       default behavior.
+
+       allbox tab(:); lB lB.  T{ Command T}:T{ Meaning T} l l l l l l.  T{
+       mmyyssqqllrreeppaaiirr T}:T{ The default option is ----rreeppaaiirr T} T{ mmyyssqqllaannaallyyzzee
+       T}:T{ The default option is ----aannaallyyzzee T} T{ mmyyssqqllooppttiimmiizzee T}:T{ The
+       default option is ----ooppttiimmiizzee T}
+
+
+       mmyyssqqllcchheecckk supports the following options, which can be specified on
+       the command line or in the [mysqlcheck] and [client] groups of an
+       option file. For information about option files used by MySQL programs,
+       see Section 4.2.6, "Using Option Files".
+
+       +o   ----hheellpp, --??
+
+           Display a help message and exit.
+
+       +o   ----aallll--ddaattaabbaasseess, --AA
+
+           Check all tables in all databases. This is the same as using the
+           ----ddaattaabbaasseess option and naming all the databases on the command
+           line, except that the INFORMATION_SCHEMA and performace_schema
+           databases are not dumped. They can be dumped by explicitly naming
+           them with the ----ddaattaabbaasseess option.
+
+       +o   ----aallll--iinn--11, --11
+
+           Instead of issuing a statement for each table, execute a single
+           statement for each database that names all the tables from that
+           database to be processed.
+
+       +o   ----aannaallyyzzee, --aa
+
+           Analyze the tables.
+
+       +o   ----aauuttoo--rreeppaaiirr
+
+           If a checked table is corrupted, automatically fix it. Any
+           necessary repairs are done after all tables have been checked.
+
+       +o   ----bbiinndd--aaddddrreessss==_i_p___a_d_d_r_e_s_s
+
+           On a computer having multiple network interfaces, use this option
+           to select which interface to use for connecting to the MySQL
+           server.
+
+           This option is supported only in the version of mmyyssqqllcchheecckk that is
+           supplied with MySQL Cluster. It is not available in standard MySQL
+           Server 5.5 releases.
+
+       +o   ----cchhaarraacctteerr--sseettss--ddiirr==_d_i_r___n_a_m_e
+
+           The directory where character sets are installed. See Section 10.5,
+           "Character Set Configuration".
+
+       +o   ----cchheecckk, --cc
+
+           Check the tables for errors. This is the default operation.
+
+       +o   ----cchheecckk--oonnllyy--cchhaannggeedd, --CC
+
+           Check only tables that have changed since the last check or that
+           have not been closed properly.
+
+       +o   ----cchheecckk--uuppggrraaddee, --gg
+
+           Invoke CHECK TABLE with the FOR UPGRADE option to check tables for
+           incompatibilities with the current version of the server. This
+           option automatically enables the ----ffiixx--ddbb--nnaammeess and
+           ----ffiixx--ttaabbllee--nnaammeess options.
+
+       +o   ----ccoommpprreessss
+
+           Compress all information sent between the client and the server if
+           both support compression.
+
+       +o   ----ddaattaabbaasseess, --BB
+
+           Process all tables in the named databases. Normally, mmyyssqqllcchheecckk
+           treats the first name argument on the command line as a database
+           name and any following names as table names. With this option, it
+           treats all name arguments as database names.
+
+           This option may be used to dump the INFORMATION_SCHEMA and
+           performace_schema databases, which normally are not dumped even
+           with the ----aallll--ddaattaabbaasseess option. (Also use the ----sskkiipp--lloocckk--ttaabblleess
+           option.)
+
+       +o   ----ddeebbuugg[[==_d_e_b_u_g___o_p_t_i_o_n_s]], --## [[_d_e_b_u_g___o_p_t_i_o_n_s]]
+
+           Write a debugging log. A typical _d_e_b_u_g___o_p_t_i_o_n_s string is
+           d:t:o,_f_i_l_e___n_a_m_e. The default is d:t:o.
+
+       +o   ----ddeebbuugg--cchheecckk
+
+           Print some debugging information when the program exits.
+
+       +o   ----ddeebbuugg--iinnffoo
+
+           Print debugging information and memory and CPU usage statistics
+           when the program exits.
+
+       +o   ----ddeeffaauulltt--cchhaarraacctteerr--sseett==_c_h_a_r_s_e_t___n_a_m_e
+
+           Use _c_h_a_r_s_e_t___n_a_m_e as the default character set. See Section 10.5,
+           "Character Set Configuration".
+
+       +o   ----ddeeffaauullttss--eexxttrraa--ffiillee==_f_i_l_e___n_a_m_e
+
+           Read this option file after the global option file but (on Unix)
+           before the user option file. If the file does not exist or is
+           otherwise inaccessible, an error occurs. Before MySQL 5.5.8,
+           _f_i_l_e___n_a_m_e must be the full path name to the file. As of MySQL
+           5.5.8, the name is interpreted relative to the current directory if
+           given as a relative path name.
+
+       +o   ----ddeeffaauullttss--ffiillee==_f_i_l_e___n_a_m_e
+
+           Use only the given option file. If the file does not exist or is
+           otherwise inaccessible, an error occurs. Before MySQL 5.5.8,
+           _f_i_l_e___n_a_m_e must be the full path name to the file. As of MySQL
+           5.5.8, the name is interpreted relative to the current directory if
+           given as a relative path name.
+
+       +o   ----ddeeffaauullttss--ggrroouupp--ssuuffffiixx==_s_t_r
+
+           Read not only the usual option groups, but also groups with the
+           usual names and a suffix of _s_t_r. For example, mmyyssqqllcchheecckk normally
+           reads the [client] and [mysqlcheck] groups. If the
+           ----ddeeffaauullttss--ggrroouupp--ssuuffffiixx==__ootthheerr option is given, mmyyssqqllcchheecckk also
+           reads the [client_other] and [mysqlcheck_other] groups.
+
+       +o   ----eexxtteennddeedd, --ee
+
+           If you are using this option to check tables, it ensures that they
+           are 100% consistent but takes a long time.
+
+           If you are using this option to repair tables, it runs an extended
+           repair that may not only take a long time to execute, but may
+           produce a lot of garbage rows also!
+
+       +o   ----ddeeffaauulltt--aauutthh==_p_l_u_g_i_n
+
+           A hint about the client-side authentication plugin to use. See
+           Section 6.3.6, "Pluggable Authentication".
+
+           This option was added in MySQL 5.5.10.
+
+       +o   ----eennaabbllee--cclleeaarrtteexxtt--pplluuggiinn
+
+           Enable the mysql_clear_password cleartext authentication plugin.
+           (See Section 6.4.1.5, "The Cleartext Client-Side Authentication
+           Plugin".)
+
+           This option was added in MySQL 5.5.47.
+
+       +o   ----ffaasstt, --FF
+
+           Check only tables that have not been closed properly.
+
+       +o   ----ffiixx--ddbb--nnaammeess
+
+           Convert database names to 5.1 format. Only database names that
+           contain special characters are affected.
+
+       +o   ----ffiixx--ttaabbllee--nnaammeess
+
+           Convert table names to 5.1 format. Only table names that contain
+           special characters are affected. This option also applies to views.
+
+       +o   ----ffoorrccee, --ff
+
+           Continue even if an SQL error occurs.
+
+       +o   ----hhoosstt==_h_o_s_t___n_a_m_e, --hh _h_o_s_t___n_a_m_e
+
+           Connect to the MySQL server on the given host.
+
+       +o   ----mmeeddiiuumm--cchheecckk, --mm
+
+           Do a check that is faster than an ----eexxtteennddeedd operation. This finds
+           only 99.99% of all errors, which should be good enough in most
+           cases.
+
+       +o   ----nnoo--ddeeffaauullttss
+
+           Do not read any option files. If program startup fails due to
+           reading unknown options from an option file, ----nnoo--ddeeffaauullttss can be
+           used to prevent them from being read.
+
+       +o   ----ooppttiimmiizzee, --oo
+
+           Optimize the tables.
+
+       +o   ----ppaasssswwoorrdd[[==_p_a_s_s_w_o_r_d]], --pp[[_p_a_s_s_w_o_r_d]]
+
+           The password to use when connecting to the server. If you use the
+           short option form (--pp), you _c_a_n_n_o_t have a space between the option
+           and the password. If you omit the _p_a_s_s_w_o_r_d value following the
+           ----ppaasssswwoorrdd or --pp option on the command line, mmyyssqqllcchheecckk prompts for
+           one.
+
+           Specifying a password on the command line should be considered
+           insecure. See Section 6.1.2.1, "End-User Guidelines for Password
+           Security". You can use an option file to avoid giving the password
+           on the command line.
+
+       +o   ----ppiippee, --WW
+
+           On Windows, connect to the server using a named pipe. This option
+           applies only if the server supports named-pipe connections.
+
+       +o   ----pplluuggiinn--ddiirr==_d_i_r___n_a_m_e
+
+           The directory in which to look for plugins. Specify this option if
+           the ----ddeeffaauulltt--aauutthh option is used to specify an authentication
+           plugin but mmyyssqqllcchheecckk does not find it. See Section 6.3.6,
+           "Pluggable Authentication".
+
+           This option was added in MySQL 5.5.10.
+
+       +o   ----ppoorrtt==_p_o_r_t___n_u_m, --PP _p_o_r_t___n_u_m
+
+           The TCP/IP port number to use for the connection.
+
+       +o   ----pprriinntt--ddeeffaauullttss
+
+           Print the program name and all options that it gets from option
+           files.
+
+       +o   ----pprroottooccooll=={{TTCCPP||SSOOCCKKEETT||PPIIPPEE||MMEEMMOORRYY}}
+
+           The connection protocol to use for connecting to the server. It is
+           useful when the other connection parameters normally would cause a
+           protocol to be used other than the one you want. For details on the
+           permissible values, see Section 4.2.2, "Connecting to the MySQL
+           Server".
+
+       +o   ----qquuiicckk, --qq
+
+           If you are using this option to check tables, it prevents the check
+           from scanning the rows to check for incorrect links. This is the
+           fastest check method.
+
+           If you are using this option to repair tables, it tries to repair
+           only the index tree. This is the fastest repair method.
+
+       +o   ----rreeppaaiirr, --rr
+
+           Perform a repair that can fix almost anything except unique keys
+           that are not unique.
+
+       +o   ----sshhaarreedd--mmeemmoorryy--bbaassee--nnaammee==_n_a_m_e
+
+           On Windows, the shared-memory name to use, for connections made
+           using shared memory to a local server. The default value is MYSQL.
+           The shared-memory name is case sensitive.
+
+           The server must be started with the ----sshhaarreedd--mmeemmoorryy option to
+           enable shared-memory connections.
+
+       +o   ----ssiilleenntt, --ss
+
+           Silent mode. Print only error messages.
+
+       +o   ----ssoocckkeett==_p_a_t_h, --SS _p_a_t_h
+
+           For connections to localhost, the Unix socket file to use, or, on
+           Windows, the name of the named pipe to use.
+
+       +o   ----ssssll**
+
+           Options that begin with ----ssssll specify whether to connect to the
+           server using SSL and indicate where to find SSL keys and
+           certificates. See Section 6.3.8.5, "Command Options for Secure
+           Connections".
+
+       +o   ----ttaabblleess
+
+           Override the ----ddaattaabbaasseess or --BB option. All name arguments following
+           the option are regarded as table names.
+
+       +o   ----uussee--ffrrmm
+
+           For repair operations on MyISAM tables, get the table structure
+           from the .frm file so that the table can be repaired even if the
+           .MYI header is corrupted.
+
+       +o   ----uusseerr==_u_s_e_r___n_a_m_e, --uu _u_s_e_r___n_a_m_e
+
+           The MySQL user name to use when connecting to the server.
+
+       +o   ----vveerrbboossee, --vv
+
+           Verbose mode. Print information about the various stages of program
+           operation.
+
+       +o   ----vveerrssiioonn, --VV
+
+           Display version information and exit.
+
+       +o   ----wwrriittee--bbiinnlloogg
+
+           This option is enabled by default, so that ANALYZE TABLE, OPTIMIZE
+           TABLE, and REPAIR TABLE statements generated by mmyyssqqllcchheecckk are
+           written to the binary log. Use ----sskkiipp--wwrriittee--bbiinnlloogg to cause
+           NO_WRITE_TO_BINLOG to be added to the statements so that they are
+           not logged. Use the ----sskkiipp--wwrriittee--bbiinnlloogg when these statements
+           should not be sent to replication slaves or run when using the
+           binary logs for recovery from backup.
+
+CCOOPPYYRRIIGGHHTT
+       Copyright (C) 1997, 2016, Oracle and/or its affiliates. All rights
+       reserved.
+
+       This documentation is free software; you can redistribute it and/or
+       modify it only under the terms of the GNU General Public License as
+       published by the Free Software Foundation; version 2 of the License.
+
+       This documentation is distributed in the hope that it will be useful,
+       but WITHOUT ANY WARRANTY; without even the implied warranty of
+       MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+       General Public License for more details.
+
+       You should have received a copy of the GNU General Public License along
+       with the program; if not, write to the Free Software Foundation, Inc.,
+       51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA or see
+       http://www.gnu.org/licenses/.
+
+
+SSEEEE AALLSSOO
+       For more information, please refer to the MySQL Reference Manual, which
+       may already be installed locally and which is also available online at
+       http://dev.mysql.com/doc/.
+
+AAUUTTHHOORR
+       Oracle Corporation (http://dev.mysql.com/).
+
+
+
+MySQL 5.5                         03/01/2016                     MYSQLCHECK(1)

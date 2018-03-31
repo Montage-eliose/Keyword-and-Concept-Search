@@ -1,0 +1,89 @@
+W(1)                             User Commands                            W(1)
+
+
+
+NNAAMMEE
+       w - Show who is logged on and what they are doing.
+
+SSYYNNOOPPSSIISS
+       ww [_o_p_t_i_o_n_s] _u_s_e_r [...]
+
+DDEESSCCRRIIPPTTIIOONN
+       ww  displays  information  about the users currently on the machine, and
+       their processes.  The header shows, in this order,  the  current  time,
+       how  long  the  system  has  been running, how many users are currently
+       logged on, and the system load averages for the past 1, 5, and 15  min-
+       utes.
+
+       The  following entries are displayed for each user: login name, the tty
+       name, the remote host, login time, idle time, JCPU, PCPU, and the  com-
+       mand line of their current process.
+
+       The  JCPU  time  is the time used by all processes attached to the tty.
+       It does not include past background jobs, but  does  include  currently
+       running background jobs.
+
+       The  PCPU  time  is  the time used by the current process, named in the
+       "what" field.
+
+CCOOMMMMAANNDD--LLIINNEE OOPPTTIIOONNSS
+       --hh, ----nnoo--hheeaaddeerr
+              Don't print the header.
+
+       --uu, ----nnoo--ccuurrrreenntt
+              Ignores the username while figuring out the current process  and
+              cpu times.  To demonstrate this, do a "su" and do a "w" and a "w
+              -u".
+
+       --ss, ----sshhoorrtt
+              Use the short format.  Don't print the login time, JCPU or  PCPU
+              times.
+
+       --ff, ----ffrroomm
+              Toggle  printing  the ffrroomm (remote hostname) field.  The default
+              as released is for the ffrroomm field to not  be  printed,  although
+              your  system  administrator  or distribution maintainer may have
+              compiled a version in which the ffrroomm field is shown by default.
+
+       ----hheellpp Display help text and exit.
+
+       --ii, ----iipp--aaddddrr
+              Display IP address instead of hostname for ffrroomm field.
+
+       --VV, ----vveerrssiioonn
+              Display version information.
+
+       --oo, ----oolldd--ssttyyllee
+              Old style output.  Prints blank space for idle times  less  than
+              one minute.
+
+       uusseerr   Show information about the specified user only.
+
+EENNVVIIRROONNMMEENNTT
+       PROCPS_USERLEN
+              Override  the default width of the username column.  Defaults to
+              8.
+
+       PROCPS_FROMLEN
+              Override the default width of the from column.  Defaults to 16.
+
+FFIILLEESS
+       _/_v_a_r_/_r_u_n_/_u_t_m_p
+              information about who is currently logged on
+
+       _/_p_r_o_c  process information
+
+SSEEEE AALLSSOO
+       ffrreeee(1), ppss(1), ttoopp(1), uuppttiimmee(1), uuttmmpp(5), wwhhoo(1)
+
+AAUUTTHHOORRSS
+       ww was re-written almost entirely by Charles Blake, based on the version
+       by Larry Greenfield <greenfie@gauss.rutgers.edu> and Michael K. Johnson
+       <johnsonm@redhat.com>
+
+RREEPPOORRTTIINNGG BBUUGGSS
+       Please send bug reports to <procps@freelists.org>
+
+
+
+procps-ng                          May 2012                               W(1)

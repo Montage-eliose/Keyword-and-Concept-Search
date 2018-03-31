@@ -1,0 +1,78 @@
+RNANO(1)                    General Commands Manual                   RNANO(1)
+
+
+
+NNAAMMEE
+       rnano  -  Restricted  mode  for Nano's ANOther editor, an enhanced free
+       Pico clone
+
+
+SSYYNNOOPPSSIISS
+       rrnnaannoo _[_O_P_T_I_O_N_S_] _[_[_+_L_I_N_E_,_C_O_L_U_M_N_] _F_I_L_E_]_._._.
+
+
+DDEESSCCRRIIPPTTIIOONN
+       This manual page briefly documents the rrnnaannoo command.
+
+       nnaannoo is a small, free and friendly editor which aims to  replace  Pico,
+       the  default  editor included in the non-free Pine package. Rather than
+       just copying Pico's look and feel, nnaannoo also  implements  some  missing
+       (or disabled by default) features in Pico, such as "search and replace"
+       and "go to line and column number".
+
+       rrnnaannoo is a restricted version of nnaannoo, which only edits specific  files
+       and doesn't allow the user access to the filesystem or a command shell.
+
+       In restricted mode, nnaannoo will _n_o_t:
+
+       +o read or write to any file not specified on the command line;
+
+       +o read any nanorc files;
+
+       +o allow suspending;
+
+       +o allow  a  file to be appended to, prepended to, or saved under a dif-
+         ferent name;
+
+       +o use backup files or spell checking.
+
+
+OOPPTTIIOONNSS
+       ++_L_I_N_E,,_C_O_L_U_M_N
+              Places cursor at line number _L_I_N_E and column number  _C_O_L_U_M_N  (at
+              least one of which must be specified) on startup, instead of the
+              default of line 1, column 1.
+
+       --??     Same as --hh ((----hheellpp)).
+
+       --hh ((----hheellpp))
+              Show a summary of command line options and exit.
+
+       --VV ((----vveerrssiioonn))
+              Show the current version number and exit.
+
+       See the nnaannoo(1) manpage for the complete documentation of nnaannoo.
+
+
+BBUUGGSS
+       Please send any comments or bug reports to nnaannoo@@nnaannoo--eeddiittoorr..oorrgg.
+
+       The nnaannoo mailing list is available from nnaannoo--ddeevveell@@ggnnuu..oorrgg.
+
+       To subscribe, email to nnaannoo--ddeevveell--rreeqquueesstt@@ggnnuu..oorrgg  with  a  subject  of
+       "subscribe".
+
+
+HHOOMMEEPPAAGGEE
+       http://www.nano-editor.org/
+
+
+AAUUTTHHOORR
+       Chris  Allegretta  <chrisa@asty.org>,  et al (see AUTHORS for details).
+       This  manual  page  was   originally   written   by   Thijs   Kinkhorst
+       <thijs@kinkhorst.com>,  for  the Debian system (but may be used by oth-
+       ers).
+
+
+
+August 23, 2007                  version 2.0.0                        RNANO(1)

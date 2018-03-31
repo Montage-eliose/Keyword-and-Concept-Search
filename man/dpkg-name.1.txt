@@ -1,0 +1,87 @@
+dpkg-name(1)                    dpkg utilities                    dpkg-name(1)
+
+
+
+NNAAMMEE
+       dpkg-name - rename Debian packages to full package names
+
+SSYYNNOOPPSSIISS
+       ddppkkgg--nnaammee [_o_p_t_i_o_n...]  [----] _f_i_l_e...
+
+DDEESSCCRRIIPPTTIIOONN
+       This manual page documents the ddppkkgg--nnaammee program which provides an easy
+       way to rename DDeebbiiaann packages into their full  package  names.  A  full
+       package  name  consists of _p_a_c_k_a_g_e___v_e_r_s_i_o_n___a_r_c_h_i_t_e_c_t_u_r_e.._p_a_c_k_a_g_e_-_t_y_p_e as
+       specified in the control file of the package. The _v_e_r_s_i_o_n part  of  the
+       filename  consists  of the upstream version information optionally fol-
+       lowed by a hyphen and the revision information. The  _p_a_c_k_a_g_e_-_t_y_p_e  part
+       comes from that field if present or fallbacks to ddeebb.
+
+OOPPTTIIOONNSS
+       --aa, ----nnoo--aarrcchhiitteeccttuurree
+              The destination filename will not have the architecture informa-
+              tion.
+
+       --kk, ----ssyymmlliinnkk
+              Create a symlink, instead of moving.
+
+       --oo, ----oovveerrwwrriittee
+              Existing files will be overwritten if they have the same name as
+              the destination filename.
+
+       --ss, ----ssuubbddiirr [_d_i_r]
+              Files  will be moved into a subdirectory. If the directory given
+              as argument exists the files will be moved into  that  directory
+              otherwise the name of the target directory is extracted from the
+              section field in the control part of  the  package.  The  target
+              directory will be `unstable/binary-_a_r_c_h_i_t_e_c_t_u_r_e/_s_e_c_t_i_o_n'. If the
+              section is not  found  in  the  control,  then  `no-section'  is
+              assumed,  and  in  this case, as well as for sections `non-free'
+              and `contrib' the target directory is  `_s_e_c_t_i_o_n/binary-_a_r_c_h_i_t_e_c_-
+              _t_u_r_e'.  The  section  field  isn't required so a lot of packages
+              will find their way to the `no-section' area.  Use  this  option
+              with care, it's messy.
+
+       --cc, ----ccrreeaattee--ddiirr
+              This  option  can  used together with the --ss option. If a target
+              directory isn't found it will  be  created  automatically.   UUssee
+              tthhiiss ooppttiioonn wwiitthh ccaarree..
+
+       --??, ----hheellpp
+              Show the usage message and exit.
+
+       --vv, ----vveerrssiioonn
+              Show the version and exit.
+
+BBUUGGSS
+       Some packages don't follow the name structure _p_a_c_k_a_g_e___v_e_r_s_i_o_n___a_r_c_h_i_t_e_c_-
+       _t_u_r_e..ddeebb.  Packages renamed by ddppkkgg--nnaammee will  follow  this  structure.
+       Generally  this  will  have  no impact on how packages are installed by
+       ddsseelleecctt(1)/ddppkkgg(1), but other installation tools might depend  on  this
+       naming structure.
+
+EEXXAAMMPPLLEESS
+       ddppkkgg--nnaammee bbaarr--ffoooo..ddeebb
+              The file `bar-foo.deb' will be renamed to bar-foo_1.0-2_i386.deb
+              or something similar (depending on whatever  information  is  in
+              the control part of `bar-foo.deb').
+
+       ffiinndd //rroooott//ddeebbiiaann// --nnaammee ''**..ddeebb'' || xxaarrggss --nn 11 ddppkkgg--nnaammee --aa
+              All files with the extension `deb' in the directory /root/debian
+              and its subdirectory's will be renamed by ddppkkgg--nnaammee if  required
+              into names with no architecture information.
+
+       ffiinndd --nnaammee ''**..ddeebb'' || xxaarrggss --nn 11 ddppkkgg--nnaammee --aa --oo --ss --cc
+              DDoonn''tt  ddoo  tthhiiss..   Your  archive  will  be  messed up completely
+              because a lot of packages don't come with  section  information.
+              DDoonn''tt ddoo tthhiiss..
+
+       ddppkkgg--ddeebb ----bbuuiilldd ddeebbiiaann--ttmmpp &&&& ddppkkgg--nnaammee --oo --ss .... ddeebbiiaann--ttmmpp..ddeebb
+              This can be used when building new packages.
+
+SSEEEE AALLSSOO
+       ddeebb(5), ddeebb--ccoonnttrrooll(5), ddppkkgg(1), ddppkkgg--ddeebb(1), ffiinndd(1), xxaarrggss(1).
+
+
+
+Debian Project                    2012-04-15                      dpkg-name(1)

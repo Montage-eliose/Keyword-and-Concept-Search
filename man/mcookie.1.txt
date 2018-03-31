@@ -1,0 +1,60 @@
+MCOOKIE(1)                       User Commands                      MCOOKIE(1)
+
+
+
+NNAAMMEE
+       mcookie - generate magic cookies for xauth
+
+SSYYNNOOPPSSIISS
+       mmccooookkiiee [_o_p_t_i_o_n_s]
+
+DDEESSCCRRIIPPTTIIOONN
+       mmccooookkiiee  generates a 128-bit random hexadecimal number for use with the
+       X authority system.  Typical usage:
+              xauth add :0 . `mcookie`
+
+       The "random" number generated is actually the output of the MD5 message
+       digest fed with various pieces of random information: the current time,
+       the process id, the parent process id, and optionally the  contents  of
+       an  input  file. and several bytes of information from the first of the
+       following devices which is present: _/_d_e_v_/_r_a_n_d_o_m, _/_d_e_v_/_u_r_a_n_d_o_m, files in
+       _/_p_r_o_c, _/_d_e_v_/_a_u_d_i_o.
+
+OOPPTTIIOONNSS
+       --ff, ----ffiillee=_F_I_L_E
+              Use  file  as  a  macig cookie seed. When file is defined as `-'
+              character input is read from stdin.
+
+       --vv, ----vveerrbboossee
+              Explain what is being done.
+
+       --VV, ----vveerrssiioonn
+              Output version information and exit.
+
+       --hh, ----hheellpp
+              Display this help and exit.
+
+BBUUGGSS
+       The entropy in the generated 128-bit  is  probably  quite  small  (and,
+       therefore,  vulnerable to attack) unless a non-pseudorandom number gen-
+       erator is used (e.g., _/_d_e_v_/_r_a_n_d_o_m under Linux).
+
+       It is assumed that none of the devices opened will block.
+
+FFIILLEESS
+       _/_d_e_v_/_r_a_n_d_o_m
+       _/_d_e_v_/_u_r_a_n_d_o_m
+       _/_d_e_v_/_a_u_d_i_o
+       _/_p_r_o_c_/_s_t_a_t
+       _/_p_r_o_c_/_l_o_a_d_a_v_g
+
+SSEEEE AALLSSOO
+       XX(1), xxaauutthh(1), mmdd55ssuumm(1)
+
+AAVVAAIILLAABBIILLIITTYY
+       The mcookie command is part of the util-linux package and is  available
+       from ftp://ftp.kernel.org/pub/linux/utils/util-linux/.
+
+
+
+util-linux                         June 2011                        MCOOKIE(1)

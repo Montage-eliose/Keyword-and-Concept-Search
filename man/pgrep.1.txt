@@ -1,0 +1,183 @@
+PGREP(1)                         User Commands                        PGREP(1)
+
+
+
+NNAAMMEE
+       pgrep,  pkill  -  look  up  or signal processes based on name and other
+       attributes
+
+SSYYNNOOPPSSIISS
+       ppggrreepp [options] pattern
+       ppkkiillll [options] pattern
+
+DDEESSCCRRIIPPTTIIOONN
+       ppggrreepp looks through the  currently  running  processes  and  lists  the
+       process IDs which match the selection criteria to stdout.  All the cri-
+       teria have to match.  For example,
+
+              $ pgrep -u root sshd
+
+       will only list the processes called sssshhdd AND owned  by  rroooott.   On  the
+       other hand,
+
+              $ pgrep -u root,daemon
+
+       will list the processes owned by rroooott OR ddaaeemmoonn.
+
+       ppkkiillll  will  send  the  specified  signal  (by default SSIIGGTTEERRMM) to each
+       process instead of listing them on stdout.
+
+OOPPTTIIOONNSS
+       --_s_i_g_n_a_l
+       ----ssiiggnnaall _s_i_g_n_a_l
+              Defines the signal to send to each matched process.  Either  the
+              numeric or the symbolic signal name can be used.  (ppkkiillll only.)
+
+       --cc, ----ccoouunntt
+              Suppress  normal  output; instead print a count of matching pro-
+              cesses.  When count does not match anything, e.g. returns  zero,
+              the command will return non-zero value.
+
+       --dd, ----ddeelliimmiitteerr _d_e_l_i_m_i_t_e_r
+              Sets  the  string  used to delimit each process ID in the output
+              (by default a newline).  (ppggrreepp only.)
+
+       --ff, ----ffuullll
+              The _p_a_t_t_e_r_n is normally only matched against the  process  name.
+              When --ff is set, the full command line is used.
+
+       --gg, ----ppggrroouupp _p_g_r_p,...
+              Only  match  processes in the process group IDs listed.  Process
+              group 0 is translated into ppggrreepp's or ppkkiillll's own process group.
+
+       --GG, ----ggrroouupp _g_i_d,...
+              Only match processes whose real group ID is listed.  Either  the
+              numerical or symbolical value may be used.
+
+       --ll, ----lliisstt--nnaammee
+              List the process name as well as the process ID.  (ppggrreepp only.)
+
+       --aa, ----lliisstt--ffuullll
+              List  the  full  command line as well as the process ID.  (ppggrreepp
+              only.)
+
+       --nn, ----nneewweesstt
+              Select only the newest (most recently started) of  the  matching
+              processes.
+
+       --oo, ----oollddeesstt
+              Select  only the oldest (least recently started) of the matching
+              processes.
+
+       --PP, ----ppaarreenntt _p_p_i_d,...
+              Only match processes whose parent process ID is listed.
+
+       --ss, ----sseessssiioonn _s_i_d,...
+              Only match processes whose process session ID is  listed.   Ses-
+              sion ID 0 is translated into ppggrreepp's or ppkkiillll's own session ID.
+
+       --tt, ----tteerrmmiinnaall _t_e_r_m,...
+              Only  match processes whose controlling terminal is listed.  The
+              terminal name should be specified without the "/dev/" prefix.
+
+       --uu, ----eeuuiidd _e_u_i_d,...
+              Only match processes whose effective user ID is listed.   Either
+              the numerical or symbolical value may be used.
+
+       --UU, ----uuiidd _u_i_d,...
+              Only  match  processes whose real user ID is listed.  Either the
+              numerical or symbolical value may be used.
+
+       --vv, ----iinnvveerrssee
+              Negates the matching.  This option is usually  used  in  ppggrreepp's
+              context.   In  ppkkiillll's  context  the short option is disabled to
+              avoid accidental usage of the option.
+
+       --ww, ----lliigghhttwweeiigghhtt
+              Shows all thread ids instead of pids  in  ppggrreepp's  context.   In
+              ppkkiillll's context this option is disabled.
+
+       --xx, ----eexxaacctt
+              Only match processes whose names (or command line if -f is spec-
+              ified) eexxaaccttllyy match the _p_a_t_t_e_r_n.
+
+       --FF, ----ppiiddffiillee _f_i_l_e
+              Read _P_I_D's from file.  This option is perhaps  more  useful  for
+              ppkkiillll than ppggrreepp.
+
+       --LL, ----llooggppiiddffiillee
+              Fail if pidfile (see -F) not locked.
+
+       ----nnss _p_i_d
+              Match  processes that belong to the same namespaces. Required to
+              run as root to match processes from other  users.  See  --nslist
+              for how to limit which namespaces to match.
+
+       ----nnsslliisstt _n_a_m_e,,......
+              Match  only  the provided namespaces. Available namespaces: ipc,
+              mnt, net, pid, user,uts.
+
+       --VV, ----vveerrssiioonn
+              Display version information and exit.
+
+       --hh, ----hheellpp
+              Display help and exit.
+
+OOPPEERRAANNDDSS
+       _p_a_t_t_e_r_n
+              Specifies an Extended Regular Expression  for  matching  against
+              the process names or command lines.
+
+EEXXAAMMPPLLEESS
+       Example 1: Find the process ID of the nnaammeedd daemon:
+
+              $ pgrep -u root named
+
+       Example 2: Make ssyysslloogg reread its configuration file:
+
+              $ pkill -HUP syslogd
+
+       Example 3: Give detailed information on all xxtteerrmm processes:
+
+              $ ps -fp $(pgrep -d, -x xterm)
+
+       Example 4: Make all nneettssccaappee processes run nicer:
+
+              $ renice +4 $(pgrep netscape)
+
+EEXXIITT SSTTAATTUUSS
+       0      One or more processes matched the criteria.
+       1      No processes matched.
+       2      Syntax error in the command line.
+       3      Fatal error: out of memory etc.
+
+NNOOTTEESS
+       The  process  name  used  for  matching is limited to the 15 characters
+       present in the output of /proc/_p_i_d/stat.  Use the -f  option  to  match
+       against the complete command line, /proc/_p_i_d/cmdline.
+
+       The running ppggrreepp or ppkkiillll process will never report itself as a match.
+
+BBUUGGSS
+       The  options  --nn and --oo and --vv can not be combined.  Let me know if you
+       need to do this.
+
+       Defunct processes are reported.
+
+
+SSEEEE AALLSSOO
+       ppss(1), rreeggeexx(7), ssiiggnnaall(7), kkiillllaallll(1), sskkiillll(1), kkiillll(1), kkiillll(2)
+
+SSTTAANNDDAARRDDSS
+       ppkkiillll and ppggrreepp were introduced in Sun's Solaris 7.   This  implementa-
+       tion is fully compatible.
+
+AAUUTTHHOORR
+       Kjetil Torgrim Homme <kjetilho@ifi.uio.no>
+
+RREEPPOORRTTIINNGG BBUUGGSS
+       Please send bug reports to <procps@freelists.org>
+
+
+
+procps-ng                        October 2012                         PGREP(1)

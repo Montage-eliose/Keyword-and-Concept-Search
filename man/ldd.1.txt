@@ -1,0 +1,76 @@
+LDD(1)                     Linux Programmer's Manual                    LDD(1)
+
+
+
+NNAAMMEE
+       ldd - print shared library dependencies
+
+SSYYNNOOPPSSIISS
+       lldddd [OPTION]... FILE...
+
+DDEESSCCRRIIPPTTIIOONN
+       lldddd  prints  the  shared  libraries  required by each program or shared
+       library specified on the command line.
+
+   SSeeccuurriittyy
+       In the usual  case,  lldddd  invokes  the  standard  dynamic  linker  (see
+       lldd..ssoo(8))  with the LLDD__TTRRAACCEE__LLOOAADDEEDD__OOBBJJEECCTTSS environment variable set to
+       1, which causes the linker to display  the  library  dependencies.   Be
+       aware,  however,  that  in some circumstances, some versions of lldddd may
+       attempt to obtain the dependency information by directly executing  the
+       program.  Thus, you should _n_e_v_e_r employ lldddd on an untrusted executable,
+       since this may result in the execution  of  arbitrary  code.   A  safer
+       alternative when dealing with untrusted executables is:
+
+           $ objdump -p /path/to/program | grep NEEDED
+
+OOPPTTIIOONNSS
+       ----vveerrssiioonn
+              Print the version number of lldddd.
+
+       --vv ----vveerrbboossee
+              Print all information, including, for example, symbol versioning
+              information.
+
+       --uu ----uunnuusseedd
+              Print unused direct dependencies.  (Since glibc 2.3.4.)
+
+       --dd ----ddaattaa--rreellooccss
+              Perform relocations and report any missing objects (ELF only).
+
+       --rr ----ffuunnccttiioonn--rreellooccss
+              Perform relocations for both data  objects  and  functions,  and
+              report any missing objects or functions (ELF only).
+
+       ----hheellpp Usage information.
+
+NNOOTTEESS
+       The  standard  version  of  lldddd  comes with glibc2.  Libc5 came with an
+       older version, still present on some systems.  The long options are not
+       supported  by the libc5 version.  On the other hand, the glibc2 version
+       does not support --VV and only has the equivalent ----vveerrssiioonn.
+
+       The libc5 version of this program will use the name of a library  given
+       on the command line as-is when it contains a '/'; otherwise it searches
+       for the library in the standard locations.   To  run  it  on  a  shared
+       library in the current directory, prefix the name with "./".
+
+BBUUGGSS
+       lldddd does not work on a.out shared libraries.
+
+       lldddd  does  not  work  with some extremely old a.out programs which were
+       built before lldddd support was added to the compiler  releases.   If  you
+       use  lldddd on one of these programs, the program will attempt to run with
+       _a_r_g_c = 0 and the results will be unpredictable.
+
+SSEEEE AALLSSOO
+       lldd..ssoo(8), llddccoonnffiigg(8)
+
+CCOOLLOOPPHHOONN
+       This page is part of release 3.54 of the Linux  _m_a_n_-_p_a_g_e_s  project.   A
+       description  of  the project, and information about reporting bugs, can
+       be found at http://www.kernel.org/doc/man-pages/.
+
+
+
+                                  2012-07-16                            LDD(1)

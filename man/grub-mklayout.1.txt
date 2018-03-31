@@ -1,0 +1,54 @@
+GRUB-MKLAYOUT(1)                 User Commands                GRUB-MKLAYOUT(1)
+
+
+
+NNAAMMEE
+       grub-mklayout - generate a GRUB keyboard layout file
+
+SSYYNNOOPPSSIISS
+       ggrruubb--mmkkllaayyoouutt [_O_P_T_I_O_N...] [_O_P_T_I_O_N_S]
+
+DDEESSCCRRIIPPTTIIOONN
+       grub-mklayout  processes  a  keyboard  layout description in kkeeyymmaappss(5)
+       format into a format that can be used by GRUB's kkeeyymmaapp command.
+
+       Generate GRUB keyboard layout from Linux console one.
+
+       --ii, ----iinnppuutt=_F_I_L_E
+              set input filename. Default is STDIN
+
+       --oo, ----oouuttppuutt=_F_I_L_E
+              set output filename. Default is STDOUT
+
+       --vv, ----vveerrbboossee
+              print verbose messages.
+
+       -?, ----hheellpp
+              give this help list
+
+       ----uussaaggee
+              give a short usage message
+
+       --VV, ----vveerrssiioonn
+              print program version
+
+       Mandatory or optional arguments to long options are also  mandatory  or
+       optional for any corresponding short options.
+
+RREEPPOORRTTIINNGG BBUUGGSS
+       Report bugs to <bug-grub@gnu.org>.
+
+SSEEEE AALLSSOO
+       ggrruubb--mmkkccoonnffiigg(8)
+
+       The  full  documentation  for  ggrruubb--mmkkllaayyoouutt is maintained as a Texinfo
+       manual.  If the iinnffoo and ggrruubb--mmkkllaayyoouutt programs are properly  installed
+       at your site, the command
+
+              iinnffoo ggrruubb--mmkkllaayyoouutt
+
+       should give you access to the complete manual.
+
+
+
+grub-mklayout (GRUB) 2.02~beta2-9uDbeucnetmub1e.r72015                GRUB-MKLAYOUT(1)

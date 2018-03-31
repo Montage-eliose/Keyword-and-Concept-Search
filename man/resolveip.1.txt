@@ -1,0 +1,62 @@
+RESOLVEIP(1)                 MySQL Database System                RESOLVEIP(1)
+
+
+
+NNAAMMEE
+       resolveip - resolve host name to IP address or vice versa
+
+SSYYNNOOPPSSIISS
+       rreessoollvveeiipp [[_o_p_t_i_o_n_s]] {{_h_o_s_t___n_a_m_e||_i_p_-_a_d_d_r}} ......
+
+DDEESSCCRRIIPPTTIIOONN
+       The rreessoollvveeiipp utility resolves host names to IP addresses and vice
+       versa.
+
+       Invoke rreessoollvveeiipp like this:
+
+           shell> rreessoollvveeiipp [[_o_p_t_i_o_n_s]] {{_h_o_s_t___n_a_m_e||_i_p_-_a_d_d_r}} ......
+
+       rreessoollvveeiipp supports the following options.
+
+       +o   ----hheellpp, ----iinnffoo, --??, --II
+
+           Display a help message and exit.
+
+       +o   ----ssiilleenntt, --ss
+
+           Silent mode. Produce less output.
+
+       +o   ----vveerrssiioonn, --VV
+
+           Display version information and exit.
+
+CCOOPPYYRRIIGGHHTT
+       Copyright (C) 1997, 2016, Oracle and/or its affiliates. All rights
+       reserved.
+
+       This documentation is free software; you can redistribute it and/or
+       modify it only under the terms of the GNU General Public License as
+       published by the Free Software Foundation; version 2 of the License.
+
+       This documentation is distributed in the hope that it will be useful,
+       but WITHOUT ANY WARRANTY; without even the implied warranty of
+       MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+       General Public License for more details.
+
+       You should have received a copy of the GNU General Public License along
+       with the program; if not, write to the Free Software Foundation, Inc.,
+       51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA or see
+       http://www.gnu.org/licenses/.
+
+
+SSEEEE AALLSSOO
+       For more information, please refer to the MySQL Reference Manual, which
+       may already be installed locally and which is also available online at
+       http://dev.mysql.com/doc/.
+
+AAUUTTHHOORR
+       Oracle Corporation (http://dev.mysql.com/).
+
+
+
+MySQL 5.5                         03/01/2016                      RESOLVEIP(1)

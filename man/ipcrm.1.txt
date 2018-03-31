@@ -1,0 +1,81 @@
+IPCRM(1)                         User Commands                        IPCRM(1)
+
+
+
+NNAAMMEE
+       ipcrm - remove a message queue, semaphore set or shared memory id
+
+SSYYNNOOPPSSIISS
+       iippccrrmm [ --MM _k_e_y | --mm _i_d | --QQ _k_e_y | --qq _i_d | --SS _k_e_y | --ss _i_d ] ...
+
+       deprecated usage
+
+       iippccrrmm {sshhmm|mmssgg|sseemm} _i_d...
+
+DDEESSCCRRIIPPTTIIOONN
+       _i_p_c_r_m  removes  System  V  interprocess communication (IPC) objects and
+       associated data structures from the system.  In order  to  delete  such
+       objects, you must be superuser, or the creator or owner of the object.
+
+       System V IPC objects are of three types: shared memory, message queues,
+       and semaphores.  Deletion of a message queue  or  semaphore  object  is
+       immediate (regardless of whether any process still holds an IPC identi-
+       fier for the object).  A shared memory object is only removed after all
+       currently  attached  processes have detached (sshhmmddtt(2)) the object from
+       their virtual address space.
+
+       Two syntax styles are supported.  The old Linux historical syntax spec-
+       ifies  a three letter keyword indicating which class of object is to be
+       deleted, followed by one or more IPC identifiers for  objects  of  this
+       type.
+
+       The  SUS-compliant  syntax  allows  the  specification  of zero or more
+       objects of all three types in a single command line, with objects spec-
+       ified either by key or by identifier. (See below.)  Both keys and iden-
+       tifiers may be specified in decimal,  hexadecimal  (specified  with  an
+       initial '0x' or '0X'), or octal (specified with an initial '0').
+
+
+OOPPTTIIOONNSS
+       --MM _s_h_m_k_e_y
+              removes  the shared memory segment created with _s_h_m_k_e_y after the
+              last detach is performed.
+
+       --mm _s_h_m_i_d
+              removes the shared memory segment identified by _s_h_m_i_d after  the
+              last detach is performed.
+
+       --QQ _m_s_g_k_e_y
+              removes the message queue created with _m_s_g_k_e_y.
+
+       --qq _m_s_g_i_d
+              removes the message queue identified by _m_s_g_i_d.
+
+       --SS _s_e_m_k_e_y
+              removes the semaphore created with _s_e_m_k_e_y.
+
+       --ss _s_e_m_i_d
+              removes the semaphore identified by _s_e_m_i_d.
+
+       The  details  of the removes are described in _m_s_g_c_t_l(2), _s_h_m_c_t_l(2), and
+       _s_e_m_c_t_l(2).  The identifiers and keys may be found by using _i_p_c_s(1).
+
+NNOOTTEESS
+       In its first Linux implementation, ipcrm  used  the  deprecated  syntax
+       shown in the SSYYNNOOPPSSIISS.  Functionality present in other *nix implementa-
+       tions of ipcrm has since been  added,  namely  the  ability  to  delete
+       resources  by  key  (not just identifier), and to respect the same com-
+       mand-line syntax. For backward compatibility  the  previous  syntax  is
+       still supported.
+
+SSEEEE AALLSSOO
+       iippccss(1),   iippccmmkk(1),   mmssggccttll(2),   mmssggggeett(2),   sseemmccttll(2),  sseemmggeett(2),
+       sshhmmccttll(2), sshhmmddtt(2), sshhmmggeett(2), ffttookk(3)
+
+AAVVAAIILLAABBIILLIITTYY
+       The ipcrm command is part of the util-linux package  and  is  available
+       from ftp://ftp.kernel.org/pub/linux/utils/util-linux/.
+
+
+
+util-linux                        March 2002                          IPCRM(1)

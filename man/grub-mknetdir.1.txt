@@ -1,0 +1,83 @@
+GRUB-MKNETDIR(1)                 User Commands                GRUB-MKNETDIR(1)
+
+
+
+NNAAMMEE
+       grub-mknetdir - prepare a GRUB netboot directory.
+
+SSYYNNOOPPSSIISS
+       ggrruubb--mmkknneettddiirr [_O_P_T_I_O_N...]
+
+DDEESSCCRRIIPPTTIIOONN
+       ----ccoommpprreessss[[=_n_o,xz,gz,lzo]
+              compress GRUB files [optional]
+
+       --dd, ----ddiirreeccttoorryy=_D_I_R
+              use  images  and modules under DIR [default=/usr/lib/grub/<plat-
+              form>]
+
+       ----ffoonnttss=_F_O_N_T_S
+              install FONTS [default=unicode]
+
+       ----iinnssttaallll--mmoodduulleess=_M_O_D_U_L_E_S
+              install only MODULES and their dependencies [default=all]
+
+       --kk, ----ppuubbkkeeyy=_F_I_L_E
+              embed FILE as public key for signature checking
+
+       ----llooccaallee--ddiirreeccttoorryy=_D_I_R use translations under DIR
+              [default=/usr/share/locale]
+
+       ----llooccaalleess=_L_O_C_A_L_E_S
+              install only LOCALES [default=all]
+
+       ----mmoodduulleess=_M_O_D_U_L_E_S
+              pre-load specified modules MODULES
+
+       ----tthheemmeess=_T_H_E_M_E_S
+              install THEMES [default=starfield]
+
+       --vv, ----vveerrbboossee
+              print verbose messages.
+
+       ----ccoorree--ccoommpprreessss=_x_z|none|auto
+              choose the compression to use for core image
+
+       ----nneett--ddiirreeccttoorryy=_D_I_R
+              root directory of TFTP server
+
+       ----ssuubbddiirr=_D_I_R
+              relative subdirectory on network server
+
+       -?, ----hheellpp
+              give this help list
+
+       ----uussaaggee
+              give a short usage message
+
+       --VV, ----vveerrssiioonn
+              print program version
+
+       Mandatory or optional arguments to long options are also  mandatory  or
+       optional for any corresponding short options.
+
+       Prepares  GRUB  network  boot  images  at net_directory/subdir assuming
+       net_directory being TFTP root.
+
+RREEPPOORRTTIINNGG BBUUGGSS
+       Report bugs to <bug-grub@gnu.org>.
+
+SSEEEE AALLSSOO
+       ggrruubb--mmkkiimmaaggee(1)
+
+       The full documentation for ggrruubb--mmkknneettddiirr is  maintained  as  a  Texinfo
+       manual.   If the iinnffoo and ggrruubb--mmkknneettddiirr programs are properly installed
+       at your site, the command
+
+              iinnffoo ggrruubb--mmkknneettddiirr
+
+       should give you access to the complete manual.
+
+
+
+grub-mknetdir (GRUB) 2.02~beta2-9uDbeucnetmub1e.r72015                GRUB-MKNETDIR(1)

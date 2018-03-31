@@ -1,0 +1,77 @@
+TRUNCATE(1)                      User Commands                     TRUNCATE(1)
+
+
+
+NNAAMMEE
+       truncate - shrink or extend the size of a file to the specified size
+
+SSYYNNOOPPSSIISS
+       ttrruunnccaattee _O_P_T_I_O_N... _F_I_L_E...
+
+DDEESSCCRRIIPPTTIIOONN
+       Shrink or extend the size of each FILE to the specified size
+
+       A FILE argument that does not exist is created.
+
+       If  a  FILE  is larger than the specified size, the extra data is lost.
+       If a FILE is shorter, it is extended and the extended part (hole) reads
+       as zero bytes.
+
+       Mandatory  arguments  to  long  options are mandatory for short options
+       too.
+
+       --cc, ----nnoo--ccrreeaattee
+              do not create any files
+
+       --oo, ----iioo--bblloocckkss
+              treat SIZE as number of IO blocks instead of bytes
+
+       --rr, ----rreeffeerreennccee=_R_F_I_L_E
+              base size on RFILE
+
+       --ss, ----ssiizzee=_S_I_Z_E
+              set or adjust the file size by SIZE
+
+       ----hheellpp display this help and exit
+
+       ----vveerrssiioonn
+              output version information and exit
+
+       SIZE is an integer and optional unit (example:  10M  is  10*1024*1024).
+       Units  are K, M, G, T, P, E, Z, Y (powers of 1024) or KB, MB, ... (pow-
+       ers of 1000).
+
+       SIZE may also be prefixed by one of the following modifying characters:
+       '+' extend by, '-' reduce by, '<' at most, '>' at least, '/' round down
+       to multiple of, '%' round up to multiple of.
+
+AAUUTTHHOORR
+       Written by Padraig Brady.
+
+RREEPPOORRTTIINNGG BBUUGGSS
+       Report truncate bugs to bug-coreutils@gnu.org
+       GNU coreutils home page: <http://www.gnu.org/software/coreutils/>
+       General help using GNU software: <http://www.gnu.org/gethelp/>
+       Report   truncate   translation   bugs    to    <http://translationpro-
+       ject.org/team/>
+
+CCOOPPYYRRIIGGHHTT
+       Copyright  (C) 2013 Free Software Foundation, Inc.  License GPLv3+: GNU
+       GPL version 3 or later <http://gnu.org/licenses/gpl.html>.
+       This is free software: you are free  to  change  and  redistribute  it.
+       There is NO WARRANTY, to the extent permitted by law.
+
+SSEEEE AALLSSOO
+       dd(1), truncate(2), ftruncate(2)
+
+       The  full documentation for ttrruunnccaattee is maintained as a Texinfo manual.
+       If the iinnffoo and ttrruunnccaattee programs are properly installed at your  site,
+       the command
+
+              iinnffoo ccoorreeuuttiillss ''ttrruunnccaattee iinnvvooccaattiioonn''
+
+       should give you access to the complete manual.
+
+
+
+GNU coreutils 8.21                March 2016                       TRUNCATE(1)

@@ -1,0 +1,74 @@
+C_REHASH(1SSL)                      OpenSSL                     C_REHASH(1SSL)
+
+
+
+NNAAMMEE
+       c_rehash - Create symbolic links to files named by the hash values
+
+SSYYNNOOPPSSIISS
+       cc__rreehhaasshh [directory] ...
+
+DDEESSCCRRIIPPTTIIOONN
+       c_rehash scans directories and takes a hash value of each .pem and .crt
+       file in the directory. It then creates symbolic links for each of the
+       files named by the hash value. This is useful as many programs require
+       directories to be set up like this in order to find the certificates
+       they require.
+
+       If any directories are named on the command line then these directories
+       are processed in turn. If not then and the environment variable
+       SSL_CERT_DIR is defined then that is consulted. This variable should be
+       a colon (:) separated list of directories, all of which will be
+       processed. If neither of these conditions are true then
+       /usr/lib/ssl/certs is processed.
+
+       For each directory that is to be processed he user must have write
+       permissions on the directory, if they do not then nothing will be
+       printed for that directory.
+
+       Note that this program deletes all the symbolic links that look like
+       ones that it creates before processing a directory. Beware that if you
+       run the program on a directory that contains symbolic links for other
+       purposes that are named in the same format as those created by this
+       program they will be lost.
+
+       The hashes for certificate files are of the form <hash>.<n> where n is
+       an integer. If the hash value already exists then n will be
+       incremented, unless the file is a duplicate. Duplicates are detected
+       using the fingerprint of the certificate. A warning will be printed if
+       a duplicate is detected. The hashes for CRL files are of the form
+       <hash>.r<n> and have the same behavior.
+
+       The program will also warn if there are files with extension .pem which
+       are not certificate or CRL files.
+
+       The program uses the openssl program to compute the hashes and
+       fingerprints. It expects the executable to be named openssl and be on
+       the PATH, or in the /usr/lib/ssl/bin directory. If the OPENSSL
+       environment variable is defined then this is used instead as the
+       executable that provides the hashes and fingerprints. When called as
+       $OPENSSL x509 -hash -fingerprint -noout -in $file it must output the
+       hash of $file on the first line followed by the fingerprint on the
+       second line, optionally prefixed with some text and an equals sign (=).
+
+OOPPTTIIOONNSS
+       None
+
+EENNVVIIRROONNMMEENNTT
+       OOPPEENNSSSSLL
+           The name (and path) of an executable to use to generate hashes and
+           fingerprints (see above).
+
+       SSSSLL__CCEERRTT__DDIIRR
+           Colon separated list of directories to operate on. Ignored if
+           directories are listed on the command line.
+
+SSEEEE AALLSSOO
+       _o_p_e_n_s_s_l(1), _x_5_0_9(1)
+
+BBUUGGSS
+       No known bugs
+
+
+
+1.0.1f                            2016-02-29                    C_REHASH(1SSL)

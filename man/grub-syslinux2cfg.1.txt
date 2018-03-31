@@ -1,0 +1,71 @@
+GRUB-SYSLINUX2CFG(1)             User Commands            GRUB-SYSLINUX2CFG(1)
+
+
+
+NNAAMMEE
+       grub-syslinux2cfg - transform syslinux config into grub.cfg
+
+SSYYNNOOPPSSIISS
+       ggrruubb--ssyysslliinnuuxx22ccffgg [_O_P_T_I_O_N...] _F_I_L_E
+
+DDEESSCCRRIIPPTTIIOONN
+       Transform syslinux config into GRUB one.
+
+       --cc, ----ccwwdd=_D_I_R
+              current  directory  of the syslinux [default is parent directory
+              of input file].
+
+       --ii, ----iissoolliinnuuxx
+              assume input is an isolinux configuration file.
+
+       --oo, ----oouuttppuutt=_F_I_L_E
+              write output to FILE [default=stdout].
+
+       --pp, ----ppxxeelliinnuuxx
+              assume input is a pxelinux configuration file.
+
+       --rr, ----rroooott=_D_I_R
+              root directory of the syslinux disk [default=/].
+
+       --ss, ----ssyysslliinnuuxx
+              assume input is a syslinux configuration file.
+
+       --tt, ----ttaarrggeett--rroooott=_D_I_R
+              root directory as it will be seen on runtime [default=/].
+
+       --TT, ----ttaarrggeett--ccwwdd=_D_I_R
+              current directory of the syslinux as it will be seen on  runtime
+              [default is parent directory of input file].
+
+       --vv, ----vveerrbboossee
+              print verbose messages.
+
+       -?, ----hheellpp
+              give this help list
+
+       ----uussaaggee
+              give a short usage message
+
+       --VV, ----vveerrssiioonn
+              print program version
+
+       Mandatory  or  optional arguments to long options are also mandatory or
+       optional for any corresponding short options.
+
+RREEPPOORRTTIINNGG BBUUGGSS
+       Report bugs to <bug-grub@gnu.org>.
+
+SSEEEE AALLSSOO
+       ggrruubb--mmeennuullsstt22ccffgg(8)
+
+       The full documentation for ggrruubb--ssyysslliinnuuxx22ccffgg is maintained as a Texinfo
+       manual.   If  the  iinnffoo  and  ggrruubb--ssyysslliinnuuxx22ccffgg  programs  are properly
+       installed at your site, the command
+
+              iinnffoo ggrruubb--ssyysslliinnuuxx22ccffgg
+
+       should give you access to the complete manual.
+
+
+
+grub-syslinux2cfg (GRUB) 2.02~betaD2e-c9eumbbuenrtu210.175            GRUB-SYSLINUX2CFG(1)

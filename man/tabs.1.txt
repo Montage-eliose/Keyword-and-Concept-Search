@@ -1,0 +1,105 @@
+tabs(1)                     General Commands Manual                    tabs(1)
+
+
+
+NNAAMMEE
+       ttaabbss - set tabs on a terminal
+
+SSYYNNOOPPSSIISS
+       ttaabbss [_o_p_t_i_o_n_s]] _[_t_a_b_s_t_o_p_-_l_i_s_t_]
+
+DDEESSCCRRIIPPTTIIOONN
+       The  ttaabbss program clears and sets tab-stops on the terminal.  This uses
+       the terminfo _c_l_e_a_r___a_l_l___t_a_b_s and _s_e_t___t_a_b  capabilities.   If  either  is
+       absent,  ttaabbss is unable to clear/set tab-stops.  The terminal should be
+       configured to use hard tabs, e.g.,
+
+              stty tab0
+
+OOPPTTIIOONNSS
+   GGeenneerraall OOppttiioonnss
+       --TT_n_a_m_e
+            Tell ttaabbss which terminal type to  use.   If  this  option  is  not
+            given,  ttaabbss  will use the $$TTEERRMM environment variable.  If that is
+            not set, it will use the _a_n_s_i_+_t_a_b_s entry.
+
+       --dd   The debugging option shows a ruler  line,  followed  by  two  data
+            lines.   The  first  data line shows the expected tab-stops marked
+            with asterisks.  The second data line shows the actual  tab-stops,
+            marked with asterisks.
+
+       --nn   This  option tells ttaabbss to check the options and run any debugging
+            option, but not to modify the terminal settings.
+
+       --VV   reports the version of ncurses which was used in this program, and
+            exits.
+
+       The ttaabbss program processes a single list of tab stops.  The last option
+       to be processed which defines a list is the  one  that  determines  the
+       list to be processed.
+
+   IImmpplliicciitt LLiissttss
+       Use  a  single number as an option, e.g., "--55" to set tabs at the given
+       interval (in this case 1, 6, 11, 16, 21, etc.).  Tabs are  repeated  up
+       to the right margin of the screen.
+
+       Use "--00" to clear all tabs.
+
+       Use "--88" to set tabs to the standard interval.
+
+   EExxpplliicciitt LLiissttss
+       An  explicit list can be defined after the options (this does not use a
+       "-").  The values in the list must be in increasing numeric order,  and
+       greater than zero.  They are separated by a comma or a blank, for exam-
+       ple,
+
+              tabs 1,6,11,16,21
+              tabs 1 6 11 16 21
+       Use a '+' to treat a number as an increment relative  to  the  previous
+       value, e.g.,
+
+              tabs 1,+5,+5,+5,+5
+       which is equivalent to the 1,6,11,16,21 example.
+
+   PPrreeddeeffiinneedd TTaabb--SSttooppss
+       X/Open defines several predefined lists of tab stops.
+
+       --aa   Assembler, IBM S/370, first format
+
+       --aa22  Assembler, IBM S/370, second format
+
+       --cc   COBOL, normal format
+
+       --cc22  COBOL compact format
+
+       --cc33  COBOL compact format extended
+
+       --ff   FORTRAN
+
+       --pp   PL/I
+
+       --ss   SNOBOL
+
+       --uu   UNIVAC 1100 Assembler
+
+PPOORRTTAABBIILLIITTYY
+       X/Open  describes  a  ++mm option, to set a terminal's left-margin.  Very
+       few of the entries in the terminal database provide this capability.
+
+       The --dd (debug) and --nn (no-op) options are extensions  not  provided  by
+       other implementations.
+
+       Documentation for other implementations states that there is a limit on
+       the number of tab stops.  While some terminals may not accept an  arbi-
+       trary  number of tab stops, this implementation will attempt to set tab
+       stops up to the right margin of the screen, if the given  list  happens
+       to be that long.
+
+SSEEEE AALLSSOO
+       ttsseett(1), iinnffooccmmpp(1), nnccuurrsseess(3NCURSES), tteerrmmiinnffoo(5).
+
+       This describes nnccuurrsseess version 5.9 (patch 20140118).
+
+
+
+                                                                       tabs(1)

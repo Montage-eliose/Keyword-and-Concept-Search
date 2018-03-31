@@ -1,0 +1,43 @@
+MOUNTPOINT(1)         Linux System Administrator's Manual        MOUNTPOINT(1)
+
+
+
+NNAAMMEE
+       mountpoint - see if a directory is a mountpoint
+
+SSYYNNOOPPSSIISS
+       //bbiinn//mmoouunnttppooiinntt [--qq] [--dd] _/_p_a_t_h_/_t_o_/_d_i_r_e_c_t_o_r_y
+       //bbiinn//mmoouunnttppooiinntt -x _/_d_e_v_/_d_e_v_i_c_e
+
+DDEESSCCRRIIPPTTIIOONN
+       MMoouunnttppooiinntt checks if the directory is a mountpoint.
+
+
+OOPPTTIIOONNSS
+       --qq     Be quiet - don't print anything.
+
+       --dd     Print major/minor device number of the filesystem on stdout.
+
+       --xx     Print major/minor device number of the blockdevice on stdout.
+
+EEXXIITT SSTTAATTUUSS
+       Zero if the directory is a mountpoint, non-zero if not.
+
+NNOOTTEESS
+       Symbolic  links are not followed, except when the --xx option is used. To
+       force following symlinks, add a trailing  slash  to  the  path  of  the
+       directory.
+
+       The  name  of the command is misleading when the -x option is used, but
+       the option is useful for comparing if a directory and  a  device  match
+       up, and there is no other command that can print the info easily.
+
+AAUUTTHHOORR
+       Miquel van Smoorenburg, miquels@cistron.nl
+
+SSEEEE AALLSSOO
+       ssttaatt(1)
+
+
+
+                                 Mar 15, 2004                    MOUNTPOINT(1)

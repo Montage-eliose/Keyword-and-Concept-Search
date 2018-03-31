@@ -1,0 +1,73 @@
+MYSQL_ZAP(1)                 MySQL Database System                MYSQL_ZAP(1)
+
+
+
+NNAAMMEE
+       mysql_zap - kill processes that match a pattern
+
+SSYYNNOOPPSSIISS
+       mmyyssqqll__zzaapp [[--_s_i_g_n_a_l]] [[--??IIfftt]] _p_a_t_t_e_r_n
+
+DDEESSCCRRIIPPTTIIOONN
+       mmyyssqqll__zzaapp kills processes that match a pattern. It uses the ppss command
+       and Unix signals, so it runs on Unix and Unix-like systems.
+
+       Invoke mmyyssqqll__zzaapp like this:
+
+           shell> mmyyssqqll__zzaapp [[--_s_i_g_n_a_l]] [[--??IIfftt]] _p_a_t_t_e_r_n
+
+       A process matches if its output line from the ppss command contains the
+       pattern. By default, mmyyssqqll__zzaapp asks for confirmation for each process.
+       Respond y to kill the process, or q to exit mmyyssqqll__zzaapp. For any other
+       response, mmyyssqqll__zzaapp does not attempt to kill the process.
+
+       If the --_s_i_g_n_a_l option is given, it specifies the name or number of the
+       signal to send to each process. Otherwise, mmyyssqqll__zzaapp tries first with
+       TERM (signal 15) and then with KILL (signal 9).
+
+       mmyyssqqll__zzaapp supports the following additional options:
+
+       +o   ----hheellpp, --??, --II
+
+           Display a help message and exit.
+
+       +o   --ff
+
+           Force mode.  mmyyssqqll__zzaapp attempts to kill each process without
+           confirmation.
+
+       +o   --tt
+
+           Test mode. Display information about each process but do not kill
+           it.
+
+CCOOPPYYRRIIGGHHTT
+       Copyright (C) 1997, 2016, Oracle and/or its affiliates. All rights
+       reserved.
+
+       This documentation is free software; you can redistribute it and/or
+       modify it only under the terms of the GNU General Public License as
+       published by the Free Software Foundation; version 2 of the License.
+
+       This documentation is distributed in the hope that it will be useful,
+       but WITHOUT ANY WARRANTY; without even the implied warranty of
+       MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+       General Public License for more details.
+
+       You should have received a copy of the GNU General Public License along
+       with the program; if not, write to the Free Software Foundation, Inc.,
+       51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA or see
+       http://www.gnu.org/licenses/.
+
+
+SSEEEE AALLSSOO
+       For more information, please refer to the MySQL Reference Manual, which
+       may already be installed locally and which is also available online at
+       http://dev.mysql.com/doc/.
+
+AAUUTTHHOORR
+       Oracle Corporation (http://dev.mysql.com/).
+
+
+
+MySQL 5.5                         03/01/2016                      MYSQL_ZAP(1)

@@ -1,0 +1,28 @@
+MTRACE(1)                           Debian                           MTRACE(1)
+
+
+
+NNNNAAAAMMMMEEEE
+       mtrace - Interpret output from MALLOC_TRACE
+
+SSSSYYYYNNNNOOOOPPPPSSSSIIIISSSS
+       mtrace [OPTION]... [Binary] MtraceData
+
+DDDDEEEESSSSCCCCRRRRIIIIPPPPTTTTIIIIOOOONNNN
+       The mmmmttttrrrraaaacccceeee interprets the output from when the MALLOC_TRACE environment
+       variable is set.
+
+AAAAUUUUTTTTHHHHOOOORRRR
+       _m_t_r_a_c_e was written by Ulrich Drepper as part of the GNU C Library.
+
+       This man page was written by Jeff Bailey <jbailey@debian.org>.
+
+
+
+
+
+
+
+
+
+3rd Berkeley Distribution        November 2003                       MTRACE(1)

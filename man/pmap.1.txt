@@ -1,0 +1,71 @@
+PMAP(1)                          User Commands                         PMAP(1)
+
+
+
+NNAAMMEE
+       pmap - report memory map of a process
+
+SSYYNNOOPPSSIISS
+       ppmmaapp [_o_p_t_i_o_n_s] _p_i_d [...]
+
+DDEESSCCRRIIPPTTIIOONN
+       The pmap command reports the memory map of a process or processes.
+
+OOPPTTIIOONNSS
+       --xx, ----eexxtteennddeedd
+              Show the extended format.
+
+       --dd, ----ddeevviiccee
+              Show the device format.
+
+       --qq, ----qquuiieett
+              Do not display some header or footer lines.
+
+       --AA, ----rraannggee _l_o_w,_h_i_g_h
+              Limit  results to the given range to _l_o_w and _h_i_g_h address range.
+              Notice that the low and high arguments are single  string  sepa-
+              rated with comma.
+
+       --XX     Show  even  more  details  than  the  --xx option. WARNING: format
+              changes according to _/_p_r_o_c_/_P_I_D_/_s_m_a_p_s
+
+       --XXXX    Show everything the kernel provides
+
+       --pp, ----sshhooww--ppaatthh
+              Show full path to files in the mapping column
+
+       --cc, ----rreeaadd--rrcc
+              Read the default configuration
+
+       --CC, ----rreeaadd--rrcc--ffrroomm _f_i_l_e
+              Read the configuration from _f_i_l_e
+
+       --nn, ----ccrreeaattee--rrcc
+              Create new default configuration
+
+       --NN, ----ccrreeaattee--rrcc--ttoo _f_i_l_e
+              Create new configuration to _f_i_l_e
+
+       --hh, ----hheellpp
+              Display help text and exit.
+
+       --VV, ----vveerrssiioonn
+              Display version information and exit.
+
+EEXXIITT SSTTAATTUUSS
+              00      Success.
+              11      Failure.
+              4422     Did not find all processes asked for.
+
+SSEEEE AALLSSOO
+       ppss(1), ppggrreepp(1)
+
+SSTTAANNDDAARRDDSS
+       No standards apply, but pmap looks an awful lot like a SunOS command.
+
+RREEPPOORRTTIINNGG BBUUGGSS
+       Please send bug reports to <procps@freelists.org>
+
+
+
+procps-ng                       September 2012                         PMAP(1)

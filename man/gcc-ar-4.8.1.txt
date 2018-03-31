@@ -1,0 +1,27 @@
+GCC-ar-4.8(1)                                                    GCC-ar-4.8(1)
+
+
+
+NNAAMMEE
+       gcc-ar - a wrapper around ar adding the --plugin option
+
+
+SSYYNNOOPPSSIISS
+       gcc-ar [OOPPTTIIOONN] ... [_A_R_G_S...]
+
+
+DDEESSCCRRIIPPTTIIOONN
+       ggcccc--aarr is a wrapper around ar(1) adding the appropriate ----pplluuggiinn option
+       for the GCC 4.8 compiler.
+
+
+OOPPTTIIOONNSS
+       See ar(1) for a list of options that ar understands.
+
+
+SSEEEE AALLSSOO
+       aarr((11))
+
+
+
+gcc-ar-4.8                        May 8, 2012                    GCC-ar-4.8(1)

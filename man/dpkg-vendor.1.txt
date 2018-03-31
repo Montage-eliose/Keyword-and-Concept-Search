@@ -1,0 +1,52 @@
+dpkg-vendor(1)                    dpkg suite                    dpkg-vendor(1)
+
+
+
+NNAAMMEE
+       dpkg-vendor - queries information about distribution vendors
+
+SSYYNNOOPPSSIISS
+       ddppkkgg--vveennddoorr [_o_p_t_i_o_n...] _c_o_m_m_a_n_d
+
+DDEESSCCRRIIPPTTIIOONN
+       ddppkkgg--vveennddoorr  is  a  tool  to  query information about vendors listed in
+       //eettcc//ddppkkgg//oorriiggiinnss. //eettcc//ddppkkgg//oorriiggiinnss//ddeeffaauulltt contains information about
+       the current vendor.
+
+CCOOMMMMAANNDDSS
+       ----iiss _v_e_n_d_o_r
+              Exits  with  00  if the current vendor is _v_e_n_d_o_r. Otherwise exits
+              with non-zero.
+
+       ----ddeerriivveess--ffrroomm _v_e_n_d_o_r
+              Exits with 00 if the current vendor distribution is a  derivative
+              of  _v_e_n_d_o_r,  otherwise  exits  with non-zero. It uses the PPaarreenntt
+              field to browse all ancestors of the current vendor.
+
+       ----qquueerryy _f_i_e_l_d
+              Print on standard output the value of the vendor-specific  _f_i_e_l_d
+              for the current vendor.
+
+       ----hheellpp Show the usage message and exit.
+
+       ----vveerrssiioonn
+              Show the version and exit.
+
+OOPPTTIIOONNSS
+       ----vveennddoorr _v_e_n_d_o_r
+              Assumes  the  current vendor is _v_e_n_d_o_r instead of discovering it
+              with  the  DDEEBB__VVEENNDDOORR  environment  variable  or  //eettcc//ddppkkgg//oorrii--
+              ggiinnss//ddeeffaauulltt.
+
+EENNVVIIRROONNMMEENNTT
+       DDEEBB__VVEENNDDOORR
+              This  setting  defines  the  current vendor. If not set, it will
+              discover  the   current   vendor   by   reading   //eettcc//ddppkkgg//oorrii--
+              ggiinnss//ddeeffaauulltt.
+
+SSEEEE AALLSSOO
+       ddeebb--oorriiggiinn(5).
+
+
+
+Debian Project                    2011-11-10                    dpkg-vendor(1)

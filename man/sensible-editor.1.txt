@@ -1,0 +1,26 @@
+SENSIBLE-EDITOR(1)          General Commands Manual         SENSIBLE-EDITOR(1)
+
+
+
+NNAAMMEE
+       sensible-editor,  sensible-pager,  sensible-browser - sensible editing,
+       paging, and web browsing
+
+SSYYNNOOPPSSIISS
+       sseennssiibbllee--eeddiittoorr [OPTIONS...]
+       sseennssiibbllee--ppaaggeerr [OPTIONS...]
+       sseennssiibbllee--bbrroowwsseerr url
+
+DDEESSCCRRIIPPTTIIOONN
+       sseennssiibbllee--eeddiittoorr,  sseennssiibbllee--ppaaggeerr  and  sseennssiibbllee--bbrroowwsseerr  make  sensible
+       decisions  on  which  editor,  pager,  and web browser to call, respec-
+       tively.  Programs in Debian can use these scripts as their default edi-
+       tor, pager, or web browser or emulate their behavior.
+
+SSEEEE AALLSSOO
+       Documentation  of  the EDITOR, VISUAL and PAGER variables in eennvviirroonn(7)
+       and sseelleecctt--eeddiittoorr(1) for changing a user's default editor
+
+
+
+Debian                            14 Nov 2010               SENSIBLE-EDITOR(1)

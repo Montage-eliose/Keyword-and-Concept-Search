@@ -1,0 +1,27 @@
+pyhtmlizer(1)                                                    pyhtmlizer(1)
+
+
+
+NNAAMMEE
+       pyhtmlizer - pretty-print Python source as HTML
+
+
+SSYYNNTTAAXX
+       pyhtmlizer [_-_s_|_-_-_s_t_y_l_e_s_h_e_e_t <_u_r_l>] <_f_i_l_e_n_a_m_e>
+
+DDEESSCCRRIIPPTTIIOONN
+       This  generates  a HTML document with Python source marked up with span
+       elements.  To colorize, provide a stylesheet.
+
+OOPPTTIIOONNSS
+       ----ssttyylleesshheeeett,, --ss <_u_r_l>
+              Links to the stylesheet at <_u_r_l>.
+
+       ----hheellpp Output help information and exit.
+
+       --vv, ----vveerrssiioonn
+              Output version information and exit.
+
+
+
+Twisted Matrix Laboratories                                      pyhtmlizer(1)

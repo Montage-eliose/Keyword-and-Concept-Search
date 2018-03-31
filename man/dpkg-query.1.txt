@@ -1,0 +1,230 @@
+dpkg-query(1)                     dpkg suite                     dpkg-query(1)
+
+
+
+NNAAMMEE
+       dpkg-query - a tool to query the dpkg database
+
+SSYYNNOOPPSSIISS
+       ddppkkgg--qquueerryy [_o_p_t_i_o_n...] _c_o_m_m_a_n_d
+
+DDEESSCCRRIIPPTTIIOONN
+       ddppkkgg--qquueerryy  is  a tool to show information about packages listed in the
+       ddppkkgg database.
+
+CCOOMMMMAANNDDSS
+       --ll, ----lliisstt [_p_a_c_k_a_g_e_-_n_a_m_e_-_p_a_t_t_e_r_n...]
+              List packages matching given pattern. If no _p_a_c_k_a_g_e_-_n_a_m_e_-_p_a_t_t_e_r_n
+              is  given,  list all packages in _/_v_a_r_/_l_i_b_/_d_p_k_g_/_s_t_a_t_u_s, excluding
+              the ones marked as not-installed (i.e.  those  which  have  been
+              previously  purged). Normal shell wildchars are allowed in _p_a_c_k_-
+              _a_g_e_-_n_a_m_e_-_p_a_t_t_e_r_n. Please note you will probably  have  to  quote
+              _p_a_c_k_a_g_e_-_n_a_m_e_-_p_a_t_t_e_r_n  to prevent the shell from performing file-
+              name expansion. For example this will  list  all  package  names
+              starting with "libc6":
+
+                ddppkkgg--qquueerryy --ll ''lliibbcc66**''
+
+              The  first  three columns of the output show the desired action,
+              the package status, and errors, in that order.
+
+              Desired action:
+                u = Unknown
+                i = Install
+                h = Hold
+                r = Remove
+                p = Purge
+
+              Package status:
+                n = Not-installed
+                c = Config-files
+                H = Half-installed
+                U = Unpacked
+                F = Half-configured
+                W = Triggers-awaiting
+                t = Triggers-pending
+                i = Installed
+
+              Error flags:
+                <empty> = (none)
+                R = Reinst-required
+
+              An uppercase status or error letter  indicates  the  package  is
+              likely  to  cause  severe  problems. Please refer to ddppkkgg(1) for
+              information about the above states and flags.
+
+              The output format of this option is not configurable, but varies
+              automatically  to  fit  the  terminal  width. It is intended for
+              human readers,  and  is  not  easily  machine-readable.  See  --WW
+              (----sshhooww) and ----sshhoowwffoorrmmaatt for a way to configure the output for-
+              mat.
+
+       --WW, ----sshhooww [_p_a_c_k_a_g_e_-_n_a_m_e_-_p_a_t_t_e_r_n...]
+              Just like the ----lliisstt option this will list all packages matching
+              the  given  pattern.  However the output can be customized using
+              the ----sshhoowwffoorrmmaatt option.  The default output  format  gives  one
+              line  per  matching package, each line having the name (extended
+              with the architecture qualifier for  MMuullttii--AArrcchh  ssaammee  packages)
+              and installed version of the package, separated by a tab.
+
+       --ss, ----ssttaattuuss _p_a_c_k_a_g_e_-_n_a_m_e...
+              Report status of specified package. This just displays the entry
+              in the installed package status database. When multiple _p_a_c_k_a_g_e_-
+              _n_a_m_e  are  listed, the requested status entries are separated by
+              an empty line, with the same order as specified on the  argument
+              list.
+
+       --LL, ----lliissttffiilleess _p_a_c_k_a_g_e_-_n_a_m_e...
+              List files installed to your system from _p_a_c_k_a_g_e_-_n_a_m_e. When mul-
+              tiple _p_a_c_k_a_g_e_-_n_a_m_e are listed, the requested lists of files  are
+              separated  by an empty line, with the same order as specified on
+              the argument list.  However, note that files created by package-
+              specific installation-scripts are not listed.
+
+       ----ccoonnttrrooll--lliisstt _p_a_c_k_a_g_e_-_n_a_m_e
+              List  control  files installed to your system from _p_a_c_k_a_g_e_-_n_a_m_e.
+              These can be used as input arguments to ----ccoonnttrrooll--sshhooww.
+
+       ----ccoonnttrrooll--sshhooww _p_a_c_k_a_g_e_-_n_a_m_e _c_o_n_t_r_o_l_-_f_i_l_e
+              Print the _c_o_n_t_r_o_l_-_f_i_l_e installed to your  system  from  _p_a_c_k_a_g_e_-
+              _n_a_m_e to the standard output.
+
+       --cc, ----ccoonnttrrooll--ppaatthh _p_a_c_k_a_g_e_-_n_a_m_e [_c_o_n_t_r_o_l_-_f_i_l_e]
+              List paths for control files installed to your system from _p_a_c_k_-
+              _a_g_e_-_n_a_m_e.  If _c_o_n_t_r_o_l_-_f_i_l_e is specified then only list the  path
+              for that control file if it is present. WWaarrnniinngg: this command is
+              deprecated, please  switch  to  use  ----ccoonnttrrooll--lliisstt  and  ----ccoonn--
+              ttrrooll--sshhooww instead.
+
+       --SS, ----sseeaarrcchh _f_i_l_e_n_a_m_e_-_s_e_a_r_c_h_-_p_a_t_t_e_r_n...
+              Search  for  packages  that own files corresponding to the given
+              pattern.  Standard shell wildchars can be used in  the  pattern.
+              This  command  will  not  list extra files created by maintainer
+              scripts, nor will it list alternatives.
+
+       --pp, ----pprriinntt--aavvaaiill _p_a_c_k_a_g_e_-_n_a_m_e...
+              Display   details    about    _p_a_c_k_a_g_e_-_n_a_m_e,    as    found    in
+              _/_v_a_r_/_l_i_b_/_d_p_k_g_/_a_v_a_i_l_a_b_l_e.  When multiple _p_a_c_k_a_g_e_-_n_a_m_e are listed,
+              the requested _a_v_a_i_l_a_b_l_e entries are separated by an empty  line,
+              with the same order as specified on the argument list.
+
+              Users  of APT-based frontends should use aapptt--ccaacchhee sshhooww _p_a_c_k_a_g_e_-
+              _n_a_m_e instead as the _a_v_a_i_l_a_b_l_e file is only kept up-to-date  when
+              using ddsseelleecctt.
+
+       --??, ----hheellpp
+              Show the usage message and exit.
+
+       ----vveerrssiioonn
+              Show the version and exit.
+
+OOPPTTIIOONNSS
+       ----aaddmmiinnddiirr==_d_i_r
+              Change  the  location of the ddppkkgg database. The default location
+              is _/_v_a_r_/_l_i_b_/_d_p_k_g.
+
+       ----llooaadd--aavvaaiill
+              Also load the available file when using the  ----sshhooww  and  ----lliisstt
+              commands, which now default to only querying the status file.
+
+       --ff, ----sshhoowwffoorrmmaatt==_f_o_r_m_a_t
+              This  option  is used to specify the format of the output ----sshhooww
+              will produce. The format is a string that  will  be  output  for
+              each package listed.
+
+              In the format string, "\\" introduces escapes:
+
+                  \\nn  newline
+                  \\rr  carriage return
+                  \\tt  tab
+
+              "\\" before any other character suppresses any special meaning of
+              the following character, which is useful for "\\" and "$$".
+
+              Package information can be included by inserting variable refer-
+              ences  to  package  fields  using the syntax "$${{_f_i_e_l_d[;;_w_i_d_t_h]}}".
+              Fields are printed right-aligned unless the width is negative in
+              which case left alignment will be used. The following _f_i_e_l_ds are
+              recognized but they are not necessarily available in the  status
+              file  (only internal fields or fields stored in the binary pack-
+              age end up in it):
+
+                  AArrcchhiitteeccttuurree
+                  BBuuggss
+                  CCoonnffffiilleess (internal)
+                  CCoonnffiigg--VVeerrssiioonn (internal)
+                  CCoonnfflliiccttss
+                  BBrreeaakkss
+                  DDeeppeennddss
+                  DDeessccrriippttiioonn
+                  EEnnhhaanncceess
+                  EEsssseennttiiaall
+                  FFiilleennaammee (internal, front-end related)
+                  HHoommeeppaaggee
+                  IInnssttaalllleedd--SSiizzee
+                  MMDD55ssuumm (internal, front-end related)
+                  MMSSDDOOSS--FFiilleennaammee (internal, front-end related)
+                  MMaaiinnttaaiinneerr
+                  OOrriiggiinn
+                  PPaacckkaaggee
+                  PPrree--DDeeppeennddss
+                  PPrriioorriittyy
+                  PPrroovviiddeess
+                  RReeccoommmmeennddss
+                  RReeppllaacceess
+                  RReevviissiioonn (obsolete)
+                  SSeeccttiioonn
+                  SSiizzee (internal, front-end related)
+                  SSoouurrccee
+                  SSttaattuuss (internal)
+                  SSuuggggeessttss
+                  TTaagg (usually not in .deb but in repository Packages files)
+                  TTrriiggggeerrss--AAwwaaiitteedd (internal)
+                  TTrriiggggeerrss--PPeennddiinngg (internal)
+                  VVeerrssiioonn
+
+              The following are virtual fields, generated by  ddppkkgg--qquueerryy  from
+              values from other fields (note that these do not use valid names
+              for fields in control files):
+
+                  bbiinnaarryy::PPaacckkaaggee
+                  bbiinnaarryy::SSuummmmaarryy
+                  ddbb::SSttaattuuss--AAbbbbrreevv
+                  ssoouurrccee::PPaacckkaaggee
+                  ssoouurrccee::VVeerrssiioonn
+
+              The default format string is  "$${{bbiinnaarryy::PPaacckkaaggee}}\\tt$${{VVeerrssiioonn}}\\nn".
+              Actually,  all  other fields found in the status file (i.e. user
+              defined fields) can be requested, too. They will be printed  as-
+              is,  though,  no  conversion nor error checking is done on them.
+              bbiinnaarryy::PPaacckkaaggee is a special field that will  print  the  package
+              name  with an architecture qualifier (like "libc6:amd64") if the
+              package has a MMuullttii--AArrcchh field with a value of ssaammee, and as such
+              its  name could be ambiguous.  To get the name of the ddppkkgg main-
+              tainer and the installed version, you could run:
+
+                ddppkkgg--qquueerryy --WW --ff==''$${{bbiinnaarryy::PPaacckkaaggee}} $${{VVeerrssiioonn}}\\tt$${{MMaaiinnttaaiinneerr}}\\nn'' ddppkkgg
+
+EEXXIITT SSTTAATTUUSS
+       00      The requested query was successfully performed.
+
+       11      Problems were encountered while parsing the command line or per-
+              forming  the  query,  including  no  file or package being found
+              (except for ----ccoonnttrrooll--ppaatthh).
+
+EENNVVIIRROONNMMEENNTT
+       DDPPKKGG__AADDMMIINNDDIIRR
+              If set and the ----aaddmmiinnddiirr option has not been specified, it will
+              be used as the ddppkkgg data directory.
+
+       CCOOLLUUMMNNSS
+              This  setting  influences  the  output  of  the ----lliisstt option by
+              changing the width of its output.
+
+SSEEEE AALLSSOO
+       ddppkkgg(1).
+
+
+
+
+Debian Project                    2012-04-03                     dpkg-query(1)

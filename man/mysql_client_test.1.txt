@@ -1,0 +1,137 @@
+MYSQL_CLIENT_TEST(1)         MySQL Database System        MYSQL_CLIENT_TEST(1)
+
+
+
+NNAAMMEE
+       mysql_client_test - test client API
+       mysql_client_test_embedded - test client API for embedded server
+
+SSYYNNOOPPSSIISS
+       mmyyssqqll__cclliieenntt__tteesstt [[_o_p_t_i_o_n_s]] [[_t_e_s_t___n_a_m_e]] ......
+
+       mmyyssqqll__cclliieenntt__tteesstt__eemmbbeeddddeedd [[_o_p_t_i_o_n_s]] [[_t_e_s_t___n_a_m_e]] ......
+
+DDEESSCCRRIIPPTTIIOONN
+       The mmyyssqqll__cclliieenntt__tteesstt program is used for testing aspects of the MySQL
+       client API that cannot be tested using mmyyssqqlltteesstt and its test language.
+       mmyyssqqll__cclliieenntt__tteesstt__eemmbbeeddddeedd is similar but used for testing the embedded
+       server. Both programs are run as part of the test suite.
+
+       The source code for the programs can be found in in
+       tests/mysql_client_test.c in a source distribution. The program serves
+       as a good source of examples illustrating how to use various features
+       of the client API.
+
+       mmyyssqqll__cclliieenntt__tteesstt is used in a test by the same name in the main tests
+       suite of mmyyssqqll--tteesstt--rruunn..ppll but may also be run directly. Unlike the
+       other programs listed here, it does not read an external description of
+       what tests to run. Instead, all tests are coded into the program, which
+       is written to cover all aspects of the C language API.
+
+       mmyyssqqll__cclliieenntt__tteesstt supports the following options:
+
+       +o   ----hheellpp, --??
+
+           Display a help message and exit.
+
+       +o   ----bbaasseeddiirr==_d_i_r___n_a_m_e, --bb _d_i_r___n_a_m_e
+
+           The base directory for the tests.
+
+       +o   ----ccoouunntt==_c_o_u_n_t, --tt _c_o_u_n_t
+
+           The number of times to execute the tests.
+
+       +o   ----ddaattaabbaassee==_d_b___n_a_m_e, --DD _d_b___n_a_m_e
+
+           The database to use.
+
+       +o   ----ddeebbuugg[[==_d_e_b_u_g___o_p_t_i_o_n_s]], --##[[_d_e_b_u_g___o_p_t_i_o_n_s]]
+
+           Write a debugging log if MySQL is built with debugging support. The
+           default _d_e_b_u_g___o_p_t_i_o_n_s value is
+           'd:t:o,/tmp/mysql_client_test.trace'.
+
+       +o   ----ggeettoopptt--llll--tteesstt==_o_p_t_i_o_n, --gg _o_p_t_i_o_n
+
+           Option to use for testing bugs in the getopt library.
+
+       +o   ----hhoosstt==_h_o_s_t___n_a_m_e, --hh _h_o_s_t___n_a_m_e
+
+           Connect to the MySQL server on the given host.
+
+       +o   ----ppaasssswwoorrdd[[==_p_a_s_s_w_o_r_d]], --pp[[_p_a_s_s_w_o_r_d]]
+
+           The password to use when connecting to the server. If you use the
+           short option form (--pp), you _c_a_n_n_o_t have a space between the option
+           and the password. If you omit the _p_a_s_s_w_o_r_d value following the
+           ----ppaasssswwoorrdd or --pp option on the command line, you are prompted for
+           one.
+
+       +o   ----ppoorrtt==_p_o_r_t___n_u_m, --PP _p_o_r_t___n_u_m
+
+           The TCP/IP port number to use for the connection.
+
+       +o   ----sseerrvveerr--aarrgg==_a_r_g, --AA _a_r_g
+
+           Argument to send to the embedded server.
+
+       +o   ----sshhooww--tteessttss, --TT
+
+           Show all test names.
+
+       +o   ----ssiilleenntt, --ss
+
+           Be more silent.
+
+       +o   ----ssoocckkeett==_p_a_t_h, --SS _p_a_t_h
+
+           The socket file to use when connecting to localhost (which is the
+           default host).
+
+       +o   ----tteessttccaassee, --cc
+
+           The option is used when called from mmyyssqqll--tteesstt--rruunn..ppll, so that
+           mmyyssqqll__cclliieenntt__tteesstt may optionally behave in a different way than if
+           called manually, for example by skipping some tests. Currently,
+           there is no difference in behavior but the option is included to
+           make this possible.
+
+       +o   ----uusseerr==_u_s_e_r___n_a_m_e, --uu _u_s_e_r___n_a_m_e
+
+           The MySQL user name to use when connecting to the server.
+
+       +o   --vv _d_i_r___n_a_m_e, ----vvaarrddiirr==_d_i_r___n_a_m_e
+
+           The data directory for tests. The default is mysql-test/var.
+
+CCOOPPYYRRIIGGHHTT
+       Copyright (C) 2006, 2016, Oracle and/or its affiliates. All rights
+       reserved.
+
+       This documentation is free software; you can redistribute it and/or
+       modify it only under the terms of the GNU General Public License as
+       published by the Free Software Foundation; version 2 of the License.
+
+       This documentation is distributed in the hope that it will be useful,
+       but WITHOUT ANY WARRANTY; without even the implied warranty of
+       MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+       General Public License for more details.
+
+       You should have received a copy of the GNU General Public License along
+       with the program; if not, write to the Free Software Foundation, Inc.,
+       51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA or see
+       http://www.gnu.org/licenses/.
+
+
+SSEEEE AALLSSOO
+       For more information, please refer to the MySQL Reference Manual, which
+       may already be installed locally and which is also available online at
+       http://dev.mysql.com/doc/.
+
+AAUUTTHHOORR
+       Oracle Corporation (http://dev.mysql.com/).
+
+
+
+MySQL                             02/29/2016              MYSQL_CLIENT_TEST(1)

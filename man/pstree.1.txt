@@ -1,0 +1,112 @@
+PSTREE(1)                        User Commands                       PSTREE(1)
+
+
+
+NNAAMMEE
+       pstree - display a tree of processes
+
+SSYYNNOOPPSSIISS
+       ppssttrreeee [--aa, ----aarrgguummeennttss] [--cc, ----ccoommppaacctt] [--hh, ----hhiigghh--
+       lliigghhtt--aallll, --HH_p_i_d,, --highlight-pid _p_i_d]] [--gg] ----sshhooww--ppggiiddss] [--ll, ----lloonngg]
+       [--nn, ----nnuummeerriicc--ssoorrtt] [--pp, ----sshhooww--ppiiddss] [--ss, ----sshhooww--ppaarreennttss]
+       [--uu, ----uuiidd--cchhaannggeess] [--ZZ, ----sseeccuurriittyy--ccoonntteexxtt]
+       [--AA, ----aasscciiii, --GG, ----vvtt110000, --UU, ----uunniiccooddee] [_p_i_d, _u_s_e_r]]
+       ppssttrreeee -V,, --version
+
+DDEESSCCRRIIPPTTIIOONN
+       ppssttrreeee shows running processes as a tree.  The tree is rooted at either
+       _p_i_d or iinniitt if _p_i_d is omitted.   If  a  user  name  is  specified,  all
+       process trees rooted at processes owned by that user are shown.
+
+       ppssttrreeee  visually  merges  identical  branches by putting them in square
+       brackets and prefixing them with the repetition count, e.g.
+
+           init-+-getty
+                |-getty
+                |-getty
+                `-getty
+
+       becomes
+
+           init---4*[getty]
+
+
+       Child threads of a process are found under the parent process  and  are
+       shown with the process name in curly braces, e.g.
+
+           icecast2---13*[{icecast2}]
+
+
+       If  ppssttrreeee  is called as ppssttrreeee..xx1111 then it will prompt the user at the
+       end of the line to press return and will not return until that has hap-
+       pened.  This is useful for when ppssttrreeee is run in a xterminal.
+
+       Certain  kernel  or  mount  parameters,  such as the hidepid option for
+       procfs, will hide information for some processes. In  these  situations
+       ppssttrreeee will attempt to build the tree without this information, showing
+       process names as question marks.
+
+
+OOPPTTIIOONNSS
+       --aa     Show command line arguments.  If the command line of  a  process
+              is  swapped  out,  that  process  is  shown  in parentheses.  --aa
+              implicitly disables compaction for processes but not threads.
+
+       --AA     Use ASCII characters to draw the tree.
+
+       --cc     Disable compaction of identical subtrees.  By default,  subtrees
+              are compacted whenever possible.
+
+       --GG     Use VT100 line drawing characters.
+
+       --hh     Highlight  the current process and its ancestors.  This is a no-
+              op if the terminal doesn't support highlighting  or  if  neither
+              the  current process nor any of its ancestors are in the subtree
+              being shown.
+
+       --HH     Like --hh, but highlight the specified  process  instead.   Unlike
+              with  --hh,  ppssttrreeee  fails  when  using  --HH if highlighting is not
+              available.
+
+       --gg     Show PGIDs.  Process Group IDs are shown as decimal  numbers  in
+              parentheses  after  each  process  name.  --pp implicitly disables
+              compaction.  If both PIDs and PGIDs are displayed then PIDs  are
+              shown first.
+
+       --ll     Display long lines.  By default, lines are truncated to the dis-
+              play width or 132 if output is sent to a non-tty or if the  dis-
+              play width is unknown.
+
+       --nn     Sort processes with the same ancestor by PID instead of by name.
+              (Numeric sort.)
+
+       --pp     Show PIDs.  PIDs are shown as  decimal  numbers  in  parentheses
+              after each process name.  --pp implicitly disables compaction.
+
+       --ss     Show parent processes of the specified process.
+
+       --uu     Show  uid  transitions.   Whenever  the uid of a process differs
+              from the uid of its parent, the new uid is shown in  parentheses
+              after the process name.
+
+       --UU     Use UTF-8 (Unicode) line drawing characters.  Under Linux 1.1-54
+              and above, UTF-8 mode is entered on the  console  with  eecchhoo  --ee
+              '' 3333%%88'' and left with eecchhoo --ee '' 3333%%@@''
+
+       --VV     Display version information.
+
+       --ZZ     (SELinux)  Show  security  context  for each process.  This flag
+              will only work if pstree is compilied with SELinux support.
+
+FFIILLEESS
+       /proc  location of the proc file system
+
+BBUUGGSS
+       Some character sets may be incompatible with the VT100 characters.
+
+SSEEEE AALLSSOO
+       ppss(1), ttoopp(1).
+
+
+
+psmisc                            2012-07-28                         PSTREE(1)

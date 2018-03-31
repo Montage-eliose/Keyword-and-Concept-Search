@@ -1,0 +1,45 @@
+gpgsplit(1)                 General Commands Manual                gpgsplit(1)
+
+
+
+NNAAMMEE
+       gpgsplit - Split an OpenPGP message into packets
+
+
+SSYYNNOOPPSSIISS
+       ggppggsspplliitt [_O_P_T_I_O_N_S] [_F_I_L_E_S]
+
+
+DDEESSCCRRIIPPTTIIOONN
+       This manual page documents briefly the ggppggsspplliitt command.
+
+       ggppggsspplliitt splits an OpenPGP message into packets.
+
+
+OOPPTTIIOONNSS
+       --vv,----vveerrbboossee
+              Verbose.
+
+       --pp,----pprreeffiixx _S_T_R_I_N_G
+              Prepend filenames with _S_T_R_I_N_G.
+
+       ----uunnccoommpprreessss
+              Uncompress a packet.
+
+       ----sseeccrreett--ttoo--ppuubblliicc
+              Convert secret keys to public keys.
+
+       ----nnoo--sspplliitt
+              Write to stdout and don't actually split.
+
+
+AAUUTTHHOORR
+       Copyright (C) 2002 Free Software Foundation, Inc. Please report bugs to
+       <bug-gnupg@gnu.org>.
+
+       This manpage was written by Francois Wendling <frwendling@free.fr>.
+
+
+
+
+                                 December 2005                     gpgsplit(1)

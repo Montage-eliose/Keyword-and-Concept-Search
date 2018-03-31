@@ -1,0 +1,118 @@
+MYISAM_FTDUMP(1)             MySQL Database System            MYISAM_FTDUMP(1)
+
+
+
+NNAAMMEE
+       myisam_ftdump - display full-text index information
+
+SSYYNNOOPPSSIISS
+       mmyyiissaamm__ffttdduummpp [[_o_p_t_i_o_n_s]] _t_b_l___n_a_m_e _i_n_d_e_x___n_u_m
+
+DDEESSCCRRIIPPTTIIOONN
+       mmyyiissaamm__ffttdduummpp displays information about FULLTEXT indexes in MyISAM
+       tables. It reads the MyISAM index file directly, so it must be run on
+       the server host where the table is located. Before using mmyyiissaamm__ffttdduummpp,
+       be sure to issue a FLUSH TABLES statement first if the server is
+       running.
+
+       mmyyiissaamm__ffttdduummpp scans and dumps the entire index, which is not
+       particularly fast. On the other hand, the distribution of words changes
+       infrequently, so it need not be run often.
+
+       Invoke mmyyiissaamm__ffttdduummpp like this:
+
+           shell> mmyyiissaamm__ffttdduummpp [[_o_p_t_i_o_n_s]] _t_b_l___n_a_m_e _i_n_d_e_x___n_u_m
+
+       The _t_b_l___n_a_m_e argument should be the name of a MyISAM table. You can
+       also specify a table by naming its index file (the file with the .MYI
+       suffix). If you do not invoke mmyyiissaamm__ffttdduummpp in the directory where the
+       table files are located, the table or index file name must be preceded
+       by the path name to the table's database directory. Index numbers begin
+       with 0.
+
+       Example: Suppose that the test database contains a table named
+       mytexttable that has the following definition:
+
+           CREATE TABLE mytexttable
+           (
+             id   INT NOT NULL,
+             txt  TEXT NOT NULL,
+             PRIMARY KEY (id),
+             FULLTEXT (txt)
+           ) ENGINE=MyISAM;
+
+       The index on id is index 0 and the FULLTEXT index on txt is index 1. If
+       your working directory is the test database directory, invoke
+       mmyyiissaamm__ffttdduummpp as follows:
+
+           shell> mmyyiissaamm__ffttdduummpp mmyytteexxttttaabbllee 11
+
+       If the path name to the test database directory is
+       /usr/local/mysql/data/test, you can also specify the table name
+       argument using that path name. This is useful if you do not invoke
+       mmyyiissaamm__ffttdduummpp in the database directory:
+
+           shell> mmyyiissaamm__ffttdduummpp //uussrr//llooccaall//mmyyssqqll//ddaattaa//tteesstt//mmyytteexxttttaabbllee 11
+
+       You can use mmyyiissaamm__ffttdduummpp to generate a list of index entries in order
+       of frequency of occurrence like this:
+
+           shell> mmyyiissaamm__ffttdduummpp --cc mmyytteexxttttaabbllee 11 || ssoorrtt --rr
+
+       mmyyiissaamm__ffttdduummpp supports the following options:
+
+       +o   ----hheellpp, --hh --??
+
+           Display a help message and exit.
+
+       +o   ----ccoouunntt, --cc
+
+           Calculate per-word statistics (counts and global weights).
+
+       +o   ----dduummpp, --dd
+
+           Dump the index, including data offsets and word weights.
+
+       +o   ----lleennggtthh, --ll
+
+           Report the length distribution.
+
+       +o   ----ssttaattss, --ss
+
+           Report global index statistics. This is the default operation if no
+           other operation is specified.
+
+       +o   ----vveerrbboossee, --vv
+
+           Verbose mode. Print more output about what the program does.
+
+CCOOPPYYRRIIGGHHTT
+       Copyright (C) 1997, 2016, Oracle and/or its affiliates. All rights
+       reserved.
+
+       This documentation is free software; you can redistribute it and/or
+       modify it only under the terms of the GNU General Public License as
+       published by the Free Software Foundation; version 2 of the License.
+
+       This documentation is distributed in the hope that it will be useful,
+       but WITHOUT ANY WARRANTY; without even the implied warranty of
+       MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+       General Public License for more details.
+
+       You should have received a copy of the GNU General Public License along
+       with the program; if not, write to the Free Software Foundation, Inc.,
+       51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA or see
+       http://www.gnu.org/licenses/.
+
+
+SSEEEE AALLSSOO
+       For more information, please refer to the MySQL Reference Manual, which
+       may already be installed locally and which is also available online at
+       http://dev.mysql.com/doc/.
+
+AAUUTTHHOORR
+       Oracle Corporation (http://dev.mysql.com/).
+
+
+
+MySQL 5.5                         03/01/2016                  MYISAM_FTDUMP(1)

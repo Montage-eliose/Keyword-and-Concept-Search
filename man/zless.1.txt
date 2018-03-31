@@ -1,0 +1,49 @@
+ZLESS(1)                    General Commands Manual                   ZLESS(1)
+
+
+
+NNAAMMEE
+       zless - file perusal filter for crt viewing of compressed text
+
+SSYYNNOOPPSSIISS
+       zzlleessss [ name ...  ]
+
+DDEESSCCRRIIPPTTIIOONN
+       _Z_l_e_s_s  is a filter which allows examination of compressed or plain text
+       files one screenful at a time on  a  soft-copy  terminal.   It  is  the
+       equivalent of setting the environment variable LESSOPEN to '|gzip -cdfq
+       --   %s',   and   the    environment    variable    LESSMETACHARS    to
+       '<space><tab><newline>;*?"()<>[|&^`#\$%=~',   and  then  running  _l_e_s_s.
+       However, enough people seem to think  that  having  the  command  _z_l_e_s_s
+       available is important to be worth providing it.
+
+SSEEEE AALLSSOO
+       zmore(1), less(1)
+
+BBUUGGSS
+       _Z_l_e_s_s  does not work with compressed data that is piped to it via stan-
+       dard input; it requires that input files be specified as arguments.  To
+       read  compressed  data from a pipe, you can use ...||gguunnzziipp||lleessss instead
+       of ...||zzlleessss.
+
+CCOOPPYYRRIIGGHHTT NNOOTTIICCEE
+       Copyright (C) 2006, 2007 Free Software Foundation, Inc.
+       Copyright (C) 1992, 1993 Jean-loup Gailly
+
+       Permission is granted to make and distribute verbatim  copies  of  this
+       manual  provided  the  copyright  notice and this permission notice are
+       preserved on all copies.
+
+       Permission is granted to copy and distribute modified versions of  this
+       manual  under  the  conditions  for verbatim copying, provided that the
+       entire resulting derived work is distributed under the terms of a  per-
+       mission notice identical to this one.
+
+       Permission  is granted to copy and distribute translations of this man-
+       ual into another language, under the above conditions for modified ver-
+       sions,  except  that this permission notice may be stated in a transla-
+       tion approved by the Foundation.
+
+
+
+                                                                      ZLESS(1)
